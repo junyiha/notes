@@ -9,4 +9,3 @@
         label：任务列表中显示的值
 3. launch.json：使用F5启动GDB调试器来调试程序
 4. c_cpp_properties.json：对c/c++扩展实现更多控制，可以改变编译器的路径，C++标准以及更多
-5. editor：自动折行：world wrap ： on
