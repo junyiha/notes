@@ -1,3 +1,0 @@
-博客：www.yanbinghu.com
-Opencv中文文档：https://www.cnblogs.com/Undo-self-blog/p/8423851.html
-编译和链接：Opencv头文件中只有函数的定义，没有函数的内容，函数的内容通常封装在动态库或静态库。

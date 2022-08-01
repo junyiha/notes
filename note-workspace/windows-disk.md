@@ -1,1 +1,0 @@
-命令:diskpart
