@@ -1,0 +1,11 @@
+1. IntelliSense：Intelligence Sense，代码自动补全
+2. Task.json:
+    告诉VScode如何编译.cpp文件，配置后将调用g++编译器基于源代码创建可执行文件。
+    参数：
+        command：设置要运行的指定程序
+        args：参数数组指明要传送给g++的命令行参数，这些参数必须按照编译器要求的顺序来说明
+        ${file}：g++执行的活动文件
+        ${fileDirname}：当前目录
+        label：任务列表中显示的值
+3. launch.json：使用F5启动GDB调试器来调试程序
+4. c_cpp_properties.json：对c/c++扩展实现更多控制，可以改变编译器的路径，C++标准以及更多
