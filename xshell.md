@@ -1,0 +1,16 @@
+## xshell中的XMODEM, YMODEM, ZMODEM
+
++ 文件传输协议：文件传输是数据交换的主要形式，在进行文件传输时，为使文件能被正确识别和传送，需要在两台计算机之间建立统一的传输协议。这个协议包括了文件的识别，传送的起止时间，错误的判断与纠正等内容
+
++ 在SecureCRT下的传输协议有ASCII， XMODEM， YMODEM， ZMODEM
+  + ASCII：这是最快的传输协议，但只能传送文本文件
+  + XMODEM： 这种古老的传输协议速度较慢，但是由于使用了CRC错误侦测方法，传输的准确里可高达99.6%。XMODEM是一种在串口通信中广泛使用的异步文件传输协议。分为XMODE和1k-XMODEM协议两种，前者使用128字节的数据块，后者使用1024字节即1k字节的数据块
+  + YMODEM：这个个是XMODEM的改良版，使用了1024位区段传送，速度比XMODEM要快
+  + ZMODEM：这个采用了串流式（streaming）传输方式，传输速度较快，而且还具有自动改变区段大小和断点续传，快速错误侦测等功能，这是目前最流行的文件传输协议。
+
++ Windows下生成md5校验码: `certutil -hashfile filename MD5`
++ Linux下生成md5校验码: `md5sum filename`
+
+
+
+psmisc adduser libc6  libcurl4  libdevmapper1.02.1 libgcc1  libgl1 libopus0  libpng16-16 libqt5core5a libqt5gui5 libqt5opengl5  libqt5printsupport5  libqt5widgets5  libqt5x11extras5 libsdl1.2debian  libssl1.1 libstdc++6 libvpx5 libx11-6 libxcb1 libxcursor1 libxext6 libxml2 libxt6 zlib1g
