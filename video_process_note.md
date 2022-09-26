@@ -17,6 +17,11 @@
   + 当前的改造计划是：mqtt更换为mjpeg， websocket更换为HTTP
   + 下一步的改造计划是：所见即所得，集群式，动态加载模型 
 
++ MC码 授权码 `machinecode.exe kms.exe`
+  + MC码是由管理节点调用`VideoProcess/bin/machinecode.exe`生成的，
+  + 在`static/json`目录下有一个`kms.json`文件，其存放的是授权码，相应的会由VideoProcess启动一个进程`kms.exe`
+  + MC码的作用是在使用授权码时，进行识别的设备序列号，有相应的设备序列号，才能通过授权码绑定激活
+
 ## Redis
 
 + Redis是一个开源（BSD许可），内存存储的数据结构服务器，可用作数据库，高速缓存和消息队列代理。
@@ -172,3 +177,13 @@
 + 最后使用命令`docker save -o image-fullscreen.tar vca-fullscreen`将镜像保存到本地，这样就可以在下次使用的时候直接使用命令`docker load --input image.tar`导入镜像，且导入的镜像名称和标签是`image:fullscreen`
 + 为什么现在容器中将文件打包出来，不直接使用`docker save -o vca-fullscreen`？
   + 因为在docker是以层级结构存储文件的，每一次操作都相当于加上了一层文件，最终在保存的时候文件只会越来越大
+
+## 相机增加或者删除--告警部署列表
+
++ 在mysql数据库中有一个记录相机信息的数据表`gh_t_camera_info`
++ 字段`is_delete` ： 如果为1，就是已删除，如果为0，就是存在，
++ 前端调用接口，将返回的相机信息直接写到大屏上，所以需要这个接口在mysql数据库中取相机信息的时候，作`is_delete`字段的判断
+
+## 字典，任务对应显式的文字
+
++ 数据库中任务信息其任务id对应的任务名称，在`manager_node/web_backend/config/gh_settings.ini`中有一栏`task_module`
