@@ -509,6 +509,11 @@
 + `netstat -lt  # 只列出所有监听tcp端口`
 + `netstat -lu  # 只列出所有监听udp端口`
 
+### 查看指定端口
+
++ `sudo netstat -tln | grep 8083`
++ `sudo lsof -i:8083`
+
 ## 终端,控制台和shell的区别 
 
 + 终端(terminal)

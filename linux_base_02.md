@@ -156,3 +156,7 @@
 + openshot
   + `apt-get install -y openshot-qt`
   + 和pr相似
+
++ **simplescreenrecorder**
+  + 录制屏幕：`apt-get install -y simplescreenrecorder`
+  + 优点：相比于kazam，其录制的视频，容量小，vlc支持播放

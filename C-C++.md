@@ -81,7 +81,8 @@
 
 ## 结构体
 
-+ **结构声明**(`structure declaration`)描述了一个结构的组织布局。例如：`struct book{char title[MACTITLE]; char author[MAXAUTL]; float value;}`
++ **结构声明(`structure declaration`)描述了一个结构的组织布局**。
+  + 例如：`struct book{char title[MACTITLE]; char author[MAXAUTL]; float value;}`
 + 该声明描述了一个由两个字符数组和一个float类型变量组成的结构。**该声明并未创建实际的数据对象，只描述了该对象由什么组成。**
   + 有时，我们把结构声明称为模板，因为它勾勒出结构是如何存储数据的。但和C++的模板不同，C++中的模板更加强大。
 
@@ -92,144 +93,6 @@
     + 在结构变量的声明中，`struct book`所起的作用相当于一般声明中的`int`或`float`。例如，可以定义两个`struct book`类型的变量，或者甚至是指向`struct book`类型结构的指针。
 
 
-## calloc()
-
-+ C库函数`void *calloc(size_t nitems, size_t size)`分配所需的内存空间,并返回一个指向它的指针
-  + nitems -- 要被分配的元素的个数
-  + size   -- 元素的大小
-+ malloc和calloc之间的不同点是:malloc不会设置内存为零,而calloc会**设置分配的内存为零**
-
-## assert()
-
-+ C库宏 `void assert(int expression)` 允许诊断信息被写入到标准错误文件中。换句话说，它可用于在C程序中添加诊断
-+ 参数：
-  + `expression` : 这可以是一个变量或任何C表达式。
-    + 如果`expression`为真，`assert()`不执行任何动作。
-    + 如果`expression`为假，`assert()`会在标准错误`stderr`上显示错误消息，并中止程序执行。
-
-## getenv()
-
-+ `#include <stdlib.h>  char* getenv (const char* name);`
-+ 检索包含名称被指定为参数的环境变量的值的C字符串。如果请求的变量不是环境列表的一部分，则该函数返回一个空指针。(Retrieves a C-string containing the value of the environment variable whose name is specified as argument. If the requested variable if not part of the environment list, the function returns a null pointer.)
-+ 详细信息：`https://cplusplus.com/reference/cstdlib/getenv/`
-
-## to_string()
-
-+ 函数声明：`string to_string(int val);`
-+ 功能:一个字符串对象，包含val作为字符序列的表示形式
-+ 参数：`val` ， 数值
-
-## strcat()
-
-+ 函数声明：`char* strcat(char* destination, const char* source);`
-+ 功能：将源字符串的副本附加到目标字符串。目标中的终止空字符被源的第一个字符覆盖，并且在目标中两者连接形成的新字符串的末尾包含一个空字符。
-+ 参数：
-  + `destination` ： 指向目标数组的指针，它应该包含一个C字符串，并且足够大以包含连接的结果字符串。(Pointer to the destination array, which should contain a C string, and be large enough to contain the concatenated resulting string.)
-  + `source` : 要附加的C字符串，这部应该与目标字符串相同。(C string to be appended. This should not overlap destination.)
-
-## puts()
-
-+ 函数声明：`int puts(const char* str);`
-+ 功能：将字符串写入标准输出。将str指向的C字符串写入标准输出(stdout)并且附加一个换行符(`'\n'`)。
-  + 该函数从指定的地址（str）开始复制，直到到达终止空字符（'\0')。此终止空字符不会复制到流中
-  + 注意，puts不仅与fputs不同，它使用标准输出作为目标，而且它还在末尾自动附加一个环行符（fputs则没有）
-+ 参数：
-  + `str` : 需要打印的C字符串
-+ 返回值
-  + 成功时，返回一个非负值
-  + 失败时，该函数返回EOF并且设置错误指示符(ferror)
-
-## sprintf()
-
-+ `#include <stdio.h>  int sprintf(char *str, const char* format, ... )`
-+ 功能：发送格式化输出到str所指向的字符串
-+ 参数：
-  + `str`：这是指向一个字符数组的指针，该数组存储了C字符串
-  + `format`:这是字符串，包含了要被写入到字符串`str`的文本。它可以包含嵌入的`format`标签，`format`标签可被随后的附加参数中指定的值替换，并按需求进行格式化。`format`标签属性是`%[flags][width][.precision][length]specifier`
-  + 具体详情：
-  + `specifier, 说明符`：
-    + `c` : 字符
-    + `d, i` : 有符号的十进制整数
-    + `e` : 使用`e`字符的科学计数法（尾数和指数）
-    + `E` : 使用`E`字符的科学计数法（尾数和指数）
-    + `f` : 十进制浮点数
-    + `g` : 自动选择`%e`或`%f`中合适的表示法
-    + `G` : 自动选择`%E`或`%f`中合适的表示法
-    + `o` : 有符号八进制
-    + `s` : 字符的字符串
-    + `u` : 无符号十进制整数
-    + `x` : 无符号十六进制整数
-    + `X` : 无符号十六进制整数（大写字母）
-    + `p` : 指针地址
-    + `n` : 无输出
-    + `%` : 字符
-+ 返回值：
-  + 如果成功，则返回写入的字符总数，不包括字符串追加在字符串末尾的空字符
-  + 如果失败，则返回一个负数
-
-## sscanf()
-
-+ `#include <stdio.h>  int sscanf(const char* s, const char* format, ...);`
-+ 从s读取数据并根据参数格式将它们存储到附加参数给出的位置，就像使用了scanf一样，但从s而不是标准输入（stdin）读取数据。(Reads data from s and stores them according to parameter format into the locations given by the additional arguments, as if scanf was used, but reading from s instead of the standard input(stdin).)
-+ 附加参数应该指向已分配的对象，其类型由格式字符串中的相应格式说明符指定。(The additional arguments should point to already allocated objects of the type specified by their corresponding format specifier within the format string.)
-+ 返回值：成功时，该函数返回参数列表中成功填充的项目数。在匹配失败的情况下，此计数可以匹配预期的项目数或更少（甚至为零）。(On success, the function returns the nunber of items in the argument list successfully filled. This count can match the expected number of items or be less(even zero) in the case of a matching failure.).
-+ 详细信息：`https://cplusplus.com/reference/cstdio/sscanf/`
-
-## c_str()
-
-+ 返回指向包含以null结尾的字符序列（即C字符串）的数组的指针，该字符序列表示字符串对象的当前值。(Returns a poointer to an array that contains a null-terminated sequence of characters (i.e, a C-string) representing the current vcalue of the string object)
-+ 这个数组包含构成字符串对象值的相同字符序列，以及末尾的附加终止空字符`\0` (This array includes the same sequence of characters that make up the value of the string object plus an additional terminating null-character ('\0') at the end)
-+ 返回值：指向字符串对象值的C字符串表示形式的指针。(A pointer to the c-string representation of the string object's vcalue .)
-
-## strtok()
-
-## strtol()
-
-+ `#include <stdlib.h>  long int strtol (const char* str, char** endptr, int base);`
-+ 解析C字符串str，将其内容解释为指定基数的整数，该基数作为long int返回。如果endptr不是空指针，该函数还将endptr的值设置为指向数字后的第一个字符。(Parses the C-string str interpreting its content as an integral number of the specified base, which is returned as a long int value. If endptr is not a null pointer, the function also sets the value of endptr to point to the first character after the number.)
-+ 该函数首先根据需要丢弃尽可能多的空白字符，直到找到第一个非空白字符。然后，从这个字符开始，按照依赖于基本参数的语法获取尽可能多的有效字符，并将它们解释为数值。最后，指向str中整数表示之后的第一个字符的指针存储在endptr指向的对象中。(The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes as many characters as possible that are valid following a syntax that depends on the base parameter, and interprets them as a numerical value. Finally , a pointer to the first character following the integer representation in str is stored in the object pointed by endptr.)
-+ 参数：
-  + `str`:以整数表示的C字符串开头(C-string beginning with the representation of an integral number)
-  + `endptr`:引用`char*`类型的对象，其值由函数设置为`str`中数值之后的下一个字符。
-  + `base`:确定有效字符及其解释的数字基数
-+ 返回值：
-  + 成功时，该函数将转换后的整数作为long int值返回
-  + 如果无法执行有效转换，则返回零值
-
-## strcasecmp()
-
-+ `#include <string.h>  extern int strcasecmp(const char *__s1, const char *__s2)`
-+ 函数功能：比较参数s1和s2字符串，比较时会自动忽略大小写的差异
-+ 返回值：
-  + 若参数s1和s2字符串相等则返回0；
-  + s1大于s2，则返回大于0的值；
-  + s1小于s2则返回小于0的值
-  
-## reserve()
-
-+ 原型：`void reserve (size_type n);`
-+ 功能：请求更改容量
-+ 参数：
-  + `n` ： 向量的最小容量。
-
-## C标准库 -- `stdarg.h`
-
-+ 简介：`stdarg.h`头文件定义了一个变量类型`va_list`和三个宏，**这三个宏可用于在参数个数未知（即参数个数可变）时获取函数中的参数。**
-  + 可变参数的函数通过在参数列表的末尾是使用省略号（`...`）定义的。
-
-+ **库变量：**
-  + `va_list` ： 这是一个适用于`va_start()`, `va_arg()` 和 `va_end()`这三个宏存储信息的类型。
-
-+ **库宏：**
-  + `void va_start(va_list ap, last_arg)`：
-    + 这个宏初始化`ap`变量，它与`va_arg`和`va_end`宏是一起使用的。`last_arg`是最后一个传递给函数的已知的固定参数，即省略号之前的参数。这个宏必须在使用`va_arg`和`va_end`之前被调用
-    + 参数：
-      + `ap` -- 这是一个`va_list`类型的对象，它用来存储通过`va_arg`获取额外参数时所必需的信息。
-      + `last_arg` -- 最后一个传递给函数的已知的固定参数
-  + `void va_end(va_list ap)`:
-    + C库宏`void va_end(va_list ap)`允许使用了`va_start`宏的带有可变参数的函数返回。如果在从函数返回之前没有调用`va_end`，则结果为未定义
-    + 参数：
-      + `ap` -- 这是之前由同一函数中的`va_start`初始化的`va_list`对象。
 
 ## static
 
@@ -245,7 +108,8 @@
   + `DATA`段（全局初始化区）存放初始化的全局变量和静态变量
   + `BSS`段（全局未初始化区）存放未初始化的全局变量和静态变量。
 + 程序运行结束时自动释放。其中，`BSS`段在程序执行之前会被系统自动清0，所以未初始化的全局变量和静态变量在程序执行之前已经为0。存储在静态数据区的变量会在程序刚开始运行时就完成初始化，也是唯一的一次初始化
-+ **在C++中static的内部实现机制**：静态数据成员要在程序一开始运行时就必须存在。因为函数在程序运行中被调用，所有静态数据成员不能在任何函数内分配空间和初始化。
++ **在C++中static的内部实现机制**：
+  + 静态数据成员要在程序一开始运行时就必须存在。因为函数在程序运行中被调用，所有静态数据成员不能在任何函数内分配空间和初始化。
 + 这样，它的空间分配有三个可能的地方，
   + 一是作为类的外部接口的头文件，那里有类声明
   + 二是类定义的内部实现，那里有类的成员函数定义
@@ -253,8 +117,8 @@
 + 静态数据成员要实际地分配空间，故不能在类的声明中定义（只能声明数据成员）。类声明只声明一个类的“尺寸和规格”，并不进行实际的内存分配，所以在类声明中写成定义是错误的。它也不能在头文件中类声明的外部定义，因为那会造成在多个使用该类的源文件中，对其重复定义。
 + static被引入以告知编译器，将变量存储在程序的**静态存储区**而非栈上空间，静态数据成员按定义出现的先后顺序依次初始化，注意静态成员嵌套时，要保证所嵌套的成员已经初始化了。消除时的顺序是初始化的反顺序。
 + 优点：
-  + 可以节省内存，因为它是所有对象所公有的，因此，对多个对象来说，静态数据成员只存储一处，供所有对象共用。
-  + 静态数据成员的值对每个对象都是一样，但是它的值可以更新的。只要对静态数据成员的值更新一次，保证所有对象存取更新后的相同的值，这样可以提高时间的效率。
+  + **可以节省内存，因为它是所有对象所公有的，因此，对多个对象来说，静态数据成员只存储一处，供所有对象共用**。
+  + **静态数据成员的值对每个对象都是一样，但是它的值可以更新的。只要对静态数据成员的值更新一次，保证所有对象存取更新后的相同的值，这样可以提高时间的效率**。
 
 + 总的来说
   + 在修时变量的时候，static修时的静态局部变量只执行初始化一次，而且延长了局部变量的生命周期，直到程序运行结束以后才释放
@@ -263,17 +127,17 @@
   + 不想被释放的时候，可以使用static修饰。比如修饰函数中存放在栈空间的数组。如果不想让这个数组在函数调用结束时释放，可以使用static修饰
   + 考虑到数据安全性（当程序想要使用全局变量的时候应该先考虑使用static）
 
-+ 静态变量与普通变量
++ **静态变量与普通变量：**
   + 静态变量都在全局数据区分配内存，包括后面将要提到的静态全局变量
   + 未经初始化的静态全局变量会被程序自动初始化为0（在函数体内声明的自动变量的值是随机的，除非它被显式初始化，而在函数体外被声明的自动变量也会被初始化为0）；
   + 静态全局变量在声明它的整个文件都是可见的，而在文件之外是不可见的
   + 静态全局变量不能被其他文件所用；其他文件中可以定义相同名字的变量，不会发生冲突
 
-+ 全局变量和全局静态变量的区别：
++ **全局变量和全局静态变量的区别：**
   + 全局变量是不显式用`static`修饰的全局变量，**全局变量默认是有外部链接性的，作用域是整个工程**，在一个文件内定义的全局变量，在另一个文件中，通过`extern`全局变量名的声明，就可以使用全局变量
   + 全局静态变量是显式用`static`修饰的全局变量，作用域是声明此变量的所在的文件，其他的文件即使使用`extern`声明也不能使用。
 
-+ 静态局部变量有以下特点：
++ **静态局部变量有以下特点：**
   + 该变量在全局数据区分配内存
   + 静态局部变量在程序执行到该对象的声明处时被首次初始化，即以后的函数调用不再进行初始化
   + 静态局部变量一般在声明处初始化，如果没有显式初始化，会被程序自动初始化为0
@@ -355,8 +219,11 @@
 
 ## extern
 
-+ C++语言支持分离式编译机制，该机制允许将程序分隔为若干个文件，每个文件可被独立编译。为了将程序分为许多文件，则需要在文件中共享代码，例如一个文件的代码可能需要另一个文件中定义的变量
-+ 为了支持分离式编译，C++允许将声明和定义分离开来。变量的声明规定了变量的类型和名字，即使一个名字为程序所知，一个文件如果想使用别处定义的名字则必须包含对那个名字的声明。定义则负责创建与名字关联的实体，申请存储空间。
++ C++语言支持**分离式编译机制**：
+  + 该机制允许将程序分隔为若干个文件，每个文件可被独立编译。为了将程序分为许多文件，则需要在文件中共享代码，例如一个文件的代码可能需要另一个文件中定义的变量
++ **为了支持分离式编译，C++允许将声明和定义分离开来**：
+  + 变量的声明规定了变量的类型和名字，即使一个名字为程序所知，一个文件如果想使用别处定义的名字则必须包含对那个名字的声明。
+  + 定义则负责创建与名字关联的实体，申请存储空间。
 + 如果向声明一个变量而非定义它，就在变量名前添加`extern`关键字，而且不要显式地初始化变量。`extern int i; // 声明i`。变量可以被声明很多次，但那是只能被定义一次
 + 在多个文件中共享const对象。默认情况下，一个const对象仅在本文件内有效，如果多个文件中出现了同名的const变量时，其实等同于在不同的文件中分别定义了独立的变量。
 + 某些时候，我们需要只在一个文件中定义const变量，而在其他多个文件中声明并使用它。解决方法时：对于const变量不管是声明还是定义都添加extern关键字。
@@ -798,14 +665,14 @@
 
 ### C++类成员的三种访问权限
 
-+ C++通过`public, protected, private`三个关键字来控制成员变量和成员函数的访问权限（也称为可见性），分别表示：公有的，受保护的，私有的
-+ 访问权限，就是能不能使用该类中的成员
-+ 一般地，在类的内部，无论成员被声明为哪一种，都是可以互相访问的；但是在类的外部，例如通过类的对象，则只能访问`public`属性的成员，不能访问`protected, private`属性的成员。
++ C++通过`public, protected, private`三个关键字来**控制成员变量和成员函数的访问权限（也称为可见性）**，分别表示：公有的，受保护的，私有的
++ **访问权限，就是能不能使用该类中的成员**
++ **一般地，在类的内部，无论成员被声明为哪一种，都是可以互相访问的；但是在类的外部，例如通过类的对象，则只能访问`public`属性的成员，不能访问`protected, private`属性的成员。**
   + **公有的(public)**：可以被该类中的函数，子类的函数，友元函数访问，也可以由该类的对象访问
   + **受保护的(protected)**：可以被该类中的函数，子类的函数，友元函数访问，但是不可以由该类的对象访问
   + **私有的(private)**：可以被该类中的函数，友元函数访问，但是不可以由子类的函数，该类的对象访问。（private关键字的作用在于更好地隐藏类的内部实现）
 
-+ 根据**C++的软件设计规范**，在实际项目开发中，类的成员变量以及只在类内部使用的成员函数，都建议声明为`private`，而将允许通过对象调用的成员函数声明的`public`。
++ 根据**C++的软件设计规范，在实际项目开发中，类的成员变量以及只在类内部使用的成员函数，都建议声明为`private`，而将允许通过对象调用的成员函数声明为`public`**。
 + 成员变量声明为`private`，如何赋值？以及怎么获取值？
   + 通常需要添加两个`public`属性的成员函数：一个用来设置成员变量的值，一个用来读取成员变量的值。
 
