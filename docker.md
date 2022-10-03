@@ -1,46 +1,46 @@
-## 常用命令
+# 常用命令
 
-## `docker images, docker image ls` 
+## `docker images, docker image ls`
 
 + 列出本地主机上的镜像
-  + `repository` : 表示镜像的仓库源
-  + `tag` : 镜像的标签
-  + `image id` : 镜像id
-  + `created` : 镜像创建时间
-  + `size` : 镜像大小
+  - `repository` : 表示镜像的仓库源
+  - `tag` : 镜像的标签
+  - `image id` : 镜像id
+  - `created` : 镜像创建时间
+  - `size` : 镜像大小
   
-## `docker rmi helloworld` 
+## `docker rmi helloworld`
 
 + 删除镜像
   
-## `docker run -it ubuntu /bin/bash` 
+## `docker run -it ubuntu /bin/bash`
 
 + 使用ubuntu镜像启动一个容器,参数为以命令模式进入该容器
-  + `-i` : 交互操作
-  + `-t` : 终端
-  + `ubuntu` : ubuntu镜像
-  + `/bin/bash` : 放在镜像名后的是命令,这里是希望有个交互式shell
+  - `-i` : 交互操作
+  - `-t` : 终端
+  - `ubuntu` : ubuntu镜像
+  - `/bin/bash` : 放在镜像名后的是命令,这里是希望有个交互式shell
   
-## `docker run -itd --name ubuntu-test ubuntu /bin/bash` 
+## `docker run -itd --name ubuntu-test ubuntu /bin/bash`
 
 + 后台运行容器
-  + `-d` : 默认不会进入容器,想要进入容器需要使用指令`docker exec`
+  - `-d` : 默认不会进入容器,想要进入容器需要使用指令`docker exec`
 
-## `docker ps` 
+## `docker ps`
 
 + 语法：`docker ps [options]`
 + 作用：列出容器
 + `[options]`
-  + `--all, -a` : 显示所有容器(默认仅显示正在运行的)。(Show all containers(default shows just running))
-  + `--filter, -f` : 基于指定的条件过滤输出信息。(Filter output based on conditions provided)
-  + `--format` : 使用go模板输出
-  + `--last, -n` : 显示n个最后创建的容器。(Show n last created containers(includes all states))
-  + `--no-trunc` : 不截断输出。(Don't truncate output)
-  + `--quiet, -q` : 仅显示容器ID。(Only display container IDs)
-  + `--size, -s` : 显示总文件大小。(Display total file sizes)
-+ 
+  - `--all, -a` : 显示所有容器(默认仅显示正在运行的)。(Show all containers(default shows just running))
+  - `--filter, -f` : 基于指定的条件过滤输出信息。(Filter output based on conditions provided)
+  - `--format` : 使用go模板输出
+  - `--last, -n` : 显示n个最后创建的容器。(Show n last created containers(includes all states))
+  - `--no-trunc` : 不截断输出。(Don't truncate output)
+  - `--quiet, -q` : 仅显示容器ID。(Only display container IDs)
+  - `--size, -s` : 显示总文件大小。(Display total file sizes)
++
   
-## `docker start id` 
+## `docker start id`
 
 + 启动一个已停止的容器
   
@@ -49,17 +49,17 @@
 + 语法：`docker stop [options] container [container...]`
 + 作用：停止一个容器
 + `[options]`:
-  + `--time, -t` : 在杀死容器之前等待停止的时间，默认为10秒
+  - `--time, -t` : 在杀死容器之前等待停止的时间，默认为10秒
   
-## `docker restart id` 
+## `docker restart id`
 
 + 重启一个容器
 
 ## docker attach, docker exec
 
 + 进入容器:在使用`-d`参数时,容器启动后会进入后台,此时想要进入容器,通过以下指令:
-  + docker attach: `docker attach id`
-  + docker exec:推荐使用此命令,因为使用它退出容器终端,但是不会导致容器的停止,`docker exec -it id /bin/bash`
+  - docker attach: `docker attach id`
+  - docker exec:推荐使用此命令,因为使用它退出容器终端,但是不会导致容器的停止,`docker exec -it id /bin/bash`
 
 ## docker export, docker import, docker commit
 
@@ -67,21 +67,20 @@
 
 + `docker export`命令不会导出与容器关联的卷的内容。如果卷安装在容器中现有目录的顶部，则`docker export`将导出底层目录的内容，而不是卷的内容
 + 功能：将容器的文件系统导出为tar存档
-+ `docker export 容器id > 容器名称.tar , docker export 容器id --output 容器名称.tar` 
-  + 导出本地某个容器到tar包
++ `docker export 容器id > 容器名称.tar , docker export 容器id --output 容器名称.tar`
+  - 导出本地某个容器到tar包
 + 参数
-  + `--output, -o` : 写入一个文件，而不是`stdout`
-
+  - `--output, -o` : 写入一个文件，而不是`stdout`
 
 ### docker import
 
 + 语法：`docker import [options] file|URL|- [REPOSITORY[:TAG]]`
 + 作用：从一个tar包导入文件数据并创建一个文件系统镜像
-+ `[options]` : 
-  + `--change, -c` : 应用于创建镜像的dockerfile 指示
-  + `--message, -m` : 为导入的镜像设置提交信息
-+ `cat docker/ubuntu.tar | docker import - test/ubuntu:v1` 
-  + 通过管道和标准输入的方式导入容器快照
++ `[options]` :
+  - `--change, -c` : 应用于创建镜像的dockerfile 指示
+  - `--message, -m` : 为导入的镜像设置提交信息
++ `cat docker/ubuntu.tar | docker import - test/ubuntu:v1`
+  - 通过管道和标准输入的方式导入容器快照
 
 ### docker load
 
@@ -92,10 +91,10 @@
 + 更新镜像:通过命令`docker commit`来提交容器副本,Warning:使用此命令保存镜像，会以层的概念保存，每一次保存都会增加一层，镜像会越来越大
   + 示例:`docker commit -m="has update" -a="runoob" e218edb10161 runoob/ubuntu:v2`
   + 参数说明:
-    + `-m`:提交的描述信息
-    + `-a`:指定镜像作者
-    + `e218edb10161` : 容器ID
-    + `runoob/ubuntu:v2` : 指定要创建的目标镜像名
+    - `-m`:提交的描述信息
+    - `-a`:指定镜像作者
+    - `e218edb10161` : 容器ID
+    - `runoob/ubuntu:v2` : 指定要创建的目标镜像名
   
 ## docker tag
 
@@ -106,8 +105,8 @@
 + 语法：`docker kill [options] container [container...]`
 + 作用：杀死一个或者多个正在运行的容器
 + `[options]`
-  + `--signal, -s` : 发送到容器的信号。(Signal to send to the container)
-  + `SIGHUB` , 信号，网络编程
+  - `--signal, -s` : 发送到容器的信号。(Signal to send to the container)
+  - `SIGHUB` , 信号，网络编程
 
 ## docker pause
 
@@ -131,7 +130,6 @@
 + `-v`:挂在目录为：主机目录：容器目录，在创建前容器是没有指定目录时，docker容器会自己创建
 + 端口映射:`-p 8083:8083 -p 5678:5678`
 
-
 ## docker system
 
 + 语法：`docker system COMMAND`
@@ -140,65 +138,66 @@
 ### docker system prune
 
 + 语法：`docker system prune [options]`
-+ 作用：清除缓存 
++ 作用：清除缓存
 + `[options]`
-  + `-all, -a` : 删除所有未使用的镜像，不只是闲置的。(Remove all unused images not just dangling ones)
-  + `--filter` : 提供数值过滤，例如：`label=<key>=<value>`。(Provide filter values)
-  + `--force, -f` : 不提示确认。(Do not prompt for confirmation)
-  + `--volumes` : 清除卷。(Prune volumes)
+  - `-all, -a` : 删除所有未使用的镜像，不只是闲置的。(Remove all unused images not just dangling ones)
+  - `--filter` : 提供数值过滤，例如：`label=<key>=<value>`。(Provide filter values)
+  - `--force, -f` : 不提示确认。(Do not prompt for confirmation)
+  - `--volumes` : 清除卷。(Prune volumes)
 
 + `docker system prune --volumes`
 + 该命令清除：
-  + 所有停止的容器
-  + 所有不被任何一个容器使用的网络
-  + 所有不被任何一个容器使用的volume
-  + 所有无实例的镜像
+  - 所有停止的容器
+  - 所有不被任何一个容器使用的网络
+  - 所有不被任何一个容器使用的volume
+  - 所有无实例的镜像
 
-### docker system df 
+### docker system df
 
 + 语法：`docker system df [options]`
 + 作用：显示docker磁盘的使用情况(show docker disk usage)
-+ `options` : 
-  + `--format` : 使用go模板打印更好的图像
-  + `--verbose, -v` : 显示空间使用的详细信息
++ `options` :
+  - `--format` : 使用go模板打印更好的图像
+  - `--verbose, -v` : 显示空间使用的详细信息
 
 ### docker system info
 
 + 语法：`docker system info [options]`
 + 作用：显示全部系统的信息
 + `[options]`:
-  + `--format, -f` : 以指定的go模板格式化输出
+  - `--format, -f` : 以指定的go模板格式化输出
 
 ## docker stats
 
 + 显示容器资源的使用情况，包括：CPU，内存，网络I/O等
 + 语法：`docker stats [options] [container...]`
 + `[options]`:
-  + `-all, -a` : 显示所有的容器，包括未运行的
-  + `--format` : 指定返回值的模板文件
-  + `-no-stream` : 展示当前状态就直接退出了，不再实时更新
-  + `--no-trunc` : 不截断输出
+  - `-all, -a` : 显示所有的容器，包括未运行的
+  - `--format` : 指定返回值的模板文件
+  - `-no-stream` : 展示当前状态就直接退出了，不再实时更新
+  - `--no-trunc` : 不截断输出
 + 输出详情：
-  + `CONTAINER ID` ， `NAME` : 容器ID，名称
-  + `CPU%, MEM%` : 容器使用的CPU和内存的百分比
-  + `MEM USAGE/LIMIT` : 容器正在使用的总内存，以及允许使用的内存总量
-  + `NET I/O` : 容器通过其网络接口发送和接受的数据量
-  + `BLOCK I/O` : 容器从主机上的块设备读取和写入的数据量
-  + `PIDs` : 容器创建的进程或线程数
+  - `CONTAINER ID` ， `NAME` : 容器ID，名称
+  - `CPU%, MEM%` : 容器使用的CPU和内存的百分比
+  - `MEM USAGE/LIMIT` : 容器正在使用的总内存，以及允许使用的内存总量
+  - `NET I/O` : 容器通过其网络接口发送和接受的数据量
+  - `BLOCK I/O` : 容器从主机上的块设备读取和写入的数据量
+  - `PIDs` : 容器创建的进程或线程数
 
 ## docker history
 
 + 语法：`docker history [options] IMAGE`
 + 作用：显示一个镜像的历史
 + `[options]`:
-  + `--format` : 使用go模板输出
-  + `--human, -H` : 以人习惯的阅读方式输出
-  + `--no-trunc` : 不截断输出
-  + `--quiet, -q` : 仅显示镜像IDs
+  - `--format` : 使用go模板输出
+  - `--human, -H` : 以人习惯的阅读方式输出
+  - `--no-trunc` : 不截断输出
+  - `--quiet, -q` : 仅显示镜像IDs
+  
 ## 保存镜像
 
 + 使用命令：`tar cvf image.tar --exclude=/proc --exclude=/image.tar /`， 在容器里打包系统所需要的文件，
-  + 记录以下：`tar cvf image.tar --exclude=/system --exclude=/sys --exclude=/proc --exclude=/image.tar /`
+  - 记录以下：`tar cvf image.tar --exclude=/system --exclude=/sys --exclude=/proc --exclude=/image.tar /`
 + `sudo docker cp containerID:/image.tar ./` , 将容器中打包的文件拷贝到主机中
 + `cat image.tar | sudo docker import - image:v1`, 导入镜像
 
@@ -213,24 +212,28 @@
 
 + Docker守护程序绑定到Unix套接字而不是TCP端口，默认情况下，Unix套接字的用户有root，其它用户只能使用sudo来访问。 Docker守护程序始终以root用户身份运行
 + 不想使用sudo，创建docker的Unix组，将用户添加到改组
-  + `sudo groupadd docker`
-  + `sudo usermod -aG docker $USER`
-  + `newgrp docker`
+  - `sudo groupadd docker`
+  - `sudo usermod -aG docker $USER`
+  - `newgrp docker`
+
+---
 
 ## docker底层原理
 
++ 第一次接触docker概念，都会见到或者听见一句话：**docker技术比虚拟技术更为方便，快捷，docker容器本质上是进程**
+
 + 所有容器共享宿主机的cpu，磁盘，网络，内存等：
-  + **实现了进程隔离**，每个服务独立运行
-  + **文件系统隔离**，容器目录修改不影响主机目录
-  + **资源隔离**，CPU内存，磁盘，网络资源相互独立
+  - **实现了进程隔离**，每个服务独立运行
+  - **文件系统隔离**，容器目录修改不影响主机目录
+  - **资源隔离**，CPU内存，磁盘，网络资源相互独立
 + Docker容器的实现原理就是通过Namespace命名空间进行进程隔离，Unionfilesystem联合文件系统实现文件系统隔离，ControlGroups控制组实现资源隔离。
 + 其底层原理涉及到`linux namespace`，Linux Namespace 是Linux提供的一种内核级别环境隔离的方法。 Unix有`chroot`，提供了一种简单的模式：`chroot`内部的文件系统无法访问外部的内容。`Linux Namespace`在此基础上，提供了对`UTS, IPC, mount, PID, network, User`等的隔离机制
-  + `https://lwn.net/Articles/531114/`
+  - `https://lwn.net/Articles/531114/`
 + Linux Namespace, 有几个种类：`Mount namespaces`, `UTS namespaces`, `IPC namespaces`, `PID namespaces`, `Network namespaces`, `User namespaces`
 + 主要是三个系统调用：
-  + `clone()`, 实现线程的系统调用，用来创建一个新的进程，并且可以通过设计上述参数达到隔离
-  + `unshare()`, 使某个进程脱离某个`namespace`
-  + `setns()`, 把某进程加入到某个`namespace`
+  - `clone()`, 实现线程的系统调用，用来创建一个新的进程，并且可以通过设计上述参数达到隔离
+  - `unshare()`, 使某个进程脱离某个`namespace`
+  - `setns()`, 把某进程加入到某个`namespace`
 
 ## Docker exec 的实现原理
 
@@ -262,8 +265,8 @@
 + 在生产环境中使用Docker的过程，往往需要对数据进行持久化，或者需要在多个容器之间进行数据共享，这必然涉及容器的数据管理操作
 + 所谓Docker的数据持久化，即：数据不随着容器的结束而结束。在Docker中，要想实现数据的持久化，需要将数据从宿主机挂载到容器中
 + 容器中管理数据主要有两种方式：
-  + 数据卷(Data Volumes)：容器内数据直接映射到本地主机环境
-  + 数据卷容器(Data Volume Containers)：使用特定容器维护数据卷
+  - 数据卷(Data Volumes)：容器内数据直接映射到本地主机环境
+  - 数据卷容器(Data Volume Containers)：使用特定容器维护数据卷
 
 ## Docker核心概念：镜像，容器，仓库，架构核心设计理念
 
@@ -272,8 +275,8 @@
 + **镜像**，通俗地讲，**它是一个只读的文件和文件夹组合**。
 + 它包含了容器运行时所需要的所有基础文件和配置信息，是容器启动的基础。所以想启动一个容器，那首先必须要有一个镜像。镜像是Docker容器启动的先决条件
 + 如果想要使用一个镜像，一般有两种方式：
-  + 自己创建镜像。通常情况下，一个镜像是基于一个基础镜像构建的，可以在基础镜像上添加一些用户自定义的内容。形成业务镜像。
-  + 从功能镜像仓库拉取别人制作好的镜像
+  - 自己创建镜像。通常情况下，一个镜像是基于一个基础镜像构建的，可以在基础镜像上添加一些用户自定义的内容。形成业务镜像。
+  - 从功能镜像仓库拉取别人制作好的镜像
 
 + **容器**，是Docker的另一个核心概念。
 + 通俗地讲，容器是镜像的运行实体。镜像是静态的只读文件，而容器带有运行时需要的可写文件层，并且容器中的进程属于运行状态。即容器运行着真正的应用进程
@@ -285,26 +288,26 @@
 ### Docker架构
 
 + **相关背景知识**----容器的发展史
-  + 容器技术随着Docker的出现变得炙手可热，所有公司都在积极拥抱容器技术。此时市场上除了有Docker容器，还有很多其他的容器技术，例如：CoresOS的rkt， lxc等。容器技术百花齐放是好事，但是也出现了很多问题，比如容器技术的标准到底是什么？
-  + 可能会说，Docker已经成为了事实标准，把Docker作为容器技术的标准不可以吗？事实并没有想象的那么简单。因为那个时候不仅有容器标准之争，编排技术之争也十分激烈。当时的编排技术有三大主力，分别是：`Docker Swarm, Kubernetes, Mesos`。在这样的背景下，为了形成统一的标准，**OCI应运而生**。
-  + OCI全称为开放容器标准(`Open Container Initiative`)，它是一个轻量级，开放的治理结构。OCI组织在Linux基金会的大力支持下，于2015年6月分正式注册成立。基金会旨在为用户围绕工业化容器的格式和镜像运行时，制定一个开放的容器标准。目前主要有两个标准文档：**容器运行时标准(`runtime spec`)和容器镜像标准(`image spec`)
-  + 正是由于容器的战争，才导致Docker不得不改变了一些技术架构。最终，Docker整体架构采用C/S（客户端/服务器）模式，主要由客户端和服务端两大部分组成。客户端负责发送操作指令，服务端负责接受和处理指令。客户端和服务端通信有多种方式，既可以在通一台机器上通过UNIX套接字通信，也可以通过网络连接远程通信。
+  - 容器技术随着Docker的出现变得炙手可热，所有公司都在积极拥抱容器技术。此时市场上除了有Docker容器，还有很多其他的容器技术，例如：CoresOS的rkt， lxc等。容器技术百花齐放是好事，但是也出现了很多问题，比如容器技术的标准到底是什么？
+  - 可能会说，Docker已经成为了事实标准，把Docker作为容器技术的标准不可以吗？事实并没有想象的那么简单。因为那个时候不仅有容器标准之争，编排技术之争也十分激烈。当时的编排技术有三大主力，分别是：`Docker Swarm, Kubernetes, Mesos`。在这样的背景下，为了形成统一的标准，**OCI应运而生**。
+  - OCI全称为开放容器标准(`Open Container Initiative`)，它是一个轻量级，开放的治理结构。OCI组织在Linux基金会的大力支持下，于2015年6月分正式注册成立。基金会旨在为用户围绕工业化容器的格式和镜像运行时，制定一个开放的容器标准。目前主要有两个标准文档：**容器运行时标准(`runtime spec`)和容器镜像标准(`image spec`)
+  - 正是由于容器的战争，才导致Docker不得不改变了一些技术架构。最终，Docker整体架构采用C/S（客户端/服务器）模式，主要由客户端和服务端两大部分组成。客户端负责发送操作指令，服务端负责接受和处理指令。客户端和服务端通信有多种方式，既可以在通一台机器上通过UNIX套接字通信，也可以通过网络连接远程通信。
 
 + **Docker客户端**
-  + Docker客户端其实是一种泛称。其中docker命令是Docker用户与Docker服务端交互的主要方式。
-  + 除了使用docker命令的方式，还可以使用直接请求REST API的方式与Docker服务端交互，甚至还可以使用各种语言的SDK与Docker服务端交互
+  - Docker客户端其实是一种泛称。其中docker命令是Docker用户与Docker服务端交互的主要方式。
+  - 除了使用docker命令的方式，还可以使用直接请求REST API的方式与Docker服务端交互，甚至还可以使用各种语言的SDK与Docker服务端交互
 
 + **Docker服务端**
-  + Docker服务端是Docker所有后台服务的统称。
-  + 其中`dockerd`是一个非常重要的后台管理进程，它负责相应和处理来自Docker客户端的请求，然后将客户端的请求转换为Docker的具体操作。例如镜像，容器，网络和挂载卷等具体对象的管理和操作。
-  + Docker从诞生到现在，服务端经历了多次架构重构。起初，服务端的组件是全部集成在docker二进制里，但是从1.11版本开始，`dockerd`已经成了独立的二进制，此时的容器也不是直接由`dockerd`来启动了，而是继承了`containerd, runC`等多个组件
-  + 虽然Docker的架构在不停重构，但是各个模块的基本功能和定位并没有变化。它和一般的C/S架构系统一样，Docker服务端模块负责和Docker客户端交互，并管理Docker的容器，镜像，网络等资源。
+  - Docker服务端是Docker所有后台服务的统称。
+  - 其中`dockerd`是一个非常重要的后台管理进程，它负责相应和处理来自Docker客户端的请求，然后将客户端的请求转换为Docker的具体操作。例如镜像，容器，网络和挂载卷等具体对象的管理和操作。
+  - Docker从诞生到现在，服务端经历了多次架构重构。起初，服务端的组件是全部集成在docker二进制里，但是从1.11版本开始，`dockerd`已经成了独立的二进制，此时的容器也不是直接由`dockerd`来启动了，而是继承了`containerd, runC`等多个组件
+  - 虽然Docker的架构在不停重构，但是各个模块的基本功能和定位并没有变化。它和一般的C/S架构系统一样，Docker服务端模块负责和Docker客户端交互，并管理Docker的容器，镜像，网络等资源。
 
-+ **Docker重要组件**
+* **Docker重要组件**
   + Docker目前已经有了非常多的组件和工具。Docker的两个至关重要的组件：**`runC`和`containerd`**
-    + `runC`是Docker官方按照OCI容器运行时标准的一个实现。通俗地讲，**`runC`是一个用来运行容器的轻量级工具，是真正用来运行容器的。**
-    + `containerd`是Docker服务端的一个核心组件，它是从`dockerd`中剥离出来的，它的诞生完全遵循OCI标准，是容器标准化后的产物。**`containerd`通过`containerd-shim`启动并管理`runC`，可以说`containerd`真正管理了容器的生命周期**。
+    - `runC`是Docker官方按照OCI容器运行时标准的一个实现。通俗地讲，**`runC`是一个用来运行容器的轻量级工具，是真正用来运行容器的。**
+    - `containerd`是Docker服务端的一个核心组件，它是从`dockerd`中剥离出来的，它的诞生完全遵循OCI标准，是容器标准化后的产物。**`containerd`通过`containerd-shim`启动并管理`runC`，可以说`containerd`真正管理了容器的生命周期**。
   + `dockerd`通过`gRPC`与`containerd`通信，由于`dockerd`与真正的容器运行时，`runC`中间有了`containerd`这一OCI标准层，使的`dockerd`可以确保接口向下兼容
-    + `gRPC`是一种远程服务调用
+    - `gRPC`是一种远程服务调用
   + `containerd-shim`的意思是垫片，类似于拧螺丝时夹在螺丝和螺母之间的垫片。`containerd-shim`的主要作用是：**将`containerd`和真正的容器进程解耦，使用`containerd-shim`作为容器进程的父进程，从而实现重启`dockerd`不影响已经启动的容器进程
   + 事实上，`dockerd`启动的时候，`containerd`就随之启动了，`dockerd`与`containerd`一直存在。当执行`docker run`命令时，`containerd`会创建`containerd-shim`充当"垫片"进程，然后启动容器的真正进程。（**`containerd-shim`是真正容器的进程的父进程，这么做为了不让真正的容器进程作为`containerd`的子进程，从而可以实现重启`containerd`而不影响已经运行的容器**）

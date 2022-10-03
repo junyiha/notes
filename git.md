@@ -1,13 +1,15 @@
-# git常见错误
+# Git 笔记
 
-## `fatal:refusing to merge unrelated histories`
+## git常见错误
+
+### `fatal:refusing to merge unrelated histories`
 
 + 在使用`git pull`命令拉取代码时出现这个错误
 + 原因：本地仓库和远程仓库实际上时独立的两个仓库
 + 解决方法：添加选项`--allow-unrelated-histories`解决问题
   + `git pull zhuoer dev --allow-unrelated-histories`
 
-# git 常用命令
+## git 常用命令
 
 ### 创建版本库
 
@@ -37,13 +39,13 @@
 /dev/mmcblk0p7   16G   12G  3.1G  79% /data
  HEAD` : 撤销工作目录中所有未提交文件的修改内容
 + `git checkout HEAD <file>` : 撤销指定的未提交的修改内容
-+ `git revert <commit> ` : 取消指定的提交
++ `git revert <commit>` : 取消指定的提交
 
 ### 分支与标签
 
 + `git branch` : 显示所有本地分支
 + `git checkout <branch/tag>` : 切换到指定分支或标签
-+ `git branch <new-branch> ` : 创建新分支
++ `git branch <new-branch>` : 创建新分支
 + `git branch -d <branch>` : 删除本地分支
 + `git tag` : 列出所有本地标签
 + `git tag <tagname>` : 基于最新提交的创建标签
@@ -60,7 +62,7 @@
 + `git remote show <remote>` : 查看指定远程版本库信息
 + `git remote add <remote> <url>` : 添加远程版本库
 + `git fetch <remote>` : 从远程库获取代码
-+ `git pull <remote> <branch> ` : 下载代码及快速合并
++ `git pull <remote> <branch>` : 下载代码及快速合并
 + `git push <remote> <branch>` : 上传代码及快速合并
 + `git push <remote> :<branch/tag-name>` : 删除远程分支或标签
 + `git push --tags` : 上传所有标签
@@ -78,7 +80,15 @@
 + `git clone --recursive http://192.167.10.28/dagger/manager_node.git`
 + `recursive`选项会递归克隆项目下的所有git项目
 
-## 工作流:
+## 撤销 `git add` 并保留修改的方法
+
++ **`git reset --mixed` -- 撤销所有的已经`add`的文件**
++ `git reset HEAD .` -- 复制撤销某个文件或文件夹
++ `git reset HEAD -filename` -- 另外，可以使用`git status` ，git会告诉可以通过哪一个命令来执行操作
+
+---
+
+## 工作流
 
 1. working directory:持有实际文件
 2. Index:类似于一个缓冲区与,临时保存文件的改动
@@ -86,9 +96,9 @@
 
 ## 添加与提交
 
-1. 把文件添加到暂存区: git add <filename>
-2. 提交改动信息: git commit -m "代码提交信息". (至此,改动已经提交到了HEAD,但是还没有到远端仓库)
-3. 推送改动: git push origin master(master 换成想要推送的分支)
+1. 把文件添加到暂存区: `git add <filename>`
+2. 提交改动信息: `git commit -m "代码提交信息"`. (至此,改动已经提交到了HEAD,但是还没有到远端仓库)
+3. 推送改动: `git push origin master(master 换成想要推送的分支)`
 
 ## Git工作流程
 
@@ -108,7 +118,6 @@
 1. 当对工作区修改(或新增)的文件执行 `git add` 命令时,暂存区的目录树被更新,同时工作区修改(或新增)的文件内容被写入到对象库中的一个新的对象中,而该对象的ID被记录在暂存区的文件索引中
 2. 当执行提交操作时 `git commit` 时,暂存区的目录树写到版本库(对象库)中,master分支会做相应的更新,即**master只想的目录树就是提交时暂存区的目录树.**
 
-
 ## Git官方手册
 
 ### Git的三种状态:已提交(committed), 已修改(modified)和已暂存(staged)
@@ -123,7 +132,7 @@
 + 暂存区:是一个文件,保存了下次将要提交的文件列表信息,一般在Git仓库目录中.按照Git的术语叫做"索引",不过一般说法还是叫"暂存区"
 + Git仓库目录:是Git用来保存项目的元数据和对象数据库的地方.这是Git中最重要的部分,**从其他计算机克隆仓库时,复制的就是这里的数据.**
 
-### 基本的Git工作流程:
+### 基本的Git工作流程
 
 1. 在工作区中修改文件
 2. 将想要下次提交的更改 选择性地暂存,这样只会将更改的部分添加到暂存区
@@ -141,7 +150,6 @@
   + `?` 通用匹配单个字符
   + `*` 通用匹配零个或多个字符
   + `[]` 通用匹配单个字符列表
-
 
 ## git remote
 
@@ -161,7 +169,7 @@
 + `git branch -d 分支名` : 删除某个分支
 + `git merge 分支名` : 合并某个分支到现在所处的分支
 
-+ `git branch -r ` : 查看远程仓库的分支情况
++ `git branch -r` : 查看远程仓库的分支情况
 + `git branch -a` : 查看所有分支的情况，即本地分支和远程分支（上面的部分是本地分支，下面红色的部分是远程的分支）
 
 + 远程分支的创建不能通过`git branch`进行，而是在`git push`的时候默认执行
@@ -195,12 +203,12 @@
 
 ## 推送到远程仓库
 
-+ `git push <remote> <branch>` 
++ `git push <remote> <branch>`
   + 当你想要将`master`分支推送到`origin`服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字），那么运行这个命令就可以将你所做的备份到服务器。
 
 ## 查看某个远程仓库
 
-+ `git remote show <remote>` 
++ `git remote show <remote>`
   + 查看某一个远程仓库的更多信息
   + 它同样会列出远程仓库的URL与跟踪分支的信息。它告诉你正在处于`master`分支，并且如果运行`git pull`，就会抓取所有的远程引用，然后将远程`master`分支合并到本地`master`分支，
   + 它也会列出拉取到的所有远程引用。
