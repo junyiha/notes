@@ -4,6 +4,10 @@
 
 + `ETG`, `EtherCAT技术小组`，该组织是`Beckhoff`为支持和推广`EtherCAT`而成立的。`ETG`网站是关于`EtherCAT`的信息来源。
 
+### EtherCAT xenomai 安装
+
++ `notes/PDF/EtherCAT（ubuntu18.04，linux4.9.38，xenomai3.1，igh1.52）配置完整流程.docx`
+
 ### 固定`RxPDOs` 
 
 + `notes/PDF/AP系列驱动器+EtherCAT+手册V1.0.pdf -- P12`
@@ -35,6 +39,20 @@
   + `0x60F4` -- 位置循环错误（跟随错误）
   + `0x606F` -- 实际电机速度
   + `0x6077` -- 转矩实际值
+
+### 请求主站
+
++ 用户程序通过`ecrt_request_master`请求主站设备，该函数调用`ecrt_request_master_err()`，取得`master`设备，并执行`ec_master_enter_operation_phase()`函数
+
++ 请求主站设备完成后，开始创建数据域，调用`ecrt_master_create_domain()`
+
++ 创建数据域成功后，分别完成对各从站设备的配置，配置内容包括：`PDO`映射，SM配置，`FFMU`配置和`DC`配置
+
++ 用户程序调用的入口是`ecrt.h`和相关的库文件，通过`ioctl`以驱动的形式实现，与`master`文件夹中的部分函数稍有区别
+
+### 从站配置
+
++ 从站配置是应用层通过`ecrt_master_slave_config()`函数添加到主站的`config`链表中
 
 ## PDO
 

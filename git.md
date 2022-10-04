@@ -50,6 +50,7 @@
 + `git tag` : 列出所有本地标签
 + `git tag <tagname>` : 基于最新提交的创建标签
 + `git tag -d <tagname>` : 删除标签
++ `git branch -b dev notes/dev` : 切换指定远程分支
 
 ### 合并和衍合
 
