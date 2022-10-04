@@ -7,6 +7,18 @@
 + Windows下生成md5校验码: `certutil -hashfile filename MD5`
 + Linux下生成md5校验码:   `md5sum filename`
 
+## nohup
+
++ `nohup, no hang up`， 用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行
++ 在默认情况下（非重定向时），会输出一个名叫`nohup.out`的文件在当前目录下，如果当前目录下文件不可写，输出重定向到`$HOME/nohup.out`文件中
+
++ 语法格式 -- `nohup Command [Arg ...] [ & ]`
+
++ 参数说明
+  + `Command` -- 要执行的命令
+  + `Arg` -- 一些参数，可以指定输出文件
+  + `&` -- 让命令在后台执行，终端退出后命令仍旧执行
+
 
 ## `.7z` 文件
 

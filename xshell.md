@@ -11,6 +11,8 @@
 + Windows下生成md5校验码: `certutil -hashfile filename MD5`
 + Linux下生成md5校验码: `md5sum filename`
 
++ xshell 传输文件
+  + `sz filename`
 
 
 psmisc adduser libc6  libcurl4  libdevmapper1.02.1 libgcc1  libgl1 libopus0  libpng16-16 libqt5core5a libqt5gui5 libqt5opengl5  libqt5printsupport5  libqt5widgets5  libqt5x11extras5 libsdl1.2debian  libssl1.1 libstdc++6 libvpx5 libx11-6 libxcb1 libxcursor1 libxext6 libxml2 libxt6 zlib1g
