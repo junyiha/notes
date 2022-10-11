@@ -160,3 +160,19 @@
 + **simplescreenrecorder**
   + 录制屏幕：`apt-get install -y simplescreenrecorder`
   + 优点：相比于kazam，其录制的视频，容量小，vlc支持播放
+
+## 屏保命令和锁屏命令
+
++ `gnome-screensaver-command -a`  --  显示屏保但是不锁定，移动鼠标或敲击键盘后自动消失
+
++ `gnome-screensaver-command -l`  --  显示屏保并锁定，移动鼠标或敲击键盘弹出密码框
+
++ `sudo loginctl list-sessions`   -- 列出当前所有的会话（默认命令）
+
++ `sudo loginctl lock-session [ID]` -- 锁定指定会话（如果会话支持屏幕锁）或者当前调用者的会话
+
++ `sudo loginctl unlock-session [ID]` -- 解锁指定会话（如果会话支持屏幕锁）或者当前调用者的会话
+
++ `sudo loginctl lock-sessions`  --  锁定全部会话
+
++ `sudo loginctl unlock-sessions` -- 解锁全部会话

@@ -1,12 +1,3 @@
-## 配置vscode和嵌入式设备,进行远程调试
-
-vscode的launch.json文件:
-+ name:调试的项目名
-+ program:应用程序路径,这个最好放在**共享目录**,和板子使用同一个文件
-+ cwd:程序源代码路径(**重要**)
-+ miDebuggerPath:交叉编译工具中的gdb
-+ miDebuggerServerAddress:远程gdbserver服务,根据设备对应修改
-
 ### linux之间建立共享目录
 
 如何使A服务器的某个目录挂载到B服务器的某个目录下,使其达到B服务下的目录文件一旦变更,可以实时的在A服务器的目录下体现出来?

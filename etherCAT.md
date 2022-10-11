@@ -6,13 +6,15 @@
 
 ### EtherCAT xenomai 安装
 
-+ `notes/PDF/EtherCAT（ubuntu18.04，linux4.9.38，xenomai3.1，igh1.52）配置完整流程.docx`
++ ~~`notes/PDF/EtherCAT（ubuntu18.04，linux4.9.38，xenomai3.1，igh1.52）配置完整流程.docx`~~ 
++ pdf文档配置menuconfig时步骤不完整，坑！！！
++ 另一个地址:`https://www.icode9.com/content-3-916631.html`
 
 ### 固定`RxPDOs` 
 
 + `notes/PDF/AP系列驱动器+EtherCAT+手册V1.0.pdf -- P12`
 
-+ 对于`CSP`(循环同步位置)0x6060的操作方式=8：
++ **对于`CSP`(循环同步位置)**0x6060的操作方式=8：
   + 接收PDO 4 ： 0x1700
     + `0x6040` -- 控制字
     + `0x607A` -- 轨迹目标位置
@@ -34,17 +36,17 @@
 ### 固定`TxPDO`
 
 + 发送PDO 5：0x1B00
-  + `0x6041` -- 状态字
-  + `0x6064` -- 实际电机位置
-  + `0x60F4` -- 位置循环错误（跟随错误）
-  + `0x606F` -- 实际电机速度
-  + `0x6077` -- 转矩实际值
+  + `0x6041` -- 16 -- 状态字
+  + `0x6064` -- 32 -- 实际电机位置
+  + `0x60F4` -- 32 -- 位置循环错误（跟随错误）
+  + `0x606C` -- 32 -- 实际电机速度
+  + `0x6077` -- 16 -- 转矩实际值
 
 ### 请求主站
 
 + 用户程序通过`ecrt_request_master`请求主站设备，该函数调用`ecrt_request_master_err()`，取得`master`设备，并执行`ec_master_enter_operation_phase()`函数
 
-+ 请求主站设备完成后，开始创建数据域，调用`ecrt_master_create_domain()`
++ 请求主站设备完成后，开始**创建数据域**，调用`ecrt_master_create_domain()`
 
 + 创建数据域成功后，分别完成对各从站设备的配置，配置内容包括：`PDO`映射，SM配置，`FFMU`配置和`DC`配置
 
@@ -99,16 +101,16 @@
   + **主站程序运行在内核空间，应用层需要一种方式实现对内核调用。通过打开主站创建的字符设备`/dev/EtherCAT`就是这个作用**
   + 主要用到的函数
     - `ec_master_t *ecrt_request_master(unsigned int master_index);` -- 
-      - 负责打开字符设备文件，传入参数为使用主站索引（使用`/etc/init.d/ethercat`开启系统的时候可以一次性传入多个MAC地址从而开启多个主站，不同主站创建不同的字符设备，例如`/dev/EtherCAT0, /dev/EtherCAT1...`），
+      - **负责打开字符设备文件，传入参数为使用主站索引**（使用`/etc/init.d/ethercat`开启系统的时候可以一次性传入多个MAC地址从而开启多个主站，不同主站创建不同的字符设备，例如`/dev/EtherCAT0, /dev/EtherCAT1...`），
       - 而这个索引就是用于开启对应的字符设备，从而使用不同的主站，使用`open接口`打开，然后返回文件描述符，该文件描述符用于`ioctl`调用对应主站功能。另外在申请到主站后就不再允许进行总线的重新扫描，固化了主站连接的从站链表，而且设置从站状态当前申请状态为`PREOP`
     - `ec_domain_t *ecrt_master_create_domain(ec_master_t* master);`
-      - 负责创建域，`domain`与`PDO`映射有密切联系，在激活的位置详谈
+      - **负责创建域，**`domain`与`PDO`映射有密切联系，在激活的位置详谈
       - 这个函数具体内容就是直接在内核空间中创建一块`ec_domain`空间并且将该空间连接到主站`domain`链表尾部
     - `ec_slave_config_t *ecrt_master_slave_config(ec_master_t* master, uint16_t alias, uint16_t position, uint32_t vendor_id, uint32_t product_code);`
-      - 从站配置函数，
+      - **从站配置函数**，
       - 主站模块中的从站链表，它们之间的关系为：从站配置是应用层通过`ecrt_master_slave_config()`函数添加到主站的`configs`链表中的，而从站链表`slaves`则是通过`ethercat`主站状态机通过扫描`ethercat`总线得到的，两者的共同之处在于**从站配置过程的`alias, position, VID, PID`，这些在主站扫描到的从站链表中都是有一份参数的，当应用层设置配置和主站扫描到从站信息相匹配的时候，那就将从站与从站配置相联系**（这时候会将主站扫描的`SII`信息关于`sync`关联的`PDO`信息复制到从站配置中，也就是默认`PDO`配置）；这样，就可以通过从站配置寻找到主站模块中从站配置信息，进而获取到从站信息。
     - `int ecrt_slave_config_reg_pdo_entry(ec_slave_config_t *sc, uint16_t index, uint8_t subindex, ec_domain_t *domain, unsigned int *bit position);`
-      - 从站配置`PDO`函数
+      - **从站配置`PDO`函数**
       - 需要注意的一点 -- 在主站正式激活之前，所有配置`PDO`相关的其实并没有相对应的空间申请操作，一切都是进行的计算，计算`PDO`需要多大空间，计算`domains`的逻辑位置，计算`FMMU`的逻辑位置，计算`PDO`的逻辑位置，直到主站正式激活，主站会根据自身已经申请的域链表`domains`，获取所有域所需要的空间大小，而后对每个域进行逻辑地址分配，每个域中再对每个`FMMU`进行逻辑地址分配。
       - 接口参数
         - `uint16_t index` -- 对象字典索引
@@ -118,16 +120,72 @@
       - 首先，通过从站应用层配置索引可以获取到主站的从站配置链表中对应的从站配置，而后根据配置目标domain的索引获取到主站的domains链表对应的域，这样就可以实现应用层的从站配置和domain切换到主站对应的从站配置和domain，然后进行pdo映射操作。
       - 每次进行PDO映射的时候，并不是只对设置的一个对象进行处理，而是直接将整个sync关联的PDO都进行批次化处理。所以，本质上来讲，PDO配置映射就是确定PDO的逻辑地址位置
     - `int ecrt_master_activate(ec_master_t *master);`
-      - 函数为正式激活的函数
+      - **函数为正式激活的函数**
       - 主站注册的domains链表整体大小计算；经过PDO注册映射之后，对主站中关联的每个domains都是相互独立的，并且每个domains都只是一个计算得到的值，其实并没有需要的空间申请，因此在主站激活的时候会将全部domians需要的空间进行统一申请。具体申请到的PDO映射逻辑空间存放在字符设备打开文件的priv指针处，关于字符设备的file->priv在字符设备打开eccdev_open的时候进行指定。然后按照主站连接的domains链表顺序对每个domian起始地址进行设置：主要是domain的逻辑起始地址，domain的大小，以及domain中的FMMU的逻辑地址重新设置，最终，domain和FMMU的逻辑起始地址都是在主站全部domains环境下的逻辑起始地址。为了进行PDO映射，在主站激活过程中还对每个domain需要的子报文进行空间申请。在计算子报文需要个数的时候，各个domain计算各自需要的子报文需要，这样就可以满足不同domain的PDO交换周期是可以单独设置的；在domain计算自己需要的子报文个数的时候，计算是以FMMU为一个基本单位进行计算的，每个子报文可承载的数据大小为1486Byte，然后根据一个子报文中FMMU的输入输出情况设置子报文类型，也就是EC_DATAGRAM_LRD类型子报文，EC_DATAGRAM_LRR类型子报文以及EC_DATAGRAM_LRW类型子报文。然后将这些子报文添加到domain的datagram_pairs链表中。当然，整体过程中，domain映射空间和子报文使用的数据空间都是同一段空间。
       - 完成主站的domains域空间处理，之后就停止主站的空闲阶段线程（等待空间阶段线程退出）
       - 开启主站的操作阶段线程，该线程和空闲阶段线程相比不同之处--在于将主站子报文队列组合发送移动到用户手中进行处理
     - `uint8_t *ecrt_domain_data(ec_domain_t *domain);`
-      - 返回domain再逻辑空间的逻辑地址
+      - **返回domain在逻辑空间的逻辑地址**
     - `void ecrt_domain_queue(ec_domain_t *domain);`
-      - 将对应domain空间使用的子报文排列到主站子报文发送链表中
+      - **将对应domain空间使用的子报文排列到主站子报文发送链表中**
     - `void ecrt_master_send(ec_master_t *master);`
-      - 将主站的子报文发送链表的子报文进行发送，在发送过程中，默认的会将从站状态机子报文和主站状态机子报文进行排队发送
+      - **将主站的子报文发送链表的子报文进行发送**，在发送过程中，默认的会将从站状态机子报文和主站状态机子报文进行排队发送
+
+## 头文件接口
+
++ `ecrt_master_receive()`
+  + 功能：从硬件获取接收到的帧并处理数据报。通过调用中断服务例程查询网络设备接收到的帧。提取收到的数据报并将结果发送到队列中的数据报对象。接收到的数据报和超时的数据报将被标记并退出队列
+  + 函数原型：`void ecrt_master_receive(ec_master_t* master);`
+  + 参数：`master` -- `ethercat`主机
+  + 返回值：无
+
++ `ecrt_domain_process()`
+  + 功能：确定域数据报的状态。评估接收到的数据报的工作计数器，并在必要时输出统计信息。必须在`ecrt_master_receive()`接收域数据报之后调用此函数，以便`ecrt_domain_state()`返回上一次进程数据交换的结果。
+  + 函数原型：`void ecrt_domain_process(ec_domain_t *domain);`
+  + 参数：`domain` -- 域
+  + 返回值：无
+
++ `EC_READ_U16()`
+  + 功能：宏函数，计算整数数据，同样还有`EC_READ_U32()`
+
++ `EC_WRITE_U16()`
+  + 功能：宏函数，将整型数据写入内存。内存大小是`ecrt_slave_config_create_sdo_request()`的参数。
+
++ `ecrt_master_sync_reference_clock()`
+  + 功能：将DC参考时钟偏移补偿数据报排队发送，参考时钟将上次取消`ecrt_master_application_time()`提供的应用程序时间同步
+  + 函数原型：`void ecrt_master_sync_reference_clock(ec_master_t *master)`
+  + 参数：`master` -- `ethercat`主机
+  + 返回值：无
+
++ `ecrt_master_sync_slave_clocks()`
+  + 功能：将DC时钟偏移补偿数据报排队发送，所有的子时钟与基准时钟同步
+  + 函数原型：`void ecrt_master_sync_slave_clocks(ec_master_t* master);`
+  + 参数：`master` -- `ethercat`主机
+  + 返回值：无
+
++ `ecrt_domain_queue()`
+  + 功能：**将主数据报队列中的所有域数据报排队**。调用此函数可标记域的数据报以便在`ecrt_master_send()`的下一次调用
+  + 函数原型：`void ecrt_domain_queue(ec_domain_t* domain);`
+  + 参数：`domain` -- 域
+  + 返回值：无
+
++ `ecrt_master_send()`
+  + 功能：**发送队列中的所有数据报**。该方法接收所有排队等待传输的数据报，将他们放入帧中，并将他们传递给以太网设备进行发送
+  + 函数原型：`void ecrt_master_send(ec_master_t* master);`
+  + 参数：`master` -- `ethercat`主机
+  + 返回值：无
+
++ `ecrt_master_application_time()`
+  + 功能：设置应用程序时间。在使用分布式时钟操作从机时，主机必须知道应用程序的时间。时间不是由主机本身增加的，因此必须循环调用此方法
+  + 函数原型：`void ecrt_master_application_time(ec_master_t* master, uint64_t app_time);`
+  + 参数：`master` -- `ethercat`主机；`app_time` -- 应用时间
+  + 返回值：无
+
++ `ecrt_release_master()`
+  + 功能：释放请求的`ethercat`主机
+  + 函数原型：`void ecrt_release_master(ec_master_t* master);`
+  + 参数：`master` -- `ethercat`主机
+  + 返回值：无
 
 ## 关于PDO映射
 
@@ -146,4 +204,3 @@
     + PDO层次 -- 处理PDO的时候需要两个过程，一个是对之前的PDO配置进行清除，另一个是将自定义配置的`PDO`设置到从站配置的同步管理器链表中，这个过程还会查询之前的默认配置，将之前`PDO`中的`PDO_entry`复制到`PDO`中
 
 + 以上两种PDO配置并不冲突，可以理解为前者是从站的默认配置，后者是用户为了个性化自定义配置（有无均可，只不过自定义的化可能会有冗余信息）
-

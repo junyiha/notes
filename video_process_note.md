@@ -204,8 +204,22 @@
 
 + 看看端口是否映射错误，任务正常运行，但是端口未正确映射，redis数据库中的信息就不能正常发送到前端
 
-## 彼特大陆硬件所支持的视频编解码格式一般有
+## 比特大陆硬件所支持的视频编解码格式一般有
 
 + `H.264  H.265 wmv mjpeg`
 
 + 其他的视频格式也可以支持，但使用cpu编解码，效率很低
+
+## video_process 输出日志
+
++ `abcdk --logd`
++ 添加环境变量： `export ABCDK_LOG_CONSTGNEE`
+
+## vca.exe 加载模型并创建任务
+
+
++ 4.x版本
+  + `./vca.exe --model-conf  /tmp/Fire_BITMAINLAND/DETECT.conf  --id 1 --input-video-name "rtsp://192.167.15.58:554/yunshitu.mp4" --detector-conf "/--detector-models/2000003001_DETECT/xxxx/xxxx" --output-video-name "/tmp/aaa.mp4" --output-type 2`
+
++ 5.0.3版本
+  + `./vca.exe --detector-conf --detector--models /tmp/Fire_BITMAINLAND/DETECT.conf --id 1 --input-video-name "rtsp://192.167.15.58:554/test_fire_smoke.mp4" --detector-conf "@--detector-models@/tmp/Model/NVIDIA GeForce RTX 2080/COCO/DETECT.conf@xxxx@yyyy" --output-video-name "/tmp/aaa.mp4" --output-type 2 --detector-conf-inline`
