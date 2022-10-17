@@ -1,12 +1,39 @@
 ## ubuntu-18.04-x86_64-NVIDIA 环境依赖包
-`apt install -y libgomp1 libzmq5 libjsoncpp1 libhiredis0.13 libsdl2-2.0-0 liblapacke libatlas-base-dev libuuid1zlib1g librdkafka1 libeigen3-dev`
 
-+ cuda_11.4.4_470.82.01_linux
-  
-+ cudnn-11.4-linux-x64-v8.2.4.15
-  
-+ TensorRT-8.2.5.1.Linux.x86_64-gnu.cuda-11.4.cudnn8.2
++ 环境依赖安装包：
+  + `apt install -y libgomp1 libzmq5 libjsoncpp1 libhiredis0.13 libsdl2-2.0-0 liblapacke libatlas-base-dev libuuid1 zlib1g librdkafka1 libeigen3-dev libx264-152 libx265-146 libopenjp2-7  libmp3lame0 librtmp1 libssh-4 libxcb-shape0 libfontconfig1 libgl1 libxv1 libjpeg8 libtiff5 libopenexr22`
 
++ `cuda_11.4.4_470.82.01_linux`
+  
++ `cudnn-11.4-linux-x64-v8.2.4.15`
+  
++ `TensorRT-8.2.5.1.Linux.x86_64-gnu.cuda-11.4.cudnn8.2`
+
+--------------------------------------------------------------------------------------------------------------------
+
+## docker 镜像
+
++ nvidia docker容器中devel runtime base 三种文件的区别
+
++ **base版本**
+  + 该版本是从cuda9.0开始，包含了部署预构建cuda应用程序的最低限度，如果用户需要自己安装自己需要的cuda包，可以选择使用这个版本
+
++ **runtime版本**
+  + 该版本通过添加cuda工具包中的所有共享库，扩展基本的镜像。如果使用多个cuda库的预构建应用程序，可使用这个版本的镜像，但是如果想借助cuda中的头文件对自己的工程进行编译，则会出现找不到文件的错误
+
++ **devel版本**
+  + 通过添加编译器工具链，测试工具，头文件和静态库来扩展运行的镜像，使用这个版本的镜像可以从源代码编译cuda程序
+
++ `apt-file` : 通过文件名查找deb包
+  
+--------------------------------------------------------------------------------------------------------------------
+
+
++ `docker pull nvidia/cuda:11.4.2-cudnn8-devel-ubuntu18.04`
+
++ `docker pull nvidia/cuda:11.4.2-cudnn8-runtime-ubuntu18.04`
+
++ `docker pull nvidia/cuda:11.4.2-cudnn8-base-ubuntu18.04`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -66,8 +93,18 @@
       export LD_LIBRARY_PATH="/usr/local/TensorRT/lib:${LD_LIBRARY_PATH}"
     ```
 
+--------------------------------------------------------------------------------------------------------------------
+
+## 从镜像启动容器，并检查硬件
+
++ `docker run -it --gpus all --name nvidia nvidia_cuda:v1.0 /bin/bash`
+  + `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源
+
++ `nvidia-smi, NVIDIA System Management Interface program` : 默认查看详细的gpu信息
+  + `nvidia-smi -L` : 通过uuid查看每个gpu信息
 
 --------------------------------------------------------------------------------------------------------------------
+
 
 <!-- ## cuda10.2
 
