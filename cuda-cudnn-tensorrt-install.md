@@ -102,6 +102,16 @@
 
 + `nvidia-smi, NVIDIA System Management Interface program` : 默认查看详细的gpu信息
   + `nvidia-smi -L` : 通过uuid查看每个gpu信息
+  
+--------------------------------------------------------------------------------------------------------------------
+
+## vca.exe 加载模型并创建任务
+
++ 4.x版本
+  + `./vca.exe --model-conf  /tmp/Fire_BITMAINLAND/DETECT.conf  --id 1 --input-video-name "rtsp://192.167.15.58:554/yunshitu.mp4" --detector-conf "/--detector-models/2000003001_DETECT/xxxx/xxxx" --output-video-name "/tmp/aaa.mp4" --output-type 2`
+
++ 5.0.3版本
+  + `./vca.exe --detector-conf --detector--models /tmp/Fire_BITMAINLAND/DETECT.conf --id 1 --input-video-name "rtsp://192.167.15.58:554/test_fire_smoke.mp4" --detector-conf "@--detector-models@/tmp/Model/NVIDIA GeForce RTX 2080/COCO/DETECT.conf@xxxx@yyyy" --output-video-name "/tmp/aaa.mp4" --output-type 2 --detector-conf-inline`
 
 --------------------------------------------------------------------------------------------------------------------
 

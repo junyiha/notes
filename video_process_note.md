@@ -222,4 +222,14 @@
   + `./vca.exe --model-conf  /tmp/Fire_BITMAINLAND/DETECT.conf  --id 1 --input-video-name "rtsp://192.167.15.58:554/yunshitu.mp4" --detector-conf "/--detector-models/2000003001_DETECT/xxxx/xxxx" --output-video-name "/tmp/aaa.mp4" --output-type 2`
 
 + 5.0.3版本
-  + `./vca.exe --detector-conf --detector--models /tmp/Fire_BITMAINLAND/DETECT.conf --id 1 --input-video-name "rtsp://192.167.15.58:554/test_fire_smoke.mp4" --detector-conf "@--detector-models@/tmp/Model/NVIDIA GeForce RTX 2080/COCO/DETECT.conf@xxxx@yyyy" --output-video-name "/tmp/aaa.mp4" --output-type 2 --detector-conf-inline`
+  + `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detector-models@/data/dagger/VideoProcess/bin/DETECT.conf@xxxx@"  --input-video-name rtsp://192.167.15.58:554/yunshitu.mp4 --output-type 2 --output-video-name /tmp/aaa.mp4`
+  + 检测器和模型是两个层面，在检测器的配置中添加模型配置文件的路径，然后通过模型配置文件进入到模型层面
+  + 参数
+    + `--id 1` : 任务id
+    + `--detector-conf-inline` : 启用检测器内联配置，后面跟的字符串就是参数，由分隔符切分为键和值
+      + `@--detector-models@/data/dagger/VideoProcess/bin/DETECT.conf@` ： 检测器内联的参数，设定模型配置文件的路径
+    + `--input-video_name` : 输入视频的文件名
+    + `--output-type 2` : 设定输出模式为视频
+    + `--output-video-name /tmp/aaa.mp4` : 设定输出视频文件的路径
+  
+  <!-- + `./vca.exe --detector-conf --detector--models /tmp/Fire_BITMAINLAND/DETECT.conf --id 1 --input-video-name "rtsp://192.167.15.58:554/test_fire_smoke.mp4" --detector-conf "@--detector-models@/tmp/Model/NVIDIA GeForce RTX 2080/COCO/DETECT.conf@xxxx@yyyy" --output-video-name "/tmp/aaa.mp4" --output-type 2 --detector-conf-inline` -->
