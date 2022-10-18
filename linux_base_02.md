@@ -6,6 +6,23 @@
 + 每次Linux系统启动后在启动过程中会检测和挂在RTC驱动，在挂在后会自动从RTC芯片中读取时间并设置到系统时间中去。此后如果没有显式的通过命令去控制RTC的读写操作，系统将不会再从RTC中获取或者同步设置时间
 + Linux命令中`date`和`time`等命令都是用来设置系统时间的；而`hwclock`命令是用来设置和读写RTC时间的
 
+## date
+
++ `date`命令可以用来显示或设定系统的日期与时间
+
++ `date [OPTION]... [+FORMAT]`
+
++ `date [-u] [-d datestr] [-s datestr] [--utc] [--universal] [--date=datestr] [--set=datestr] [--help] [--version] [+FORMAT] [MMDDhhmm[[CC]YY][.ss]]`
+
++ 可选参数
+  + `-r, --reference=FILE`：显示文件的上次修改时间
+  + `-s, --set=STRING`：根据字符串设置系统时间。
+  + `-u, --utc, --universal`：显示或设置协调世界时(UTC)
+  + `-f, --file=DATEFILE`：类似于--date; 一次从DATEFILE处理一行
+  + `-d, --date=STRING`：通过字符串显示时间格式，字符串不能是'now'
+
++ `date -s "01:01:01 2012-05-23"`   # 这样可以设置全部时间
+
 ## Linux内核RTC实时时钟配置查看与选择
 
 + 进入到内核根目录下，输入`make menuconfig`进入到内核配置菜单
