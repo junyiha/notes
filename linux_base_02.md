@@ -186,7 +186,7 @@
 
 + `sudo loginctl list-sessions`   -- 列出当前所有的会话（默认命令）
 
-+ `sudo loginctl lock-session [ID]` -- 锁定指定会话（如果会话支持屏幕锁）或者当前调用者的会话
++ `sudo loginctl lock-session [ID]`   -- 锁定指定会话（如果会话支持屏幕锁）或者当前调用者的会话
 
 + `sudo loginctl unlock-session [ID]` -- 解锁指定会话（如果会话支持屏幕锁）或者当前调用者的会话
 
