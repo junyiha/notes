@@ -217,7 +217,6 @@
 
 ## vca.exe 加载模型并创建任务
 
-
 + 4.x版本
   + `./vca.exe --model-conf  /tmp/Fire_BITMAINLAND/DETECT.conf  --id 1 --input-video-name "rtsp://192.167.15.58:554/yunshitu.mp4" --detector-conf "/--detector-models/2000003001_DETECT/xxxx/xxxx" --output-video-name "/tmp/aaa.mp4" --output-type 2`
 
@@ -231,5 +230,12 @@
     + `--input-video_name` : 输入视频的文件名
     + `--output-type 2` : 设定输出模式为视频
     + `--output-video-name /tmp/aaa.mp4` : 设定输出视频文件的路径
-  
-  <!-- + `./vca.exe --detector-conf --detector--models /tmp/Fire_BITMAINLAND/DETECT.conf --id 1 --input-video-name "rtsp://192.167.15.58:554/test_fire_smoke.mp4" --detector-conf "@--detector-models@/tmp/Model/NVIDIA GeForce RTX 2080/COCO/DETECT.conf@xxxx@yyyy" --output-video-name "/tmp/aaa.mp4" --output-type 2 --detector-conf-inline` -->
+
+## 归一化 -- sigmoid
+
++ 5.0.4版本
+  + 归一化，可以在模型转换的时候，转换工具做这个工作；在vca中，也有归一化的功能
+  + 由于比特大陆早期的转换工具都没有做归一化，所以在之前vca在加载模型时默认开启了归一化的功能，
+  + 最新更新的比特大陆模型转换工具加上了归一化这个功能，所以在5.0.4版本加上了一个控制归一化开启或关闭的参数 `--disable-sigmoid`
+  + 如果模型在使用转换工具进行转换时就做了归一化的工作，则在vca加载模型时就不能再做归一化；反之，如果模型在使用转换工具进行转换时没有做归一化的工作，则在vca加载模型时就需要做归一化的工作
+  + 模型没有做归一化，和重复做归一化都会导致检测异常，目前出现的异常情况是：分数很高，检测的框很多

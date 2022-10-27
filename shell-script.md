@@ -8,7 +8,7 @@
 + 作为解释器参数：这种运行方式是直接运行解释器，其参数就是shell脚本的文件名`/bin/bash test.sh`，这种方式运行的脚本，不需要在第一行指定解释器信息
 
 ## Shell变量:
-+ 变量名和等号之间不能有空格
++ **变量名和等号之间不能有空格**
 + 变量的命名只能使用英文字母,数字和下划线,首个字符不能以数字开头
 + 中间不能有空格,可以使用下划线
 + 不能使用标点符号
@@ -349,3 +349,50 @@
     # 或者
     source filename
   ```
+
+## shell脚本中使用root权限
+
++ 两种方法：
+  + 使用expect
+  + (不对)使用sudo，但是这种方法只能进入root执行一条指令，命令格式为    + `echo [password] | sudo -s [commond]`
+      + `-s` -- run shell as the target user ; a command may also be specified
+
+### expect
+
++ expect是一个免费的编程工具语言，用来实现自动和交互式任务进行通信，而无需人的干预
++ expect需要Tcl编程语言的支持，要在系统上运行expect必须首先安装Tcl
++ expect的核心是`spawn、expect、send、set`
+  + `spawn`    调用要执行的命令
+  + `expect`   等待命令提示信息的出现，也就是捕捉用户输入的提示：
+  + `send`     发送需要交互的值，替代了用户手动输入内容
+  + `set`      设置变量值
+  + `interact` 执行完成后保持交互状态，把控制权交给控制台，这个时候就可以手工操作了。如果没有这一句登录完成后会退出，而不是留在远程终端上。
+  + `expect`   eof 这个一定要加，与spawn对应表示捕获终端输出信息终止，类似于if....endif
++ expect脚本必须以interact或expect eof结束，执行自动化任务通常expect eof就够了
++ 设置expect永不超时 set timeout -1
++ 设置expect 300秒超时，如果超过300没有expect内容出现，则退出 set timeout 300
++ expect编写语法：expect使用的是tcl语法
+  + 一条Tcl命令由空格分割的单词组成. 其中, 第一个单词是命令名称, 其余的是命令参数  `cmd arg arg arg`
+  + $符号代表变量的值. 在本例中, 变量名称是foo.  `$foo`
+  + 方括号执行了一个嵌套命令. 例如, 如果你想传递一个命令的结果作为另外一个命令的参数, 那么你使用这个符  `[cmd arg]`
+  + 双引号把词组标记为命令的一个参数. "$"符号和方括号在双引号内仍被解释  `"some stuff"`
+  + 大括号也把词组标记为命令的一个参数. 但是, 其他符号在大括号内不被解释 `{some stuff}`
+  + 反斜线符号是用来引用特殊符号. 例如：n 代表换行. 反斜线符号也被用来关闭"$"符号, 引号,方括号和大括号的特殊含义
+
++ expect脚本自动获取root权限
+  ```
+    #!/usr/expect/bin/expect -f
+
+    set timeout=5 #设置5秒超时
+    #下面几行后面不能添加注释，否则会异常
+    #send "exit\r" - exit命令：会退出root账号，成为普通用户
+    spawn su - root
+    expect "密码："
+    send "zlkj\r"
+    send "pwd\r"
+    #send "exit\r"
+    interact #使用interact后，脚本将退出到root账号下，可以手动执行root权限的命令
+    exit 0 #退出脚本
+  ```
+
+  + 暂时搁置，shell脚本中不能运行，tcl编程语言未安装，spawn命令不能识别
