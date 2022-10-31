@@ -80,3 +80,24 @@
     	@echo ${pat}
     # 输出: ./foo.txt ./bar.txt   \  ./foo.md ./bar.md
   ```
+
+## 技巧
+
+### Makefile中获取当前执行的Makefile所在路径
+
++ Linux下我们可以用pwd命令来获取当前所执行命令的目录，在Makefile中对应可用`PWD := $(shell pwd)`来获取。
+  
++ 但是如果子Makefile 文件是从别处执行的(通过`make -f .../Makefile` 执行)，那么`$(shell pwd)`得到的目录即为执行`make -f`命令的当前目录
++ 在这种情况下
+  + 根据gnu make定义，`gnu make` 会自动将所有读取的`makefile`路径都会加入到`MAKEFILE_LIST`变量中，而且是按照读取的先后顺序添加
+  + 所以可以通过`$(abspath $(lastword $(MAKEFILE_LIST)))`返回当前正在被执行的`Makefile`的绝对路径,然后通过`patsubst`去掉文件名得到绝对目录
+  
++ 代码：
+  ```
+    makefile_path:=$(abspath $(lastword $(MAKEFILE_LIST)))
+    cur_makefile_path:=$(patsubst %/makefile, %/, ${shell ls $(makefile_path)})
+
+    all:
+    	@echo ${makefile_path}
+    	@echo ${cur_makefile_path}
+  ``` 
