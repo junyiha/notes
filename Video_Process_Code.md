@@ -147,4 +147,102 @@
 ### Touch类
 
 + 命名空间：`aicontrib`
-+ 
++ 类属性：
+  + 公共属性：
+    + `m_ctx`  --  推理环境
+    + `m_fetch_p`  --  类`Model`的实例
+  + 受保护属性：
+    + `m_engine_type`  --  引擎类型名
+    + `m_label_normalize_map`  --  字典类型，用于标签标准化
+    + `m_ignore_getbbox_post`  --  调试参数，是否忽略GetBBox后处理：!0 忽略， 0 正常
++ 类方法：
+  + 公共类方法：
+    + `Touch()`  --  构造函数， 初始化类属性
+    + `~Touch()` --  虚析构函数，调用类方法`Destory()`
+    + `GetType()`
+      + 原型：`const char* GetType();`
+      + 功能：获取引擎类型
+      + 参数：无
+      + 返回值：
+        + 成功  --  返回一个指向保存引擎类型的C字符串指针
+        + 失败  --  返回空
+    + `IsOpen()`
+      + 原型：`bool IsOpen();`
+      + 功能：判断引擎是否加载成功
+      + 参数：无
+      + 返回值：
+        + 成功  -- 返回True，表示引擎已成功加载
+        + 失败  -- 返回False，表示引擎未成功加载
+    + `Destory()`
+      + 原型：`void Destory();`
+      + 功能：销毁引擎
+      + 参数：无
+      + 返回值：无
+      + 注意：
+        + 其内部实现是基于 `infer.cpp`
+        + 能够加载不同类型的模型并运行的原理是，为每一个类型的模型都创建一个类，通过判断操作不同的类实例
+    + `Create()`
+      + 原型：`bool Create(const char* engine);`
+      + 功能：创建一个引擎环境
+      + 参数：
+        + `engine`  --  引擎名
+      + 返回值：
+        + 成功 -- 返回True
+        + 失败 -- 返回False
+      + 注意：
+        + 其内部实现是基于 `infer.cpp`
+        + 能够加载不同类型的模型并运行的原理是，为每一个类型的模型都创建一个类，通过判断操作不同的类实例
+    + `Execute()`
+      + 虚函数，实现函数重载
+      + 一
+        + 原型：`virtual void Execute(Image* imgs[], int count /*=1 */);`
+        + 功能：执行推理功能
+        + 参数：
+          + `imgs`  --  保存数据类型为Image结构体的数组
+          + `count` --  图片的数量
+        + 返回值：无
+        + 注意：
+          + 其内部实现是调用 `infer.cpp` 下的 `infer_execute()` 函数
+      + 二
+        + 原型：`virtual void Execute(std::vector<Image *> &imgs);`
+        + 功能：执行推理功能
+        + 参数：
+          + `imgs`  --  保存数据类型为Image结构体类型的向量容器
+        + 返回值：无
+        + 注意：
+          + 其内部实现是调用函数重载一
+    + `GetBBox()`
+      + 虚函数，实现函数重载
+      + 一
+        + 原型：`virtual void GetBBox(std::vector<std::vector<aicontrib::BoxMat>> &objects, const std::vector<float> &min_prob, const std::vector<float> &nms_prob);`
+        + 功能：根据输入的阈值，获取检测框的位置信息
+        + 参数：
+          + `objects`   --  存储检测框的位置信息的二维向量，其是指向存储数据类型为`aicontrib::BoxMat`类 类型的二维向量的指针
+          + `min_prob`  --  存储阈值的向量，指向存储数据类型为`float`的向量指针
+          + `nms_prob`  --  存储非最大抑制阈值的向量，指向存储数据类型为`float`的向量指针
+        + 返回值：无
+        + 注意：
+          + 这个重载函数是最底部，被调用的
+      + 二
+        + 原型：`virtual void GetBBox(std::vector<std::vector<aicontrib::BoxMat>> &objects, std::vector<Image *> &imgs, const std::vector<float> &min_prob, const std::vector<float> &nms_prob);`
+        + 功能：根据输入的多张图像和多个阈值，获取检测框的位置信息
+        + 参数：
+          + `objects`  --  存储检测框的位置信息的二维向量，其是指向存储数据类型为`aicontrib::BoxMat`类 类型的二维向量的指针
+          + `imgs`     --  存储被检测图片的向量，其是指向存储数据类型为指向`Image`结构体的指针类型的向量的指针
+          + `min_prob` --  存储阈值的向量，指向存储数据类型为`float`的向量指针
+          + `nms_prob`  --  存储非最大抑制阈值的向量，指向存储数据类型为`float`的向量指针
+        + 返回值：无
+        + 注意：
+          + 其图片输入的方式是存放`Image`结构体指针的向量
+          + 检测多张图片，多个阈值的重载函数
+      + 三
+        + 原型：`virtual void GetBBox(std::vector<aicontrib::BoxMat> &objects, Image *img, float min_prob, float nms_prob);`
+        + 功能：根据输入的单张图像和单个阈值，获取检测框的位置信息
+        + 参数：
+          + `objects`  --  存储检测框的位置信息的向量，其是指向存储数据类型为`aicontrib::BoxMat`类 类型的向量指针
+          + `img`      --  被检测的图片，其是指向`Image`结构体的指针
+          + `min_prob` --  检测阈值
+          + `nms_prob` --  非最大抑制阈值
+        + 返回值：无
+        + 注意：
+          + 检测单张图片，单个阈值的重载函数
