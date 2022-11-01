@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <utility>   // std::pair, std::make_pair
 #include <string>    // std::string
+#include <cstdlib>
 
 
 int test_access()
@@ -378,11 +379,48 @@ int test_pair()
     return 0;
 }
 
+int test_iterating_for_loop()
+{
+    // iterating over array
+    int arr[] = {10, 20, 30, 40, 50};
+    for (int num : arr)
+        printf("%d ", num);
+    
+    printf("\n");
+    // traditinal for loop
+    for (int i = 0; i < 5; i++)
+        printf("%d ", arr[i]);
+
+    printf("\n");
+
+    return 0;
+}
+
+int test_atoi()
+{
+    int val;
+    char str[20];
+
+    strcpy(str, "8797913");
+    val = atoi(str);
+    printf("string value = %s, int value = %d \n", str, val);
+
+    strcpy(str, "helloworld");
+    val = atoi(str);
+    printf("string value = %s, int value = %d \n", str, val);
+
+    return 0;
+}
+
 int main()
 {
     // test_virtual();
 
-    test_pair();
+    // test_pair();
+
+    // test_iterating_for_loop();
+
+    test_atoi();
 
     return 0;
 }

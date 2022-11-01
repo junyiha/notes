@@ -194,6 +194,8 @@
 
 + `sudo loginctl unlock-sessions` -- 解锁全部会话
 
++ ubuntu18 锁屏快捷键  --  `Super + L`
+
 ## ubuntu18 显卡配置
 
 1. 查看显卡设备和显卡驱动 --> `ubuntu-drivers devices`
