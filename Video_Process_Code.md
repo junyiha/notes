@@ -246,3 +246,90 @@
         + 返回值：无
         + 注意：
           + 检测单张图片，单个阈值的重载函数
+    + `GetOCR`
+      + 虚函数，实现函数重载
+      + 一
+        + 原型：`virtual void GetOCR(std::vector<std::vector<int32_t>> &objects, const std::vector<float> &min_prob);`
+        + 功能：根据输入的阈值，检测文字信息
+        + 参数：
+          + `objects`  --  存储检测到的文字信息，其是指向存储`int32_t`数据类型的二维向量的指针
+          + `min_prob` --  存储多个阈值，其是指向存储`float`数据类型的向量的指针
+        + 返回值：无
+        + 注意：
+          + 此重载函数，是实现部分，也就是说，下面两个重载函数是依赖于这个函数实现的
+      + 二
+        + 原型：`virtual void GetOCR(std::vector<std::vector<int32_t>> &objects, std::vector<Image *> &imgs, const std::vector<float> &min_prob);`
+        + 功能：根据输入的多张图片和多个阈值，检测文字信息
+        + 参数：
+          + `objects`  --  存储检测到的文字信息，其是指向存储`int32_t`数据类型的二维向量的指针
+          + `imgs`     --  存储多张图片信息，其是指向存储`Image`结构体指针的向量的指针
+          + `min_prob` --  存储多个阈值，其是指向存储`float`数据类型的向量的指针
+        + 返回值：无
+        + 注意：
+          + 其内部实现是基于第一个重载函数
+      + 三
+        + 原型：`virtual void GetOCR(std::vector<int32_t> &objects, Image *img, float min_prob);`
+        + 功能：根据输入的单张图片和单个阈值，检测文字信息
+        + 参数：
+          + `objects`  --  存储检测到的文字信息，其是指向存储`int32_t`数据类型的向量的指针
+          + `img`      --  图片信息，其是指向`Image`结构体的指针
+          + `min_prob` --  阈值
+        + 返回值：无
+        + 注意：
+          + 其内部实现，是创建一个图片向量，接收传入的图片，并调用第二个重载函数
+    + `GetFeature` 
+      + 虚函数，实现函数重载
+      + 一
+        + 原型：`virtual void GetFeature(std::vector<std::vector<float>> &objects);`
+        + 功能：获取特征信息
+        + 参数：
+          + `objects`  --  存储特征信息，其是指向存储`float`数据类型的二维向量的指针
+        + 返回值：无
+        + 注意：
+          + 此重载函数是实现部分，换言之，下面两个重载函数都是基于这个函数实现的
+      + 二
+        + 原型：`virtual void GetFeature(std::vector<std::vector<float>> &objects, std::vector<Image *> &imgs);`
+        + 功能：接收多张图片，获取特征信息
+        + 参数：
+          + `objects`  --  存储特征信息，其是指向存储`float`数据类型的二维向量的指针
+          + `imgs`     --  存储多张图片信息，其是指向存储`Image`结构体指针的向量的指针
+        + 返回值：无
+        + 注意：
+          + 其内部实现，是基于第一个重载函数
+      + 三
+        + 原型：`virtual void GetFeature(std::vector<float> &objects, Image *img);`
+        + 功能：接收单张图片，获取特征信息
+        + 参数：
+          + `objects`  --  存储特征信息，其是指向`float`数据类型的向量的指针
+          + `img`      --  图片信息，其是指向`Image`结构体的指针
+        + 返回值：无
+        + 注意：
+          + 其内部实现，是创建一个二维向量，存储接收的单张图片，并调用第二个重载函数
+    + `GetSort`
+      + 虚函数，实现函数重载
+      + 一
+        + 原型：`virtual void GetSort(std::vector<std::vector<std::pair<int, float>>> &objects);`
+        + 功能：获取排序数据
+        + 参数：
+          + `objects`  --  存储排序结果，其是指向存储数据类型为`pair`（对组）的三维向量的指针
+        + 返回值：无
+        + 注意：
+          + 此重载函数是实现部分，换言之，下面两个重载函数都是基于此函数
+      + 二
+        + 原型：`virtual void GetSort(std::vector<std::vector<std::pair<int, float>>> &objects, std::vector<Image *> &imgs);`
+        + 功能：接收多张图片，获取排序结果
+        + 参数：
+          + `objects`  --  存储排序结果，其是指向存储数据类型为`pair`（对组）的三维向量的指针
+          + `imgs`     --  多张图片，其是指向存储`Image`结构体指针的向量的指针
+        + 返回值：无
+        + 注意：
+          + 其内部实现，是基于第一个重载函数
+      + 三
+        + 原型：`virtual void GetSort(std::vector<std::pair<int, float>> &objects, Image *img);`
+        + 功能：接收单张图片，获取排序结果
+        + 参数：
+          + `objects`  --  存储排序结果，其是指向存储数据类型为`pair`(对组)的二维向量的指针
+          + `imgs`     --  单张图片信息，其是`Image`结构体指针
+        + 返回值：无
+        + 注意：
+          + 其内部实现，是创建一个三维向量，存储接收的单张图片，并调用第二个重载函数
