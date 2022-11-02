@@ -238,7 +238,7 @@
   + 由于比特大陆早期的转换工具都没有做归一化，所以在之前vca在加载模型时默认开启了归一化的功能，
   + 最新更新的比特大陆模型转换工具加上了归一化这个功能，所以在5.0.4版本加上了一个控制归一化开启或关闭的参数 `--disable-sigmoid`
   + 如果模型在使用转换工具进行转换时就做了归一化的工作，则在vca加载模型时就不能再做归一化；反之，如果模型在使用转换工具进行转换时没有做归一化的工作，则在vca加载模型时就需要做归一化的工作
-  + 模型没有做归一化，和重复做归一化都会导致检测异常，目前出现的异常情况是：分数很高，检测的框很多
+  + 模型没有做归一化，和重复做归一化都会导致检测异常，目前出现的异常情况是：分数很高，检测的框很多 
 
 <!-- ## 两个事务同时访问同一条数据， -->
 
@@ -251,3 +251,18 @@
 + 启动服务：
   + 使用命令 `uwsig --ini uwsgi.ini` 启动服务
 
+## video_process环境变量配置
+
++ 3.1.18版本
+  - `export LD_LIBRARY_PATH=/data/dagger/VideoProcess/lib:/data/dagger/VideoProcess/3party/abcdk/lib:/data/dagger/VideoProcess/3party/lapacke/lib:/data/dagger/VideoProcess/3party/libhiredis/lib/:/data/dagger/VideoProcess/3party/libjsoncpp/lib:/data/dagger/VideoProcess/3party/libuuid/lib:/data/dagger/VideoProcess/3party/libzmq/lib:$LD_LIBRARY_PATH`
+
++ 5.0.4版本
+  - `export LD_LIBRARY_PATH=/data/dagger/VideoProcess/lib:/data/dagger/VideoProcess/3party/lib:$LD_LIBRARY_PATH`
+
+## 测试需要更新的模型 -- 注意事项
+
++ 问清楚现场环境，包括
+  - video_process 的版本是多少
+  - 与新版本的差异
+
++ 本地搭建多个版本的测试环境

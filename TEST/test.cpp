@@ -7,6 +7,7 @@
 #include <utility>   // std::pair, std::make_pair
 #include <string>    // std::string
 #include <cstdlib>
+#include <ctype.h>   // iscntrl() 
 
 
 int test_access()
@@ -412,6 +413,79 @@ int test_atoi()
     return 0;
 }
 
+int test_iscntrl()
+{
+    int i = 0, j = 0;
+    char str1[] = "all \a about \t programming";
+    char str2[] = "Runoob \n tutrials";
+
+    while(!iscntrl(str1[i]))
+    {
+        putchar(str1[i]);
+        i++;
+    }
+
+    while(!iscntrl(str2[j]))
+    {
+        putchar(str2[j]);
+        j++;
+    }
+
+    return 0;
+}
+
+int test_strlen()
+{
+    char str[50];
+    int len;
+
+    strcpy(str, "hello world!!!");
+    len = strlen(str);
+    printf("%s length is %d \n", str, len);
+
+    return 0;
+}
+
+char* test_basename(const char *path)
+{
+    char* result = NULL;
+    char* name = strdup(path);
+    if(name)
+    {
+        char* find = basename(name);
+        if(find)
+            result = find;
+            
+        free(name);
+    }
+
+    return result;
+}
+
+int test_readlink()
+{
+    char buf[1024] = { 0 };
+    int n;
+
+    n = readlink("/proc/self/exe", buf, sizeof(buf));
+    if(n > 0 && n < sizeof(buf))
+        printf("%s \n", buf);
+    
+    return 0;
+}
+
+int test_strrchr()
+{
+    int len;
+     char str[1024] = "hello world / hahaha";
+    const char ch = '/';
+    char *res = strrchr(str, ch);
+
+    printf("after %c is string: %s\n", ch, res);
+
+    return 0;
+}
+
 int main()
 {
     // test_virtual();
@@ -420,7 +494,19 @@ int main()
 
     // test_iterating_for_loop();
 
-    test_atoi();
+    // test_atoi();
+
+    // test_iscntrl();
+
+    // test_strlen();
+    // const char *pathfile = "/home/user/workspace/notes/TEST/test.cpp";
+    // char *res = test_basename(pathfile);
+    // printf("input path %s \n output path %s \n", pathfile, res);
+    // input path /home/user/workspace/notes/TEST/test.cpp   output path test.cpp
+
+    // test_readlink();
+
+    test_strrchr();
 
     return 0;
 }

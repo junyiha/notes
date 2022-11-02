@@ -541,3 +541,321 @@
           + 返回的是双精度浮点数
           + 其内部实现依赖于 `stdlib.h` 文件下的 `atof()` 函数
 
+-----------------------------------------------------------------------------------------------------------
+
+## `contrib/general.h`
+
+### clock2tick()
+
++ 原型：`uint64_t clock2tick(int8_t type, uint8_t precision);`
++ 功能：获取当前时间，并转换到指定`precision`精度
++ 参数：
+  + `type`  --  时钟ID
+  + `precision`  --  精度
++ 返回值：
+  + 成功  --  返回转换精度之后的时间
+  + 失败  --  返回0
++ 注意：
+  + 其内部实现依赖于`time.h`文件下的`clock_gettime()` 和 `mathcalls.h` 文件下的`powl()`
+
+### getdelim_with_note()
+
++ 原型：`int getdelim_with_note(char **line, size_t *length, int delim, FILE *file, char note);`
++ 功能：从文件中读取流数据到内存中，直到定界符`delim`结束
++ 参数：
+  + `line`  --  指向初始缓冲区或空指针的指针
+  + `length`--  指向初始缓冲区大小的指针
+  + `delim` --  定界线字符
+  + `file`  --  有效输入流，由`fopen()`打开
+  + `note`  --  
++ 返回值：
+  + 成功  --  返回缓冲区的大小
+  + 失败  --  返回-1
++ 注意：
+  + 其内部实现依赖于`stdio.h`文件下的`getdelim()`函数 和 `ctype.h`文件下的`iscntrl()`函数
+
+### strtrim_right()
+
++ 原型：`char* strtrim_right(char* string, uint8_t c);`
++ 功能：
++ 参数：
+  + `string`  --  输入的字符指针
+  + `c`       --  
++ 返回值：
+  + 成功  --  返回一个字符指针
+  + 失败  --  返回NULL
+
+### strtrim_left()
+
++ 原型：`char* strtrim_left(char* string, uint8_t c);`
++ 功能：
++ 参数：
+  + `string`  --  输入的字符指针
+  + `c`       --  
++ 返回值：
+  + 成功  --  返回一个字符指针
+  + 失败  --  返回NULL
+
+### strtrim_both()
+
++ 原型：`char* strtrim_both(char* string, uint8_t c);`
++ 功能：
++ 参数：
+  + `string`  --  输入的字符指针
+  + `c`       --  
++ 返回值：
+  + 成功  --  返回一个字符指针
+  + 失败  --  返回NULL
+
+### mem_dup()
+
++ 原型：`void* mem_dup(const void* data, long len);`
++ 功能：将一块内存上的数据转储到另一块内存
++ 参数：
+  + `data`  --  需要转储的内存块指针
+  + `len`   --  内存块的大小
++ 返回值：
+  + 成功  --  返回新的内存块指针
+  + 失败  --  返回NULL
++ 注意：
+  + 其内部实现，是基于`memcpy()`函数
+
+### mkpath()
+
++ 原型：`void mkpath(const char* path, uint32_t mode);`
++ 功能：创建权限为`mode`的目录文件`path`
++ 参数：
+  + `path`  --  文件路径
+  + `mode`  --  文件权限
++ 返回值：无
++ 注意：
+  + 其内部实现，依赖于`strlen(), strdup(), access(), mkdir(), chmod()`
+
+### file_close()
+
++ 原型：`void file_close(int* file);`
++ 功能：关闭文件`file`
++ 参数：
+  + `file`  --  需要关闭的文件的文件描述符
++ 返回值：无
++ 注意：
+  + 其内部实现，依赖于`close()`
+
+### file_open()
+
++ 原型：`int file_open(const char* pathfile, int read_only, int non_block, int try_create);`
++ 功能：打开指定文件
++ 参数：
+  + `pathfile`  --  需要操作的文件
+  + `read_only` --  设置为只读模式
+  + `non_block` --  设置为非阻塞模式
+  + `try_create`--  尝试创建文件
++ 返回值：
+  + 成功  --  
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于`open()`
+
+### file_reopen()
+
++ 原型：`int file_reopen(int file, const char* pathfile, int read_only, int non_block, int try_create);`
++ 功能：将已经打开的文件，重复打开
++ 参数：
+  + `file`  --  需要重复打开的文件描述符
+  + `pathfile`  --  需要操作的文件
+  + `read_only` --  设置为只读模式
+  + `non_block` --  设置为非阻塞模式
+  + `try_create`--  如果文件不存在，尝试创建文件
++ 返回值：
+  + 成功  --  返回重复打开的文件描述符
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于`file_open(), dup2()`
+
+### file_write()
+
++ 原型：`long file_write(int file, const void *data, long size);`
++ 功能：将大小为`size`的数据`data`写入到文件`file`
++ 参数：
+  + `file`  --  要写入数据的文件
+  + `data`  --  要写入的数据
+  + `size`  --  要写入的数据的大小
++ 返回值：
+  + 成功  --  返回写入的数字
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于`write()`
+
+### file_read()
+
++ 原型：`long file_read(int file, void* data, long size);`
++ 功能：将大小为`size`的数据从文件`file`读取到内存地址为`data`中
++ 参数：
+  + `file`  --  要被读取数据的文件
+  + `data`  --  存放数据的内存块指针
+  + `size`  --  要读取的数据大小
++ 返回值：
+  + 成功  --  返回读取的读取的数字
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于`read()`
+
+### file_mmap()
+
++ 原型：`void* file_mmap(int file, size_t *size);`
++ 功能：将文件`file`中大小为`size`映射到内存中
++ 参数：
+  + `file`  --  需要映射数据的文件
+  + `size`  --  需要映射的数据大小
++ 返回值：
+  + 成功  --  实际映射地址
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于`mmap()`
+
+### dirname_dup()
+
++ 原型：`char* dirname_dup(const char* pathfile);`
++ 功能：返回文件`pathfile`的目录部分
++ 参数：
+  + `pathfile`  --  需要查找目录的文件
++ 返回值：
+  + 成功  --  文件所在的目录
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于`dirname(), strdup()`
+
+### basename_dup()
+
++ 原型：`char* basename_dup(const char *pathfile);`
++ 功能：去掉文件`pathfile`的前缀，只保存文件名(input string:/data/test.cpp , output string:test.cpp)
++ 参数：
+  + `pathfile`  --  需要操作的文件
++ 返回值：
+  + 成功  --  文件名
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于`basename()`
+
+### proc_pathfile()
+
++ 原型：`char* proc_pathfile(char* pathfile);`
++ 功能：获取当前运行程序的绝对路径，存储到`pathfile`，并返回
++ 参数：
+  + `pathfile`  --  存储程序的绝对路径
++ 返回值：
+  + 成功  --  返回运行程序的绝对路径指针
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于`readlink()` 和 `/proc/self/exe`
+
+### proc_path()
+
++ 原型：`char* proc_path(char* path);`
++ 功能：截取文件名
++ 参数：
+  + `path`  --  要处理的文件
++ 返回值：
+  + 成功  --  截取成功的文件名
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于`strrchr()`
+
+### proc_name()
+
++ 原型：`char* proc_name(char* name);`
++ 功能：处理文件名
++ 参数：
+  + `name`  --  文件名
++ 返回值：
+  + 成功  --  处理过的文件名
+  + 失败  --  NULL
+
+### proc_popen()
+
++ 原型：`int proc_popen(const char* cmd, int* in_pipe, int* out_pipe, int* err_pipe);`
++ 功能：创建输入，输出管道，操作文件
++ 参数：
+  + `cmd`  --  `/bin/sh`要执行的命令
+  + `in_pipe`  --  
+  + `out_pipe` -- 
+  + `err_pipe` -- 
++ 返回值：
+  + 成功  --  返回子进程
+  + 失败
++ 注意：
+  + 其内部实现，依赖于上面所有文件基础操作函数和`pipe(), fork(), execl(), _exit()`
+
+### freep()
+
++ 原型：`void freep(void **pptr);`
++ 功能：释放二级指针`pptr`
++ 参数：
+  + `pptr`  --  需要释放的二级指针
++ 返回值：空
+
+### download_file()
+
++ 原型：`int download_file(const char *src, const char *dst, char err[1000]);`
++ 功能：下载文件
++ 参数：
+  + `src`  --  
+  + `dst`  -- 
+  + `err`  -- 
++ 返回值：
+  + 成功  --  0
+  + 失败  --  
++ 注意：
+  + 其内部实现，依赖于以上所有基础操作函数和`fork(), waitpid()`，下载文件的命令依赖于`wget`命令
+
+### download_tmpfile()
+
++ 原型：`int download_tmpfile(const char *src, char *dst, char err[1000]);`
++ 功能：下载临时文件
++ 参数：
+  + `src`  --  
+  + `dst`  -- 
+  + `err`  -- 
++ 返回值：
+  + 成功  --  0
+  + 失败  --  
++ 注意：
+  + 其内部实现，依赖于`download_file()`和`mkstemp()`
+
+### log_open()
+
++ 原型：`void log_open(uint16_t service, int copy2stderr, int verbose);`
++ 功能：打开日志功能
++ 参数：
+  + `service`  --  服务ID
+  + `copy2stderr`  --  
+  + `verbose`  --  冗余
++ 返回值：空
++ 注意：
+  + 其内部实现，依赖于`openlog(), setlogmask()`和`abcdk_log_open(), abcdk_log_mask()`
+
+### log_vprintf()
+
++ 原型：`void log_vprintf(int priority, const char *fmt, va_list ap);`
++ 功能：格式化输出日志信息
++ 参数：
+  + `priority`  --  类型
+  + `fmt`       --  格式
+  + `ap`        --  可变参数
++ 返回值：空
++ 注意：
+  + 其内部实现，依赖于`abcdk_log_vprintf()`
+
+### log_printf()
+
++ 原型：`void log_printf(int priority, const char *fmt,...);`
++ 功能：打印日志信息
++ 参数：
+  + `priority`  --  类型
+  + `fmt`       --  格式
++ 返回值：空
++ 注意：
+  + 其内部实现依赖于`log_vprintf()`
+
+## `contrib/nms.h`
+
