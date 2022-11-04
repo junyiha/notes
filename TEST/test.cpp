@@ -12,6 +12,7 @@
 #include <algorithm> // std::sort()
 #include <functional>
 #include <string_view>  // std::string_view()
+#include <cmath>
 
 int test_access()
 {
@@ -531,7 +532,7 @@ int test_vsnprintf()
     return 0;
 }
 
-#ifdef 0
+#if 0
 int test_sort()
 {
     std::array<int, 10> s = { 3, 1, 45, 2 ,6 ,2 ,67 ,12, 45, 41};
@@ -541,6 +542,14 @@ int test_sort()
     }
 }
 #endif
+
+int test_sqrt()
+{
+    printf("%lf 's sqrt is %lf \n", 4.0, sqrt(4.0));
+    printf("%lf 's sqrt is %lf \n", 9.0, sqrt(9.0));
+
+    return 0;
+}
 
 int main()
 {
@@ -566,7 +575,9 @@ int main()
 
     // printf("the sum of 10, 20 and 30 is %d \n ", test_stdarg(3, 10, 20, 30));
 
-    test_vsnprintf();
+    // test_vsnprintf();
+
+    test_sqrt();
     
     return 0;
 }

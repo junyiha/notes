@@ -644,3 +644,271 @@
   + 返回值：空
   + 注意：
     + 其内部实现，依赖于第一个重载函数，使用for循环，依次处理映射`src`中的BoxMat
+
+----------------------------------------------------------------------------------------------------
+
+## `contrib/Model.hpp`
+
++ 概述
+  + 图像后处理
+
+### `Model`类
+
++ 命名空间：`aicontrib`
++ 功能：完成模型后处理
++ 类属性：
+  + 公共属性
+    + `m_input_image_infos`  --  存放数据类型为`InferInputImageInfo`，即推理输入的图像信息的向量
+    + `m_input_tensorts`     --  存放数据类型为`InferTensorInfo`，即推理张量信息的向量  --  输入的
+    + `m_output_tensorts`    --  存放数据类型为`InferTensorInfo`，即推理张量信息的向量  --  输出的
+    + `m_enable_sigmod`      --  布尔类型，是否打开归一化功能  --  真，打开 | 假，关闭
++ 类方法：
+  + 公共方法：
+    + `Model()`  --  构造函数
+    + `virtual ~Model()`  --  虚析构函数
+    + sigmoid()
+      + 虚函数  --  归一化
+      + 一
+        + 原型：`virtual double sigmoid(double x);`
+        + 功能：归一化功能
+        + 参数：
+          + `x`  --  需要处理的数据
+        + 返回值：
+          + 成功  --  处理后的数据
+        + 注意：
+          + 其内部实现，通过类属性`m_enable_sigmoid`判断是否归一化，依赖于`crt`文件下的`math_functions.hpp`文件中的函数`exp()`
+    + clamp()
+      + 虚函数  --  返回最小值
+      + 一
+        + 原型：`virtual float clamp(const float val, const float minVal, const float maxVal);`
+        + 功能：返回最小值
+        + 参数：
+          + `val`  --
+          + `minVal`  --
+          + `maxVal`  --
+        + 返回值：
+          + 成功  --  minVal和val中最大的值 和 maxVal中最小的值
+    + normalize_l2()
+      + 虚函数  --  标准化
+      + 一
+        + 原型：`virtual void normalize_l2(float *data, int data_len);`
+        + 功能：标准化
+        + 参数：
+          + `data`  --  需要处理的数据指针
+          + `data_len`  --  数据长度
+        + 返回值：空
+        + 注意：
+          + 其内部实现，依赖于`math.h`下的`sqrt()`函数 --  求平方根
+    + in_net_n()
+      + 虚函数  --  获取输入的推理张量 `0` 维的`layer`信息
+      + 一
+        + 原型：`virtual int in_net_n(int layer, int d = 0);`
+        + 功能：获取输入的推理张量的`0` 维的`layer`
+        + 参数：
+          + `layer`  --  层数？？
+          + `d`  
+        + 返回值：
+          + 成功  --  输入的推理张量的`0`维 的`layer`
+    + in_net_c()
+      + 虚函数  --  获取输入的推理张量 `1` 维的`layer`信息
+      + 一
+        + 原型：`virtual int in_net_c(int layer, int d = 1);`
+        + 功能：获取输入的推理张量的`1` 维的`layer`
+        + 参数：
+          + `layer`  --  层数？？
+          + `d`  
+        + 返回值：
+          + 成功  --  输入的推理张量的`1` 维的`layer`
+    + in_net_h()
+      + 虚函数  --  获取输入的推理张量 `2` 维的`layer`信息
+      + 一
+        + 原型：`virtual int in_net_h(int layer, int d = 2);`
+        + 功能：获取输入的推理张量的`2` 维的`layer`
+        + 参数：
+          + `layer`  --  层数？？
+          + `d`  
+        + 返回值：
+          + 成功  --  输入的推理张量的`2` 维的`layer`
+    + in_net_w()
+      + 虚函数  --  获取输入的推理张量 `3` 维的`layer`信息
+      + 一
+        + 原型：`virtual int in_net_w(int layer, int d = 3);`
+        + 功能：获取输入的推理张量的`3` 维的`layer`
+        + 参数：
+          + `layer`  --  层数？？
+          + `d`  
+        + 返回值：
+          + 成功  --  输入的推理张量的`3` 维的`layer`
+    + img_Xfactor()
+      + 虚函数  -- 获取X方向系数
+      + 一
+        + 原型：`virtual double img_Xfactor(int idx);`
+        + 功能：获取索引为`idx`的X方向系数
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  获取索引为`idx`的X方向系数
+    + img_Yfactor()
+      + 虚函数  -- 获取Y方向系数
+      + 一
+        + 原型：`virtual double img_Yfactor(int idx);`
+        + 功能：获取索引为`idx`的Y方向系数
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  获取索引为`idx`的Y方向系数
+    + img_Xshift()
+      + 虚函数  --  X方向移动
+      + 一
+        + 原型：`virtual double img_Xshift(int idx);`
+        + 功能：X方向移动
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  X方向移动
+    + img_Yshift()
+      + 虚函数  --  Y方向移动
+      + 一
+        + 原型：`virtual double img_Yshift(int idx);`
+        + 功能：Y方向移动
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  Y方向移动
+    + img_w()
+      + 虚函数  --  获取源图像的宽度
+      + 一
+        + 原型：`virtual int img_w(int idx);`
+        + 功能：获取索引为`idx`的源图像的宽度
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  索引为`idx`的源图像的宽度
+    + img_h()
+      + 虚函数  --  获取源图像的高度
+      + 一
+        + 原型：`virtual int img_h(int idx);`
+        + 功能：获取索引为`idx`的源图像的高度
+        + 参数：
+          + `idx`  --  索引
+        + 返回值：
+          + 成功  --  索引为`idx`的源图像的高度
+    + out_index()
+      + 虚函数  --  获取输出图像的索引
+      + 一
+        + 原型：`virtual int out_index(int layer);`
+        + 功能：获取源图像层数为`layer`的输出图像索引
+        + 参数：
+          + `layer`  -- 源图像层数
+        + 返回值：
+          + 成功  --  源图像层数为`layer`的输出图像索引
+    + out_layer()
+      + 虚函数  --  获取输出图像的层数
+      + 一
+        + 原型：`virtual int out_layer(const char *name);`
+        + 功能：获取名为`name`的输出图像的层数
+        + 参数：
+          + `name`  --  需要查询的输出图像的名字
+        + 返回值：
+          + 成功  --  名为`name`的输出图像的层数
+    + out_name()
+      + 虚函数  --  获取输出图像的名字
+      + 一
+        + 原型：`virtual const char* out_name(int layer);`
+        + 功能：获取层数为`layer`的输出图像的名字
+        + 参数：
+          + `layer`  --  输出图像的层数
+        + 返回值：
+          + 成功  --  层数为`layer`的输出图像的名字
+    + out_n()
+      + 虚函数  --  获取输出张量 第`0`维的`layer`
+      + 一
+        + 原型：`virtual int out_n(int layer, int d = 0);`
+        + 功能：获取输出张量 `0` 维的图像`layer`
+        + 参数：
+          + `layer`  -- 
+          + `d`
+        + 返回值：
+          + 输出张量 `0` 维的图像`layer`
+    + out_c()
+      + 虚函数  --  获取输出张量 第`1`维的`layer`
+      + 一
+        + 原型：`virtual int out_c(int layer, int d = 0);`
+        + 功能：获取输出张量 `1` 维的图像`layer`
+        + 参数：
+          + `layer`  -- 
+          + `d`
+        + 返回值：
+          + 输出张量 `1` 维的图像`layer`
+    + out_h()
+      + 虚函数  --  获取输出张量 第`2`维的`layer`
+      + 一
+        + 原型：`virtual int out_h(int layer, int d = 0);`
+        + 功能：获取输出张量 `2` 维的图像`layer`
+        + 参数：
+          + `layer`  -- 
+          + `d`
+        + 返回值：
+          + 输出张量 `2` 维的图像`layer`
+    + out_w()
+      + 虚函数  --  获取输出张量 第`3`维的`layer`
+      + 一
+        + 原型：`virtual int out_w(int layer, int d = 0);`
+        + 功能：获取输出张量 `3` 维的图像`layer`
+        + 参数：
+          + `layer`  -- 
+          + `d`
+        + 返回值：
+          + 输出张量 `3` 维的图像`layer`
+    + out_data()
+      + 虚函数  --  获取输出张量的数据
+      + 一
+        + 原型：`virtual const void* out_data(int layer);`
+        + 功能：获取层数为`layer`的图像的数据
+        + 参数：
+          + `layer`  --  
+        + 返回值：
+          + 层数为`layer`的图像的数据
+    + postreatment()
+      + 虚函数  --  后处理
+      + 一
+        + 原型：`virtual void postreatment(std::vector<std::vector<aicontrib::BoxMat>> &objects, const std::vector<float> &min_prob, const std::vector<float> &nms_prob);`
+        + 功能：接收多个检测框，多个阈值，筛选检测框
+        + 参数：
+          + `objects`  --  需要处理的检测框
+          + `min_prob` --  阈值向量
+          + `nms_prob` --  非极大值抑制的阈值向量
+        + 返回值：空
+        + 注意：
+          + 其内部实现，依赖于第二个重载函数 和 `aicontrib::box_iou_nms()`函数
+      + 二
+        + 原型：`virtual void postreatment(std::vector<std::map<double, std::vector<aicontrib::BoxMat>>> &objects, float min_prob);`
+        + 功能：接收单个阈值 和 数据类型为存放数据类型为`map`的向量`objects`，筛选检测框
+        + 参数：
+          + `objects`  --  需要处理的检测框
+          + `min_prob` --  阈值
+        + 返回值：空
+        + 注意：
+          + **其内部实现，依赖于子类完成的虚函数**
+
+----------------------------------------------------------------------------------------------------
+
+## `contrib/Feature.h`
+
++ 概述：
+  + 特征提取
+
+### `Feature`类
+
++ 命名空间：`aicontrib`
++ 功能：特征提取
++ 类属性：
+  + 公共属性：
+    + `m_normalize_l2_enable`  --  是否打开标签值标准化
+    + `m_output_name`  --  输出名字
++ 类方法：
+  + 公共方法：
+    + `Feature()`  --  构造函数
+    + `virtual ~Feature()`  --  虚析构函数
+    + postreatment()
+      + 
