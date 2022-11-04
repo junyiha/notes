@@ -8,7 +8,10 @@
 #include <string>    // std::string
 #include <cstdlib>
 #include <ctype.h>   // iscntrl() 
-
+#include <cstdarg>   // va_start va_arg va_end va_list
+#include <algorithm> // std::sort()
+#include <functional>
+#include <string_view>  // std::string_view()
 
 int test_access()
 {
@@ -486,6 +489,59 @@ int test_strrchr()
     return 0;
 }
 
+int test_stdarg(int num_args, ...)
+{
+    int val = 0;
+    va_list ap;
+    int i;
+
+    va_start(ap, num_args);
+    for(i = 0; i < num_args; i++)
+    {
+        val += va_arg(ap, int);
+    }
+    va_end(ap);
+
+    return val;
+}
+
+void PrintFError(const char *format, ...)
+{
+    char buffer[256];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buffer, 256, format, args);
+    perror(buffer);
+    va_end(args);
+}
+
+int test_vsnprintf()
+{
+    FILE *pFile;
+    char szFileName[] = "myfile.txt";
+    
+    pFile = fopen(szFileName, "r");
+    if(pFile == NULL)
+        PrintFError("Error opening '%s'", szFileName);
+    else
+    {
+        fclose(pFile);
+    }
+
+    return 0;
+}
+
+#ifdef 0
+int test_sort()
+{
+    std::array<int, 10> s = { 3, 1, 45, 2 ,6 ,2 ,67 ,12, 45, 41};
+    auto print = [&s](std::string_view const rem)
+    {
+
+    }
+}
+#endif
+
 int main()
 {
     // test_virtual();
@@ -506,7 +562,11 @@ int main()
 
     // test_readlink();
 
-    test_strrchr();
+    // test_strrchr();
 
+    // printf("the sum of 10, 20 and 30 is %d \n ", test_stdarg(3, 10, 20, 30));
+
+    test_vsnprintf();
+    
     return 0;
 }
