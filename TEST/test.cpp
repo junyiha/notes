@@ -13,6 +13,7 @@
 #include <functional>
 #include <string_view>  // std::string_view()
 #include <cmath>
+#include <typeinfo>  // std::typeid
 
 int test_access()
 {
@@ -551,6 +552,8 @@ int test_sqrt()
     return 0;
 }
 
+typedef void *_mathcer;
+
 int main()
 {
     // test_virtual();
@@ -578,6 +581,13 @@ int main()
     // test_vsnprintf();
 
     test_sqrt();
+
+    _mathcer val;
+
+    void * res;
+    std::cout << typeid(val).name() << std::endl;
+    std::cout << typeid(res).name() << std::endl;
+
     
     return 0;
 }

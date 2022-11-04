@@ -897,6 +897,7 @@
 
 + 概述：
   + 特征提取
+  + 内部依赖于文件`ndarray.hpp`  --  多维数组
 
 ### `Feature`类
 
@@ -911,4 +912,205 @@
     + `Feature()`  --  构造函数
     + `virtual ~Feature()`  --  虚析构函数
     + postreatment()
-      + 
+      + 虚函数 继承 --  后处理
+      + 一
+        + 原型：`inline void postreatment(std::vector<std::vector<float>> &objects);`
+        + 功能：接收特征值（向量），进行筛选  --  特征模型的后处理
+        + 参数：
+          + `objects`  --  需要处理的特征值，也就是存放类型为`float`的二维向量
+        + 返回值：空
+        + 注意：
+          + 其内部实现，依赖于文件`ndarray.hpp`下的`out_data()`方法
+
+----------------------------------------------------------------------------------------------------
+
+## `contrib/matcher.h`
+
++ 概述：
+  + 特征比对
+  + `typedef void *_matcher_handle;`  -->  `void *` <==> `_matcher_handle`
+  + 其内部将`matcher_handle`转为指向`matcher_t`结构体类型的指针,其包含`abcdk_mutex_t, faiss::Index`等
+
+### matcher_destroy()
+
++ 原型：`void matcher_destroy(matcher_handle_t *handle);`
++ 功能：销毁
++ 参数：
+  + `handle`  --  对外环境句柄
++ 返回值：空
++ 注意：
+  + 还需要调用`abcdk_mutex_destroy()`
+
+### matcher_info()
+
++ 原型：`void matcher_info(matcher_handle_t handle, int *dims, int *metric, int64_t *count);`
++ 功能：获取基础信息
++ 参数：
+  + `handle`  --  对外环境句柄
+  + `dims`    --  返回维度
+  + `metric`  --  返回度量类型
+  + `count`   --  返回特征数量
++ 返回值：空
++ 注意：
+  + 返回的维度从内部的`matcher_t`中的成员`faiss::Index`的成员`d`
+  + 返回的度量类型是从内部的`matcher_t`中的成员`faiss::Index`的成员`metric_type`
+  + 返回的特征数量是从内部的`matcher_t`中的成员`faiss::Index`的成员`ntotal`
+
+### matcher_save()
+
++ 原型：`int matcher_save(matcher_handle_t handle, const char *file);`
++ 功能：将基础信息保存到文件
++ 参数：
+  + `handle`  --  对外环境句柄
+  + `file`    --  需要保存数据的文件
++ 返回值：
+  + 成功  --  0
+  + 失败  --  !0
++ 注意：
+  + 其内部实现，依赖于命名空间`faiss`下的`write_index()`函数
+
+### matcher_load()
+
++ 原型：`matcher_handle_t matcher_load(const char *file);`
++ 功能：从文件加载数据
++ 参数：
+  + `file`  --  需要加载的文件
++ 返回值：
+  + 成功  --  对外环境句柄
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于命名空间`faiss`下的`read_index()`函数
+  + 内部实现的日志打印，依赖于命名空间`faiss`下的`FaissException`类
+
+### matcher_create()
+
++ 原型：`matcher_handle_t matcher_create(int dims, int metric);`
++ 功能：创建特征
++ 参数：
+  + `dims`  --  维度
+  + `metric`--  度量类型
++ 返回值：
+  + 成功  --  返回对外环境句柄
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于命名空间`faiss`下的`index_factory()`函数
+  + 内部实现的日志打印，依赖于命名空间`faiss`下的`FaissException`类
+
+### matcher_cpu2gpu()
+
++ 原型：`matcher_handle_t matcher_cpu2gpu(matcher_handle_t handle, int device);`
++ 功能：从CPU环境复制到GPU环境
++ 参数：
+  + `device`  --  GPU设备号
++ 返回值：
+  + 成功  --  返回对外环境句柄
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于命名空间`faiss::gpu`下的`StandardGpuResources()`类和`index_cpu_to_gpu()`函数
+
+### matcher_gpu2cpu()
+
++ 原型：`matcher_handle_t matcher_gpu2cpu(matcher_handle_t handle);`
++ 功能：从GPU环境复制到CPU环境
++ 参数：
+  + `handle`  --  对外环境指针
++ 返回值：
+  + 成功  --  对外环境指针
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于命名空间`faiss::gpu`下的`index_gpu_to_cpu()`函数
+
+### matcher_search()
+
++ 原型：`void matcher_search(matcher_handle_t handle, int64_t count, const float *data, int64_t top, int64_t *ids, float *dts);`
++ 功能：检测  --  特征比对
++ 参数：
+  + `handle`  --  对外环境指针
+  + `count`   --  N个特征，`data[N*dims]`
+  + `data`    --  数据？？
+  + `top`     --  M个匹配，`ids[N*M]`，`dts[N*M]`
+  + `ids`     --  输出标签
+  + `dts`     --  输出成对距离
++ 返回值：空
++ 注意：
+  + 其内部实现，依赖于内部环境句柄`matcher_t`下的成员`faiss::Index`下的`search()`函数和`assign()`函数
+  + `search()`
+    + 原型：`virtual void faiss::Index::search(faiss::Index::idx_t n, const float *x, faiss::Index::idx_t k, float *distances, faiss::Index::idx_t *labels) const`
+    + 功能：查询 `n` 个维度为 `d` 的向量到索引。 最多返回 `k` 个向量。 如果一个查询没有足够的结果，结果数组用 `-1` 填充。
+    + 参数：
+      + `n`  --  要搜索的输入向量个数
+      + `x`  --  要搜索的输入向量，大小为`n * d`
+      + `k`  -- 
+      + `distances` -- 输出成对距离，大小为`n * k`
+      + `labels`    --  NN的输出标签，大小为`n * k`
+    + 返回值：空
+  + `assign()`  
+    + 原型：`virtual void faiss::Index::assign(faiss::Index::idx_t n, const float *x, faiss::Index::idx_t *labels, faiss::Index::idx_t k = 1L) const`
+    + 功能：返回最接近查询 x 的 k 个向量的索引。 此功能与搜索相同，但仅返回邻居的标签
+    + 参数：
+      + `n`  --  要搜索的输入向量个数
+      + `x`  --  要搜索的输入向量，大小为`n * d`
+      + `labels`  --  NN的输出标签，大小为`n * k`
+    + 返回值：空
+
+### matcher_add()
+
++ 原型：`void matcher_add(matcher_handle_t handle, int64_t count, const float *data, const int64_t *ids);`
++ 功能：添加特征
++ 参数：
+  + `handle`  --  对外环境句柄
+  + `count`   --  N个特征，`data[N*dims]`
+  + `data`    --  要添加的向量数据
+  + `ids`     --  N个ID， NULL(0)忽略
++ 返回值：空
++ 注意：
+  + 其内部实现，依赖于内部环境句柄`matcher_t`下的成员`faiss::Index`下的`add_with_ids()`和`add()`
+  + add()
+    + 原型：`virtual void faiss::Index::add(faiss::Index::idx_t n, const float *x);`
+    + 功能：将 n 个维度为 d 的向量添加到索引中。 向量被隐式分配标签 ntotal .. ntotal + n - 1 此函数将输入向量切成小于 blocksize_add 的块并调用 add_core。
+    + 参数：
+      + `n`  --  要添加的向量个数
+      + `x`  --  输入矩阵
+    + 返回值：空
+  + add_with_ids()
+    + 原型：`virtual void faiss::Index::add_with_ids(faiss::Index::idx_t n, const float *x, const faiss::Index::idx_t *xids);`
+    + 功能：与 add 相同，但存储 xid 而不是顺序 id。 默认实现因断言而失败，因为并非所有索引都支持它
+    + 参数：
+      + `n`  --  要添加的向量个数
+      + `x`  --  输入矩阵
+      + `xids`  --  如果非空，为向量存储的 ids（大小 n）
+
+### matcher_del_range()
+
++ 原型：`size_t matcher_del_range(matcher_handle_t handle, int64_t begin, int64_t count);`
++ 功能：删除指定范围的特征
++ 参数：
+  + `handle`  --  对外环境指针
+  + `begin`   --  开始
+  + `count`   --  要删除的特征个数
++ 返回值：
+  + 成功  --  返回删除的元素数
+  + 失败  --  0
++ 注意：
+  + 其内部实现，依赖于内部环境句柄`matcher_t`下的成员`faiss::Index`下的`remove_ids()`
+  + remove_ids()
+    + 原型：`virtual size_t faiss::Index::remove_ids(const faiss::IDSelector &sel);`
+    + 功能：从索引中删除 ID。 并非所有都支持索引。 返回删除的元素数
+    + 参数：
+      + `sel`  --  结构体，选择索引范围
+    + 返回值：
+      + 成功  --  返回删除的元素数
+      + 失败  --  0
+
+### matcher_del_batch()
+
++ 原型：`size_t matcher_del_batch(matcher_handle_t handle, int64_t count, const int64_t *ids);`
++ 功能：删除批量的特征
++ 参数：
+  + `handle`  --  对外环境指针
+  + `ids`     --  
++ 返回值：
+  + 成功  --  返回删除的元素数
+  + 失败  --  0
++ 注意：
+  + 其内部实现，依赖于内部环境句柄`matcher_t`下的成员`faiss::Index`下的`remove_ids()`
