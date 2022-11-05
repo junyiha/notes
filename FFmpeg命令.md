@@ -2,6 +2,15 @@
 
 + `ffmpeg -rtsp_transport tcp -i rtsp://admin:a1234567@192.167.0.56:554 -c copy -f mp4 -t 00:10:00 /data/output.mp4`
 
+## FFmpeg将视频按帧截取保存为图片
+
++ `ffmpeg -i /home/user/Videos/new_year.mp4 -r 5 -f image2 image-%03d.jpg`
++ 参数：
+  + `-i`  --  指定输入源
+  + `-r`  --  指定抽取的帧，即从视频中每秒抽取的图片数量
+  + `-f`  --  保存图片使用的格式
+  + `image-%03d.jpg`  --  指定文件的输出名字
+
 ## 获取音视频信息
 
 + `ffprobe`是FFmpeg项目提供的用于分析视频信息的命令工具

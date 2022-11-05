@@ -38,8 +38,8 @@
 
 ### image_load
 
-+ 原型：`Image *image_load(const char *file);`
 + 功能：加载图像  -- 源数据从文件中读取
++ 原型：`Image *image_load(const char *file);`
 + 参数：
   + `file` -- 文件名
 + 返回值：
@@ -52,8 +52,8 @@
 
 ### image_load2
 
-+ 原型：`Image *image_load2(const char *data,size_t size);`
 + 功能：加载图像  -- 源数据从内存中读取
++ 原型：`Image *image_load2(const char *data,size_t size);`
 + 参数：
   + `data` -- 图像数据指针
   + `size` -- 图像数据尺寸
@@ -67,8 +67,8 @@
 
 ### image_save
 
-+ 原型：`int image_save(Image *img, const char *file);`
 + 功能：保存图片  -- 输出到文件，返回一个文件名
++ 原型：`int image_save(Image *img, const char *file);`
 + 参数：
   + `img`  -- Image结构体指针
   + `file` -- 所保存的文件名
@@ -82,8 +82,8 @@
 
 ### image_save2
 
-+ 原型：`int image_save2(Image *img,void **out_data, int *out_size);`
 + 功能：保存图片  -- 输出到内存中，返回一个指向数据内存块的二级指针
++ 原型：`int image_save2(Image *img,void **out_data, int *out_size);`
 + 参数：
   + `img`  --  Image结构体指针
   + `out_data` -- 图像数据二级指针
@@ -100,8 +100,8 @@
 
 ### engine_conf_free
 
-+ 原型：`void engine_conf_free(engine_conf_handle_t *handle);`
 + 功能：卸载引擎
++ 原型：`void engine_conf_free(engine_conf_handle_t *handle);`
 + 参数：
   + `handle`  -- engine_conf_handle_t结构体类型的指针，引擎资源句柄
 + 返回值：
@@ -113,8 +113,8 @@
 
 ### engine_conf_alloc
 
-+ 原型：`engine_conf_handle_t engine_conf_alloc(const char *conf,int retry);`
 + 功能：加载引擎
++ 原型：`engine_conf_handle_t engine_conf_alloc(const char *conf,int retry);`
 + 参数：
   + `conf`  -- 引擎配置文件
   + `retry` -- ·重试加载的次数，在加载失败时有效
@@ -128,8 +128,8 @@
 
 ### engine_conf_state
 
-+ 原型：`int engine_conf_state(engine_conf_handle_t handle);`
 + 功能：获取引擎的状态信息
++ 原型：`int engine_conf_state(engine_conf_handle_t handle);`
 + 参数：
   + `handle`  -- 引擎环境指针， engine_conf_handle_t 结构体
 + 返回值：
@@ -161,30 +161,30 @@
     + `Touch()`  --  构造函数， 初始化类属性
     + `~Touch()` --  虚析构函数，调用类方法`Destory()`
     + `GetType()`
-      + 原型：`const char* GetType();`
       + 功能：获取引擎类型
+      + 原型：`const char* GetType();`
       + 参数：无
       + 返回值：
         + 成功  --  返回一个指向保存引擎类型的C字符串指针
         + 失败  --  返回空
     + `IsOpen()`
-      + 原型：`bool IsOpen();`
       + 功能：判断引擎是否加载成功
+      + 原型：`bool IsOpen();`
       + 参数：无
       + 返回值：
         + 成功  -- 返回True，表示引擎已成功加载
         + 失败  -- 返回False，表示引擎未成功加载
     + `Destory()`
-      + 原型：`void Destory();`
       + 功能：销毁引擎
+      + 原型：`void Destory();`
       + 参数：无
       + 返回值：无
       + 注意：
         + 其内部实现是基于 `infer.cpp`
         + 能够加载不同类型的模型并运行的原理是，为每一个类型的模型都创建一个类，通过判断操作不同的类实例
     + `Create()`
-      + 原型：`bool Create(const char* engine);`
       + 功能：创建一个引擎环境
+      + 原型：`bool Create(const char* engine);`
       + 参数：
         + `engine`  --  引擎名
       + 返回值：
@@ -196,8 +196,8 @@
     + `Execute()`
       + 虚函数  --  执行推理
       + 一
-        + 原型：`virtual void Execute(Image* imgs[], int count /*=1 */);`
         + 功能：执行推理功能
+        + 原型：`virtual void Execute(Image* imgs[], int count /*=1 */);`
         + 参数：
           + `imgs`  --  保存数据类型为Image结构体的数组
           + `count` --  图片的数量
