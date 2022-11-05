@@ -856,3 +856,109 @@
 + 返回值：空
 + 注意：
   + 其内部实现依赖于`log_vprintf()`
+
+-----------------------------------------------------------------------------------------------------------
+
+## `contrib/ndarray.hpp`
+
++ 概述：
+  + 多维数组
+
+### `ndarray`模板类
+
++ 命名空间：`aicontrib`
++ 功能：多维数组的计算和处理
++ 类属性：
+  + 公有属性：
+    + `m_data`   --  
+    + `m_format` --  格式
+    + `m_blocks` --  块，
+    + `m_height` --  高度
+    + `m_width`  --  宽度
+    + `m_pitch`  --  宽步长`bytes`
+    + `m_depth`  --  深度
++ 类方法：
+  + 公有方法：
+    + `ndarray()`
+      + 构造函数，初始化环境
+      + 一
+        + 功能：初始化环境，将公有属性初始化
+        + 原型：`ndarray()；`
+      + 二
+        + 功能：使用接收到的参数，初始化类
+        + 原型：`ndarray(T *data, ndarray_format fmt, uint32_t blocks, uint32_t depth, uint32_t height, uint32_t width, uint32_t align);`
+        + 参数：
+          + `data`   --  数据指针，换言之，数组要存放的数据
+          + `fmt`    --  格式
+          + `blocks` --  块，
+          + `depth`  --  深度
+          + `height` --  高度
+          + `width`  --  宽度
+          + `align`  --  宽步长 `bytes`
+    + `virtual ~ndarray()`  --  虚析构函数
+    + size_align()
+      + 虚函数  --  字节对齐
+      + 一
+        + 功能：字节对齐
+        + 原型：`virtual size_t size_align(size_t size, size_t align);`
+        + 参数：
+          + `size`  --  
+          + `align` -- 
+        + 返回值：
+          + 成功  --  对其的字节数？？？
+    + set()
+      + 虚函数  --  设置类属性
+      + 一
+        + 功能：接收参数，初始化类属性
+        + 原型：`virtual void set(T *data, ndarray_format fmt, uint32_t blocks, uint32_t depth, uint32_t height, uint32_t width, uint32_t align);`
+        + 参数：
+          + `data`   --  数据指针，换言之，数组要存放的数据
+          + `fmt`    --  格式
+          + `blocks` --  块，
+          + `depth`  --  深度
+          + `height` --  高度
+          + `width`  --  宽度
+          + `align`  --  宽步长 `bytes`
+        + 返回值：空
+        + 注意：
+          + 其内部实现，调用了`set_pitch()`
+    + set_pitch()
+      + 虚函数  --  ？？？
+      + 一
+        + 功能：
+        + 原型：`virtual void set_pitch(uint32_t align);`
+        + 参数：
+          + `align`  --  宽步长
+        + 返回值：空
+        + 注意： 
+          + 其内部调用了`size_align()`
+    + seek_p()
+      + 虚函数  --  查找？？
+      + 一
+        + 功能：
+        + 原型：`virtual const T *seek_p(uint32_t n, uint32_t x, uint32_t y, uint32_t z);`
+        + 参数：
+          + `n`  -- 
+          + `x`  -- 
+          + `y`  --
+          + `z`  --
+        + 返回值：
+          + 成功  --  
+          + 失败  --  NULL
+        + 注意：
+          + 其内部实现，依赖于`general.h`文件下的宏`NCHW_SEEK`
+    + seek()
+      + 虚函数  --  
+      + 一
+        + 功能：
+        + 原型：`virtual T seek(uint32_t n, uint32_t x, uint32_t y, uint32_t z);`
+        + 参数：
+          + `n`  -- 
+          + `x`  -- 
+          + `y`  --
+          + `z`  --
+        + 返回值：
+          + 成功  --  
+          + 失败  --  NULL
+        + 注意：
+          + 其内部实现，依赖于`seek_p()`
