@@ -328,6 +328,9 @@
 
 ## `contrib/infer.h`
 
++ 概述：
+  + 推理实现部分
+
 ### model2local()
 
 + 原型：`int model2local(dict_handle_t dictionary);`
@@ -484,6 +487,7 @@
 ## `contrib/nms.h`
 
 + 概述：
+  + 检测框处理
 
 ### nms_compute()
 
@@ -505,6 +509,7 @@
 ## `contrib/BoxMat.hpp`
 
 + 概述：
+  + 检测框信息的处理
 
 ### `BoxMat`类
 
@@ -650,7 +655,8 @@
 ## `contrib/Model.hpp`
 
 + 概述
-  + 图像后处理
+  + 模型通用后处理
+  + 基类
 
 ### `Model`类
 
