@@ -554,6 +554,18 @@ int test_sqrt()
 
 typedef void *_mathcer;
 
+/*左移n位，原数乘以2的n次方; 右移n位，原数除以2的n次方*/
+int test_move_left()
+{
+    int num_left = 2;
+    printf("[%d] move left (<<) 8  is [%d] \n", num_left, num_left << 2);
+
+    int num_right = 8;
+    printf("[%d] move right (>>) 8 is [%d] \n", num_right, num_right >> 2);
+
+    return 0;
+}
+
 int main()
 {
     // test_virtual();
@@ -580,14 +592,15 @@ int main()
 
     // test_vsnprintf();
 
-    test_sqrt();
+    // test_sqrt();
 
-    _mathcer val;
+    // _mathcer val;
 
-    void * res;
-    std::cout << typeid(val).name() << std::endl;
-    std::cout << typeid(res).name() << std::endl;
+    // void * res;
+    // std::cout << typeid(val).name() << std::endl;
+    // std::cout << typeid(res).name() << std::endl;
 
+    test_move_left();
     
     return 0;
 }
