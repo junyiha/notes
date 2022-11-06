@@ -17,13 +17,13 @@
 + VScode在`launch.json`调试文件和`task.json`任务文件中是支持变量替换的，这就意味着可以很方便的使用VScode一些预定以的变量。
 + 变量的使用方式：`${variableName}`
 + 常用的变量：
-  + `${workspaceFolder}` : 项目文件夹在`VScode`中打开的路径
-  + `${file}` : 当前打开的文件
-  + `${relativeFile}` : 相对于`${workspaceFolder}`的文件路径
-  + `${fileBasename}` : 当前打开文件的名称
-  + `${fileBasenameNoExtension}` : 当前打开文件的名称，不带扩展名
-  + `${fileExtname}` : 当前打开文件的扩展名
-  + `${fileDirname}` : 当前打开文件的文件夹名称
+  - `${workspaceFolder}` : 项目文件夹在`VScode`中打开的路径
+  - `${file}` : 当前打开的文件
+  - `${relativeFile}` : 相对于`${workspaceFolder}`的文件路径
+  - `${fileBasename}` : 当前打开文件的名称
+  - `${fileBasenameNoExtension}` : 当前打开文件的名称，不带扩展名
+  - `${fileExtname}` : 当前打开文件的扩展名
+  - `${fileDirname}` : 当前打开文件的文件夹名称
 
 ## 调试 断点
 

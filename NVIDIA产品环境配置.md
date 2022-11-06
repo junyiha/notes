@@ -94,7 +94,6 @@
 + 创建 `/usr/local/TensorRT`
 
 + 安装步骤
-
   + 下载tar压缩包，并解压，将解压后得到的文件夹复制到`/usr/local/`下，并重命名为`TensorRT`
   + 切换到`/usr/local/TensorRT/python`目录，执行命令`sudo pip38 install tensorrt-8.2.1.8-cp38-none-linux_x86_64.whl`
     + 自带的python有3.6和2.7，但是该目录下没有支持这两个版本的whl文件，要重新编译和安装python38
@@ -116,8 +115,8 @@
 ## nvidia-container-toolkit
 
 + Add the package repositories
-  + `distribution=$(. /etc/os-release;echo $ID$VERSION_ID)`
-  + `curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -`
+  - `distribution=$(. /etc/os-release;echo $ID$VERSION_ID)`
+  - `curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -`
 
 + `curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list`
 
@@ -132,8 +131,8 @@
 ## 从镜像启动容器，并检查硬件
 
 + `docker run -it --gpus all --name nvidia nvidia_cuda:v1.0 /bin/bash`
-  + `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源
-  + `--name nvidia` : 设置容器名称
+  - `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源
+  - `--name nvidia` : 设置容器名称
 
 + `nvidia-smi, NVIDIA System Management Interface program` : 默认查看详细的gpu信息
   + `nvidia-smi -L` : 通过uuid查看每个gpu信息

@@ -32,24 +32,24 @@ CMake构建的两种形式:就地构建(in-source)和源码外构建(out-of-sour
 CMake的执行过程分为三个阶段:
 英文:
 1. **Configure**:  
-   + Parse top level CMakeLists.txt, 
-   + Generates cache variables, 
-   + Only relevant in GUI builds
+   - Parse top level CMakeLists.txt, 
+   - Generates cache variables, 
+   - Only relevant in GUI builds
 2. **Generate**:
-   + Generate native build tool files, 
-   + Can do cross compilation passing toolchain files
+   - Generate native build tool files, 
+   - Can do cross compilation passing toolchain files
 3. **Build**:
-   + Uses native build tools to compile the sources, 
-   + All it takes is cmake --build
+   - Uses native build tools to compile the sources, 
+   - All it takes is cmake --build
 中文:
 1. 配置阶段:
-   + CMake将解析源码树顶层的`CMakeLists.txt`,并生成一个`CMakeCache.txt`以存储cache变量
-   + 对于CMake-GUI,该阶段由点击Configure出发,
-   + 对于命令版本的CMake,该阶段与生成阶段结合在一起
-   + CMake打印消息:`Configuring done`以表示配置阶段结束
+   - CMake将解析源码树顶层的`CMakeLists.txt`,并生成一个`CMakeCache.txt`以存储cache变量
+   - 对于CMake-GUI,该阶段由点击Configure出发,
+   - 对于命令版本的CMake,该阶段与生成阶段结合在一起
+   - CMake打印消息:`Configuring done`以表示配置阶段结束
 2. 生成阶段:
-   + CMake将根据`CMakeLists.txt`和`CMakeCache.txt`生成构建系统文件
-   + 在CMake-GUI中,该阶段由点击Generate出发
-   + CMake打印消息`Generating done`以表示生成阶段结束
+   - CMake将根据`CMakeLists.txt`和`CMakeCache.txt`生成构建系统文件
+   - 在CMake-GUI中,该阶段由点击Generate出发
+   - CMake打印消息`Generating done`以表示生成阶段结束
 3. 构建阶段:
-   + 这一阶段由构建系统负责,在这个阶段中将生成项目的目标
+   - 这一阶段由构建系统负责,在这个阶段中将生成项目的目标
