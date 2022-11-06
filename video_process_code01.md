@@ -142,6 +142,96 @@
 
 ---------------------------------------------------------------------------------
 
+## `contrib/jpeg.h`
+
++ 概述：
+  + JPEG编码器
+
+### jcodec_free()
+
++ 功能：删除编解码器
++ 原型：`void jcodec_free(JPEGCodec **ctx);`
++ 参数：
+  + `ctx`  --  JPEG编解码器环境句柄
++ 返回值：空
++ 注意：
+  + 其内部实现，依赖于不同平台的函数实现，例如`Nvidia  nv_jcodec_free() | BitMainland  bm_jcodec_free()`
+  + 不同平台的函数实现，又依赖于不同平台的类方法，例如`Nvidia::NvJPEGDecode::destory(), Nvidia::NvJPEGEncode::destory() | BitMainland::BmJPEGDecode::destory(), BitMainland::BmJPEGEncode::destory()`
+
+### jcodec_alloc()
+
++ 功能：创建编解码器
++ 原型：`JPEGCodec *jcodec_alloc()`
++ 参数：无
++ 返回值：
+  + 成功  --  返回JPEG编解码器环境句柄
+  + 失败  --  NULL
++ 注意：
+  + 其内部实现，依赖于不同平台的函数实现，例如`Nvidia nv_jcodec_alloc() | BitMainland bm_jcodec_alloc()`
+  + 不同平台的函数实现，其内部调用了`calloc()`
+
+### jcodec_encode()
+
++ 功能：编码
++ 原型：`int jcodec_encode(JPEGCodec *ctx, const Image *in_img, void **out_data, int *out_size);`
++ 参数：
+  + `ctx`  --  JPEG编解码器环境句柄
+  + `in_img`   --  输入的需要编码的图像结构
+  + `out_data` --  输出编码后的码流数据
+  + `out_size` --  编码后的码流数据报的大小
++ 返回值：
+  + 成功  --  >= 0
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于不同平台的函数实现，例如`Nvidia nv_jcodec_encode() | BitMainland bm_jcodec_encode()`
+  + 不同平台的函数实现，又依赖于不同平台的类方法，例如`Nvidia::NvJPEGEncode::encode() | BitMainland::BmJPEGEncode::encode()`
+
+### jcodec_decode()
+
++ 功能：解码
++ 原型：`int jcodec_decode(JPEGCodec *ctx, const void *in_data, const int in_size, Image *out_img);`
++ 参数：
+  + `ctx`  --  JPEG编解码器环境句柄
+  + `in_data`  --  输入的需要解码的码流数据报
+  + `in_size`  --  需要解码的数据长度
+  + `out_img`  --  解码后的图像
++ 返回值：
+  + 成功  --  >= 0
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于不同平台的函数实现，例如`Nvidia nv_jcodec_decode() | BitMainland bm_jcodec_decode()`
+  + 不同平台的函数实现，又依赖于不同平台的类方法，例如`Nvidia::NvJPEGEncode::decode() | BitMainland::BmJPEGEncode::decode()`
+
+### jcodec_encode2file()
+
++ 功能：编码写入文件
++ 原型：`int jcodec_encode2file(JPEGCodec *ctx, const Image *in_img, const char *out_file);`
++ 参数：
+  + `ctx`  --  编解码器环境句柄
+  + `in_img`   --  输入需要编码的图像
+  + `out_file` --  需要接收编码码流数据的文件
++ 返回值：
+  + 成功  --  >= 0
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于`jcodec_encode()`将图像编码，之后使用`fopen(), fwrite()`将编码后的码流写入到文件`out_file`
+
+### jcodec_decode_file()
+
++ 功能：从文件中解码
++ 原型：`int jcodec_decode_file(JPEGCodec *ctx, const char *in_file, Image *out_img);`
++ 参数：
+  + `ctx`  --  编解码器环境句柄
+  + `in_file`  --  存放需要解码的码流数据的文件
+  + `out_img`  --  解码后的图像
++ 返回值：
+  + 成功  --  >= 0
+  + 失败  --  -1
++ 注意：
+  + 其内部实现，依赖于 `open() fstat() mmap()` 将文件中的码流数据映射到内存中，之后调用`jcodec_decode()`解码
+
+---------------------------------------------------------------------------------
+
 ## `advance/Touch.hpp`
 
 ### `Touch` 类
