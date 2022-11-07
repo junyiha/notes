@@ -264,3 +264,38 @@
   - 与新版本的差异
 
 + 本地搭建多个版本的测试环境
+
+## 使用命令行启动服务，客户端启动多任务
+
++ 启动`kms.exe`服务，用来激活vca（未激活的vca，最多只能同时启动两个任务）
+  - `./vca.exe --licence M6RT8H25-HWPT8H27-K6RS8H29-D6RT8H24-YXR3QAU7-BRR38H29-D6QSZF25-D6F38H29-D6RT8H29-D6RT9R49-VUEVQV69 --listen`
++ 参数：
+  - `--licence`  --  激活密钥
+  - `--listen  < ADDRESS >`   --  监听地址(IPV4:PORT | [IPV6]:PORT)。默认：0.0.0.0:17007
+
++ 启动`vca.exe`服务
+  - `./vca.exe --device --kms-address --multi-task 1 --multi-task-limit-max 65 --multi-task-zmq-listen tcp://*:9102`
++ 参数：
+  - `--device < NUMBER >`  --  设备。默认：0
+  - `--kms-address < ADDRESS >`  --  KMS服务器地址。默认：127.0.0.1:17007
+  - `--multi-task < TYPE >`  --  启动多任务模式，并设置指令的管道类型，默认：1 (1：ZMQ | 2：KAFKA) 
+  - `--multi-task-limit-max < NUMBER >`  --  多任务模式最大任务数量。默认：10。
+  - `--multi-task-zmq-listen < ADDRESS(ZMQ) >`  --  多任务模式ZMQ监听地址。默认：tcp://*:9102
+
++ 使用命令启动任务
+  - `./vca.exe --server-order-protocol 1 --server-response-timeout --server-zmq-address tcp://127.0.0.1:9102 --mid 1 --cmd 2 --id 1 --detector-conf-inline --detector-conf @--detector-models@/data/models/zhuoer/DETECT.conf@xxxx@yyyy@  --input-video-name /home/user/Videos/forget_v1.mkv --output-type 0`
++ 参数：
+  - `--server-order-protocol < TYPE >`  --  服务端指令协议。默认：1。(1：ZMQ | 2：KAFKA)
+  - `--server-response-timeout < NUMBER >`  --  服务端响应超时(秒)。默认：86400
+  - `--server-zmq-address < ADDRESS(ZMQ) >` --  服务端ZMQ地址。默认：tcp://127.0.0.1:9102
+  - `--mid < NUMBER >`  --  消息ID
+  + `--cmd  < COMMAND >`--  命令
+    - 1  --  任务列表
+    - 2  --  创建并启动任务
+    - 3  --  停止任务
+    - 4  --  删除任务
+    - 5  --  更新任务
+    - 6  --  任务状态
+
++ **notice**
+  - 已经要先将模型测试一遍，输出结果保存为视频，查看是否成功加载模型，并检测
