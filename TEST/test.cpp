@@ -566,8 +566,29 @@ int test_move_left()
     return 0;
 }
 
+// 迭代器
+int test_iterator()
+{
+    std::vector<int> var;
+
+    var.push_back(1);
+    var.push_back(2);
+    var.push_back(3);
+    var.push_back(4);
+
+    for(std::vector<int>::iterator iter = var.begin(); iter != var.end(); ++iter)
+        std::cout << *iter << std::endl;
+
+    for(auto i:var)
+        std::cout << i << std::endl;
+
+    return 0;
+}
+
 int main()
 {
+    test_iterator();
+
     // test_virtual();
 
     // test_pair();
@@ -600,7 +621,7 @@ int main()
     // std::cout << typeid(val).name() << std::endl;
     // std::cout << typeid(res).name() << std::endl;
 
-    test_move_left();
+    // test_move_left();
     
     return 0;
 }

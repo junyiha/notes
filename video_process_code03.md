@@ -693,3 +693,185 @@
   + 在video_open()之后调用。
   + 其内部实现，依赖于不同平台的函数实现，例如`nv_video_write() | bm_video_write()`
   + 不同平台的函数实现，其内部又依赖于不同类的方法，例如`Nvidia::NvVideoWriter::write() | BitMainland::BmVideoWriter::write()`
+
+---------------------------------------------------------------------------------------------------------------
+
+## `contrib/KAFKA.hpp`
+
++ 概述：
+  + kafka， 消息通讯
+  + 发数据  --  producer
+  + 收数据  --  consumer
+
+### `KAFKA`类
+
++ 命名空间：`aicontrib`
++ 功能：消息通讯
++ 类属性：
+  + 公有属性：
+    + `TYPE`
+      + `enum TYPE{ CONSUMER = 1, PRODUCER = 2};`
+  + 受保护属性：
+    + `m_type`  --  类型
+    + `m_errbuf`  --  保存错误信息的字符数组
+    + `m_conf`  --  kafka配置信息结构体  --  `rd_kafka_conf_t`
+    + `m_kafka` --  kafka结构体  --  `rd_kafka_t`
+    + `m_topic` --  kafka主题结构体
+    + `m_parition`  --  分区
++ 类方法：
+  + 公有方法：
+    + `KAFKA(TYPE type = PRODUCER);`  --  构造函数  --  初始化类属性
+    + `virtual ~KAFKA();`  --  虚析构函数  --  调用`Stop()`方法
+    + Stop()
+      + 功能：
+        + 如果是消费者，停止消费主题 `m_topic` 和 `m_partition` 分区的消息，清除当前在本地队列中的所有消息
+        + 如果是生产者，等待所有消息发送完毕
+        + 之后，销毁主题`m_topic`,销毁kafka句柄`m_kafka`
+      + 原型：`inline void Stop();`
+      + 参数：无
+      + 返回值：空
+      + 注意：
+        + 其内部实现，依赖于`rdkafka.h`文件下的`rd_kafka_consume_stop(), rd_kafka_poll(), rd_kafka_outq_len(), rd_kafka_topic_destroy(), rd_kafka_destroy()`
+    + Start()
+      + 功能：
+        + 如果是消费者，接收主题，生成句柄，开始收数据（消费）
+        + 如果是生产者，？？？
+        + 配置环境信息，创建主题配置文件和主题资源句柄
+      + 原型：`inline bool Start(const char *brokerlist, const char *topic, int partition /*=0 */, const char *groupid /*=NULL */);`
+      + 参数：
+        + `brokerlist`  --  代理名单？？
+        + `topic`       --  主题
+        + `partition`   --  分区
+        + `groupid`     --  组id
+      + 返回值：
+        + 成功  --  返回true
+        + 失败  --  调用`Stop()`并返回false
+      + 注意：
+        + 其内部实现，依赖于`rdkafka.h`文件下的`rd_kafka_conf_set(), rd_kafka_new(), rd_kafka_brokers_add(), rd_kafka_topic_conf_new(), rd_kafka_topic_new(), rd_kafka_consume_start()`
+    + Send()
+      + 功能：发送消息
+      + 原型：`inline bool Send(const void *data, long size, long timeout /*= -1*/);`
+      + 参数：
+        + `data`  --  需要发送的数据
+        + `size`  --  发送的数据大小
+        + `timeout`  --  超时时间？
+      + 返回值：
+        + 成功  --  返回true
+        + 失败  --  返回false
+      + 注意：
+        + 其内部实现，依赖于`rdkafka.h`文件下的
+        + `rd_kafka_produce();`  --  生成一条消息并将其发送给代理
+        + `rd_kafka_poll();`  --  轮询提供的 kafka 句柄以获取事件，返回服务的事件数量
+        + `rd_kafka_errno2err();`  --  错误信息输出
+    + Recv()
+      + 功能：接收消息
+      + 原型：`inline bool Recv(void **data, long *size, long timeout /*= -1*/);`
+      + 参数：
+        + `data`  --  接收从主题解析出来的数据
+        + `size`  --  接收的数据大小
+        + `timeout`  --  等待接收消息的最长时间
+      + 返回值：
+        + 成功  --  true
+        + 失败  --  false
+      + 注意：
+        + 其内部实现，依赖于`rdkafka.h`文件下的
+        + `rd_kafka_consume();`  --  
+          + 使用来自主题 `rkt` 的单个消息，分区 `timeout_ms` 是等待接收消息的最长时间。 
+          + 返回值：
+            + 成功  --  返回消息对象
+            + 失败  --  返回NULL
+        + `rd_kafka_message_destroy();`  --  释放 `rkmessage`(消息对象) 的资源并将所有权交还给 `rdkafka`
+        + 通过`mem_dup();`函数将消息对象中的数据转储到`data`中
+
+---------------------------------------------------------------------------------------------------------------
+
+## `contrib/ZMQ.hpp`
+
++ 概述：
+  + `ZeroMQ`（简称`ZMQ`）是一个基于消息队列的多线程网络库，其对套接字类型、连接处理、帧、甚至路由的底层细节进行抽象，提供跨越多种传输协议的套接字
+  + `ZMQ`是网络通信中新的一层，介于应用层和传输层之间（按照`TCP/IP`划分），其是一个可伸缩层，可并行运行，分散在分布式系统间
+  + `ZMQ`不是单独的服务，而是一个嵌入式库，它封装了网络通信、消息队列、线程调度等功能，向上层提供简洁的`API`，应用程序通过加载库文件，调用`API`函数来实现高性能网络通信
+
+### `ZMQ`类
+
++ 命名空间：`aicontrib`
++ 功能：实现网络通信
++ 类属性：
+  + 公有属性：
+    + `enum TYPE{REQ = 1 /*客户端使用*/, REP = 2 /*服务端*/};`
+  + 受保护属性：
+    + `m_ctx`  --  环境句柄（上下文）
+    + `m_user` --  使用者
++ 类方法：
+  + 公有方法：
+    + `ZMQ(TYPE type);`  --  构造函数  --  初始化环境，其内部实现，依赖于`zmq.h`文件下的`zmq_ctx_new(), zmq_socket()`函数
+      + `zmq_ctx_new();`  --  创建`m_ctx`环境句柄（上下文）
+      + `zmq_socket();`  --  创建zmq的socket套接字
+    + `inline virtual ~ZMQ();`  --  虚析构函数  -- 其内部实现，依赖于`zmq.h`文件下的函数
+      + `zmq_setsocketopt()`  --  设置ZMQ的socket属性
+      + `zmq_close();`  --  关闭zmq
+      + `zmq_ctx_shutdown();`  --  销毁`m_ctx`环境句柄（上下文）
+      + `zmq_ctx_term();`  --  终止一个`m_ctx`环境句柄（上下文）
+    + connect()
+      + 虚函数  --  向指定的地址发起连接
+      + 一
+        + 功能：向指定的地址发起连接
+        + 原型：`inline virtual bool connect(const char *addr);`
+        + 参数：
+          + `addr`  --  需要连接的地址
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`zmq.h`文件下的`zmq_connect();` 
+    + listen()
+      + 虚函数  --  绑定，监听和接收
+      + 一
+        + 功能：对指定地址的套接字进行绑定，监听和接收
+        + 原型：`inline virtual bool listen(const char *addr);`
+        + 参数：
+          + `addr`  --  需要监听的地址
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`zmq.h`文件下的`zmq_bind()`函数
+    + send()
+      + 虚函数  --  发送
+      + 一
+        + 功能：发送指定大小的数据
+        + 原型：`inline virtual bool send(const void *data, long size, long timeout /*=-1 */);`
+        + 参数：
+          + `data`  --  需要发送的数据
+          + `size`  --  需要发送的数据大小
+          + `timeout`  --  延迟时间
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`zmq.h`文件下的
+            + `zmq_poll()`
+            + `zmq_msg_init_size()`
+            + `zmq_msg_data()`  --  
+            + `zmq_msg_send()`  --  发送消息
+            + `zmq_msg_close()` --  关闭
+    + recv()
+      + 虚函数  --  接收
+      + 一
+        + 功能：接收指定大小的数据
+        + 原型：`inline virtual bool recv(void **data, long *size, long timeout /*=-1 */);`
+        + 参数：
+          + `data`  --  存储接收到的消息数据
+          + `size`  --  接收的消息大小
+          + `timeout`  --  延时时间
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`zmq.h`文件下的
+            + `zmq_poll()`
+            + `zmq_msg_init()`
+            + `zmq_msg_recv()`  --  接收消息
+            + `zmq_msg_data()`
+            + `zmq_msg_size()`
+            + `zmq_msg_close()`
