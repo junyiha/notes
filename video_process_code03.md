@@ -875,3 +875,118 @@
             + `zmq_msg_data()`
             + `zmq_msg_size()`
             + `zmq_msg_close()`
+
+---------------------------------------------------------------------------------------------------------------
+
+## `contrib/redis.hpp`
+
++ 概述：
+  + redis客户端
+
+### `redis`类
+
++ 命名空间：`aicontrib`
++ 功能：redis客户端
++ 类属性：
+  + 私有属性：
+    + `m_connected_stable`  --  连接状态
+    + `m_ctx`   --  上下文
+    + `m_reply` --  回复对象，由`redisCommand()`返回
+  + 公有属性：
+    + enum REPLY_TPYE
+      + `UNKNOWN`  --  -1
+      + `STRING`   --  `REDIS_REPLY_STRING`
+      + `ARRAY`    --  `REDIS_REPLY_ARRAY`
+      + `INTEGER`  --  `REDIS_REPLY_INTEGER`
+      + `NIL`      --  `REDIS_REPLY_NIL`
+      + `STATUS`   --  `REDIS_REPLY_STATUS`
+      + `ERROR`    --  `REDIS_REPLY_ERROR`
++ 类方法：
+  + 公有方法：
+    + `redis();`  --  构造函数  --  初始化类私有属性
+    + `virtual ~redis();`  --  虚析构函数，调用类方法`disconnect()`
+    + connected()
+      + 虚函数  --  查看是否连接
+      + 一
+        + 功能：查看是否连接
+        + 原型：`inline virtual bool connected();`
+        + 参数：无
+        + 返回值：
+          + 连接  --  true
+          + 未连接 --  false
+        + 注意：
+          + 其内部实现，返回类属性`m_connected_stable`
+    + connect()
+      + 虚函数  --  连接
+      + 一
+        + 功能：连接指定端口的地址
+        + 原型：`inline virtual bool connect(const char *addr, uint16_t port, long timeout);`  
+        + 参数：
+          + `addr`  --  需要连接的地址
+          + `port`  --  需要连接的端口号
+          + `timeout`  --  超时时间
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`hiredis.h`文件下的`redisConnectWithTimeout()`函数
+    + disconnect()
+      + 虚函数  -- 断开连接
+      + 一
+        + 功能：断开连接
+        + 原型：`inline virtual void disconnect();`
+        + 参数：无
+        + 返回值：空
+        + 注意：
+          + 其内部实现，依赖于类方法`free_reply(), free_connected()`
+    + execv()
+      + 虚函数  --  向Redis发命令
+      + 一
+        + 功能：向Redis发出命令
+        + 原型：`inline virtual bool execv(const char *fmt, va_list ap);`
+        + 参数：
+          + `fmt`  --  发送的消息格式？
+          + `ap`   --  参数,存储信息
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于类方法`free_reply()`和`hiredis.h`文件下的`redisvCommand()`函数
+    + exec()
+      + 虚函数  --  向Redis发送命令
+      + 一
+        + 功能：接收参数，并分析参数，向Redis发送命令
+        + 原型：`inline virtual bool exec(const char *fmt, ...);`
+        + 参数：
+          + `fmt`  --  参数格式
+        + 返回值：
+          + 成功  --  true
+          + 失败  --  false
+        + 注意：
+          + 其内部实现，依赖于`va_start(), va_end()`解析接收的参数，之后调用`execv()`类方法
+    + fetch_reply_data()
+      + 虚函数  --  获取回复数据
+      + 一
+        + 功能：获取回复数据
+        + 原型：`inline virtual void fetch_reply_data(std::vector<std::tuple<REPLY_TYPE, int64_t, std::string>> &data, redisReply *reply /*=NULL */);`
+        + 参数：
+          + `data`  --  获取的数据
+          + `reply` --  redis回复结构体
+        + 返回值：空
+        + 注意：
+          + 其内部实现，依赖于STL的操作
+  + 私有方法
+    + free_reply()
+      + 功能：释放redis回复对象
+      + 原型：`void free_reply();`
+      + 参数：无
+      + 返回值：空
+      + 注意：
+        + 其内部实现，依赖于`hiredis.h`文件下的`freeReplyObject();`
+    + free_connected()
+      + 功能：断开redis连接
+      + 原型：`void free_connected();`
+      + 参数：无
+      + 返回值：空
+      + 注意：
+        + 其内部实现，依赖于`hiredis.h`文件下的`redisFree();`
