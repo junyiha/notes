@@ -19,6 +19,18 @@
   + `Arg` -- 一些参数，可以指定输出文件
   + `&` -- 让命令在后台执行，终端退出后命令仍旧执行
 
+## split
+
++ 功能：将单个tar文件切割成多个tar文件
++ 命令：`split -b 4000M -a 1 -d nvidia.tar nvidia.tar`
++ 参数：
+  + `-b`  --  指定生成的分割包大小
+  + `-a`  --  设定序列的长度，默认为2，这里设置为1，生成的文件就为nvidia.tar1，
+  + `-d`  --  指定生成的分割包后缀为数字的形式
+
+## 将`split`分割的压缩包合并
+
++ `cat nvidia.tar* > nvidia.tar | cat nvidia.tar01 nvidia.tar02 > nvidia.tar`
 
 ## `.7z` 文件
 

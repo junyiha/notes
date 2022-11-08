@@ -2,13 +2,19 @@
 
 + `ffmpeg -rtsp_transport tcp -i rtsp://admin:a1234567@192.167.0.56:554 -c copy -f mp4 -t 00:10:00 /data/output.mp4`
 
+## ffmpeg缩放视频（等比例）
+
++ `ffmpeg -i input-video.mp4 -vf scale=300:180 ./output.mp4`
++ 参数：
+  + `-vf`  --  filter_graph, set video filters
+
 ## FFmpeg将视频按帧截取保存为图片
 
 + `ffmpeg -i /home/user/Videos/new_year.mp4 -r 5 -f image2 image-%03d.jpg`
 + 参数：
   + `-i`  --  指定输入源
   + `-r`  --  指定抽取的帧，即从视频中每秒抽取的图片数量
-  + `-f`  --  保存图片使用的格式
+  + `-f`  --  fmt，强迫采用格式fmt 保存图片使用的格式
   + `image-%03d.jpg`  --  指定文件的输出名字
 
 ## 获取音视频信息
