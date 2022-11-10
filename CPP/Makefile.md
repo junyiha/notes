@@ -17,6 +17,7 @@
 + `make -C dir`, `--directory=dir` : Change to directory `dir` before reading the makefiles or doing anything else.
 
 ## 变量：
+
 + 变量在声明时，需要给予初值，而在使用时，需要给变量名前加上$符号，并且用小括号括起来
 + makefile中变量分为环境变量，内置变量和自动变量
 + **环境变量**
@@ -41,10 +42,11 @@
   - `$(CFLAGS)` : C语言编译器的编译选项，无默认值
   - `$(CXXFLAGS)`: C++语言编译器的编译选项，无默认值
 
-## 函数
+## 运算符
 
-+ `$(abspath names...)` : 获取文件的绝对地址 
-+ `ifeq (condition1, condition2) ... endif` :  如果`condition1` 等于 `conditon2` , 则执行下面的操作，否则不执行
++ `?=`
+  + 条件变量分配运算符，它仅在尚未定义的变量时具有效果
+
 + ` += `
     ```
     variable = main.o merge.o
@@ -54,7 +56,16 @@
     	@echo ${variable} 
     # 输出: main.o merge.o delete.o
     ```
-+ `${addprefix "前缀", filenames...}` : 为文件加前缀
+
+## 函数
+
++ `$(abspath names...)` : 获取文件的绝对地址 
+
++ `ifeq (condition1, condition2) ... endif`   
+  + 如果`condition1` 等于 `conditon2` , 则执行下面的操作，否则不执行
+
++ `${addprefix "前缀", filenames...}`  
+  + 为文件加前缀
     ```
     variable = main.o merge.o
     variable += delete.o
@@ -63,7 +74,8 @@
     	@echo ${var} 
     # 输出: -x/main.o -x/merge.o -x/delete.o
     ```
-+ `${wildcard /home/user/workspace/shell/*.sh}` : 获取指定路径下的指定文件
++ `${wildcard /home/user/workspace/shell/*.sh}`  
+  + 获取指定路径下的指定文件
     ```
       var = ${wildcard ./*.txt}
       all:
@@ -71,7 +83,8 @@
       # 输出: ./foo.txt ./bar.txt
 
     ```
-+ `${patsubst pattern, replacement, text}` : 根据相应规则替换文件名
++ `${patsubst pattern, replacement, text}` 
+  + 根据相应规则替换文件名
   ```
     var = ${wildcard ./*.txt}
     pat = ${patsubst %.txt, %.md, ${var}}
