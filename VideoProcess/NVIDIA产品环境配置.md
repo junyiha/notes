@@ -56,18 +56,8 @@
 
 ## cuda (cuda_11.4.4_470.82.01_linux)
 
-+ cuda-11.4 : `https://developer.nvidia.com/cuda-11-4-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=18.04&target_type=deb_local`
-
-  ```
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
-    sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-
-    wget https://developer.download.nvidia.com/compute/cuda/11.4.0/local_installers/cuda-repo-ubuntu1804-11-4-local_11.4.0-470.42.01-1_amd64.deb
-    sudo dpkg -i cuda-repo-ubuntu1804-11-4-local_11.4.0-470.42.01-1_amd64.deb
-    
-    sudo apt-key add /var/cuda-repo-ubuntu1804-11-4-local/7fa2af80.pub
-    sudo apt-get update && sudo apt-get -y install cuda
-  ```
++ cuda文件：`cuda_11.4.4_470.82.01_linux.run`
+  + 本地安装，在docker中安装，不要选择安装驱动，需要将宿主机中的驱动映射到docker容器中才能使用
 
 ## cudnn (cudnn-11.4-linux-x64-v8.2.4.15)
 
@@ -130,60 +120,28 @@
 
 ## 从镜像启动容器，并检查硬件
 
-+ `docker run -it --gpus all --name nvidia nvidia_cuda:v1.0 /bin/bash`
-  - `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源
+```
+  docker run -it --gpus all --privileged=true --restart=always --name nvidia  \
+    -v /usr/lib/x86_64-linux-gnu/libnvcuvid.so.470.141.03:/usr/lib/x86_64-linux-gnu/libnvcuvid.so.470.141.03 \
+    -v /usr/lib/x86_64-linux-gnu/libnvcuvid.so.1:/usr/lib/x86_64-linux-gnu/libnvcuvid.so.1  \
+    -v /usr/lib/x86_64-linux-gnu/libnvcuvid.so:/usr/lib/x86_64-linux-gnu/libnvcuvid.so \
+
+    -v /usr/lib/x86_64-linux-gnu/libnvidia-encode.so.470.141.03:/usr/lib/x86_64-linux-gnu/libnvidia-encode.so.470.141.03 \
+    -v /usr/lib/x86_64-linux-gnu/libnvidia-encode.so.1:/usr/lib/x86_64-linux-gnu/libnvidia-encode.so.1  \
+    -v /usr/lib/x86_64-linux-gnu/libnvidia-encode.so:/usr/lib/x86_64-linux-gnu/libnvidia-encode.so \
+    nvidia_cuda:v1.0 /bin/bash`
+```
+  - `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源，依赖于`nvidia-container-toolkit`工具
+  - `-v` : 将宿主机中的`libnvcuvid.so`和`libnvidia-encode.so`相关文件和链接映射到docker容器中，不同驱动的库文件版本不同，根据实际文件名设置
   - `--name nvidia` : 设置容器名称
 
 + `nvidia-smi, NVIDIA System Management Interface program` : 默认查看详细的gpu信息
   + `nvidia-smi -L` : 通过uuid查看每个gpu信息
+  + `watch nvidia-smi` : 在一个窗口动态查看gpu信息
+  + `nvidia-smi -l`  : 刷新gpu信息
 
 ## 配置环境变量并启动测试vca
 
 + `export LD_LIBRARY_PATH=/data/dagger/VideoProcess/lib:/data/dagger/VideoProcess/3party/lib:/usr/local/TensorRT/targets/x86_64-linux-gnu/lib:$LD_LIBRARY_PATH`
 
 + `/data/dagger/VideoProcess/bin/vca.exe --help`
-
---------------------------------------------------------------------------------------------------------------------
-
-
-<!-- ## cuda10.2
-
-+ cuda-10.2 : `https://developer.nvidia.com/cuda-10.2-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal`
-
-```
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin 
-sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb 
-sudo dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb
-sudo apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub
-sudo apt-get update
-sudo apt-get -y install cuda
-```
-
-## cudnnn
-
-+ `https://developer.nvidia.com/rdp/cudnn-archive` 下载相关deb包，ubuntu18需要下载三个,依次安装
-  ```
-    libcudnn7_7.6.5.32-1+cuda10.2_amd64.deb
-    libcudnn7-dev_7.6.5.32-1+cuda10.2_amd64.deb
-    libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb
-  ```
-
-## TensorRT
-
-+ 使用zar包安装，不是deb包安装。
-+ `https://developer.nvidia.com/nvidia-tensorrt-6x-download`
-+ 解压下载的压缩包，将该文件夹复制到想要安装的地方`sudo cp -R ./TensorRT /usr/local`
-+ 然后切换到该文件夹下的python文件夹，使用pip安装 `sudo pip2 install tensorrt-6.0.1.8-cp27-none-linux_x86_64.whl`, 切换到`TensorRT/graphsurgeon`目录，使用pip安装`sudo pip2 install graphsurgeon-0.4.1-py2.py3-none-any.whl`
-+ 配置`~/.bashrc`文件
-    ```
-    # for CUDA
-    export PATH="/usr/local/cuda-10.2/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH"
-
-    # for TensorRT
-    export CUDA_INSTALL_DIR="/usr/local/cuda-10.2"
-    export CUDNN_INSTALL_DIR="/usr/local/cuda-10.2"
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/TensorRT-6.0.1.8/lib"
-    ```
-+ `source ~/.bashrc` -->
