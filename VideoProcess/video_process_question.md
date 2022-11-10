@@ -268,7 +268,7 @@
 ## 使用命令行启动服务，客户端启动多任务
 
 + 启动`kms.exe`服务，用来激活vca（未激活的vca，最多只能同时启动两个任务）
-  - `./vca.exe --licence M6RT8H25-HWPT8H27-K6RS8H29-D6RT8H24-YXR3QAU7-BRR38H29-D6QSZF25-D6F38H29-D6RT8H29-D6RT9R49-VUEVQV69 --listen`
+  - `./kms.exe --licence M6RT8H25-HWPT8H27-K6RS8H29-D6RT8H24-YXR3QAU7-BRR38H29-D6QSZF25-D6F38H29-D6RT8H29-D6RT9R49-VUEVQV69 --listen`
 + 参数：
   - `--licence`  --  激活密钥
   - `--listen  < ADDRESS >`   --  监听地址(IPV4:PORT | [IPV6]:PORT)。默认：0.0.0.0:17007

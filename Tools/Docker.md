@@ -100,6 +100,22 @@
 
 + 修改镜像标签:`docker tag image-id name:tag`
 
+## 镜像的上传和拉取
+
++ 登录docker 
+  + `docker login`
+
++ 修改镜像命名
+  + 修改镜像的repository，使之与Docker Hub账号匹配
+  + Docker Hub为了区分不同用户的同名镜像，镜像的`registry`中要包含用户名，完整的格式为:`[username]/xxx:tag`
+  + Docker官方自己维护的镜像没有用户名
+
++ 镜像上传
+  + 通过`docker push`将镜像上传到`Docker Hub`
+
++ 镜像的拉取
+  + 上传的是公共镜像仓库，任何人都可以下载使用
+
 ## docker kill
 
 + 语法：`docker kill [options] container [container...]`
