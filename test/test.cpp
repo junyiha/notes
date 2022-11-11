@@ -14,6 +14,7 @@
 #include <string_view>  // std::string_view()
 #include <cmath>
 #include <typeinfo>  // std::typeid
+#include <thread>    // std::thread
 
 int test_access()
 {
@@ -585,9 +586,20 @@ int test_iterator()
     return 0;
 }
 
+// 并发，并行
+int test_thread()
+{
+    std::cout << "hello world" << std::endl;
+
+    return 0;
+}
+
 int main()
 {
-    test_iterator();
+    std::thread t(test_thread);
+    t.join();
+
+    // test_iterator();
 
     // test_virtual();
 

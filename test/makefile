@@ -6,9 +6,10 @@ src=${wildcard ${cur_makefile_path}*.cpp}
 target=${patsubst %.cpp, %, ${src}}
 
 CXX=g++
+DEPEND_LIBS= -lpthread
 
 ${target}:${src}
-	${CXX} $^ -o $@
+	${CXX} $^ -o $@ ${DEPEND_LIBS}
 
 all:${target}
 	@echo ${makefile_path}
@@ -20,6 +21,3 @@ all:${target}
 
 clean:
 	rm ${target}
-	
-
-
