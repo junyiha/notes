@@ -6,7 +6,6 @@
 + 对于一张图片，一定要知道的信息 ： 宽， 高， 步长， 层级
 + 因为在硬件上，对图像处理进行加速的操作，一般是以块为单位，而不是以像素为单位
 
-
 + 为什么设计成宏开关？
   + 有一种情况：在一台机器上有`nvidia`和`bitmainland`两种显卡，所以早期有一个想法是设计为一次编译，两个平台都能使用。
   + 但是，`bitmainland`所使用的的opencv是定制化的，所以和nvidia不能共用，不能实现预期目标
@@ -649,8 +648,8 @@
 
 ### clock2tick()
 
-+ 原型：`uint64_t clock2tick(int8_t type, uint8_t precision);`
 + 功能：获取当前时间，并转换到指定`precision`精度
++ 原型：`uint64_t clock2tick(int8_t type, uint8_t precision);`
 + 参数：
   + `type`  --  时钟ID
   + `precision`  --  精度
@@ -662,8 +661,8 @@
 
 ### getdelim_with_note()
 
-+ 原型：`int getdelim_with_note(char **line, size_t *length, int delim, FILE *file, char note);`
 + 功能：从文件中读取流数据到内存中，直到定界符`delim`结束
++ 原型：`int getdelim_with_note(char **line, size_t *length, int delim, FILE *file, char note);`
 + 参数：
   + `line`  --  指向初始缓冲区或空指针的指针
   + `length`--  指向初始缓冲区大小的指针
@@ -678,8 +677,8 @@
 
 ### strtrim_right()
 
++ 功能：右边
 + 原型：`char* strtrim_right(char* string, uint8_t c);`
-+ 功能：
 + 参数：
   + `string`  --  输入的字符指针
   + `c`       --  
@@ -689,8 +688,8 @@
 
 ### strtrim_left()
 
++ 功能：左边
 + 原型：`char* strtrim_left(char* string, uint8_t c);`
-+ 功能：
 + 参数：
   + `string`  --  输入的字符指针
   + `c`       --  
@@ -700,8 +699,8 @@
 
 ### strtrim_both()
 
++ 功能：左右两边
 + 原型：`char* strtrim_both(char* string, uint8_t c);`
-+ 功能：
 + 参数：
   + `string`  --  输入的字符指针
   + `c`       --  
@@ -711,8 +710,8 @@
 
 ### mem_dup()
 
-+ 原型：`void* mem_dup(const void* data, long len);`
 + 功能：将一块内存上的数据转储到另一块内存
++ 原型：`void* mem_dup(const void* data, long len);`
 + 参数：
   + `data`  --  需要转储的内存块指针
   + `len`   --  内存块的大小
@@ -724,8 +723,8 @@
 
 ### mkpath()
 
-+ 原型：`void mkpath(const char* path, uint32_t mode);`
 + 功能：创建权限为`mode`的目录文件`path`
++ 原型：`void mkpath(const char* path, uint32_t mode);`
 + 参数：
   + `path`  --  文件路径
   + `mode`  --  文件权限
@@ -735,8 +734,8 @@
 
 ### file_close()
 
-+ 原型：`void file_close(int* file);`
 + 功能：关闭文件`file`
++ 原型：`void file_close(int* file);`
 + 参数：
   + `file`  --  需要关闭的文件的文件描述符
 + 返回值：无
@@ -745,8 +744,8 @@
 
 ### file_open()
 
-+ 原型：`int file_open(const char* pathfile, int read_only, int non_block, int try_create);`
 + 功能：打开指定文件
++ 原型：`int file_open(const char* pathfile, int read_only, int non_block, int try_create);`
 + 参数：
   + `pathfile`  --  需要操作的文件
   + `read_only` --  设置为只读模式
@@ -760,8 +759,8 @@
 
 ### file_reopen()
 
-+ 原型：`int file_reopen(int file, const char* pathfile, int read_only, int non_block, int try_create);`
 + 功能：将已经打开的文件，重复打开
++ 原型：`int file_reopen(int file, const char* pathfile, int read_only, int non_block, int try_create);`
 + 参数：
   + `file`  --  需要重复打开的文件描述符
   + `pathfile`  --  需要操作的文件
@@ -776,8 +775,8 @@
 
 ### file_write()
 
-+ 原型：`long file_write(int file, const void *data, long size);`
 + 功能：将大小为`size`的数据`data`写入到文件`file`
++ 原型：`long file_write(int file, const void *data, long size);`
 + 参数：
   + `file`  --  要写入数据的文件
   + `data`  --  要写入的数据
@@ -790,8 +789,8 @@
 
 ### file_read()
 
-+ 原型：`long file_read(int file, void* data, long size);`
 + 功能：将大小为`size`的数据从文件`file`读取到内存地址为`data`中
++ 原型：`long file_read(int file, void* data, long size);`
 + 参数：
   + `file`  --  要被读取数据的文件
   + `data`  --  存放数据的内存块指针
@@ -804,8 +803,8 @@
 
 ### file_mmap()
 
-+ 原型：`void* file_mmap(int file, size_t *size);`
 + 功能：将文件`file`中大小为`size`映射到内存中
++ 原型：`void* file_mmap(int file, size_t *size);`
 + 参数：
   + `file`  --  需要映射数据的文件
   + `size`  --  需要映射的数据大小
@@ -817,8 +816,8 @@
 
 ### dirname_dup()
 
-+ 原型：`char* dirname_dup(const char* pathfile);`
 + 功能：返回文件`pathfile`的目录部分
++ 原型：`char* dirname_dup(const char* pathfile);`
 + 参数：
   + `pathfile`  --  需要查找目录的文件
 + 返回值：
@@ -829,8 +828,8 @@
 
 ### basename_dup()
 
-+ 原型：`char* basename_dup(const char *pathfile);`
 + 功能：去掉文件`pathfile`的前缀，只保存文件名(input string:/data/test.cpp , output string:test.cpp)
++ 原型：`char* basename_dup(const char *pathfile);`
 + 参数：
   + `pathfile`  --  需要操作的文件
 + 返回值：
@@ -841,8 +840,8 @@
 
 ### proc_pathfile()
 
-+ 原型：`char* proc_pathfile(char* pathfile);`
 + 功能：获取当前运行程序的绝对路径，存储到`pathfile`，并返回
++ 原型：`char* proc_pathfile(char* pathfile);`
 + 参数：
   + `pathfile`  --  存储程序的绝对路径
 + 返回值：
@@ -853,8 +852,8 @@
 
 ### proc_path()
 
-+ 原型：`char* proc_path(char* path);`
 + 功能：截取文件名
++ 原型：`char* proc_path(char* path);`
 + 参数：
   + `path`  --  要处理的文件
 + 返回值：
@@ -865,8 +864,8 @@
 
 ### proc_name()
 
-+ 原型：`char* proc_name(char* name);`
 + 功能：处理文件名
++ 原型：`char* proc_name(char* name);`
 + 参数：
   + `name`  --  文件名
 + 返回值：
@@ -875,8 +874,8 @@
 
 ### proc_popen()
 
-+ 原型：`int proc_popen(const char* cmd, int* in_pipe, int* out_pipe, int* err_pipe);`
 + 功能：创建输入，输出管道，操作文件
++ 原型：`int proc_popen(const char* cmd, int* in_pipe, int* out_pipe, int* err_pipe);`
 + 参数：
   + `cmd`  --  `/bin/sh`要执行的命令
   + `in_pipe`  --  
@@ -890,16 +889,16 @@
 
 ### freep()
 
-+ 原型：`void freep(void **pptr);`
 + 功能：释放二级指针`pptr`
++ 原型：`void freep(void **pptr);`
 + 参数：
   + `pptr`  --  需要释放的二级指针
 + 返回值：空
 
 ### download_file()
 
-+ 原型：`int download_file(const char *src, const char *dst, char err[1000]);`
 + 功能：下载文件
++ 原型：`int download_file(const char *src, const char *dst, char err[1000]);`
 + 参数：
   + `src`  --  
   + `dst`  -- 
@@ -912,8 +911,8 @@
 
 ### download_tmpfile()
 
-+ 原型：`int download_tmpfile(const char *src, char *dst, char err[1000]);`
 + 功能：下载临时文件
++ 原型：`int download_tmpfile(const char *src, char *dst, char err[1000]);`
 + 参数：
   + `src`  --  
   + `dst`  -- 
@@ -926,8 +925,8 @@
 
 ### log_open()
 
-+ 原型：`void log_open(uint16_t service, int copy2stderr, int verbose);`
 + 功能：打开日志功能
++ 原型：`void log_open(uint16_t service, int copy2stderr, int verbose);`
 + 参数：
   + `service`  --  服务ID
   + `copy2stderr`  --  
@@ -938,8 +937,8 @@
 
 ### log_vprintf()
 
-+ 原型：`void log_vprintf(int priority, const char *fmt, va_list ap);`
 + 功能：格式化输出日志信息
++ 原型：`void log_vprintf(int priority, const char *fmt, va_list ap);`
 + 参数：
   + `priority`  --  类型
   + `fmt`       --  格式
@@ -950,8 +949,8 @@
 
 ### log_printf()
 
-+ 原型：`void log_printf(int priority, const char *fmt,...);`
 + 功能：打印日志信息
++ 原型：`void log_printf(int priority, const char *fmt,...);`
 + 参数：
   + `priority`  --  类型
   + `fmt`       --  格式

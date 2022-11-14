@@ -132,8 +132,14 @@
     nvidia_cuda:v1.0 /bin/bash`
 ```
   - `--gpus all` : 将nvidia的硬件驱动映射到容器中，使在容器中能够使用硬件资源，依赖于`nvidia-container-toolkit`工具
-  - `-v` : 将宿主机中的`libnvcuvid.so`和`libnvidia-encode.so`相关文件和链接映射到docker容器中，不同驱动的库文件版本不同，根据实际文件名设置
+  ~~~- `-v` : 将宿主机中的`libnvcuvid.so`和`libnvidia-encode.so`相关文件和链接映射到docker容器中，不同驱动的库文件版本不同，根据实际文件名设置~~~
   - `--name nvidia` : 设置容器名称
+
++ 注意：
+  + `-v`是将目录映射到容器中，使用这个方法会造成宿主机中的两个`libnvcuvid.so`和`libnvidia-encode.so`文件变成目录，从而不可用
+  + 解决办法：
+    + 使用dockerfile，将以上两个文件拷贝到容器中，再创建软连接，需要解决的问题：不同nvidia驱动的文件名不同，如何无差别的拷贝？
+    + **手动拷贝和创建软连接**
 
 + `nvidia-smi, NVIDIA System Management Interface program` : 默认查看详细的gpu信息
   + `nvidia-smi -L` : 通过uuid查看每个gpu信息

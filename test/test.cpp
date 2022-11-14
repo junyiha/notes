@@ -49,6 +49,7 @@ int test_c_str()
 
     char* cstr = new char [str.length()+1];
     std::strcpy (cstr, str.c_str());
+    printf("char buf string is %s \n", cstr);
 
     char* p = std::strtok(cstr, " ");
     while(p != 0)
@@ -591,13 +592,33 @@ int test_thread()
 {
     std::cout << "hello world" << std::endl;
 
+    unsigned int n = std::thread::hardware_concurrency();
+    std::cout << n << " concurrent threads are supported. \n";
+    
+    return 0;
+}
+
+int test_clock_gettime()
+{
+    struct timespec tms = {0};
+    clockid_t clock_id = CLOCK_REALTIME;
+    clock_gettime(clock_id, &tms);
+    printf("clock_gettime: tv_sec = %ld, tv_nsec = %lf \n", tms.tv_sec, (double)tms.tv_nsec / 1000000000);
+
     return 0;
 }
 
 int main()
 {
-    std::thread t(test_thread);
-    t.join();
+    test_clock_gettime();
+    for (int i = 0; i < 1000; i++)
+        int val = i;
+    sleep(1);
+    test_clock_gettime();
+
+    // test_c_str();
+    // std::thread t(test_thread);
+    // t.join();
 
     // test_iterator();
 
