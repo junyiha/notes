@@ -224,6 +224,7 @@ int test_strcasecmp()
 
 int test_string()
 {
+#if 0
     char str[80];
     strcpy(str, "thes ");
     strcat(str, "strings ");
@@ -231,6 +232,17 @@ int test_string()
     strcat(str, "concatenated.");
 
     puts(str);
+#endif
+
+    std::string request_data;
+    size_t request_max = 16 * 1024 * 1024;
+    request_data.reserve(request_max);
+
+    bool chk = false;
+    request_data = "/home/user/Pictures/test/1.jpeg";
+    printf("string's size is %ld \n ",request_data.size());
+
+    printf("string : %s \n", request_data.c_str());
 
     return 0;
 }
@@ -608,13 +620,45 @@ int test_clock_gettime()
     return 0;
 }
 
+int test_func_join()
+{
+    printf("print in test_join() function \n");
+}
+
+int test_join(int &num)
+{
+    for (int i = 0; i < num; i++)
+    {
+        printf("from test_join function : %d \n", i);
+    }
+
+    std::thread child_thread(test_func_join);
+
+    child_thread.join();
+
+    printf("the test_func_join() function out \n");
+    
+    num++;
+
+    return num;
+}
+
 int main()
 {
-    test_clock_gettime();
-    for (int i = 0; i < 1000; i++)
-        int val = i;
-    sleep(1);
-    test_clock_gettime();
+    test_string();
+
+    // int num = 5;
+    // std::thread var_thread(test_join, std::ref(num));
+    // printf("main() function \n");
+    // var_thread.join();
+    // sleep(1);
+    
+
+    // test_clock_gettime();
+    // for (int i = 0; i < 1000; i++)
+    //     int val = i;
+    // sleep(1);
+    // test_clock_gettime();
 
     // test_c_str();
     // std::thread t(test_thread);
