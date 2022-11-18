@@ -14,10 +14,10 @@
 
 + 接收命令，并进行计算
 
-### video_process
+### Video_Process
 
 + 为算力节点提供计算功能
-+ 算力节点从管理节点取出指令，根据指令向vca发送命令，并接收vca的结果，返回给管理节点
++ 算力节点从管理节点取出指令，根据指令向`vca`发送命令，并接收`vca`的结果，返回给管理节点
 
 ### 其他
 
@@ -27,10 +27,16 @@
   + 物理单元（例如显卡，CPU等），相当于公式，提供运算的规则
   + 逻辑单元（例如区域入侵检测功能），相当于公式的应用，利用某些公式，做排列组合，从而解决某一种问题
 
-+ 数据传输
-  + `Video_Process`向`Computing_node`传输数据（图片）：`Video_Process`将数据（图片）放到redis的消息队列中，`Computing_node`从消息队列中取数据，进行处理并将处理后的结果放回到消息队列中
-  + `Computing_node`向`Manager_node`传输数据：`Computing_node`将数据放到消息队列中,`Manager_node`从消息队列中取到数据并将传输到前端
-  + `Computing_node`向`Manager_node`传输数据，实现点播服务: `Computing_node`将数据（图片）放到redis的消息队列中，`Manager_node`从消息队列中取出数据，发给多个用户，实现多用户同时观看
+### 产品内数据传输
+
++ `Video_Process` 向 `Computing_node`传输数据（图片）：
+  + `Video_Process`将数据（图片）放到redis的消息队列中，`Computing_node`从消息队列中取数据，进行处理并将处理后的结果放回到消息队列中
+
++ `Computing_node` 向 `Manager_node`传输数据：
+  + `Computing_node`将数据放到消息队列中,`Manager_node`从消息队列中取到数据并将传输到前端
+
++ `Computing_node` 向 `Manager_node`传输数据，实现点播服务: 
+  + `Computing_node`将数据（图片）放到redis的消息队列中，`Manager_node`从消息队列中取出数据，发给多个用户，实现多用户同时观看
 
 + `Computing_node`和`Manager_node`都是独立的项目，可以独立运行的
 + `Video_Process`早期也是一个独立的项目，其存在的时间比较早，到现在为止有五个版本
@@ -102,8 +108,11 @@
     + `fair`：智能调整调度算法，动态的根据后端服务器的请求处理到响应的时间进行均衡分配，响应时间短，处理效率高的服务器分配到请求的概率高，响应时间长，处理效率低的服务器分配到的请求少；结合了前两者的优点的一种调度算法。但是需要注意的是nginx默认不支持fair算法，如果需要使用，安装`upstream_fair`模块
     + `url_hash`：按照访问的`url`的`hash`结果分配请求，每个请求的`url`会指向后端固定的某个服务器，可以在nginx作为静态服务器的情况下提高缓存效率，同样需要注意的是nginx默认不支持这种调度算法，需要安装nginx的hash软件包
 
-
 ## HTTP
+
++ （待补充）
+
+# 问题与方法
 
 ## 修改ip地址
 
@@ -142,7 +151,6 @@
 
 + `rm -rf /data/dagger/computing_node/etc/SystemId/`
 + `VideoProcess/bin/showdevices.exe --fmt 2 --out  /data/dagger/computing_node/etc/devices.json`
-+ 
 
 ## KMS 服务未启动或未授权 || mqtt
 
