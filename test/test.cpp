@@ -15,6 +15,7 @@
 #include <cmath>
 #include <typeinfo>  // std::typeid
 #include <thread>    // std::thread
+#include <assert.h>
 
 int test_access()
 {
@@ -159,15 +160,24 @@ int test_memset()
     return 0;
 }
 
+void set_name(const char *name)
+{
+    const char *m_name = ((name && name[0]) ? name : "");
+    printf("name[0] = {%c}\n", name[0]);
+    printf("m_name:{%s} \n", m_name);
+}
+
 int test_name()
 {
     const char Name[10] = "world";
-    const char *name = "hello";
-    std::cout << *(name+1) << std::endl;
-    std::cout << Name << std::endl;
-    printf("%s\n",Name);
-    std::cout << typeid(name).name() << std::endl;
-    std::cout << sizeof(name) << std::endl;
+    const char *name = " hello";
+    // std::cout << *(name+1) << std::endl;
+    // std::cout << Name << std::endl;
+    // printf("%s\n",Name);
+    // std::cout << typeid(name).name() << std::endl;
+    // std::cout << sizeof(name) << std::endl;
+
+    set_name(name);
 
     return 0;
 }
@@ -222,8 +232,36 @@ int test_strcasecmp()
     return 0;
 }
 
+std::string test_fix_path(const char *file, const char *path)
+{
+    char exe_path[4096] = {0};
+    std::string tmp;
+
+    assert(file != NULL);
+
+    if ((file[0] == '/') || (strncmp(file, "http://", 7) == 0) || (strncmp(file, "https://", 8) == 0)) 
+    {
+        tmp = file;
+    }
+    else
+    {
+        tmp = ((path && path[0]) ? path : exe_path);
+        tmp += "/";
+        tmp += file;
+    }
+
+    return tmp;
+}
+
 int test_string()
 {
+    const char *file = "hello.h";
+    const char *path = "/tmp";
+
+    std::string res = test_fix_path(file, NULL);
+
+    printf("file path is :%s \n", res.c_str());
+
 #if 0
     char str[80];
     strcpy(str, "thes ");
@@ -232,7 +270,6 @@ int test_string()
     strcat(str, "concatenated.");
 
     puts(str);
-#endif
 
     std::string request_data;
     size_t request_max = 16 * 1024 * 1024;
@@ -243,6 +280,7 @@ int test_string()
     printf("string's size is %ld \n ",request_data.size());
 
     printf("string : %s \n", request_data.c_str());
+#endif
 
     return 0;
 }
@@ -643,9 +681,37 @@ int test_join(int &num)
     return num;
 }
 
+void test_getpid()
+{
+    printf("i am process %ld \n", static_cast<long>(getpid()));
+    printf("my parent process is %ld \n", static_cast<long>(getppid()));
+}
+
+void test_getegid()
+{
+    printf("i am user of %ld \n", static_cast<long>(geteuid()));
+    printf("i am group of %ld \n", static_cast<long> (getegid()));
+}
+
+void test_fork()
+{
+    int x = 0;
+    fork();
+    x = 1;
+    printf("i am process %ld and my x is %d \n", static_cast<long> (getpid()), x);
+}
+
 int main()
 {
-    test_string();
+    test_fork();
+    
+    // test_getpid();
+
+    // test_getegid();
+    
+    // test_name();
+
+    // test_string();
 
     // int num = 5;
     // std::thread var_thread(test_join, std::ref(num));

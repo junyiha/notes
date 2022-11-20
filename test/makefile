@@ -6,10 +6,11 @@ src=${wildcard ${cur_makefile_path}*.cpp}
 target=${patsubst %.cpp, %, ${src}}
 
 CXX=g++
+CXX_FLAGS=-g
 DEPEND_LIBS= -lpthread
 
 ${target}:${src}
-	${CXX} $^ -o $@ ${DEPEND_LIBS}
+	${CXX} ${CXX_FLAGS} $^ -o $@ ${DEPEND_LIBS}
 
 all:${target}
 	@echo ${makefile_path}

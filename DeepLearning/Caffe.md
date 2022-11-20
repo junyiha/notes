@@ -1,0 +1,20 @@
+## 概述
+
++ Caffe，全称Convolutional Architecture for Fast Feature Embedding。是一种常用的深度学习框架，主要应用在视频、图像处理方面的应用上。
++ caffe是一个清晰，可读性高，快速的深度学习框架
+
+## 网络结构层参数
+
++ `prototxt`文件是`caffe`的配置文件，用于保存CNN的网络结构和配置信息。
++ `prototxt`文件有三种，分别是`deploy.prototxt`，`train_val.prototxt`和`solver.prototxt`
+
++ `solver.prototxt`
+   +  `solver.prototxt`是caffe的配置文件。里面定义了网络训练时候的各种参数，比如学习率、权重衰减、迭代次数等等。
+   +  `solver.prototxt`文件只在网络进行训练的时候需要载入。是网络训练的一个整体的参数配置文件。
+
++ `deploy.prototxt`和`train_val.prototx`
+  + 这两个文件是`caffe`的网络结构文件。
+  + `train_val.prototx`是训练时候的网络结构，`deploy.prototxt`用于发布（即测试时候的网络结构）。
+  + 这两个文件中内容基本一致，但是存在一些细微区别：
+    + 在`train_val.prototx`中网络结构的`data`层有两种，分别为`TRAIN`和`TEST`。顾名思义，`TRAIN`是网络训练时后的数据结构，`TEST`是网络做验证时候的数据结构。一般来说`TRAIN`中的`batchSize`比`TEST`中的要大一些。
+    + 在`train_val.prototx`中的卷积层（`Convolution`）中存在学习率和权重衰减的参数，而`deploy.prototxt`文件中则没有这些参数（有些`deploy.prototxt`中仍然有这些参数，但是对测试不起任何作用）。
