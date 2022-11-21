@@ -701,10 +701,34 @@ void test_fork()
     printf("i am process %ld and my x is %d \n", static_cast<long> (getpid()), x);
 }
 
+void test_strchr()
+{
+    const char str[] = "http://www.runoob.com";
+    const char ch = '.';
+    char *ret;
+
+    ret = const_cast<char *> (strchr(str, ch));
+    printf("after |%c| is |%s| \n", ch, ret);
+}
+
+void test_lambda()
+{
+    int num[4] = {4, 3, 2, 1};
+
+    std::sort(num, num+4, [=](int x, int y) -> bool {return x < y;});
+
+    for(int n : num)
+    {
+        printf("%d \n", n);
+    }
+}
+
 int main()
 {
-    test_fork();
-    
+    test_lambda();
+    // test_strchr();
+    // test_fork();
+
     // test_getpid();
 
     // test_getegid();

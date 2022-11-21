@@ -43,9 +43,31 @@
   
 ## std::thread
 
+### 概述
+
++ `<thread>` 头文件声明了 `std::thread` 线程类及 `std::swap` (交换两个线程对象)辅助函数
++ 另外命名空间 `std::this_thread` 也声明在 `<thread>` 头文件中
+
++ `<thread>` 头文件主要声明了 `std::thread` 类，
++ 另外在 `std::this_thread` 命名空间中声明了 `get_id`，`yield`，`sleep_until` 以及 `sleep_for` 等辅助函数
+
+### 详解
+
++ `std::thread` 代表了一个线程对象
++ `std::thread` 中主要声明三类函数：
+  + (1). 构造函数、拷贝构造函数及析构函数；
+  + (2). 成员函数；
+  + (3). 静态成员函数。
++ 另外， `std::thread::id` 表示线程 ID
+
 + 构造函数
-  + 默认构造函数，创建一个空的 `std::thread` 执行对象
-  + 初始化构造函数，创建一个 `std::thread` 对象，该 `std::thread` 对象可被 `joinable`，新产生的线程会调用 `fn` 函数，该函数的参数由 `args` 给出
+  + 默认构造函数
+    + `thread() noexcept;`
+    + 创建一个空的 `std::thread` 执行对象
+  + 初始化构造函数
+    + `template <class Fn, class... Args>`
+    + `explicit thread(Fn&& fn, Args&&... args);`
+    + 创建一个 `std::thread` 对象，该 `std::thread` 对象可被 `joinable`，新产生的线程会调用 `fn` 函数，该函数的参数由 `args` 给出
 
 + 其他成员函数：
   + `get_id`: 
