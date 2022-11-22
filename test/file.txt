@@ -1,0 +1,3 @@
+123|1|/home/user/Pictures/test/1.jpeg
+456|0|/home/user/Pictures/test/2.jpeg
+789|1|/home/user/Pictures/test/3.jpeg

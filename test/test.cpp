@@ -701,14 +701,12 @@ void test_fork()
     printf("i am process %ld and my x is %d \n", static_cast<long> (getpid()), x);
 }
 
-void test_strchr()
+void test_strchr(const char *str, char delimiter)
 {
-    const char str[] = "http://www.runoob.com";
-    const char ch = '.';
     char *ret;
 
-    ret = const_cast<char *> (strchr(str, ch));
-    printf("after |%c| is |%s| \n", ch, ret);
+    ret = const_cast<char *> (strchr(str, delimiter));
+    printf("after %c is %s \n", delimiter, ret);
 }
 
 void test_lambda()
@@ -723,9 +721,113 @@ void test_lambda()
     }
 }
 
+void test_strtok(char *str, const char *delimiter)
+{
+    char *token;
+    char *save_ptr = NULL;
+
+    int tmp_id, tmp_flag;
+    char *image_path = NULL;
+
+    token = strtok_r(str, delimiter, &save_ptr);
+    for(int i = 0; i < 3; i++)
+    {
+        if (i == 0)
+            tmp_id = atoi(token);
+        else if (i == 1)
+        {
+            token = strtok_r(NULL, delimiter, &save_ptr);
+            tmp_flag = atoi(token);
+            if(tmp_flag == 0)
+            {
+                printf("delete id:%d \n", tmp_id);
+                break;
+            }
+            else if(tmp_flag == 1)
+            {
+                token = strtok_r(NULL, delimiter, &save_ptr);
+                if(token)
+                {
+                    image_path = token;
+                    printf("add id : %d, path: %s \n", tmp_id, image_path);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void test_fgets()
+{
+    FILE *fp;
+    char str[60];
+    const char *file = "/home/user/workspace/notes/test/file.txt";
+    const char *delimiter = "|";
+
+    fp = fopen(file, "r");
+    if(fp == NULL)
+    {
+        perror("open file error");
+        return;
+    }
+
+    while(1)
+    {
+        if(fgets(str, 60, fp) != NULL)
+        {
+            test_strtok(str, delimiter);
+        }
+        else
+        {
+            perror("no context");
+            break;
+        }
+    }
+
+    fclose(fp);
+}
+
+int test_pipe()
+{
+    char bufin[BUFSIZ] = "empty";
+    char bufout[] = "hello";
+    int bytesin;
+    pid_t childpid;
+    int fd[2];
+
+    if(pipe(fd) == -1)
+    {
+        perror("Failed to create the pipe");
+        return 1;
+    }
+
+    bytesin = strlen(bufin);
+    childpid = fork();
+    if(childpid == -1)
+    {
+        perror("Failed to fork");
+        return 1;
+    }
+
+    if(childpid)
+        write(fd[1], bufout, strlen(bufout)+1);
+    else
+        bytesin = read(fd[0], bufin, BUFSIZ);
+    
+    fprintf(stderr, "[%ld]:my bufin is {%.*s}, my bufout is {%s} \n", (long)getpid(), bytesin, bufin, bufout);
+
+    return 0;
+}
+
 int main()
 {
-    test_lambda();
+    test_pipe();
+    // test_strtok();
+    // test_fgets();
+    // test_lambda();
     // test_strchr();
     // test_fork();
 
