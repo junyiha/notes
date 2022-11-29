@@ -9,8 +9,10 @@ CXX=g++
 CXX_FLAGS=-g
 DEPEND_LIBS= -lpthread
 
+INCLUDE_PATH= -I/home/user/workspace/notes/test/include/
+
 ${target}:${src}
-	${CXX} ${CXX_FLAGS} $^ -o $@ ${DEPEND_LIBS}
+	${CXX} ${CXX_FLAGS} $^ -o $@ ${INCLUDE_PATH} ${DEPEND_LIBS}
 
 all:${target}
 	@echo ${makefile_path}

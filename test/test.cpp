@@ -16,6 +16,12 @@
 #include <typeinfo>  // std::typeid
 #include <thread>    // std::thread
 #include <assert.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <map>
+#include <queue>
+
+// #include "args.hpp"
 
 int test_access()
 {
@@ -46,17 +52,22 @@ int test_array_at()
 
 int test_c_str()
 {
-    std::string str ("Please split this sentence into tokens");
+    std::string str ("123|1|/home/user/Pictures/test/1.jpeg|");
+
+    const char *tmp_str = "hello world";
+    std::string tmp = tmp_str;
+    printf(" std::string is %s \n const char * is : %s \n", tmp.c_str(), tmp_str);
 
     char* cstr = new char [str.length()+1];
+    const char *delimiter = "|";
     std::strcpy (cstr, str.c_str());
     printf("char buf string is %s \n", cstr);
 
-    char* p = std::strtok(cstr, " ");
+    char* p = std::strtok(cstr, delimiter);
     while(p != 0)
     {
         std::cout << p << '\n';
-        p = std::strtok(NULL, " ");
+        p = std::strtok(NULL, delimiter);
     }
 
     delete[] cstr;
@@ -210,12 +221,53 @@ int test_snprintf()
 
 int test_scanf()
 {
-    char sentence [] = "Rudolph is 12 years old";
+    char sentence [] = "123|0|/home/user/demo.jpeg";
+    int64_t id;
+    int flag;
+    // char *path = (char *)malloc(4096);
+    char *image_path = new char[4096];
     char str [20];
     int i;
 
-    int res = sscanf (sentence, "%s %*s %d", str, &i);
-    printf("%s -> %d %d\n", str, i, res);
+    FILE *fp = NULL;
+    // const char *path = "/home/user/20221128183801.txt";
+    const char *path = "/home/user/tmp.txt";
+    fp = fopen(path, "r");
+    if(!fp)
+    {
+        printf("failed to open the file -- %s \n", path);
+        fclose(fp);
+        fp = NULL;
+    }
+
+    char *line_ptr = NULL;
+    size_t num = 0;
+    int res = 0;
+
+    while(1)
+    {
+        res = getline(&line_ptr, &num, fp);
+        if(res == -1)
+        {
+            printf("read the file over \n");
+            break;
+        }
+        sscanf (line_ptr, "%ld|%d|%s%*[^\n]", &id, &flag, image_path);
+        printf("id : %ld, flag : %d, path : %s \n", id, flag, image_path);
+    }
+
+    if(image_path)
+    {
+        delete [] image_path;
+        image_path = NULL;
+    }
+    if(line_ptr)
+    {
+        delete line_ptr;
+        line_ptr = NULL;
+    }
+
+    // printf("%s -> %d %d\n", str, i, res);
 
     return 0;
 }
@@ -253,7 +305,7 @@ std::string test_fix_path(const char *file, const char *path)
     return tmp;
 }
 
-int test_string()
+const char *test_string()
 {
     const char *file = "hello.h";
     const char *path = "/tmp";
@@ -282,7 +334,7 @@ int test_string()
     printf("string : %s \n", request_data.c_str());
 #endif
 
-    return 0;
+    return "";
 }
 
 int test_strtol()
@@ -348,21 +400,13 @@ int test_union()
     return 0;
 }
 
-int test_vector()
+int test_vector(std::vector<int> &tmp_ids)
 {
-    std::vector<int> myvector (5);
-    int* p = myvector.data();
-
-    *p = 10;
-    ++p;
-    *p = 20;
-    p[2] = 100;
-
-    std::cout << "myvector contains:";
-    for(unsigned i = 0; i < myvector.size(); ++i)
-        std::cout << ' ' << myvector[i];
-    std::cout << '\n';
-
+    for(int i = 0; i < 10; i++)
+    {
+        tmp_ids.push_back(i);
+    }
+    
     return 0;
 }
 
@@ -691,6 +735,7 @@ void test_getegid()
 {
     printf("i am user of %ld \n", static_cast<long>(geteuid()));
     printf("i am group of %ld \n", static_cast<long> (getegid()));
+    usleep(500);
 }
 
 void test_fork()
@@ -762,9 +807,9 @@ void test_strtok(char *str, const char *delimiter)
 
 void test_fgets()
 {
-    FILE *fp;
-    char str[60];
-    const char *file = "/home/user/workspace/notes/test/file.txt";
+    FILE *fp = NULL;
+    // char str[60];
+    const char *file = "/home/user/file.txt";
     const char *delimiter = "|";
 
     fp = fopen(file, "r");
@@ -774,20 +819,101 @@ void test_fgets()
         return;
     }
 
+    size_t res = 0;
+    char *line_ptr = NULL;
+    size_t line_len = 0;
+
+    char *token = NULL;
+    char *save_ptr = NULL;
+    char *subtoken = NULL;
+    char *str = NULL;
+    
+    int count;
+    std::string tmp_id, tmp_flag, tmp_path;
+    std::map<std::string, std::string> m_images;
+    typedef std::map<std::string, std::string>::iterator m_images_it;
+
     while(1)
     {
-        if(fgets(str, 60, fp) != NULL)
-        {
-            test_strtok(str, delimiter);
-        }
-        else
-        {
-            perror("no context");
+        res = getline(&line_ptr, &line_len, fp);
+        if(res == -1)
             break;
+        
+        for(str = line_ptr, count = 0;;str = NULL, count++)
+        {
+            subtoken = strtok_r(str, delimiter, &save_ptr);
+            if(subtoken == NULL)
+                break;
+            
+            if(count == 0)
+            {
+                tmp_id = subtoken;
+            }
+
+            if(count == 1)
+            {
+                tmp_flag = subtoken;
+                if(tmp_flag == "0")
+                {
+                    m_images_it tmp_iterator = m_images.find(tmp_id);
+                    if((tmp_iterator->second).empty())
+                    {
+                        printf("id {%s} does not exist \n", tmp_id.c_str());
+                        break;
+                    }
+                    else
+                    {
+                        printf("id {%s} has been deleted \n", tmp_id.c_str());
+                        m_images.erase(tmp_id);
+                        break;
+                    }
+                }
+            }
+
+            if(count == 2)
+            {
+                tmp_path = subtoken;
+                m_images_it tmp_iterator = m_images.find(tmp_id);
+                if((tmp_iterator->second).empty())
+                {
+                    m_images[tmp_id] = tmp_path;
+                    printf("id {%s} has been added \n", tmp_id.c_str());
+                    break;
+                }
+                else
+                {
+                    printf("id {%s} is existed \n", tmp_id.c_str());
+                    break;
+                }
+            }
         }
+
     }
 
-    fclose(fp);
+    for(auto &tmp : m_images)
+    {
+        printf("id is {%s}, and it's value is {%s} \n", (tmp.first).c_str(), (tmp.second).c_str());
+    }
+    // while(1)
+    // {
+    //     if(fgets(str, 60, fp) != NULL)
+    //     {
+    //         test_strtok(str, delimiter);
+    //     }
+    //     else
+    //     {
+    //         perror("no context");
+    //         break;
+    //     }
+    // }
+    if(fp)
+        fclose(fp);
+    
+    if(line_ptr)
+    {
+        free(line_ptr);
+        line_ptr = NULL;
+    }
 }
 
 int test_pipe()
@@ -822,9 +948,411 @@ int test_pipe()
     return 0;
 }
 
+void test_sigset_t()
+{
+    sigset_t myset;
+    sigemptyset(&myset);
+    sigaddset(&myset,SIGINT);
+    sigaddset(&myset,SIGQUIT);
+    sigaddset(&myset,SIGUSR1);
+    sigaddset(&myset,SIGRTMIN);
+    
+    for(int i = 0; i < NSIG; ++i)
+    {
+        if(sigismember(&myset, i))
+        {
+            printf("1");
+        }
+        else
+        {
+            printf("0");
+        }
+    }
+    putchar('\n');
+}
+
+void *print_ids(void *arg)
+{
+    const char *s = "new thread: ";
+    pid_t pid;
+    pthread_t tid;
+
+    pid = getpid();
+    tid = pthread_self();
+
+    printf("%s pid %u tid %u (0x%x) \n", s, (unsigned int)pid, (unsigned int)tid, (unsigned int) tid);
+}
+
+void test_pthread_create()
+{
+    pthread_t ntid;
+    pthread_create(&ntid, NULL, print_ids, NULL);
+    printf("main thread \n");
+
+    pthread_join(ntid, NULL);    
+}
+
+std::string test_map_end(int id)
+{
+    std::string result;
+    std::map<int, std::string> test_map;
+    test_map[0] = "hello";
+    test_map[1] = "world";
+
+    for(int i = 2 ; i < 10; i++)
+    {
+        test_map[i] = "hello";
+    }
+    
+    std::map<int, std::string>::iterator map_iterator = test_map.find(id);
+    if(map_iterator != test_map.end())
+    {
+        result = map_iterator->second;
+    }
+    else
+    {
+        printf("can not find id: %d \n", id);
+    }
+    test_map.end();
+    return result;
+}
+
+typedef std::map<std::string, std::string> TmpMap;
+typedef TmpMap::iterator TmpMapIterator;
+
+const char *test_map_second(const char *id)
+{
+    TmpMap m_tmp;
+    m_tmp["123"] = "/home/user";
+    m_tmp["456"] = "/tmp";
+    m_tmp["789"] = "/dev/null";
+
+    TmpMapIterator tmp_it = m_tmp.find(id);
+
+    // printf("iterator.second is %s \n", (tmp_it->second).c_str());
+
+    return (tmp_it->second).c_str();
+}
+
+void test_file_parse(const char *file, const char *delimiter)
+{
+    size_t res = 0;
+    size_t line_len = 0;
+    char *line_ptr = NULL;
+    char *token = NULL;
+    char *save_ptr = NULL;
+    std::string tmp_id, tmp_flag, tmp_path;
+    TmpMap m_images;
+
+    FILE *fp = fopen(file, "r");
+    if(!fp)
+    {
+        printf("failed to open %s \n", file);
+        goto final_end;
+    }
+
+    while(1)
+    {
+        res = getline(&line_ptr, &line_len, fp);
+        if(res == -1)
+            break;
+        
+        printf("line_ptr is %s \n", line_ptr);
+
+        token = strtok_r(line_ptr, delimiter, &save_ptr);
+        for(int i = 0; i < 3; i++)
+        {
+            if(i == 0)
+            {
+                tmp_id = token;
+            }
+            else if(i == 1)
+            {
+                token = strtok_r(NULL, delimiter, &save_ptr);
+                tmp_flag = token;
+                if(tmp_flag == "0")
+                {  
+                    m_images.erase(tmp_id);
+                    printf("delete id:{ %s } \n", tmp_id.c_str());
+                    break;
+                }
+            }
+            else if(i == 2)
+            {
+                token = strtok_r(NULL, delimiter, &save_ptr);
+                tmp_path = token;
+                if(tmp_path.empty())
+                {
+                    printf("file path can not be NULL \n");
+                    break;
+                }
+                else
+                {
+                    m_images[tmp_id] = tmp_path;
+                    printf("add file : { %s } and it's id is { %s } \n", tmp_path.c_str(), tmp_id.c_str());
+                }
+            }
+        }
+    }
+
+    printf("!!!!!!!!!!!!!!!!!!\n");
+    for(auto &tmp : m_images)
+    {
+        printf("id is { %s }, and it's path is { %s } \n", (tmp.first).c_str(), (tmp.second).c_str());
+    }
+
+final_end:
+    if(fp)
+        fclose(fp);
+    
+    if(line_ptr)
+        free(line_ptr);
+}
+
+void test_enum_map()
+{
+    enum MODEL
+    {
+        DETECT = 1,
+        FEATURE = 2
+    };
+
+    struct ModelRuntime
+    {
+    public:
+        int index;
+        std::string engine_conf_file;
+        std::string *engine_handle;
+        std::string *spp_handle;
+    
+    public:
+        ModelRuntime()
+        {
+            index = -1;
+
+            engine_handle = NULL;
+            spp_handle = NULL;
+        }
+
+        ModelRuntime(int idx)
+        {
+            index = idx;
+        }
+
+        virtual ~ModelRuntime()
+        {
+            engine_handle->clear();
+            spp_handle->clear();
+            engine_conf_file.clear();
+        }
+    };
+
+    typedef std::map<MODEL, ModelRuntime *> ModelMap;
+    typedef ModelMap::iterator ModelMapIterator;
+    
+    ModelMap m_infers;
+
+    m_infers[DETECT] = new ModelRuntime[0];
+    m_infers[FEATURE] = new ModelRuntime[1];
+
+    m_infers[DETECT]->engine_conf_file = "/home/user/DETECT.conf";
+
+    for(auto &tmp : m_infers)
+    {
+        if(tmp.first == MODEL::DETECT)
+        {
+            tmp.second->engine_conf_file = "/home/user/DETECT.conf";
+            *(tmp.second->engine_handle) = "detect handle";
+            tmp.second->index = 0;
+        }
+        else if(tmp.first == MODEL::FEATURE)
+        {
+            tmp.second->engine_conf_file = "/home/user/FEATURE.conf";
+            *(tmp.second->spp_handle) = "feature handle";
+            tmp.second->index = 1;
+        }
+    }
+
+    printf("detect model : %s \n", m_infers[DETECT]->engine_conf_file.c_str());
+    printf("detect handle : %s \n", (*(m_infers[DETECT]->engine_handle)).c_str());
+}
+
+
+/**
+ * @brief 希望这个类接收完数据后启动线程去处理，不阻塞后面的其他业务逻辑
+ * 
+ */
+class ObjectFirst{
+public:
+    pid_t m_thread_id;
+    std::thread *m_init_thread;
+    int val = 0;
+
+public:
+    ObjectFirst()
+    {
+        m_init_thread = NULL;
+    }
+    ~ObjectFirst()
+    {
+        if(m_init_thread)
+        {
+            if(m_init_thread->joinable())
+            {
+                m_init_thread->join();
+            }
+            delete m_init_thread;
+            m_init_thread = NULL;
+        }
+    }
+
+public:
+    void Recv()
+    {
+        int a = 2;
+        // std::thread t(Process, a);  // 错误： 非静态成员函数的无效使用
+        m_init_thread = new std::thread([](ObjectFirst *this_ptr){this_ptr->Process(this_ptr->val);}, this);
+        // std::thread t(&ObjectFirst::Process, this, a);  // 正确（方法一）
+
+        // t.detach();
+        usleep(100);
+    }
+
+    void Process(int val)
+    {
+        std::cout << "Process, val = " << val << "\n";
+        m_thread_id = getpid();
+    }
+};
+
+class ObjectSecond{
+public:
+    void Recv()
+    {
+        int a = 2;
+        // std::thread t(Process, a);  // 错误： 非静态成员函数的无效使用
+        std::thread t(&ObjectSecond::Process, a);  // 正确（方法二）
+
+        t.join();
+    }
+
+    static void Process(int val)  // 正确（方法二 将调用的成员函数设置为静态成员函数）
+    {
+        std::cout << "Process, val = " << val << "\n";
+    }
+};
+
+void test_queue()
+{
+    std::queue<int> q;
+    if(q.empty())
+    {
+        printf("empty \n");
+    }
+    else
+    {
+        printf("not empty \n");
+    }
+
+    for(int i = 0; i <= 10; i++)
+    {
+        q.push(i);
+        if(i == 6)
+        {
+            printf("the variable is 6, and it will jump to the flag of jump_here \n");
+            goto jump_here;
+        }
+    }
+    printf("Have push 11 number into queue, and the size of q is %lu \n", q.size());
+
+jump_here:
+    for(int i = 0; ; i++)
+    {
+        if(q.empty())
+        {
+            printf("now the queue is empty, so exit loop \n");
+            break;
+        }
+        printf("process %d \n", q.front());
+        printf("success to process, now delete %d \n", q.front());
+        q.pop();
+
+        printf("next loop !!!\n");
+    }
+
+}
+
+
+
 int main()
 {
-    test_pipe();
+    test_scanf();
+    // test_queue();
+
+    // const char *file = "/home/user/file.txt";
+    // const char *delimiter = "|";
+
+    // std::vector<char> exe_path(PATH_MAX);
+    // std::vector<char> exe_path(4096);
+    // uint64_t sleep_time = 500;
+    // usleep(sleep_time);
+    // printf("sleep time is %lu \n", sleep_time);
+
+    // ObjectFirst obj_first;
+    // obj_first.Recv();
+    // printf("%d \n", obj_first.m_thread_id);
+
+    // ObjectSecond obj_second;
+    // obj_second.Recv();
+
+    // std::map<std::string, std::string> m_images;
+    // m_images.clear();
+    // m_images["123"] = "first.jpeg";
+    // std::map<std::string, std::string>::iterator tmp_it = m_images.find("123");
+    // if(tmp_it != m_images.end())
+    // {
+    //     // printf("first : {%s} \n", (tmp_it->first).c_str());
+    //     // printf("empty \n");
+    //     printf("value is {%s} \n", (tmp_it->second).c_str());
+    // }
+    // else
+    // {
+    //     // printf("first : {%s} \n", (tmp_it->first).c_str());
+    //     printf("the value is not found \n");
+    // }
+
+    // std::string tmp = "";
+    // if(m_images["1"].empty())
+    // {
+    //     printf("empty \n");
+    // }
+    // else
+    // {
+    //     printf("not empty \n");
+    // }
+
+
+    // test_enum_map();
+
+    // std::vector<int> ids;
+
+    // test_vector(ids);
+
+    // for( int i = 0; i < ids.size(); i++)
+    // {
+    //     printf("%d \n", ids[i]);
+    // }
+
+    // test_file_parse(file, delimiter);
+
+    // const char *res = test_map_second("123");
+    // printf("return second is : %s \n", res);
+
+    // std::string str = test_map_end(20);
+    // printf("search result is %s \n", str.c_str());
+    // test_pthread_create();
+    // test_sigset_t();
+    // test_pipe();
     // test_strtok();
     // test_fgets();
     // test_lambda();
@@ -834,10 +1362,18 @@ int main()
     // test_getpid();
 
     // test_getegid();
+    // std::thread tmp_thread(test_getegid);
+    // tmp_thread.detach();
     
+    // printf("!!!!!!!!!!\n");
+    // usleep(1000);
     // test_name();
 
-    // test_string();
+    // std::string tmp = test_string();
+    // if(tmp.empty())
+    // {
+    //     printf("empty\n");
+    // }
 
     // int num = 5;
     // std::thread var_thread(test_join, std::ref(num));
