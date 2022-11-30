@@ -6,10 +6,11 @@ src=${wildcard ${cur_makefile_path}*.cpp}
 target=${patsubst %.cpp, %, ${src}}
 
 CXX=g++
-CXX_FLAGS=-g
-DEPEND_LIBS= -lpthread
+CXX_FLAGS=-g 
+DEPEND_LIBS= -lpthread -lopencv_highgui -lopencv_imgcodecs -lopencv_core -ljsoncpp
 
-INCLUDE_PATH= -I/home/user/workspace/notes/test/include/
+INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/opencv4/  -I/usr/local/include/
+LIBRARY_PATH= -L/usr/local/lib/ -L/usr/local/lib/
 
 ${target}:${src}
 	${CXX} ${CXX_FLAGS} $^ -o $@ ${INCLUDE_PATH} ${DEPEND_LIBS}

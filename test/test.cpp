@@ -20,6 +20,11 @@
 #include <sys/types.h>
 #include <map>
 #include <queue>
+#include <fstream>
+#include "jsoncpp/json/json.h"
+#include "libavutil/base64.h"
+#include "opencv4/opencv2/imgcodecs.hpp"
+#include "opencv4/opencv2/highgui.hpp"
 
 // #include "args.hpp"
 
@@ -633,7 +638,7 @@ int test_vsnprintf()
 int test_sort()
 {
     std::array<int, 10> s = { 3, 1, 45, 2 ,6 ,2 ,67 ,12, 45, 41};
-    auto print = [&s](std::string_view const rem)
+        printf("the buf is : %s \n", buf);
     {
 
     }
@@ -704,7 +709,7 @@ int test_clock_gettime()
 
 int test_func_join()
 {
-    printf("print in test_join() function \n");
+        // printf("the buf is : %s \n", buf);
 }
 
 int test_join(int &num)
@@ -1282,11 +1287,476 @@ jump_here:
 
 }
 
+// char *ffmpeg_base64_encode(const void *input_data, int input_size)
+// {
+//     char *result = NULL;
 
+//     assert(input_data && input_size > 0);
+
+//     int output_size = AV_BASE64_SIZE(input_size);
+//     char *output_data = (char *)calloc(1, output_size);
+//     char *chk_out = NULL;
+//     if(output_data)
+//     {
+//         chk_out = av_base64_encode(output_data, output_size, (uint8_t *)input_data, input_size);
+//     }
+// }
+
+// void test_base64()
+// {
+// //     std::string path = "/home/user/Pictures/test/1.jpeg";
+// //     cv::Mat tmp_img = cv::imread(path);
+// //     std::string windows = "tmp";
+// //     cv::namedWindow(windows, 1);
+// //     cv::imshow(windows, tmp_img);
+// //     cv::waitKey(3);
+
+// //     int input_size = path.size();
+// //     int output_size = AV_BASE64_SIZE(input_size);
+// //     char *out_data = (char *)calloc(1, output_size);
+
+
+// //     av_base64_encode(out_data, output_size, (uint8_t *)path.data(), input_size);
+
+// //     printf("%s \n", out_data);
+
+// //     uint8_t *out;
+// //     const char *in;
+//     // av_base64_decode(out, in, out_size);
+// }
+
+void test_spp_search()
+{
+    const char *box_info = "1|620.46|195.62|860.74|492.02\n2|232.2|452.24|635.1|245.1\n";
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    int face_id = -1;
+
+    sscanf(box_info, "%d|%lf|%lf|%lf|%lf%*[^\n]", &face_id, &x1, &y1, &x2, &y2);
+
+    printf("%d %lf %lf %lf %lf \n", face_id, x1, y1, x2, y2);
+}
+
+/* map<uuid, recordset<{index, score}, {index, score}, {index, score}>> */
+typedef std::map<std::string, std::vector<std::pair<int, int>>> RecognizeMap;
+
+
+void test_jsoncpp()
+{
+    Json::Value root;
+    Json::FastWriter writer;
+    Json::Value person;
+
+    person["name"] = "hello world";
+    person["age"]  = 100;
+    root.append(person);
+
+    // Json::Value uuid;
+    Json::Value x;
+    Json::Value y;
+    Json::Value w;
+    Json::Value h;
+    Json::Value box_info;
+
+    // uuid["uuid"] = "1234";
+    // x["x"] = "620";
+    // y["y"] = "195";
+    // w["w"] = "860";
+    // h["h"] = "492";
+
+    // box_info.append(uuid);
+    // box_info.append(x);
+    // box_info.append(y);
+    // box_info.append(w);
+    // box_info.append(h);
+
+    // box_info.find("uuid");
+
+    std::string box = writer.write(box_info);
+    std::string json_file = writer.write(root);
+
+    printf("%s \n", json_file.c_str());
+    printf("%s \n", box.c_str());
+
+    std::string result_str;
+
+    std::pair<int, int> set;
+    std::vector<std::pair<int, int>> pari_recordset;
+
+    RecognizeMap m_recognize;
+
+    set.first = 1;
+    set.second = 78;
+    pari_recordset.push_back(set);
+    set.first = 2;
+    set.second = 88;
+    pari_recordset.push_back(set);
+    set.first = 3;
+    set.second = 99;
+    pari_recordset.push_back(set);
+
+    m_recognize["1"] = pari_recordset;
+    m_recognize["2"] = pari_recordset;
+
+    Json::Value output_json;
+    Json::Value recordinfo;
+    Json::Value face;
+    Json::Value uuid;
+
+    Json::Value recordset;
+    Json::Value set_json;
+    Json::Value index;
+    Json::Value score;
+
+    for(auto &tmp : m_recognize)
+    {
+        recordinfo["uuid"] = tmp.first;
+        for(int i = 0; i < tmp.second.size(); i++)
+        {
+            set_json["index"] = tmp.second[i].first;
+            set_json["score"] = tmp.second[i].second;
+            recordset.append(set_json);
+            set_json.clear();
+        }
+        recordinfo["recordset"] = recordset;
+        face.append(recordinfo);
+        // recordinfo.clear();
+        recordset.clear();
+        // recordinfo.clear();
+    }
+    output_json["recognize"] = face;
+    std::string result = writer.write(output_json);
+    printf("%s \n", result.c_str());
+    
+}
+
+size_t test_base64()
+{
+    const char *path = "/home/user/Pictures/base64/1.txt";
+    std::string pic;
+    FILE *fp = NULL;
+    size_t n = 0;
+    fp = fopen(path, "r");
+    if(!fp)
+    {
+        fclose(fp);
+        fp = NULL;
+    }
+
+    std::ifstream input_file_stream;
+    input_file_stream.open(path, std::ios::in);
+    if(!input_file_stream.is_open())
+    {
+        std::cout << "failed to read the file" << std::endl;
+        return -1;
+    }
+
+    while(1)
+    {
+        if(!(input_file_stream >> pic))
+        {
+            printf("read the base64 image file over ! \n");
+            break;
+        }
+    }
+    input_file_stream.close();
+    // std::cout << pic << std::endl;
+
+    // std::string tmp;
+    // tmp = pic;
+    // std::cout << tmp << std::endl;
+    // printf("the size of pic variable is : %lu \n", pic.size());
+    // printf("the size of tmp variable is : %lu \n", tmp.size());
+    // getchar();
+    return pic.size();
+}
+
+void test_usleep()
+{
+    printf("!!!!!!\n");
+
+    // sleep(1);
+    usleep(1000000);
+
+    printf("!!!!!!\n");
+
+}
+
+void test_ReadFile(const char *file)
+{
+    std::ifstream ifs;
+    ifs.open(file, std::ios::in);
+    if(!ifs.is_open())
+    {
+        printf("read failed !\n");
+        ifs.close();
+    }
+
+    char buf[1000] = {0};
+    while(ifs >> buf)
+    {
+        printf("the buf is : %s \n", buf);
+    }
+    ifs.close();
+    // getchar();
+
+    ifs.open(file, std::ios::in);
+    if(!ifs.is_open())
+    {
+        printf("read failed !\n");
+        ifs.close();
+    }
+    char buf2[1000] = {0};
+    while(ifs.getline(buf, sizeof(buf)))
+    {
+        printf("the buf2 is : %s \n", buf2);
+    }
+    ifs.close();
+
+    // getchar();
+    ifs.open(file, std::ios::in);
+    if(!ifs.is_open())
+    {
+        printf("read failed !\n");
+        ifs.close();
+    }
+    std::string buf3;
+    while (getline(ifs, buf3))
+    {
+        printf("the buf3 is : %s \n", buf3.c_str());
+    }
+    ifs.close();
+    
+    // getchar();
+    ifs.open(file, std::ios::in);
+    if(!ifs.is_open())
+    {
+        printf("read failed !\n");
+        ifs.close();
+    }
+    char c;
+    while((c = ifs.get()) != EOF)
+    {
+        printf("%c \n", c);
+    }
+    ifs.close();
+    // getchar();
+}
+
+void test_StringToJson(const char *file)
+{
+    char* box_info = NULL;
+    FILE *fp;
+    fp = fopen(file, "r");
+    if(!fp)
+    {
+        printf("failed to open the file \n");
+    }
+    size_t num;
+    size_t res = getline(&box_info, &num, fp);
+    if(res == -1)
+    {
+        printf("read null \n");
+    }
+
+    // printf("%s \n", box_info);
+    std::string box_str = box_info;
+    printf("%s \n", box_str.c_str());
+
+    Json::Reader read;
+    Json::Value root;
+    if(read.parse(box_info, root))
+    {
+        std::cout << "success" << "\n";
+    }
+    else
+    {
+        std::cout << "failed" << "\n";
+    }
+    // if(root.isMember("number"))
+    // {
+    //     std::cout << "exist key : {number}" << "\n";
+    // }
+    // else
+    // {
+    //     std::cout << "not exist " << "\n";
+    // }
+    if(root.isArray())
+    {
+        printf("root is a array \n");
+    }
+    else
+    {
+        printf("not \n");
+    }
+    printf("%d \n",root.size());
+    
+    std::string uuid;
+    int x1, x2, y1, y2;
+    std::vector<int> xy;
+    std::map<std::string, std::vector<int> > boxes;
+    for(int i = 0; i < root.size(); i++)
+    {
+        for(auto tmp : root[i].getMemberNames())
+        {
+            printf("key is : %s , and its value is %s \n", tmp.c_str(), (root[i][tmp].toStyledString()).c_str());
+            if(tmp == "index")
+            {
+                uuid = root[i][tmp].asCString();
+            }
+            else if(tmp == "x1")
+            {
+                x1 = atoi((root[i][tmp].toStyledString()).c_str());
+                xy.push_back(x1);
+            }
+            else if(tmp == "y1")
+            {
+                y1 = atoi((root[i][tmp].toStyledString()).c_str());
+                xy.push_back(y1);
+            }
+            else if(tmp == "x2")
+            {
+                x2 = atoi((root[i][tmp].toStyledString()).c_str());
+                xy.push_back(x2);
+            }
+            else if(tmp == "y2")
+            {
+                y2 = atoi((root[i][tmp].toStyledString()).c_str());
+                xy.push_back(y2);
+            }
+        }
+        if(!uuid.empty() && xy.size() != 0)
+        {
+            boxes[uuid] = xy;
+        }
+        uuid.clear();
+        xy.clear();
+    }
+
+    for(auto &tmp : boxes)
+    {
+        printf("uuid is %s, x1:{%d}, y1:{%d}, x2:{%d}, y2:{%d} \n", (tmp.first).c_str(), tmp.second[0], tmp.second[1], tmp.second[2], tmp.second[3]);
+    }
+    // printf("%s", uuid.c_str());
+
+    // printf("\n");
+
+    // printf("uuid is %s, x1:{%d}, y1:{%d}, x2:{%d}, y2:{%d} \n", uuid.c_str(), x1, y1, x2, y2);
+    // std::cout << root.begin() << "\n";
+
+}
+
+/* map<uuid, <x1, y1, x2, y2> */
+typedef std::map<std::string, std::vector<int> > BoxMap;
+
+void test_StringToBox(std::string box_str)
+{
+    char *tmp1 = new char[64];
+    char *tmp2 = new char[64];
+    int x1, y1, x2, y2;
+    BoxMap box_info_map;
+    std::vector<int> xy_info;
+    // printf("%s \n", box_str);
+    char *box = const_cast<char *>(box_str.data());
+    // printf("box is :%s \n", box);
+    char *token = NULL;
+    char *save_ptr = NULL;
+    char *subtoken = NULL;
+    char *str = NULL;
+    for(str = box;; str = NULL)
+    {
+        subtoken = strtok_r(str, "|", &save_ptr);
+        if(!subtoken)
+        {
+            printf("completed to parse string , exit from loop !\n");
+            break;
+        }
+        printf("subtoken is %s \n", subtoken);
+        // sscanf(subtoken, "%[^,],%d,%d,%d,%d[^|]", tmp1, &x1, &y1, &x2, &y2);
+        sscanf(subtoken, "%[^,],%d,%d,%d,%d[^|]", tmp1, &x1, &y1, &x2, &y2);
+        printf("tmp1 is {%s} , x1 is [%d], y1 is [%d], x2 is [%d], y2 is [%d] \n", tmp1, x1, y1, x2, y2);
+        xy_info.push_back(x1);
+        xy_info.push_back(y1);
+        xy_info.push_back(x2);
+        xy_info.push_back(y2);
+        box_info_map[tmp1] = xy_info;
+        xy_info.clear();
+    }
+
+    for(auto &tmp : box_info_map)
+    {
+        printf("tmp1 is {%s} , x1 is [%d], y1 is [%d], x2 is [%d], y2 is [%d] \n", tmp.first.c_str(), tmp.second[0], tmp.second[1], tmp.second[2], tmp.second[3]);
+    }
+
+    // sscanf(box_str, "%s,%d,%d,%d,%d", uuid, &x1, &y1, &x2, &y2);
+
+    // sscanf("hello|world", "%[^|]|%[^|]",tmp1, tmp2);
+    // printf("%d %d \n", x1, y1);
+    // printf("tmp1 is {%s} , tmp is {%s} \n", tmp1, tmp2);
+    
+}
+
+void test_sizeof()
+{
+    char *tmp = new char[4096];
+    std::cout << sizeof(tmp) << "\n";
+}
+
+void test_write()
+{
+    const char *tmp = "hell world";
+    FILE *fp = NULL;
+    fp = fopen("/home/user/workspace/notes/test/write.txt", "w");
+    if(!fp)
+    {
+        printf("failed to open the file !\n");
+        return;
+    }
+
+    int in_size = strlen(tmp);
+    fprintf(fp, "%s", tmp);
+
+    fclose(fp);
+}
+
+void test_DeleteBase64Flag()
+{
+    // std::string flag = "data:image;base64,lajfajlnglaj";
+    std::string flag = "data:imagesfsfs;base64,asfjlagalj||fslf";
+    int pos_data = flag.find("data:");
+    int pos_base64 = flag.find("base64,");
+    if(pos_data != -1 && pos_base64 != -1)
+    {
+        flag.erase(pos_data, (pos_base64 - pos_data) + 7);
+        printf("%s \n", flag.c_str());
+    }
+}
 
 int main()
 {
-    test_scanf();
+    test_DeleteBase64Flag();
+    // test_write();
+
+    // test_sizeof();
+
+    const char *single_box_str = "1,620,195,860,492";
+    std::string box_str = "1,620,195,860,492|2,234,135,621,366|3,234,135,621,366|4,234,135,621,366";
+    // test_StringToBox(box_str);
+    // float dts = 82.123;
+    // printf("%d \n", (int)dts);
+    // const char *file = "/home/user/workspace/notes/test/box_info.txt";
+    // test_StringToJson(file);
+    // const char *file = "/home/user/workspace/notes/test/file.txt";
+    // test_ReadFile(file);
+    // test_usleep();
+    // test_jsoncpp();
+
+    // test_spp_search();
+    // size_t file_size = test_base64();
+    // printf("file size is : %lu \n", file_size);
+    // test_scanf();
     // test_queue();
 
     // const char *file = "/home/user/file.txt";
