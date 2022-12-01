@@ -545,9 +545,13 @@ int test_strlen()
     char str[50];
     int len;
 
-    strcpy(str, "hello world!!!");
+    strcpy(str, "hello world!!! \n");
     len = strlen(str);
     printf("%s length is %d \n", str, len);
+
+    std::string tmp;
+    tmp = "/home/user/file.txt";
+    printf("strlen is %d \n, string.size() is %lu \n", (int)strlen(tmp.c_str()), tmp.size());
 
     return 0;
 }
@@ -1734,9 +1738,153 @@ void test_DeleteBase64Flag()
     }
 }
 
+void test_OpenWrongfile(const char *file)
+{
+    FILE *fp = NULL;
+    fp = fopen(file, "r");
+    std::cout << fp << "\n";
+    if(!fp)
+    {
+        std::cout << "fclose(fp)" << "\n";
+    }
+
+
+}
+
+void test_fwrite(const char *file)
+{
+    char str[] = "hello world !!!";
+    FILE *fp = NULL;
+    fp = fopen(file, "w");
+    fwrite(str, sizeof(str), 1, fp);
+    fclose(fp);
+}
+
+void test_fseek(std::string file)
+{
+    FILE *fp = NULL;
+    void *data = NULL;
+    long length = 0;
+    fp = fopen(file.c_str(), "rb");
+    if(!fp)
+    {
+        printf("Failed to open the file : %s \n", file.c_str());
+        return;
+    }
+
+    fseek(fp, 0, SEEK_END);
+    length = ftell(fp);
+    std::cout << length / 8 << std::endl;
+    data = calloc(length, 1);
+    
+    rewind(fp);
+    size_t res = fread(data, 1, length, fp);
+    if(fp)
+    {
+        fclose(fp);
+        fp = NULL;
+    }
+
+    std::cout << data << std::endl;
+    std::cout << length << std::endl;
+}
+
+void test_fstream(const char *file)
+{
+    std::ifstream infile;
+    infile.open(file, std::ios::in | std::ios::binary);
+
+    int readNum = 0;
+    infile.seekg(0, std::ios::end);
+    int length = infile.tellg();
+    infile.seekg(0, std::ios::beg);
+
+    void *data = calloc(length, 1);
+
+    while(infile.peek() != EOF)
+    {
+        // infile.read(reinterpret_cast<char *>(&readNum), sizeof(int));
+        infile.read((char *)data, length);
+    }
+    std::cout << length << std::endl;
+    printf("%p \n", data);
+    std::cout << infile.gcount() << std::endl;
+
+
+
+    infile.close();
+    free(data);
+}
+
+void test_open(const char *file)
+{
+    sleep(1);
+
+}
+
+void test_difftime()
+{
+    time_t tstart;
+    tstart = time(NULL);
+    test_open(NULL);
+    printf("function test_open consume time %f seconds  \n", difftime(time(nullptr), tstart));
+}
+
+void test_ctime()
+{
+    time_t tcurrent;
+
+    tcurrent = time(NULL);
+    printf("The current time is %s \n", ctime(&tcurrent));
+
+}
+
+void test_localtime()
+{
+    struct tm *tcurrent;
+    time_t current_time;
+    current_time = time(NULL);
+    tcurrent = localtime(&current_time);
+    printf("%d days have elapsed since Jan 1 \n", tcurrent->tm_yday);
+}
+
+void test_clock()
+{
+    long timedif;
+    struct timespec tmpend, tmpstart;
+
+    if(clock_gettime(CLOCK_REALTIME, &tmpstart) == -1)
+    {
+        perror("Failed to get starting time");
+        return;
+    }
+
+    test_localtime();
+    if(clock_gettime(CLOCK_REALTIME, &tmpend) == -1)
+    {
+        perror("Failed to get ending time");
+        return;
+    }
+
+    timedif = (tmpend.tv_sec - tmpstart.tv_sec) + (tmpend.tv_nsec - tmpstart.tv_nsec)/1000;
+    printf("The function test_localtime() took %ld microsenconds \n", timedif);
+
+}
+
 int main()
 {
-    test_DeleteBase64Flag();
+    test_class();
+    // test_localtime();
+    // test_ctime();
+    // test_difftime();
+    const char *file = "/home/user/workspace/notes/test/write.txt";
+    const char *image = "/home/user/Pictures/test/1.jpeg";
+    // test_fseek(image);
+    // test_fstream(image);
+    // test_fwrite(file);
+    // const char *file = "/home/user/file3.txt";
+    // test_OpenWrongfile(file);
+    // test_DeleteBase64Flag();
     // test_write();
 
     // test_sizeof();

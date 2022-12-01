@@ -732,3 +732,192 @@
 + 进程根据信号采取行动时，信号就被**传递**(deliver)了。
 + 信号的寿命(lifetime)就是，**信号的生成和传递之间的时间间隔**。
 + 已经生成但还未被传递的信号被称为挂起(pending)的信号，
++ 在信号生成和信号传递之间可能会有相当长的时间。传递信号时，进程必须在处理器上运行
+
++ 如果在传递信号时，进程执行了信号处理程序(signal handler)，那么进程就捕捉(catch)到了这个信号
++ 如果将进程设置为忽略(ignore)某个信号，那么在传递时那个信号就会被丢弃，不会对进程产生影响
+
++ 信号生成时，所采取的的行动取决于那个信号当前使用的信号处理程序和进程信号掩码(process signal mask)
++ 信号掩码中包含一个当前被阻塞信号(blocked signal)的列表
++ 阻塞一个信号很容易和忽略一个信号混淆起来
+  + 被阻塞的信号不会像被忽略的信号一样丢弃
+  + 如果一个挂起信号被阻塞了，那个当进程解决了对那个信号的阻塞时，信号就会被传递出去
+
+### 产生信号
+
++ 每个信号都有一个以SIG开头的符号名。
++ 信号的名字都定义在`signal.h`中，任何一个使用了信号的C程序中都要包含这个文件
++ 信号的名字表示的是大于0的小整数
+
++ 在命令解释程序上可以用kill命令产生信号。
++ 历史上，很多信号的默认行为都是将进程终止，kill这个名字就由此而来
+
++ 在一个程序中调用`kill()`函数会向一个进程发送信号。
++ 原型：`int kill(pid_t pid, int sig);`
++ 函数将进程ID和一个信号码作为参数。
+  + 如果参数pid大于0，kill就向那个ID表示的进程发送信号。
+  + 如果pid为0，kill就像调用程序的进程组成员发送信号
+  + 如果参数pid为-1， kill就向所有它有权发送信息的进程发送信号
+  + 如果参数pid的值是其他负数，kill就将信号发送到组ID等于pid的进程组中去
++ 返回值
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ 进程可以用`raise()`函数向自己发送一个信号
++ `int raise(int sig);`
++ 函数只有一个参数，即信号码
++ 返回值
+  + 成功，返回0
+  + 失败，返回一个非零的错误值，并设置errno
+
+### 对信号掩码和信号集进行操作
+
++ 进程可以通过阻塞信号暂时地阻止信号的传递。在传递之前，被阻塞的信号不会影响进程的行为
++ 进程的信号掩码(signal mask)给出了当前被阻塞的信号的集合。信号掩码的类型为`sigset_t`
+
++ 可以用类型为sigset_t的信号集来指定对信号组的操作（例如阻塞或接触阻塞的操作）
++ 信号集由下面的五个函数来操作，每个函数的第一个参数都是一个指向`sigset_t`的指针
+  + `int sigaddset(sigset_t *set, int signo)`  --  负责将`signo`加入信号集
+  + `int sigdelset(sigset_t *set, int signo)`  --  将`signo`从信号集中删除
+  + `int sigemptyset(sigset_t *set);`          --  对一个`sigset_t`类型的信号集进行初始化，使其不包含任何信号
+  + `int sigfillset(sigset_t *set);`           --  对一个`sigset_t`类型的信号集进行初始化，使其包含所有的信号
+  + `int sigismember(const sigset_t *set, int signo);`  --  报告`signo`是否在`sigset_t`中
+
+### 捕捉与忽略信号  --  sigaction
+
++ `sigaction()`函数，允许调用程序检查或指定与特定信号相关的动作
++ `int sigaction(int sig, const struct sigaction *restrict act, struct sigaction *restrict oact);`
++ 函数的参数`sig`来指定动作的信号码
++ 参数`act`是一个指向`struct sigaction`结构的指针，用来说明要采取的动作
+
++ 在基于POSIX的标准中，信号处理程序是一个普通函数，它返回void， 并有一个整型的参数
+
+### 等待信号  --  pause, sigsuspend, sigwait
+
++ 信号提供了一种不需要忙等(busy waiting)来等待事件的方法。
++ 忙等，是指连续地使用CPU周期来检测事件的发生。通常，程序都通过在循环中测试一个变量的值来进行这种检测。
++ 更有效的方法是，将进程挂起直到所等待的事件发生为止；这样，其他的进程就可以更有效地使用CPU了
++ POSIX中的`pause(), sigsupend(), sigwait()`提供了三种机制，用来挂起进程，直到信号发生为止
+
++ `pause()`函数，将调用线程挂起，直到传递了一个信号为止，这个信号的动作或者是执行用户定义的处理程序，或者是终止进程
++ 如果信号的动作是终止进程，pause就不返回。如果信号被进程捕捉，pause就会在信号处理程序返回之后返回
++ `#include <unistd.h>  int pause(void);`
++ pause函数总是返回-1，如果被信号中断，pause就将errno设置为EINTR
++ 要用pause来等待一个待定的信号，就必须确定哪个信号会使用pause返回。这个信息并不是直接可用的，因此信号处理程序必须设置一个标志符，以便程序在pause返回之后对其进行检查
+
++ `sigsuspend()`，用sigmask指向的那个掩码来设置信号掩码，并将进程挂起，知道进程捕捉到信号为止
++ `int sigsuspend(const sigset_t *sigmask);`
++ 被捕捉信号的信号处理程序返回时，sigsuspend函数就返回。
+
++ `sigwait()`函数，一直阻塞直到`*sigmask`指定的任何一个信号被挂起为止，然后从挂起信号集中删除那个信号，并接触对它的阻塞
++ 当`sigwait()`返回时，从挂起信号集中删除的信号的个数被存储在`signo`指向的那个位置中
++ `int sigwait(const sigset_t *restrict sigmask, int *restrict signo);`
++ 如果成功，返回0。如果失败，返回-1，并设置errno
+
+### 信号处理原则
+
++ 如果拿不准，就在程序中显式地重启库函数调用，或者使用重启库
++ 检查信号处理程序中使用的每个库函数，确保函数在异步信号安全函数的列表中
++ 仔细地分析修改外部变量的信号处理程序和访问的那个变量的其他按程序代码之间潜在的交互，阻塞信号以防出现不希望的交互
++ 适当的时候保存并回复errno
+
+### 用异步I/O编程
+
++ 通常，在执行读操作或写操作时，进程会一直阻塞直到I/O完成为止。
++ 某些注重性能的应用程序宁愿先初始化请求，然后继续执行，这样就允许I/O操作的处理异步(asynchronously)于程序的执行
+
++ POSIX：AIO扩展对异步I/O的定义基于四个主要函数。
+  + `#include <aio.h>`
+  + `int aio_read(struct aiocb *aiocbp);`  -- 允许进程对一个打开的文件描述符上的读操作请求进行排队
+  + `int aio_write(struct aiocb *aiocbp);` --  对写操作请求进行排队
+  + 它们都只有一个参数  --  aiocbp，它是一个指向异步I/O控制块的指针。
+  + `aio_read()`从与`aiocbp->aio_fildes`相关的文件中将`aiocbp->aio_bytes`字节读入一个由`aiocbp->aio_buf`指定的缓冲区中。请求被放入队列之后，函数就返回。
+  + `ssize_t aio_return(struct aiocv *aiocbp);`  --  指定I/O操作的状态
+  + `int aio_error(const struct aiocb *aiocbp);` --
+
+## 时间和定时器
+
++ 操作系统为进程调度，网络协议超时以及定期更新系统的统计信息等目的使用定时器
++ 应用程序通过对系统时间和定时器函数的访问来测量性能或确定事件发生的时间
++ 应用程序也可以用定时器来实现协议，控制与用户的交互
+
+### POSIX时间
+
++ POSIX规定系统应该记录从`Epoch`开始的以秒为单位的时间，每天都被精确地计为86400秒
++ `Epoch`，新纪元被定义为协调世界时（也称为UTC，格林尼治标准时间或GMT）的1970年1月1日，00:00（午夜）
+
++ POSIX基本标准只支持秒级的分辨率，并用类型`time_t`来表示从Epoch开始的时间，`time_t`类型通常都用`long`类型来实现
++ 程序可以通过调用`time()`函数来访问系统时间（从Epoch开始的秒数表示）。如果tloc不为NULL，time函数还会将时间存储在*tloc中
+  + `#include <time.h>  time_t time(time_t *tloc);`
+  + 如果成功，返回从Epoch开始计算的秒数
+  + 如果失败，返回-1，
+
++ difftime函数负责计算两个`time_t`类型的日历时间之间的差值，以简化包含时间的计算
++ difftime函数有两个`time_t`类型的参数，并返回一个double类型的值，其中包含的是第一个参数减去第二个参数得到的差值
+  + `#include <time.h>`
+  + `double difftime(time_t time1, time_t time0);`
+
++ 对于需要计算时间差值的计算来说，使用`time_t`类型是很方便的，但是用来打印日期就非常繁琐
++ 函数`localtime()`有一个参数，这个参数用来说明从Epoch开始的秒数，并返回一个结构，这个结构中带有根据本地需求调整过的时间成分（例如，日，月和年）
+  + `struct tm *localtime(const time_t *timer);`
++ `asctime()`函数将`localtime()`返回的结构转换成字符串
+  + `char *asctime(const struct tm *timeptr);`
++ `ctime()`函数的额功能等同于`asctime(localtime(clock))`
+  + `char *ctime(const time_t *clock);`
+  + `ctime()`函数用静态存储的方式来保存时间字符串，对ctime的两次调用都将字符串存储在同一个位置，因此在使用第一个值之前，第二次调用可能会将第一个值覆盖
++ `gmtime()`函数的额参数为从Epoch开始的描述，并返回一个结构，这个结构中带有协调时间时表示（UTC）的时间成分
+  + `struct tm *gmtime(const time_t *timer);`
+  + gmtime函数和localtime函数将时间划分成独立的字段，使得程序可以很容易地输出日期或时间的不同部分
++ ISO定义结构体`struct tm`中应该包含下列成员：
+  + `int tm_sec; int tm_min; int tm_hour; int tm_mday; int tm_mon; int tm_year; int tm_wday; int tm_yday; int tm_isdst;`
+
++ 对于程序定时或者控制程序事件来说，用秒作为事件的尺度太粗糙了
++ POSIX：XSI扩展用`struct timeval`结构，以更精细的尺度来表示时间。
++ `struct timeval`结构包含如下成员
+  + `time_t tv_sec; /* 从Epoch开始的秒数*/`
+  + `time_t tv_usec; /* 从Epoch开始的微秒数 */`
+
++ gettimeofday函数用来获取自Epoch以来的，用秒和微妙表示的系统时间。
++ tp指向的`struct timeval`结构负责接收获取的时间，指针tzp必须为NULL，这个指针是由于历史原因才包含进来的
+  + `#include <sys/time.h>`
+  + `int gettimeofday(struct timeval *restrict tp, void *restrict tzp);`
+  + 函数返回0，没有保留其他的值来指示错误
+
+### 使用实时时钟
+
++ 时钟(clock)，是一个计数器，它的值以固定间隔增加，这个固定间隔被称为时钟分辨率(clock resolution)
++ POSIX:TMR定时器扩展中包含了各种用`clockid_t`类型的变量表示的时钟
++ `struct timespec`结构用来为POSIX：TMR时钟和定时器指定时间，也用来为支持超时的POSIX线程函数指定超时值。
++ `struct timespec`结构至少包含下列成员
+  + `time_t tv_sec; /* 秒 */`
+  + `long   tv_nsec; /* 纳秒 */`
+
++ POSIX提供了设置时钟时间的函数(clock_settime)，获取时钟时间的函数(clock_gettime)和确定时钟分辨率的函数(clock_getres)
+  + `#include <time.h>`
+  + `int clock_getres(clockid_t clock_id, struct timespec *res);`
+  + `int clock_gettime(clockid_t clock_id, struct timespec *tp);`
+  + `int clock_settime(clockid_t clock_id, const struct timespec *tp);`
++ 每个函数都有两个参数：
+  + 用来标识特定时钟的`clockid_t`
+  + 一个指向`struct timespec`结构的指针
++ 返回值
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ time函数测量的是实际时间(real time)，有时又称为实耗时间或挂钟时间。
++ 在多道程序设计环境中，很多进程共享CPU，因此实际时间并不能精确地测量出执行时间
++ 进程的虚拟时间(virtual time)是进程在运行(running)状态耗费的时间总量。执行时间通常都用虚拟时间而不用挂钟时间来表示
+
++ times函数用时间账单信息来填充它的参数buffer指向的`struct tms`结构
+  + `#include <sys/times.h>`
+  + `clock_t times(struct tms *buffer);`
++ 返回值
+  + 成功，返回用时钟滴答计数表示的实际耗费的时间，这个时间是从过去的任意一点开始计算的，比如可以从系统或进程的起始时间开始计算
+  + 失败，返回-1，并设置errno
++ `struct tms`结构至少包含以下成员
+  + `clock_t tms_utime; /*进程的用户CPU时间*/`
+  + `clock_t tms_stime; /* 由进程使用的系统CPU时间 */`
+  + `clock_t tms_cutime;/* 进程及其已终止的子进程的用户CPU时间*/`
+  + `clock_t tms_cstime; /* 由进程及其已终止的子进程使用的系统CPU时间 */`
+
+### 睡眠函数(247)
