@@ -1,51 +1,259 @@
-#include <iostream>  // std::cin, std::cout
-#include <array>     // std::array
-#include <vector>    // std::vector
-#include <cstring>
-#include <tuple>     // std::tuple
-#include <unistd.h>
-#include <utility>   // std::pair, std::make_pair
-#include <string>    // std::string
-#include <cstdlib>
-#include <ctype.h>   // iscntrl() 
-#include <cstdarg>   // va_start va_arg va_end va_list
-#include <algorithm> // std::sort()
-#include <functional>
-#include <string_view>  // std::string_view()
-#include <cmath>
-#include <typeinfo>  // std::typeid
-#include <thread>    // std::thread
-#include <assert.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <map>
-#include <queue>
-#include <fstream>
-#include "jsoncpp/json/json.h"
-#include "libavutil/base64.h"
-#include "opencv4/opencv2/imgcodecs.hpp"
-#include "opencv4/opencv2/highgui.hpp"
+#ifndef TEST_HPP
+#define TEST_HPP
 
-// #include "args.hpp"
+#include "args.hpp"
 
-int test_access()
+class Test
+{
+public:
+    typedef std::map<std::string, std::string> TmpMap;
+    typedef TmpMap::iterator TmpMapIterator;
+
+    /* map<uuid, recordset<{index, score}, {index, score}, {index, score}>> */
+    typedef std::map<std::string, std::vector<std::pair<int, int>>> RecognizeMap;
+
+    /* map<uuid, <x1, y1, x2, y2> */
+    typedef std::map<std::string, std::vector<int>> BoxMap;
+
+public:
+    std::string m_path;
+
+public:
+    Args args;
+
+public:
+    Test();
+
+    virtual ~Test();
+
+public:
+    int test_FixPath(Args &args);
+
+    int test_ConfInline(Args &args);
+
+public:
+    int test_access();
+
+    int test_array_at();
+
+    int test_c_str();
+
+    int test_class();
+
+    int test_double_pointer();
+
+    int test_fopen();
+
+    int test_get();
+
+    int test_getenv();
+
+    int test_max();
+
+    int test_memset();
+
+    int test_set_name(const char *name);
+
+    int test_remove();
+
+    int test_snprintf();
+
+    int test_scanf();
+
+    int test_strcasecmp();
+
+    std::string test_fix_path(const char *file, const char *path);
+
+    int test_strtol();
+
+    int test_union();
+
+    int test_vector(std::vector<int> &tmp_ids);
+
+    int test_virtual();
+
+    int test_pair();
+
+    int test_iterating_for_loop();
+
+    int test_atoi();
+
+    int test_iscntrl();
+
+    int test_strlen();
+
+    char *test_basename(const char *path);
+
+    int test_readlink();
+
+    int test_strrchr();
+
+    int test_stdarg(int num_args, ...);
+
+    int test_printferror(const char *format, ...);
+
+    int test_vsnprintf();
+
+    int test_sqrt();
+
+    int test_iterator();
+
+    int test_thread();
+
+    int test_clock_gettime();
+
+    int test_getpid();
+
+    int test_getegid();
+
+    int test_fork();
+
+    int test_strchr(const char *str, char delimiter);
+
+    int test_lambda();
+
+    int test_strtok(char *str, const char *delimiter);
+
+    int test_fgets();
+
+    int test_pipe();
+
+    int test_sigset_t();
+
+    std::string test_map_end(int id);
+
+    const char *test_map_second(const char *id);
+
+    int test_file_parse(const char *file, const char *delimiter);
+
+    int test_enum_map();
+
+    int test_queue();
+
+    int test_spp_search();
+
+    int test_jsoncpp();
+
+    size_t test_base64();
+
+    int test_usleep();
+
+    int test_readfile(const char *file);
+
+    int test_StringToJson(const char *file);
+
+    int test_StringToBox(std::string box_str);
+
+    int test_sizeof();
+
+    int test_write();
+
+    int test_DeleteBase64Flag();
+
+    int test_OpenWrongfile(const char *file);
+
+    int test_fwrite(const char *file);
+
+    int test_fseek(std::string file);
+
+    int test_fstream(const char *file);
+
+    int test_ctime();
+
+    int test_localtime();
+
+    int test_clock();
+
+    int test_sleep(int argc);
+
+    int test_nanosleep();
+
+    int test_intTochar();
+
+    int test_vector();
+
+    int test_int64_t();
+};
+
+Test::Test()
+{
+}
+
+Test::~Test()
+{
+}
+
+int Test::test_FixPath(Args &args)
+{
+    std::string http_path;
+    std::string https_path;
+    std::string detect_path;
+    std::string feature_path;
+    std::string detect_file;
+    std::string feature_file;
+
+    detect_file = args.value("--detect", "");
+    feature_file = args.value("--feature", "");
+
+    if(args.exist("--http"))
+    {
+        http_path = args.value("--http", "");
+        detect_path = http_path + detect_file;
+        feature_path = http_path + feature_file;
+    }
+    else if(args.exist("--https"))
+    {
+        https_path = args.value("--https", "");
+        detect_path = https_path + detect_file;
+        feature_path = https_path + feature_file;
+    }
+    else
+    {
+        std::cout << "Error path !!! \n";
+        return -1;
+    }
+
+    std::cout << detect_path << std::endl;
+    std::cout << feature_path << std::endl;
+
+    return 0;
+}
+
+int Test::test_ConfInline(Args &args)
+{
+    std::string conf;
+    int delimiter;
+
+    conf = args.value("--detector-conf", "");
+    delimiter = args.value("--detector-conf-delim", "@")[0];
+
+    args.parse(conf.c_str(), conf.length(), NULL, delimiter);
+
+    std::string name = args.value("--detector-models", "");
+
+    std::cout << name << std::endl;
+
+    return 0;
+}
+
+int Test::test_access()
 {
     int i = access("/home/user/workspace/stdlib/access.cpp", R_OK);
 
     std::cout << i << std::endl;
 }
 
-int test_array_at()
+int Test::test_array_at()
 {
     std::array<int, 10> data;
-    
-    for(int i = 0; i < 10; i++)
+
+    for (int i = 0; i < 10; i++)
     {
         data.at(i) = i + 1;
     }
 
     std::cout << "data:";
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         std::cout << " " << data.at(i);
     }
@@ -55,31 +263,31 @@ int test_array_at()
     return 0;
 }
 
-int test_c_str()
+int Test::test_c_str()
 {
-    std::string str ("123|1|/home/user/Pictures/test/1.jpeg|");
+    std::string str("123|1|/home/user/Pictures/test/1.jpeg|");
 
     const char *tmp_str = "hello world";
     std::string tmp = tmp_str;
     printf(" std::string is %s \n const char * is : %s \n", tmp.c_str(), tmp_str);
 
-    char* cstr = new char [str.length()+1];
+    char *cstr = new char[str.length() + 1];
     const char *delimiter = "|";
-    std::strcpy (cstr, str.c_str());
+    std::strcpy(cstr, str.c_str());
     printf("char buf string is %s \n", cstr);
 
-    char* p = std::strtok(cstr, delimiter);
-    while(p != 0)
+    char *p = std::strtok(cstr, delimiter);
+    while (p != 0)
     {
         std::cout << p << '\n';
         p = std::strtok(NULL, delimiter);
     }
 
     delete[] cstr;
-    return 0; 
+    return 0;
 }
 
-int test_class()
+int Test::test_class()
 {
     class tmp
     {
@@ -105,12 +313,12 @@ int test_class()
     return 0;
 }
 
-int test_double_pointer()
+int Test::test_double_pointer()
 {
     int i = 0;
-    int* j = &i;
-    int** k = &j;
-    int* l = j;
+    int *j = &i;
+    int **k = &j;
+    int *l = j;
     std::cout << i << std::endl;
 
     std::cout << &i << std::endl;
@@ -124,7 +332,7 @@ int test_double_pointer()
     return 0;
 }
 
-int test_fopen()
+int Test::test_fopen()
 {
     const char *file_name = "./test.txt";
 
@@ -133,11 +341,11 @@ int test_fopen()
     fclose(pst_file);
 
     pst_file = NULL;
-    
+
     return 0;
 }
 
-int test_get()
+int Test::test_get()
 {
     std::tuple<int, char, float> mytuple(10, 'a', 2.3);
     std::get<0>(mytuple) = 20;
@@ -149,96 +357,81 @@ int test_get()
     return 0;
 }
 
-int test_getenv()
+int Test::test_getenv()
 {
-    char* pPath;
+    char *pPath;
     pPath = getenv("PATH");
-    if(pPath != NULL)
+    if (pPath != NULL)
         printf("The current path is : %s \n", pPath);
-    
+
     return 0;
 }
 
-int test_max()
+int Test::test_max()
 {
-    std::cout << "max(1,2) == " << std::max(1,2) << std::endl;
-    std::cout << "max(2,1) == " << std::max(2,1) << std::endl;
+    std::cout << "max(1,2) == " << std::max(1, 2) << std::endl;
+    std::cout << "max(2,1) == " << std::max(2, 1) << std::endl;
 
     return 0;
 }
 
-int test_memset()
+int Test::test_memset()
 {
     char str[] = "almost every programmer shold know memset!";
     memset(str, '-', 6);
     puts(str);
-    
+
     return 0;
 }
 
-void set_name(const char *name)
+int Test::test_set_name(const char *name)
 {
     const char *m_name = ((name && name[0]) ? name : "");
     printf("name[0] = {%c}\n", name[0]);
     printf("m_name:{%s} \n", m_name);
 }
 
-int test_name()
+int Test::test_remove()
 {
-    const char Name[10] = "world";
-    const char *name = " hello";
-    // std::cout << *(name+1) << std::endl;
-    // std::cout << Name << std::endl;
-    // printf("%s\n",Name);
-    // std::cout << typeid(name).name() << std::endl;
-    // std::cout << sizeof(name) << std::endl;
-
-    set_name(name);
-
-    return 0;
-}
-
-int test_remove()
-{
-    const char* file = "/home/user/workspace/stdlib/hit";
+    const char *file = "/home/user/workspace/stdlib/hit";
     // remove(file);
     // std::cout << "remove the hit file" << *file << std::endl;
-    const char* New_name = "hitter";
+    const char *New_name = "hitter";
     rename(file, New_name);
 
     return 0;
 }
 
-int test_snprintf()
+int Test::test_snprintf()
 {
     char buffer[100];
     int cx;
 
-    cx = snprintf(buffer, 100, "The half of %d is %d", 60, 60/2);
+    cx = snprintf(buffer, 100, "The half of %d is %d", 60, 60 / 2);
 
-    if(cx > 0 && cx < 100)
-        snprintf(buffer+cx, 100-cx, ", and the half of that is %d", 60/2/2);
-    
+    if (cx > 0 && cx < 100)
+        snprintf(buffer + cx, 100 - cx, ", and the half of that is %d", 60 / 2 / 2);
+
     puts(buffer);
 
     return 0;
 }
 
-int test_scanf()
+int Test::test_scanf()
 {
-    char sentence [] = "123|0|/home/user/demo.jpeg";
+    char sentence[] = "123|0|/home/user/demo.jpeg";
     int64_t id;
     int flag;
     // char *path = (char *)malloc(4096);
     char *image_path = new char[4096];
-    char str [20];
+    char str[20];
     int i;
 
     FILE *fp = NULL;
     // const char *path = "/home/user/20221128183801.txt";
     const char *path = "/home/user/tmp.txt";
     fp = fopen(path, "r");
-    if(!fp)
+    if (!fp)
     {
         printf("failed to open the file -- %s \n", path);
         fclose(fp);
@@ -249,24 +442,24 @@ int test_scanf()
     size_t num = 0;
     int res = 0;
 
-    while(1)
+    while (1)
     {
         res = getline(&line_ptr, &num, fp);
-        if(res == -1)
+        if (res == -1)
         {
             printf("read the file over \n");
             break;
         }
-        sscanf (line_ptr, "%ld|%d|%s%*[^\n]", &id, &flag, image_path);
+        sscanf(line_ptr, "%ld|%d|%s%*[^\n]", &id, &flag, image_path);
         printf("id : %ld, flag : %d, path : %s \n", id, flag, image_path);
     }
 
-    if(image_path)
+    if (image_path)
     {
-        delete [] image_path;
+        delete[] image_path;
         image_path = NULL;
     }
-    if(line_ptr)
+    if (line_ptr)
     {
         delete line_ptr;
         line_ptr = NULL;
@@ -277,26 +470,26 @@ int test_scanf()
     return 0;
 }
 
-int test_strcasecmp()
+int Test::test_strcasecmp()
 {
-    const char* s1 = "helloworld";
-    const char* s2 = "case";
+    const char *s1 = "helloworld";
+    const char *s2 = "case";
 
     int res = strcasecmp(s1, s2);
-    
+
     std::cout << res << std::endl;
 
     return 0;
 }
 
-std::string test_fix_path(const char *file, const char *path)
+std::string Test::test_fix_path(const char *file, const char *path)
 {
     char exe_path[4096] = {0};
     std::string tmp;
 
     assert(file != NULL);
 
-    if ((file[0] == '/') || (strncmp(file, "http://", 7) == 0) || (strncmp(file, "https://", 8) == 0)) 
+    if ((file[0] == '/') || (strncmp(file, "http://", 7) == 0) || (strncmp(file, "https://", 8) == 0))
     {
         tmp = file;
     }
@@ -310,42 +503,10 @@ std::string test_fix_path(const char *file, const char *path)
     return tmp;
 }
 
-const char *test_string()
-{
-    const char *file = "hello.h";
-    const char *path = "/tmp";
-
-    std::string res = test_fix_path(file, NULL);
-
-    printf("file path is :%s \n", res.c_str());
-
-#if 0
-    char str[80];
-    strcpy(str, "thes ");
-    strcat(str, "strings ");
-    strcat(str, "are ");
-    strcat(str, "concatenated.");
-
-    puts(str);
-
-    std::string request_data;
-    size_t request_max = 16 * 1024 * 1024;
-    request_data.reserve(request_max);
-
-    bool chk = false;
-    request_data = "/home/user/Pictures/test/1.jpeg";
-    printf("string's size is %ld \n ",request_data.size());
-
-    printf("string : %s \n", request_data.c_str());
-#endif
-
-    return "";
-}
-
-int test_strtol()
+int Test::test_strtol()
 {
     char szNumbers[] = "00001 abcde -111111111111111111 0x6ffffffff";
-    char* pEnd;
+    char *pEnd;
     long int li1, li2, li3, li4;
     li1 = strtol(szNumbers, &pEnd, 20);
     li2 = strtol(pEnd, &pEnd, 16);
@@ -355,44 +516,17 @@ int test_strtol()
     return 0;
 }
 
-#ifdef TEST_TEMPLATE
-
-template <typename T>
-inline T const& Max(T const& a, T const& b)
+int Test::test_union()
 {
-    return a < b ? b:a;
-}
-
-int test_template()
-{
-
-
-    int i = 20;
-    int j = 4;
-    std::cout << "Max(i,j)" << Max(i, j) << std::endl;
-
-    double f1 = 145.4;
-    double f2 = 34.34;
-    std::cout << "Max(f1,f2)" << Max(f1, f2) << std::endl;
-
-    std::string s1 = "hello";
-    std::string s2 = "world";
-    std::cout << "Max(s1,s2)" << Max(s1, s2) << std::endl;
-
-    return 0;
-}
-
-#endif //TEST_TEMPLATE
-
-int test_union()
-{
-    typedef union image{
+    typedef union image
+    {
         int a;
-        struct {
+        struct
+        {
             int inside;
             int inside_2;
-        }b;
-    }img;
+        } b;
+    } img;
 
     img test;
     test.a = 1;
@@ -405,17 +539,17 @@ int test_union()
     return 0;
 }
 
-int test_vector(std::vector<int> &tmp_ids)
+int Test::test_vector(std::vector<int> &tmp_ids)
 {
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         tmp_ids.push_back(i);
     }
-    
+
     return 0;
 }
 
-int test_virtual()
+int Test::test_virtual()
 {
     class A
     {
@@ -426,7 +560,7 @@ int test_virtual()
         }
     };
 
-    class B:public A
+    class B : public A
     {
     public:
         virtual void foo()
@@ -435,49 +569,23 @@ int test_virtual()
         }
     };
 
-    A *a = new A();  // A::foo()
+    A *a = new A(); // A::foo()
     // A *a = new B();  // B::foo()
     a->foo();
 
     return 0;
 }
 
-#ifdef TEST_VSSCANF
-
-void GetMatches(const char* str, const char* format, ...)
+int Test::test_pair()
 {
-    va_list args;
-    va_start(args, format);
-    vsscanf(str, format, args);
-    va_end(args);
-}
+    std::pair<std::string, double> product1;                   // default constructor
+    std::pair<std::string, double> product2("tomatoes", 2.30); // value init
+    std::pair<std::string, double> product3(product2);         // copy constructor
 
-int test_vsscanf()
-{
+    product1 = std::make_pair(std::string("lightbulbs"), 0.99); // using make_pair(move)
 
-
-    int val;
-    char buf[100];
-
-    GetMatches("99 bottles of beer on the wall", "%d %s", &val, buf);
-
-    printf("Product:%s \n Quantity: %d \n", buf, val);
-    return 0; 
-
-}
-
-#endif  // TEST_VSSCANF
-
-int test_pair()
-{
-    std::pair <std::string, double> product1;  // default constructor
-    std::pair <std::string, double> product2("tomatoes", 2.30);  // value init
-    std::pair <std::string, double> product3(product2);  // copy constructor
-
-    product1 = std::make_pair(std::string("lightbulbs"), 0.99);  // using make_pair(move)
-
-    product2.first = "shoes";  // the type of first is string
-    product2.second = 39.80;   // the type of second is double
+    product2.first = "shoes"; // the type of first is string
+    product2.second = 39.80;  // the type of second is double
 
     std::cout << "The price of " << product1.first << "is $" << product1.second << '\n';
     std::cout << "The price of " << product2.first << "is $" << product2.second << '\n';
@@ -486,13 +594,13 @@ int test_pair()
     return 0;
 }
 
-int test_iterating_for_loop()
+int Test::test_iterating_for_loop()
 {
     // iterating over array
     int arr[] = {10, 20, 30, 40, 50};
     for (int num : arr)
         printf("%d ", num);
-    
+
     printf("\n");
     // traditinal for loop
     for (int i = 0; i < 5; i++)
@@ -503,7 +611,7 @@ int test_iterating_for_loop()
     return 0;
 }
 
-int test_atoi()
+int Test::test_atoi()
 {
     int val;
     char str[20];
@@ -519,19 +627,19 @@ int test_atoi()
     return 0;
 }
 
-int test_iscntrl()
+int Test::test_iscntrl()
 {
     int i = 0, j = 0;
     char str1[] = "all \a about \t programming";
     char str2[] = "Runoob \n tutrials";
 
-    while(!iscntrl(str1[i]))
+    while (!iscntrl(str1[i]))
     {
         putchar(str1[i]);
         i++;
     }
 
-    while(!iscntrl(str2[j]))
+    while (!iscntrl(str2[j]))
     {
         putchar(str2[j]);
         j++;
@@ -540,7 +648,7 @@ int test_iscntrl()
     return 0;
 }
 
-int test_strlen()
+int Test::test_strlen()
 {
     char str[50];
     int len;
@@ -556,38 +664,38 @@ int test_strlen()
     return 0;
 }
 
-char* test_basename(const char *path)
+char *Test::test_basename(const char *path)
 {
-    char* result = NULL;
-    char* name = strdup(path);
-    if(name)
+    char *result = NULL;
+    char *name = strdup(path);
+    if (name)
     {
-        char* find = basename(name);
-        if(find)
+        char *find = basename(name);
+        if (find)
             result = find;
-            
+
         free(name);
     }
 
     return result;
 }
 
-int test_readlink()
+int Test::test_readlink()
 {
-    char buf[1024] = { 0 };
+    char buf[1024] = {0};
     int n;
 
     n = readlink("/proc/self/exe", buf, sizeof(buf));
-    if(n > 0 && n < sizeof(buf))
+    if (n > 0 && n < sizeof(buf))
         printf("%s \n", buf);
-    
+
     return 0;
 }
 
-int test_strrchr()
+int Test::test_strrchr()
 {
     int len;
-     char str[1024] = "hello world / hahaha";
+    char str[1024] = "hello world / hahaha";
     const char ch = '/';
     char *res = strrchr(str, ch);
 
@@ -596,14 +704,14 @@ int test_strrchr()
     return 0;
 }
 
-int test_stdarg(int num_args, ...)
+int Test::test_stdarg(int num_args, ...)
 {
     int val = 0;
     va_list ap;
     int i;
 
     va_start(ap, num_args);
-    for(i = 0; i < num_args; i++)
+    for (i = 0; i < num_args; i++)
     {
         val += va_arg(ap, int);
     }
@@ -612,7 +720,7 @@ int test_stdarg(int num_args, ...)
     return val;
 }
 
-void PrintFError(const char *format, ...)
+int Test::test_printferror(const char *format, ...)
 {
     char buffer[256];
     va_list args;
@@ -622,14 +730,14 @@ void PrintFError(const char *format, ...)
     va_end(args);
 }
 
-int test_vsnprintf()
+int Test::test_vsnprintf()
 {
     FILE *pFile;
     char szFileName[] = "myfile.txt";
-    
+
     pFile = fopen(szFileName, "r");
-    if(pFile == NULL)
-        PrintFError("Error opening '%s'", szFileName);
+    if (pFile == NULL)
+        test_printferror("Error opening '%s'", szFileName);
     else
     {
         fclose(pFile);
@@ -638,18 +746,7 @@ int test_vsnprintf()
     return 0;
 }
 
-#if 0
-int test_sort()
-{
-    std::array<int, 10> s = { 3, 1, 45, 2 ,6 ,2 ,67 ,12, 45, 41};
-        printf("the buf is : %s \n", buf);
-    {
-
-    }
-}
-#endif
-
-int test_sqrt()
+int Test::test_sqrt()
 {
     printf("%lf 's sqrt is %lf \n", 4.0, sqrt(4.0));
     printf("%lf 's sqrt is %lf \n", 9.0, sqrt(9.0));
@@ -672,7 +769,7 @@ int test_move_left()
 }
 
 // 迭代器
-int test_iterator()
+int Test::test_iterator()
 {
     std::vector<int> var;
 
@@ -681,27 +778,27 @@ int test_iterator()
     var.push_back(3);
     var.push_back(4);
 
-    for(std::vector<int>::iterator iter = var.begin(); iter != var.end(); ++iter)
+    for (std::vector<int>::iterator iter = var.begin(); iter != var.end(); ++iter)
         std::cout << *iter << std::endl;
 
-    for(auto i:var)
+    for (auto i : var)
         std::cout << i << std::endl;
 
     return 0;
 }
 
 // 并发，并行
-int test_thread()
+int Test::test_thread()
 {
     std::cout << "hello world" << std::endl;
 
     unsigned int n = std::thread::hardware_concurrency();
     std::cout << n << " concurrent threads are supported. \n";
-    
+
     return 0;
 }
 
-int test_clock_gettime()
+int Test::test_clock_gettime()
 {
     struct timespec tms = {0};
     clockid_t clock_id = CLOCK_REALTIME;
@@ -711,71 +808,49 @@ int test_clock_gettime()
     return 0;
 }
 
-int test_func_join()
-{
-        // printf("the buf is : %s \n", buf);
-}
-
-int test_join(int &num)
-{
-    for (int i = 0; i < num; i++)
-    {
-        printf("from test_join function : %d \n", i);
-    }
-
-    std::thread child_thread(test_func_join);
-
-    child_thread.join();
-
-    printf("the test_func_join() function out \n");
-    
-    num++;
-
-    return num;
-}
-
-void test_getpid()
+int Test::test_getpid()
 {
     printf("i am process %ld \n", static_cast<long>(getpid()));
     printf("my parent process is %ld \n", static_cast<long>(getppid()));
 }
 
-void test_getegid()
+int Test::test_getegid()
 {
     printf("i am user of %ld \n", static_cast<long>(geteuid()));
-    printf("i am group of %ld \n", static_cast<long> (getegid()));
+    printf("i am group of %ld \n", static_cast<long>(getegid()));
     usleep(500);
 }
 
-void test_fork()
+int Test::test_fork()
 {
     int x = 0;
     fork();
     x = 1;
-    printf("i am process %ld and my x is %d \n", static_cast<long> (getpid()), x);
+    printf("i am process %ld and my x is %d \n", static_cast<long>(getpid()), x);
 }
 
-void test_strchr(const char *str, char delimiter)
+int Test::test_strchr(const char *str, char delimiter)
 {
     char *ret;
 
-    ret = const_cast<char *> (strchr(str, delimiter));
+    ret = const_cast<char *>(strchr(str, delimiter));
     printf("after %c is %s \n", delimiter, ret);
 }
 
-void test_lambda()
+int Test::test_lambda()
 {
     int num[4] = {4, 3, 2, 1};
 
-    std::sort(num, num+4, [=](int x, int y) -> bool {return x < y;});
+    std::sort(num, num + 4, [=](int x, int y) -> bool
+              { return x < y; });
 
-    for(int n : num)
+    for (int n : num)
     {
         printf("%d \n", n);
     }
 }
 
-void test_strtok(char *str, const char *delimiter)
+int Test::test_strtok(char *str, const char *delimiter)
 {
     char *token;
     char *save_ptr = NULL;
@@ -784,7 +859,7 @@ void test_strtok(char *str, const char *delimiter)
     char *image_path = NULL;
 
     token = strtok_r(str, delimiter, &save_ptr);
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         if (i == 0)
             tmp_id = atoi(token);
@@ -792,15 +867,15 @@ void test_strtok(char *str, const char *delimiter)
         {
             token = strtok_r(NULL, delimiter, &save_ptr);
             tmp_flag = atoi(token);
-            if(tmp_flag == 0)
+            if (tmp_flag == 0)
             {
                 printf("delete id:%d \n", tmp_id);
                 break;
             }
-            else if(tmp_flag == 1)
+            else if (tmp_flag == 1)
             {
                 token = strtok_r(NULL, delimiter, &save_ptr);
-                if(token)
+                if (token)
                 {
                     image_path = token;
                     printf("add id : %d, path: %s \n", tmp_id, image_path);
@@ -814,7 +889,7 @@ void test_strtok(char *str, const char *delimiter)
     }
 }
 
-void test_fgets()
+int Test::test_fgets()
 {
     FILE *fp = NULL;
     // char str[60];
@@ -822,10 +897,10 @@ void test_fgets()
     const char *delimiter = "|";
 
     fp = fopen(file, "r");
-    if(fp == NULL)
+    if (fp == NULL)
     {
         perror("open file error");
-        return;
+        return -1;
     }
 
     size_t res = 0;
@@ -836,36 +911,36 @@ void test_fgets()
     char *save_ptr = NULL;
     char *subtoken = NULL;
     char *str = NULL;
-    
+
     int count;
     std::string tmp_id, tmp_flag, tmp_path;
     std::map<std::string, std::string> m_images;
     typedef std::map<std::string, std::string>::iterator m_images_it;
 
-    while(1)
+    while (1)
     {
         res = getline(&line_ptr, &line_len, fp);
-        if(res == -1)
+        if (res == -1)
             break;
-        
-        for(str = line_ptr, count = 0;;str = NULL, count++)
+
+        for (str = line_ptr, count = 0;; str = NULL, count++)
         {
             subtoken = strtok_r(str, delimiter, &save_ptr);
-            if(subtoken == NULL)
+            if (subtoken == NULL)
                 break;
-            
-            if(count == 0)
+
+            if (count == 0)
             {
                 tmp_id = subtoken;
             }
 
-            if(count == 1)
+            if (count == 1)
             {
                 tmp_flag = subtoken;
-                if(tmp_flag == "0")
+                if (tmp_flag == "0")
                 {
                     m_images_it tmp_iterator = m_images.find(tmp_id);
-                    if((tmp_iterator->second).empty())
+                    if ((tmp_iterator->second).empty())
                     {
                         printf("id {%s} does not exist \n", tmp_id.c_str());
                         break;
@@ -879,11 +954,11 @@ void test_fgets()
                 }
             }
 
-            if(count == 2)
+            if (count == 2)
             {
                 tmp_path = subtoken;
                 m_images_it tmp_iterator = m_images.find(tmp_id);
-                if((tmp_iterator->second).empty())
+                if ((tmp_iterator->second).empty())
                 {
                     m_images[tmp_id] = tmp_path;
                     printf("id {%s} has been added \n", tmp_id.c_str());
@@ -896,10 +971,9 @@ void test_fgets()
                 }
             }
         }
-
     }
 
-    for(auto &tmp : m_images)
+    for (auto &tmp : m_images)
     {
         printf("id is {%s}, and it's value is {%s} \n", (tmp.first).c_str(), (tmp.second).c_str());
     }
@@ -915,17 +989,17 @@ void test_fgets()
     //         break;
     //     }
     // }
-    if(fp)
+    if (fp)
         fclose(fp);
-    
-    if(line_ptr)
+
+    if (line_ptr)
     {
         free(line_ptr);
         line_ptr = NULL;
     }
 }
 
-int test_pipe()
+int Test::test_pipe()
 {
     char bufin[BUFSIZ] = "empty";
     char bufout[] = "hello";
@@ -933,42 +1007,42 @@ int test_pipe()
     pid_t childpid;
     int fd[2];
 
-    if(pipe(fd) == -1)
+    if (pipe(fd) == -1)
     {
         perror("Failed to create the pipe");
-        return 1;
+        return -1;
     }
 
     bytesin = strlen(bufin);
     childpid = fork();
-    if(childpid == -1)
+    if (childpid == -1)
     {
         perror("Failed to fork");
         return 1;
     }
 
-    if(childpid)
-        write(fd[1], bufout, strlen(bufout)+1);
+    if (childpid)
+        write(fd[1], bufout, strlen(bufout) + 1);
     else
         bytesin = read(fd[0], bufin, BUFSIZ);
-    
+
     fprintf(stderr, "[%ld]:my bufin is {%.*s}, my bufout is {%s} \n", (long)getpid(), bytesin, bufin, bufout);
 
     return 0;
 }
 
-void test_sigset_t()
+int Test::test_sigset_t()
 {
     sigset_t myset;
     sigemptyset(&myset);
-    sigaddset(&myset,SIGINT);
-    sigaddset(&myset,SIGQUIT);
-    sigaddset(&myset,SIGUSR1);
-    sigaddset(&myset,SIGRTMIN);
-    
-    for(int i = 0; i < NSIG; ++i)
+    sigaddset(&myset, SIGINT);
+    sigaddset(&myset, SIGQUIT);
+    sigaddset(&myset, SIGUSR1);
+    sigaddset(&myset, SIGRTMIN);
+
+    for (int i = 0; i < NSIG; ++i)
     {
-        if(sigismember(&myset, i))
+        if (sigismember(&myset, i))
         {
             printf("1");
         }
@@ -980,41 +1054,20 @@ void test_sigset_t()
     putchar('\n');
 }
 
-void *print_ids(void *arg)
-{
-    const char *s = "new thread: ";
-    pid_t pid;
-    pthread_t tid;
-
-    pid = getpid();
-    tid = pthread_self();
-
-    printf("%s pid %u tid %u (0x%x) \n", s, (unsigned int)pid, (unsigned int)tid, (unsigned int) tid);
-}
-
-void test_pthread_create()
-{
-    pthread_t ntid;
-    pthread_create(&ntid, NULL, print_ids, NULL);
-    printf("main thread \n");
-
-    pthread_join(ntid, NULL);    
-}
-
-std::string test_map_end(int id)
+std::string Test::test_map_end(int id)
 {
     std::string result;
     std::map<int, std::string> test_map;
     test_map[0] = "hello";
     test_map[1] = "world";
 
-    for(int i = 2 ; i < 10; i++)
+    for (int i = 2; i < 10; i++)
     {
         test_map[i] = "hello";
     }
-    
+
     std::map<int, std::string>::iterator map_iterator = test_map.find(id);
-    if(map_iterator != test_map.end())
+    if (map_iterator != test_map.end())
     {
         result = map_iterator->second;
     }
@@ -1026,10 +1079,7 @@ std::string test_map_end(int id)
     return result;
 }
 
-typedef std::map<std::string, std::string> TmpMap;
-typedef TmpMap::iterator TmpMapIterator;
-
-const char *test_map_second(const char *id)
+const char *Test::test_map_second(const char *id)
 {
     TmpMap m_tmp;
     m_tmp["123"] = "/home/user";
@@ -1043,7 +1093,7 @@ const char *test_map_second(const char *id)
     return (tmp_it->second).c_str();
 }
 
-void test_file_parse(const char *file, const char *delimiter)
+int Test::test_file_parse(const char *file, const char *delimiter)
 {
     size_t res = 0;
     size_t line_len = 0;
@@ -1054,43 +1104,43 @@ void test_file_parse(const char *file, const char *delimiter)
     TmpMap m_images;
 
     FILE *fp = fopen(file, "r");
-    if(!fp)
+    if (!fp)
     {
         printf("failed to open %s \n", file);
         goto final_end;
     }
 
-    while(1)
+    while (1)
     {
         res = getline(&line_ptr, &line_len, fp);
-        if(res == -1)
+        if (res == -1)
             break;
-        
+
         printf("line_ptr is %s \n", line_ptr);
 
         token = strtok_r(line_ptr, delimiter, &save_ptr);
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if(i == 0)
+            if (i == 0)
             {
                 tmp_id = token;
             }
-            else if(i == 1)
+            else if (i == 1)
             {
                 token = strtok_r(NULL, delimiter, &save_ptr);
                 tmp_flag = token;
-                if(tmp_flag == "0")
-                {  
+                if (tmp_flag == "0")
+                {
                     m_images.erase(tmp_id);
                     printf("delete id:{ %s } \n", tmp_id.c_str());
                     break;
                 }
             }
-            else if(i == 2)
+            else if (i == 2)
             {
                 token = strtok_r(NULL, delimiter, &save_ptr);
                 tmp_path = token;
-                if(tmp_path.empty())
+                if (tmp_path.empty())
                 {
                     printf("file path can not be NULL \n");
                     break;
@@ -1105,20 +1155,20 @@ void test_file_parse(const char *file, const char *delimiter)
     }
 
     printf("!!!!!!!!!!!!!!!!!!\n");
-    for(auto &tmp : m_images)
+    for (auto &tmp : m_images)
     {
         printf("id is { %s }, and it's path is { %s } \n", (tmp.first).c_str(), (tmp.second).c_str());
     }
 
 final_end:
-    if(fp)
+    if (fp)
         fclose(fp);
-    
-    if(line_ptr)
+
+    if (line_ptr)
         free(line_ptr);
 }
 
-void test_enum_map()
+int Test::test_enum_map()
 {
     enum MODEL
     {
@@ -1133,7 +1183,7 @@ void test_enum_map()
         std::string engine_conf_file;
         std::string *engine_handle;
         std::string *spp_handle;
-    
+
     public:
         ModelRuntime()
         {
@@ -1158,7 +1208,7 @@ void test_enum_map()
 
     typedef std::map<MODEL, ModelRuntime *> ModelMap;
     typedef ModelMap::iterator ModelMapIterator;
-    
+
     ModelMap m_infers;
 
     m_infers[DETECT] = new ModelRuntime[0];
@@ -1166,15 +1216,15 @@ void test_enum_map()
 
     m_infers[DETECT]->engine_conf_file = "/home/user/DETECT.conf";
 
-    for(auto &tmp : m_infers)
+    for (auto &tmp : m_infers)
     {
-        if(tmp.first == MODEL::DETECT)
+        if (tmp.first == MODEL::DETECT)
         {
             tmp.second->engine_conf_file = "/home/user/DETECT.conf";
             *(tmp.second->engine_handle) = "detect handle";
             tmp.second->index = 0;
         }
-        else if(tmp.first == MODEL::FEATURE)
+        else if (tmp.first == MODEL::FEATURE)
         {
             tmp.second->engine_conf_file = "/home/user/FEATURE.conf";
             *(tmp.second->spp_handle) = "feature handle";
@@ -1186,12 +1236,12 @@ void test_enum_map()
     printf("detect handle : %s \n", (*(m_infers[DETECT]->engine_handle)).c_str());
 }
 
-
 /**
  * @brief 希望这个类接收完数据后启动线程去处理，不阻塞后面的其他业务逻辑
- * 
+ *
  */
-class ObjectFirst{
+class ObjectFirst
+{
 public:
     pid_t m_thread_id;
     std::thread *m_init_thread;
@@ -1204,9 +1254,9 @@ public:
     }
     ~ObjectFirst()
     {
-        if(m_init_thread)
+        if (m_init_thread)
         {
-            if(m_init_thread->joinable())
+            if (m_init_thread->joinable())
             {
                 m_init_thread->join();
             }
@@ -1220,7 +1270,9 @@ public:
     {
         int a = 2;
         // std::thread t(Process, a);  // 错误： 非静态成员函数的无效使用
-        m_init_thread = new std::thread([](ObjectFirst *this_ptr){this_ptr->Process(this_ptr->val);}, this);
+        m_init_thread = new std::thread([](ObjectFirst *this_ptr)
+                                        { this_ptr->Process(this_ptr->val); },
+                                        this);
         // std::thread t(&ObjectFirst::Process, this, a);  // 正确（方法一）
 
         // t.detach();
@@ -1234,27 +1286,28 @@ public:
     }
 };
 
-class ObjectSecond{
+class ObjectSecond
+{
 public:
     void Recv()
     {
         int a = 2;
         // std::thread t(Process, a);  // 错误： 非静态成员函数的无效使用
-        std::thread t(&ObjectSecond::Process, a);  // 正确（方法二）
+        std::thread t(&ObjectSecond::Process, a); // 正确（方法二）
 
         t.join();
     }
 
-    static void Process(int val)  // 正确（方法二 将调用的成员函数设置为静态成员函数）
+    static void Process(int val) // 正确（方法二 将调用的成员函数设置为静态成员函数）
     {
         std::cout << "Process, val = " << val << "\n";
     }
 };
 
-void test_queue()
+int Test::test_queue()
 {
     std::queue<int> q;
-    if(q.empty())
+    if (q.empty())
     {
         printf("empty \n");
     }
@@ -1263,10 +1316,10 @@ void test_queue()
         printf("not empty \n");
     }
 
-    for(int i = 0; i <= 10; i++)
+    for (int i = 0; i <= 10; i++)
     {
         q.push(i);
-        if(i == 6)
+        if (i == 6)
         {
             printf("the variable is 6, and it will jump to the flag of jump_here \n");
             goto jump_here;
@@ -1275,9 +1328,9 @@ void test_queue()
     printf("Have push 11 number into queue, and the size of q is %lu \n", q.size());
 
 jump_here:
-    for(int i = 0; ; i++)
+    for (int i = 0;; i++)
     {
-        if(q.empty())
+        if (q.empty())
         {
             printf("now the queue is empty, so exit loop \n");
             break;
@@ -1288,48 +1341,9 @@ jump_here:
 
         printf("next loop !!!\n");
     }
-
 }
 
-// char *ffmpeg_base64_encode(const void *input_data, int input_size)
-// {
-//     char *result = NULL;
-
-//     assert(input_data && input_size > 0);
-
-//     int output_size = AV_BASE64_SIZE(input_size);
-//     char *output_data = (char *)calloc(1, output_size);
-//     char *chk_out = NULL;
-//     if(output_data)
-//     {
-//         chk_out = av_base64_encode(output_data, output_size, (uint8_t *)input_data, input_size);
-//     }
-// }
-
-// void test_base64()
-// {
-// //     std::string path = "/home/user/Pictures/test/1.jpeg";
-// //     cv::Mat tmp_img = cv::imread(path);
-// //     std::string windows = "tmp";
-// //     cv::namedWindow(windows, 1);
-// //     cv::imshow(windows, tmp_img);
-// //     cv::waitKey(3);
-
-// //     int input_size = path.size();
-// //     int output_size = AV_BASE64_SIZE(input_size);
-// //     char *out_data = (char *)calloc(1, output_size);
-
-
-// //     av_base64_encode(out_data, output_size, (uint8_t *)path.data(), input_size);
-
-// //     printf("%s \n", out_data);
-
-// //     uint8_t *out;
-// //     const char *in;
-//     // av_base64_decode(out, in, out_size);
-// }
-
-void test_spp_search()
+int Test::test_spp_search()
 {
     const char *box_info = "1|620.46|195.62|860.74|492.02\n2|232.2|452.24|635.1|245.1\n";
     double x1 = 0.0;
@@ -1343,18 +1357,14 @@ void test_spp_search()
     printf("%d %lf %lf %lf %lf \n", face_id, x1, y1, x2, y2);
 }
 
-/* map<uuid, recordset<{index, score}, {index, score}, {index, score}>> */
-typedef std::map<std::string, std::vector<std::pair<int, int>>> RecognizeMap;
-
-
-void test_jsoncpp()
+int Test::test_jsoncpp()
 {
     Json::Value root;
     Json::FastWriter writer;
     Json::Value person;
 
     person["name"] = "hello world";
-    person["age"]  = 100;
+    person["age"] = 100;
     root.append(person);
 
     // Json::Value uuid;
@@ -1414,10 +1424,10 @@ void test_jsoncpp()
     Json::Value index;
     Json::Value score;
 
-    for(auto &tmp : m_recognize)
+    for (auto &tmp : m_recognize)
     {
         recordinfo["uuid"] = tmp.first;
-        for(int i = 0; i < tmp.second.size(); i++)
+        for (int i = 0; i < tmp.second.size(); i++)
         {
             set_json["index"] = tmp.second[i].first;
             set_json["score"] = tmp.second[i].second;
@@ -1433,17 +1443,16 @@ void test_jsoncpp()
     output_json["recognize"] = face;
     std::string result = writer.write(output_json);
     printf("%s \n", result.c_str());
-    
 }
 
-size_t test_base64()
+size_t Test::test_base64()
 {
     const char *path = "/home/user/Pictures/base64/1.txt";
     std::string pic;
     FILE *fp = NULL;
     size_t n = 0;
     fp = fopen(path, "r");
-    if(!fp)
+    if (!fp)
     {
         fclose(fp);
         fp = NULL;
@@ -1451,15 +1460,15 @@ size_t test_base64()
 
     std::ifstream input_file_stream;
     input_file_stream.open(path, std::ios::in);
-    if(!input_file_stream.is_open())
+    if (!input_file_stream.is_open())
     {
         std::cout << "failed to read the file" << std::endl;
         return -1;
     }
 
-    while(1)
+    while (1)
     {
-        if(!(input_file_stream >> pic))
+        if (!(input_file_stream >> pic))
         {
             printf("read the base64 image file over ! \n");
             break;
@@ -1477,7 +1486,7 @@ size_t test_base64()
     return pic.size();
 }
 
-void test_usleep()
+int Test::test_usleep()
 {
     printf("!!!!!!\n");
 
@@ -1485,21 +1494,20 @@ void test_usleep()
     usleep(1000000);
 
     printf("!!!!!!\n");
-
 }
 
-void test_ReadFile(const char *file)
+int Test::test_readfile(const char *file)
 {
     std::ifstream ifs;
     ifs.open(file, std::ios::in);
-    if(!ifs.is_open())
+    if (!ifs.is_open())
     {
         printf("read failed !\n");
         ifs.close();
     }
 
     char buf[1000] = {0};
-    while(ifs >> buf)
+    while (ifs >> buf)
     {
         printf("the buf is : %s \n", buf);
     }
@@ -1507,13 +1515,13 @@ void test_ReadFile(const char *file)
     // getchar();
 
     ifs.open(file, std::ios::in);
-    if(!ifs.is_open())
+    if (!ifs.is_open())
     {
         printf("read failed !\n");
         ifs.close();
     }
     char buf2[1000] = {0};
-    while(ifs.getline(buf, sizeof(buf)))
+    while (ifs.getline(buf, sizeof(buf)))
     {
         printf("the buf2 is : %s \n", buf2);
     }
@@ -1521,7 +1529,7 @@ void test_ReadFile(const char *file)
 
     // getchar();
     ifs.open(file, std::ios::in);
-    if(!ifs.is_open())
+    if (!ifs.is_open())
     {
         printf("read failed !\n");
         ifs.close();
@@ -1532,16 +1540,16 @@ void test_ReadFile(const char *file)
         printf("the buf3 is : %s \n", buf3.c_str());
     }
     ifs.close();
-    
+
     // getchar();
     ifs.open(file, std::ios::in);
-    if(!ifs.is_open())
+    if (!ifs.is_open())
     {
         printf("read failed !\n");
         ifs.close();
     }
     char c;
-    while((c = ifs.get()) != EOF)
+    while ((c = ifs.get()) != EOF)
     {
         printf("%c \n", c);
     }
@@ -1549,18 +1557,18 @@ void test_ReadFile(const char *file)
     // getchar();
 }
 
-void test_StringToJson(const char *file)
+int Test::test_StringToJson(const char *file)
 {
-    char* box_info = NULL;
+    char *box_info = NULL;
     FILE *fp;
     fp = fopen(file, "r");
-    if(!fp)
+    if (!fp)
     {
         printf("failed to open the file \n");
     }
     size_t num;
     size_t res = getline(&box_info, &num, fp);
-    if(res == -1)
+    if (res == -1)
     {
         printf("read null \n");
     }
@@ -1571,13 +1579,15 @@ void test_StringToJson(const char *file)
 
     Json::Reader read;
     Json::Value root;
-    if(read.parse(box_info, root))
+    if (read.parse(box_info, root))
     {
-        std::cout << "success" << "\n";
+        std::cout << "success"
+                  << "\n";
     }
     else
     {
-        std::cout << "failed" << "\n";
+        std::cout << "failed"
+                  << "\n";
     }
     // if(root.isMember("number"))
     // {
@@ -1587,7 +1597,7 @@ void test_StringToJson(const char *file)
     // {
     //     std::cout << "not exist " << "\n";
     // }
-    if(root.isArray())
+    if (root.isArray())
     {
         printf("root is a array \n");
     }
@@ -1595,43 +1605,43 @@ void test_StringToJson(const char *file)
     {
         printf("not \n");
     }
-    printf("%d \n",root.size());
-    
+    printf("%d \n", root.size());
+
     std::string uuid;
     int x1, x2, y1, y2;
     std::vector<int> xy;
-    std::map<std::string, std::vector<int> > boxes;
-    for(int i = 0; i < root.size(); i++)
+    std::map<std::string, std::vector<int>> boxes;
+    for (int i = 0; i < root.size(); i++)
     {
-        for(auto tmp : root[i].getMemberNames())
+        for (auto tmp : root[i].getMemberNames())
         {
             printf("key is : %s , and its value is %s \n", tmp.c_str(), (root[i][tmp].toStyledString()).c_str());
-            if(tmp == "index")
+            if (tmp == "index")
             {
                 uuid = root[i][tmp].asCString();
             }
-            else if(tmp == "x1")
+            else if (tmp == "x1")
             {
                 x1 = atoi((root[i][tmp].toStyledString()).c_str());
                 xy.push_back(x1);
             }
-            else if(tmp == "y1")
+            else if (tmp == "y1")
             {
                 y1 = atoi((root[i][tmp].toStyledString()).c_str());
                 xy.push_back(y1);
             }
-            else if(tmp == "x2")
+            else if (tmp == "x2")
             {
                 x2 = atoi((root[i][tmp].toStyledString()).c_str());
                 xy.push_back(x2);
             }
-            else if(tmp == "y2")
+            else if (tmp == "y2")
             {
                 y2 = atoi((root[i][tmp].toStyledString()).c_str());
                 xy.push_back(y2);
             }
         }
-        if(!uuid.empty() && xy.size() != 0)
+        if (!uuid.empty() && xy.size() != 0)
         {
             boxes[uuid] = xy;
         }
@@ -1639,7 +1649,7 @@ void test_StringToJson(const char *file)
         xy.clear();
     }
 
-    for(auto &tmp : boxes)
+    for (auto &tmp : boxes)
     {
         printf("uuid is %s, x1:{%d}, y1:{%d}, x2:{%d}, y2:{%d} \n", (tmp.first).c_str(), tmp.second[0], tmp.second[1], tmp.second[2], tmp.second[3]);
     }
@@ -1649,13 +1659,9 @@ void test_StringToJson(const char *file)
 
     // printf("uuid is %s, x1:{%d}, y1:{%d}, x2:{%d}, y2:{%d} \n", uuid.c_str(), x1, y1, x2, y2);
     // std::cout << root.begin() << "\n";
-
 }
 
-/* map<uuid, <x1, y1, x2, y2> */
-typedef std::map<std::string, std::vector<int> > BoxMap;
-
-void test_StringToBox(std::string box_str)
+int Test::test_StringToBox(std::string box_str)
 {
     char *tmp1 = new char[64];
     char *tmp2 = new char[64];
@@ -1669,10 +1675,10 @@ void test_StringToBox(std::string box_str)
     char *save_ptr = NULL;
     char *subtoken = NULL;
     char *str = NULL;
-    for(str = box;; str = NULL)
+    for (str = box;; str = NULL)
     {
         subtoken = strtok_r(str, "|", &save_ptr);
-        if(!subtoken)
+        if (!subtoken)
         {
             printf("completed to parse string , exit from loop !\n");
             break;
@@ -1689,7 +1695,7 @@ void test_StringToBox(std::string box_str)
         xy_info.clear();
     }
 
-    for(auto &tmp : box_info_map)
+    for (auto &tmp : box_info_map)
     {
         printf("tmp1 is {%s} , x1 is [%d], y1 is [%d], x2 is [%d], y2 is [%d] \n", tmp.first.c_str(), tmp.second[0], tmp.second[1], tmp.second[2], tmp.second[3]);
     }
@@ -1699,24 +1705,23 @@ void test_StringToBox(std::string box_str)
     // sscanf("hello|world", "%[^|]|%[^|]",tmp1, tmp2);
     // printf("%d %d \n", x1, y1);
     // printf("tmp1 is {%s} , tmp is {%s} \n", tmp1, tmp2);
-    
 }
 
-void test_sizeof()
+int Test::test_sizeof()
 {
     char *tmp = new char[4096];
     std::cout << sizeof(tmp) << "\n";
 }
 
-void test_write()
+int Test::test_write()
 {
     const char *tmp = "hell world";
     FILE *fp = NULL;
     fp = fopen("/home/user/workspace/notes/test/write.txt", "w");
-    if(!fp)
+    if (!fp)
     {
         printf("failed to open the file !\n");
-        return;
+        return -1;
     }
 
     int in_size = strlen(tmp);
@@ -1725,33 +1730,32 @@ void test_write()
     fclose(fp);
 }
 
-void test_DeleteBase64Flag()
+int Test::test_DeleteBase64Flag()
 {
     // std::string flag = "data:image;base64,lajfajlnglaj";
     std::string flag = "data:imagesfsfs;base64,asfjlagalj||fslf";
     int pos_data = flag.find("data:");
     int pos_base64 = flag.find("base64,");
-    if(pos_data != -1 && pos_base64 != -1)
+    if (pos_data != -1 && pos_base64 != -1)
     {
         flag.erase(pos_data, (pos_base64 - pos_data) + 7);
         printf("%s \n", flag.c_str());
     }
 }
 
-void test_OpenWrongfile(const char *file)
+int Test::test_OpenWrongfile(const char *file)
 {
     FILE *fp = NULL;
     fp = fopen(file, "r");
     std::cout << fp << "\n";
-    if(!fp)
+    if (!fp)
     {
-        std::cout << "fclose(fp)" << "\n";
+        std::cout << "fclose(fp)"
+                  << "\n";
     }
-
-
 }
 
-void test_fwrite(const char *file)
+int Test::test_fwrite(const char *file)
 {
     char str[] = "hello world !!!";
     FILE *fp = NULL;
@@ -1760,26 +1764,26 @@ void test_fwrite(const char *file)
     fclose(fp);
 }
 
-void test_fseek(std::string file)
+int Test::test_fseek(std::string file)
 {
     FILE *fp = NULL;
     void *data = NULL;
     long length = 0;
     fp = fopen(file.c_str(), "rb");
-    if(!fp)
+    if (!fp)
     {
         printf("Failed to open the file : %s \n", file.c_str());
-        return;
+        return -1;
     }
 
     fseek(fp, 0, SEEK_END);
     length = ftell(fp);
     std::cout << length / 8 << std::endl;
     data = calloc(length, 1);
-    
+
     rewind(fp);
     size_t res = fread(data, 1, length, fp);
-    if(fp)
+    if (fp)
     {
         fclose(fp);
         fp = NULL;
@@ -1789,7 +1793,7 @@ void test_fseek(std::string file)
     std::cout << length << std::endl;
 }
 
-void test_fstream(const char *file)
+int Test::test_fstream(const char *file)
 {
     std::ifstream infile;
     infile.open(file, std::ios::in | std::ios::binary);
@@ -1801,7 +1805,7 @@ void test_fstream(const char *file)
 
     void *data = calloc(length, 1);
 
-    while(infile.peek() != EOF)
+    while (infile.peek() != EOF)
     {
         // infile.read(reinterpret_cast<char *>(&readNum), sizeof(int));
         infile.read((char *)data, length);
@@ -1810,36 +1814,19 @@ void test_fstream(const char *file)
     printf("%p \n", data);
     std::cout << infile.gcount() << std::endl;
 
-
-
     infile.close();
     free(data);
 }
 
-void test_open(const char *file)
-{
-    sleep(1);
-
-}
-
-void test_difftime()
-{
-    time_t tstart;
-    tstart = time(NULL);
-    test_open(NULL);
-    printf("function test_open consume time %f seconds  \n", difftime(time(nullptr), tstart));
-}
-
-void test_ctime()
+int Test::test_ctime()
 {
     time_t tcurrent;
 
     tcurrent = time(NULL);
     printf("The current time is %s \n", ctime(&tcurrent));
-
 }
 
-void test_localtime()
+int Test::test_localtime()
 {
     struct tm *tcurrent;
     time_t current_time;
@@ -1848,203 +1835,99 @@ void test_localtime()
     printf("%d days have elapsed since Jan 1 \n", tcurrent->tm_yday);
 }
 
-void test_clock()
+int Test::test_clock()
 {
     long timedif;
     struct timespec tmpend, tmpstart;
 
-    if(clock_gettime(CLOCK_REALTIME, &tmpstart) == -1)
+    if (clock_gettime(CLOCK_REALTIME, &tmpstart) == -1)
     {
         perror("Failed to get starting time");
-        return;
+        return -1;
     }
 
     test_localtime();
-    if(clock_gettime(CLOCK_REALTIME, &tmpend) == -1)
+    if (clock_gettime(CLOCK_REALTIME, &tmpend) == -1)
     {
         perror("Failed to get ending time");
-        return;
+        return -1;
     }
 
-    timedif = (tmpend.tv_sec - tmpstart.tv_sec) + (tmpend.tv_nsec - tmpstart.tv_nsec)/1000;
+    timedif = (tmpend.tv_sec - tmpstart.tv_sec) + (tmpend.tv_nsec - tmpstart.tv_nsec) / 1000;
     printf("The function test_localtime() took %ld microsenconds \n", timedif);
-
 }
 
-int main()
+int Test::test_sleep(int argc)
 {
-    test_class();
-    // test_localtime();
-    // test_ctime();
-    // test_difftime();
-    const char *file = "/home/user/workspace/notes/test/write.txt";
-    const char *image = "/home/user/Pictures/test/1.jpeg";
-    // test_fseek(image);
-    // test_fstream(image);
-    // test_fwrite(file);
-    // const char *file = "/home/user/file3.txt";
-    // test_OpenWrongfile(file);
-    // test_DeleteBase64Flag();
-    // test_write();
+    int sleeptime;
 
-    // test_sizeof();
+    if (argc != 2)
+    {
+    }
 
-    const char *single_box_str = "1,620,195,860,492";
-    std::string box_str = "1,620,195,860,492|2,234,135,621,366|3,234,135,621,366|4,234,135,621,366";
-    // test_StringToBox(box_str);
-    // float dts = 82.123;
-    // printf("%d \n", (int)dts);
-    // const char *file = "/home/user/workspace/notes/test/box_info.txt";
-    // test_StringToJson(file);
-    // const char *file = "/home/user/workspace/notes/test/file.txt";
-    // test_ReadFile(file);
-    // test_usleep();
-    // test_jsoncpp();
-
-    // test_spp_search();
-    // size_t file_size = test_base64();
-    // printf("file size is : %lu \n", file_size);
-    // test_scanf();
-    // test_queue();
-
-    // const char *file = "/home/user/file.txt";
-    // const char *delimiter = "|";
-
-    // std::vector<char> exe_path(PATH_MAX);
-    // std::vector<char> exe_path(4096);
-    // uint64_t sleep_time = 500;
-    // usleep(sleep_time);
-    // printf("sleep time is %lu \n", sleep_time);
-
-    // ObjectFirst obj_first;
-    // obj_first.Recv();
-    // printf("%d \n", obj_first.m_thread_id);
-
-    // ObjectSecond obj_second;
-    // obj_second.Recv();
-
-    // std::map<std::string, std::string> m_images;
-    // m_images.clear();
-    // m_images["123"] = "first.jpeg";
-    // std::map<std::string, std::string>::iterator tmp_it = m_images.find("123");
-    // if(tmp_it != m_images.end())
-    // {
-    //     // printf("first : {%s} \n", (tmp_it->first).c_str());
-    //     // printf("empty \n");
-    //     printf("value is {%s} \n", (tmp_it->second).c_str());
-    // }
-    // else
-    // {
-    //     // printf("first : {%s} \n", (tmp_it->first).c_str());
-    //     printf("the value is not found \n");
-    // }
-
-    // std::string tmp = "";
-    // if(m_images["1"].empty())
-    // {
-    //     printf("empty \n");
-    // }
-    // else
-    // {
-    //     printf("not empty \n");
-    // }
-
-
-    // test_enum_map();
-
-    // std::vector<int> ids;
-
-    // test_vector(ids);
-
-    // for( int i = 0; i < ids.size(); i++)
-    // {
-    //     printf("%d \n", ids[i]);
-    // }
-
-    // test_file_parse(file, delimiter);
-
-    // const char *res = test_map_second("123");
-    // printf("return second is : %s \n", res);
-
-    // std::string str = test_map_end(20);
-    // printf("search result is %s \n", str.c_str());
-    // test_pthread_create();
-    // test_sigset_t();
-    // test_pipe();
-    // test_strtok();
-    // test_fgets();
-    // test_lambda();
-    // test_strchr();
-    // test_fork();
-
-    // test_getpid();
-
-    // test_getegid();
-    // std::thread tmp_thread(test_getegid);
-    // tmp_thread.detach();
-    
-    // printf("!!!!!!!!!!\n");
-    // usleep(1000);
-    // test_name();
-
-    // std::string tmp = test_string();
-    // if(tmp.empty())
-    // {
-    //     printf("empty\n");
-    // }
-
-    // int num = 5;
-    // std::thread var_thread(test_join, std::ref(num));
-    // printf("main() function \n");
-    // var_thread.join();
-    // sleep(1);
-    
-
-    // test_clock_gettime();
-    // for (int i = 0; i < 1000; i++)
-    //     int val = i;
-    // sleep(1);
-    // test_clock_gettime();
-
-    // test_c_str();
-    // std::thread t(test_thread);
-    // t.join();
-
-    // test_iterator();
-
-    // test_virtual();
-
-    // test_pair();
-
-    // test_iterating_for_loop();
-
-    // test_atoi();
-
-    // test_iscntrl();
-
-    // test_strlen();
-    // const char *pathfile = "/home/user/workspace/notes/TEST/test.cpp";
-    // char *res = test_basename(pathfile);
-    // printf("input path %s \n output path %s \n", pathfile, res);
-    // input path /home/user/workspace/notes/TEST/test.cpp   output path test.cpp
-
-    // test_readlink();
-
-    // test_strrchr();
-
-    // printf("the sum of 10, 20 and 30 is %d \n ", test_stdarg(3, 10, 20, 30));
-
-    // test_vsnprintf();
-
-    // test_sqrt();
-
-    // _mathcer val;
-
-    // void * res;
-    // std::cout << typeid(val).name() << std::endl;
-    // std::cout << typeid(res).name() << std::endl;
-
-    // test_move_left();
-    
-    return 0;
+    sleeptime = atoi("3");
+    fprintf(stderr, "Sleep time is %d \n", sleeptime);
+    for (;;)
+    {
+        sleep(sleeptime);
+        printf("\007");
+        fflush(stdout);
+    }
 }
+
+int Test::test_nanosleep()
+{
+    timespec start, end;
+
+    timespec requested_time;
+    requested_time.tv_nsec = 1;
+    requested_time.tv_sec = 0;
+    timespec remaining;
+
+    clock_gettime(CLOCK_REALTIME, &start);
+    nanosleep(&requested_time, NULL);
+    clock_gettime(CLOCK_REALTIME, &end);
+    long ntime = end.tv_nsec - start.tv_nsec;
+    long time = end.tv_sec - start.tv_sec;
+
+    printf("nanotime is %ld, time is %ld \n", ntime, time);
+}
+
+int Test::test_intTochar()
+{
+    int i = 0;
+    std::string var;
+    std::cout << std::to_string(i) << std::endl;
+}
+
+int Test::test_vector()
+{
+    std::vector<int> tmp;
+    for (int i = 0; i < 4; i++)
+    {
+        tmp.push_back(i);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << tmp[i] << std::endl;
+    }
+}
+
+int Test::test_int64_t()
+{
+    int64_t *ids = new int64_t[10];
+    float *dts = new float[10];
+
+    for (int i = 0; i < 4; i++)
+    {
+        ids[i] = i;
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << ids[i] << std::endl;
+    }
+}
+
+#endif // TEST_HPP

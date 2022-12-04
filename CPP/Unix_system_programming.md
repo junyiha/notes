@@ -921,3 +921,454 @@
   + `clock_t tms_cstime; /* 由进程及其已终止的子进程使用的系统CPU时间 */`
 
 ### 睡眠函数(247)
+
++ 自愿地阻塞一段特定时间的进程被称为在睡眠(sleep)。
++ sleep函数使调用线程挂起，直到经过了特定的秒数，或者调用线程捕捉到信号的时候为止
+  + `unsigned sleep(unsigned seconds);`
++ 返回值：
+  + 如果请求的时间已经到了，函数就返回0
+  + 如果被中断了，sleep函数就返回还没有睡眠的时间值
++ sleep函数与`SIGALRM`之间有交互作用，所以应该避免在同一个进程中同时使用它们
+
++ nanosleep函数会使调用线程的执行挂起，直到rqtp指定的时间间隔到期或线程收到一个信号为止
+  + `#include <time.h>`
+  + `int nanosleep(const struct timespec *rqtp, struct timespec *tmtp);`
++ 如果函数被信号中断，且rmtp不为NULL，则rmtp指定的位置上包含的就是剩余时间，这样函数可以被重启动
++ 系统时钟CLOCK_REALTIME决定了rqtp的分辨率
++ 返回值
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
++ nanosleep函数试图取代usleep，现在任免都认为usleep已经过时了
+  + 与usleep相比，nanosleep最主要的有点是，它不会影响包括SIGALRM在内的任何信号的使用
+
+### 间隔定时器
+
++ 定时器会在经过一段特定的时间之后产生一个通知
++ 时钟采用增量的方式来记录所经过的时间，定时器与之不同，它通常是减少它的值，并在值为零时产生一个信号
++ 计算机系统通常只有少量的硬件间隔定时器，操作系统通过使用这些硬件定时器可以实现多个软件定时器
+
++ 分时操作系统也可以用间隔定时器来进行进程调度。
++ 操作系统调度一个进程时，它就为一个被称为调度时间片(scheduling quantum)的时间间隔启动了一个间隔定时器
++ 如果这个定时器到期，而进程还在执行，调度程序就将程序转移到一个就绪队列中去，这样其他进程就可以执行了
++ 在多处理其系统中，每个处理器都需要一个这样的间隔定时器
+
++ getitimer函数，获取当前的时间间隔
++ setitimer函数，启动和终止用户的间隔定时器
+  + `#include <sys/time.h>`
+  + `int getitimer(int which, struct itimerval *value);`
+  + `int setitimer(int which, const struct itimerval *restrict value, struct itimerval *restrict ovalue);`
++ 参数which用来指定定时器(即ITIMER_REAL，ITIMER_VIRTUAL, ITIMER_PROF)
++ 返回值：
+  + 函数成功，返回0
+  + 失败，返回-1，并设置errno
+
+### 实时信号
+
++ 在基本的POSIX标准中，信号处理程序是一个带有单个整型参数的函数，这个整数代表了所产生信号的信号码
++ POSIX：XSI扩展和POSIX：RTS实时信号扩展都对信号处理能力进行了扩展，包含了信号排队和向信号处理程序传递信息的能力
++ 标准对sigaction结构进行了扩展，以允许信号处理程序使用额外的参数。
++ 如果定义了_POSIX_REALTIME_SIGNALS，实现就可以支持实时信号
+
++ sigqueue函数向ID为pid的进程发送带有值value的信号signo
++ 如果signo为零，就会执行错误检测，但是不会发送信号
+  + `#include <signal.h>`
+  + `int sigqueue(pid_t pid, int signo, const union sigval value);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
+### POSIX：TMR间隔定时器
+
++ POSIX：XSI扩展的间隔定时器功能分配给每个进程少量的，固定数目的定时器
++ POSIX：TMR扩展采用了一种替换方法，在这种方法中只有少量的时钟，一个进程可以为每个时钟创建很多独立的定时器
+
++ POSIX：TMR定时器是基于`struct itimerspec`结构的，这个结构包含下列成员
+  + `struct timespec it_interval;  /* 定时器周期 */`
+  + `struct timespec it_value;     /* 定时器到期值 */`
++ 对POSIX：XSI定时器来说，`it_interval`是定时器到期后，用来重置定时器的时间
++ 成员`it_value`装载的是定时器到期之前剩余的时间
+
++ 进程可以通过调用`timer_create`创建特定的定时器。
++ 定时器是每个进程自己的，不是在fork时继承的
+  + `#include <signal.h>`
+  + `#include <time.h>`
+  + `int timer_create(clockid_t clock_id, struct sigevent *restrict evp, timer_t *restrict timerid);`
++ 参数：
+  + `timer_create()`的参数`clock_id`说明定时器是基于哪个时钟的，
+  + `*timerid`装载的是被创建的定时器的ID
+  + 参数evp指定了定时器到期时要产生的异步通知，如果为NULL，那么定时器就会产生默认的信号
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
++ 代码段
+  + `timer_t timerid;`
+  + `if(timer_create(CLOCK_REALTIME, NULL, &timerid) == -1) {perror("Failed to create a new timer)};`
+
++ `timer_delete()`函数删除了ID为timerid的POSIX：TMR定时器
+  + `#include <time.h>`
+  + `int timer_delete(timer_t timerid);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ 操纵每个进程一个的POSIX：TMR定时器
+  + 函数timer_settime负责启动或停止timer_create创建的定时器。参数flags说明定时器使用的是相对时间还是绝对时间
+    + 相对时间与POSIX：XSI定时器使用的策略类似，
+    + 绝对时间的精确度更高，并可以对定时器漂移进行控制
+  + 函数timer_settime用value指向的值来设置timerid指定的定时器。如果ovalue不为NULL，timer_settime就将定时器以前的值放在ovalue指定的位置上。
++ 有可能一个定时器到期了，而同一个定时器上一次到期时产生的信号还处于挂起状态，在这种情况下，其中的一个信号可能会丢失，这就称作定时器超限(timer overrun)
++ 程序可以通过调用`imer_getoverrun()`来确定一个特定的定时器出现这种超限的次数
+  + 定时器超限，只会发生在同一个定时器产生的信号上
+  + 由多个定时器，甚至是那些使用相同的时钟和信号的定时器，所产生的信号都会排队而不会丢失
+
+### 定时器漂移，超限和绝对时间
+
++ 一个与POSIX：TMR定时器和POSIX：XSI定时器有关的问题就是，根据相对时间来设置这些定时器的方式
+
++ 假设，设置了一个间隔2秒的周期性中断，当定时器到期后，系统自动地用另一个2秒的间隔来重启定时器。
++ 假设从定时器到期，到定时器被重新设置之间的等待时间为5纳秒，那么定时器的实际周期为2.000005秒，在1000此中断之后，定时器会偏离5ms
++ 这种不准确型就被称为定时器漂移(timer drift)
+
++ 处理漂移问题的一种方法是记录定时器实际上什么时候应该到期，并调整每次设置定时器的值。
++ 这种方法使用绝对时间(absolute time)，而不是相对时间(relative time)来设置定时器
+
+## 破解命令解释程序
+
++ 命令解释程序(shell)，是一个用来对命令行进行解释的程序
++ 换句话来说，命令解释程序从标准输入读入命令行，并执行对应于输入行的命令
+
++ 在最简单的情况下，命令解释程序读入一条命令并创建一个子进程来执行命令。然后父进程要在读入另一条命令之前，等待这个子进程执行完毕。
++ 实际的命令解释程序，要负责处理进程流水线和重定向，以及前台进程组，后台进程组和信号
+
+### 重定向
+
++ POSIX通过文件描述符用独立于设备的方式来处理I/O。
++ 通过open或pipe这样的调用获得一个打开的文件描述符之后，程序就可以用从调用中返回的句柄来执行read或write了
++ 重定向允许程序将一个已经打开了的句柄重新分配，去标识另一个文件
+
+### 进程组，会话和控制终端
+
++ 进程组(process group)，是为信号传递这样的目的建立的进程集合。
++ 每个进程都有一个进程组ID(process group ID)来表示它所属的进程组
++ kill命令和kill函数都将负的进程ID值作为进程组ID来处理，并向相应进程组的每个成员发送一个信号
+
++ 进程组组长(process group leader)，是一个进程，它的进程ID值与进程组ID值相同。
++ 只要进程组里还有进程，进程组就一直存在。如果组长死了或者加入了另一个组，进程组可能就没有组长了
++ 进程可以用setpgid来改变它的进程组。
++ setpdig函数将进程pid的进程组ID设置为进程组ID gpid。如果pid为0，它就使用调用进程的进程ID。如果pgid为0，pid指定的进程就成为一个组长
+  + `#include <unistd.h>`
+  + `int setpgid(pid_t pid, pid_t gpid);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ getpgrp函数返回调用进程的进程组ID
+  + `#include <unistd.h>`
+  + `pid_t getpgrp(void);`
+
++ 为了实现信号的透明传递，POSIX使用了会话和控制终端
++ 会话(session)，是为作业控制建立的一个进程组的集合。
++ 会话的创建者就被称为会话组长(session leader)
++ 用会话组长的进程ID来标识会话。每个进程都属于一个会话，会话是它们从父进程那里继承来的
+
++ 每个会话都应该有一个与之相关的控制终端(controlling terminal)
++ 命令解释程序用它的会话的控制终端来与用户交互
++ 一个特定的控制终端只与一个会话有关，一个会话中可能有多个进程组，但在任一给定的时候，只有一个进程组可以从控制终端接收输入并向控制终端发送输出。
++ 这个特定的进程组被称为前台进程控制组(foreground process group)或前台作业(foreground job)
++ 会话中其余的进程组被称为后台进程组(background process group)或后台作业(background job)
++ 作业控制的主要目的是改变在前台的进程组
+
++ 用ctermid函数来获取控制终端的名字
+  + `#include <stdio.h>`
+  + `char *ctermid(char *s);`
++ 函数返回一个指向字符串的指针，这个字符串对应于当前进程的控制终端的路径名
++ 如果s是一个NULL指针，这个字符串可能位于静态生成的区域中，
++ 如果s不为NULl，它应该指向一个至少有L_Ctermid字节的字符数组
++ ctermid函数将一个表示控制终端的字符串拷贝到那个数组中去
++ 如果失败，返回空字符串
+
++ 进程可以通过调用setsid来创建一个以它自己为组长的新会话
+  + `#include <unistd.h>`
+  + `pid_t setsid(void);`
++ 返回值：
+  + 成功，返回新的进程组ID值
+  + 失败，返回-1， 并设置errno
+
++ 进程可以通过调用getsid来发现会话ID
++ 函数getsid将一个进程组ID--pid，作为参数，并返回pid指定的那个进程的会话组长的进程组ID
+  + `#include <unistd.h>`
+  + `pid_t getsid(pid_t pid);`
++ 返回值：
+  + 成功，返回一个进程组ID
+  + 失败，返回-1，并设置errno
+
+### 作业控制
+
++ 如果命令解释器程序允许用户将前台进程组移到后台去，并允许用户将进程组从后台移到前台，那么这个命令解释程序就是有作业控制(job control)功能的
++ 作业控制包括对控制终端前台进程组进行修改
+
++ tcgetpgrp函数，用来返回一个特定控制终端的前台进程组的进程组ID
++ 要获得控制终端的打开的文件描述符，就要打开ctermid函数中获得的路径名
+  + `#include <unistd.h>`
+  + `pid_t tcgetpgrp(int fildes);`
++ 返回值
+  + 成功，返回与终端相关的前台进程组的进程组ID
+  + 失败，返回-1，并设置errno
+
++ tcsetpgrp函数将与fildes相关的控制终端的前台进程组设置为pgid_id
+  + `#include <unistd.h>`
+  + `int tcsetpgrp(int fildes, pid_t pgid_id);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
+## 并发
+
++ 实现并行的一种方法是多个进程通过共享内存或消息传递来进行协作和同步，另一种方法是在单个地址空间中使用多个执行线程
+
+### 线程管理
+
++ 线程包中通常包含了用于线程创建和线程销毁，调度，强制互斥和条件等待的函数
++ 典型的线程包中还包括一个运行系统来对线程进行透明的管理，也就是说，用户是不知道运行系统的存在的
+
++ 线程被创建时，运行系统分配数据结构来状态线程ID，栈和程序计数器值。
++ 线程的内部数据结构中可能还包括调度和使用信息。
++ 一个进程的各个线程共享那个进行的整个地址空间。它们可以修改全局变量，访问打开的文件描述符，并用其他的方式互相配合或互相干扰
+
++ 因为所有的线程函数都以pthread开始，所以有时POSIX线程被称为pthreads
++ POSIX线程管理函数
+  + `pthread_cancel`  --  终止另一个线程
+  + `pthread_create`  --  创建一个线程
+    + `int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr, void*(*start_routine)(void *), void *restrict arg);`
+    + pthread_create函数创建了一个线程。与有些线程工具，例如Java编程语言提供的那些线程工具不同，POSIX的pthread_create会**自动使线程成为可运行的，而不需要一个单独的启动操作**
+    + 参数
+      + thread，指向新创建的线程ID
+      + attr， 表示一个封装了线程的各种属性的属性对象。如果为NULL，新线程就具有默认的属性
+      + start_routine，是线程开始执行的时候调用的函数的名字。
+        + start_routine有一个由arg指定的参数，这个参数是一个指向void的指针
+        + start_routine返回一个指向void的指针，这个返回值被pthread_join当做退出状态来处理
+    + 返回值：
+      + 成功，返回0
+      + 失败，返回一个非零的错误码
+  + `pthread_detach`  --  设置线程以释放资源
+  + `pthread_equal`   --  测试两个线程ID是否相等
+    + `pthread_t pthread_equal(pthread_t t1, pthread_t t2);`
+    + 如果t1等于t2，pthread_equal返回一个非零值；如果不相等，返回0
+  + `pthread_exit`    --  退出线程，而不退出进程
+  + `pthread_kill`    --  向线程发送一个信号
+  + `pthread_join`    --  等待一个线程
+  + `pthread_self`    --  找出自己的线程ID
+    + `pthread_t pthread_self(void);`
++ 返回值：
+  + 成功，大多数线程函数都返回0
+  + 失败，大多数线程函数都会返回非零的错误码，它们不设置errno，因此调用程序不能用perror来报告错误
+
+### 分离和连接
+
++ 除非是一个分离线程，否则在线程退出时，它是不会释放它的资源的
++ pthread_detach函数将线程分离，它设置线程的内部选项来说明线程退出后，线程的存储空间可以被重新收回
++ 分离线程退出时不会报告它们的状态。没有分离的线程是可接合的，而且在另一个线程为它们调用pthread_join或者整个进程退出之前，这些线程不会释放它们所有的资源
+
++ pthread_detach函数有一个参数thread，这个参数是要分离的线程的线程ID
+  + `int pthread_detach(pthread_t thread);`
++ 返回值：
+  + 成功，返回0，
+  + 失败，返回一个非零的错误码
+
++ 在另一个线程用终止线程的ID值作为第一个参数调用pthread_join之前，未分离线程的资源是不会被释放的
+  + `int pthread_join(pthread_t thread, void **value_ptr);`
++ pthread_join函数将调用线程挂起，直到第一个参数指定的目标线程终止为止
++ 参数value_ptr为指向返回值的指针提供了一个位置，这个返回值是由目标线程传递给pthread_exit或return的
++ 如果value_ptr为NULL，调用程序就不会对目标线程的返回状态进行检索了
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ 如果线程执行`pthread_join(pthread_self());`，会发生什么情况
+  + 假设线程是可接合的（不是已分离的），这条语句就会造成死锁
+  + 有些实现可以检测到死锁，并迫使pthread_join带着错误EDEADLK返回
+  + 但是，POSIX：THR扩展并不要求进行这种检测
+
+### 退出和取消
+
++ 进程的终止可以通过直接调用exit，执行main中的return，或者通过进程的某个其他线程调用exit来实现
++ 在任何一种情况下，所有的线程都会终止
++ 如果主线程在创建了其他线程之后没有工作可做，它就应该阻塞到所有线程都结束为止，或者应该调用`pthread_exit(NULL)`
+
++ 调用exit会使整个进程终止
++ 调用pthread_exit只会使调用线程终止
+
++ `void pthread_exit(void *value_ptr);`
++ 在顶层执行return的线程隐式地调用了pthread_exit，调用时将返回值（一个指针）当做pthread_exit的参数使用。
++ 如果进程的最后一个线程调用了pthread_exit，进程会带着状态返回值0退出
+  
++ 对一个成功的pthread_join来说，value_ptr的值是可用的。
++ 但是，pthread_exit中的value_ptr必须指向线程退出后仍然存在的数据，因此线程不应该为value_ptr使用指向自动局部数据的指针
+
++ 线程可以通过取消机制，迫使其他线程返回。线程可以调用pthread_cancel来请求取消另一个线程。
++ 结果由目标线程的类型和取消状态决定
+  + `int pthread_cancel(pthread_t thread);`
++ 参数：
+  + thread， 要取消的目标线程的线程ID
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ 线程收到一个取消请求时会发生什么情况取决于它的状态和类型。
++ 如果线程处于PTHREAD_CANCEL_ENABLE状态，它就接收取消请求
++ 另一方面，如果线程处于PTHREAD_CANCEL_DISABLE状态，取消请求就会被保持在挂起状态。
++ 默认情况下，线程处于PTHREAD_CANCEL_ENABLE状态
+
++ pthread_setcancelstate函数用来改变调用线程的取消状态
+  + `int pthread_setcancelstat(int state, int *oldstate);`
++ 参数
+  + state，说明要设置的新状态
+  + oldstate, 指向一个整数的指针，这个整数中装载了以前的状态
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ 作为一个通用的原则，改变了其取消状态或类型的函数应该在返回之前回复它们的值
+
++ pthread_setcanceltype函数，根据它的type参数指定的值来修改线程的取消类型
+
+### 线程安全
+
++ 线程中隐藏的一个问题是它们可能会调用非线程安全的库函数，这样可能会产生错误的结果。
++ 如果多个线程能够同时执行函数的多个活动请求而不会相互干扰，那么这个函数就是线程安全的(thread-safe)
+
++ 在传统的UNIX实现中，errno是一个全局外部变量，当系统函数产生一个错误时，就会设置errno。
++ 对多线程来说，这种实现方式是无法工作的，在大多数线程实现中，errno是一个用来返回线程的特定信息的宏
++ 本质上来说，每个线程都有一份私有的errno拷贝。
++ 主线程不能直接访问一个接合线程的errno，因此如果需要的话，必须通过pthread_join的最后一个参数来返回这些信息
+
+### 用户线程和内核线程
+
++ 用户级线程(user-level thread)和内核级线程(kernel-level thread)是两种传统的线程控制模式
+
++ 用户级线程，通常都运行在一个现存的操作系统之上。
++ 这些线程对内核来说是不可见的，它们之间还会竞争分配给它们的封装进程的资源。
++ 线程由一个线程运行系统来调度，这个系统是进程代码的一部分
+
++ 带有用户级线程的程序通常会连接到一个特殊的库上去，这个库中的每个库函数都用外套(jacket)包装起来
+
++ POSIX引入了一个线程调度竞争范围(thread-scheduling contention scope)的概念，这个概念赋予了程序员一些控制权，使他们可以控制怎样将内核实体映射为线程
+
+### 线程的属性
+
++ POSIX将栈的大小和调度策略这样的特征封装到一个pthread_attr_t类型的对象中去，用面向对象的方式表示和设置特征
++ 属性对象只是在线程创建的时候会对线程产生映像。可以先创建一个属性对象，然后再将栈的大小和调度策略这样的特征与属性对象关联起来
++ 可以通过向pthread_create传递相同的线程属性对象来创建多个具有相同特征的线程
+
++ pthread_attr_init用默认值对一个线程属性对象进行初始化
++ pthread_attr_destroy函数将属性对象的值设为无效的
+  + `int pthread_attr_destroy(pthread_attr *attr);`
+  + `int pthread_attr_init(pthread_attr *attr);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ pthread_attr_getdetachstate函数用来查看一个属性对象的状态
++ pthread_attr_setdetachstate函数用来设置一个属性对象的状态
+
+### 线程栈
+
++ 线程有一个栈，用户可以设置栈的位置和大小，如果必须将线程栈放在一个特定的内存区中，这就是一个有用的特征
++ 要为线程定义栈的布局和大小，就必须先用特定的栈属性来创建一个属性对象，然后用这个属性对象来调用pthread_create
+
++ pthread_attr_getstack函数用来查看栈的参数
++ pthread_attr_setstack函数用来设置一个属性对象的栈参数
+  + `int pthread_attr_getstack(const pthread_attr_t *restrict attr, void **restrict stackaddr, size_t *restrict stacksize);`
+  + `int pthread_attr_setstack(pthread_attr_t *attr, void *stackaddr, size_t stacksize);`
++ 参数
+  + 每个函数的参数attr都是一个指向属性对象的指针
+  + pthread_attr_setstack函数将栈的地址和栈的大小作为额外的参数
+  + pthread_attr_getstack函数则将指向这些条目的指针当做参数
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ 如果用户还没有设置stackaddr，POSIX还提供了检查栈溢出或者为栈溢出设置警戒的函数
++ pthread_attr_getguardsize函数用来查看警戒参数
++ pthread_attr_setguardsize函数在一个属性对象中设置了用来控制栈溢出的警戒参数
+  + `int pthread_attr_setguardsize(const pthread_attr_t *restrict attr, size_t *restrict guardsize);`
+  + `int pthread_attr_setguardsize(pthread_attr_t *attr, size_t guardsize);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
+### 线程调度
+
++ 对象的竞争范围(contention space)控制了线程是在进程内部还是在系统级竞争调度资源
++ pthread_attr_getscope用来查看竞争范围
++ pthread_attr_setscope用来设置一个属性对象的竞争范围
+  + `int pthread_attr_getscope(const pthread_attr_t *restrict attr, int *restrict conttentionspace);`
+  + `int pthread_attr_setscope(pthread_attr_t *attr, int contentionscope);`
++ 参数：
+  + attr是一个指向属性对象的指针
+  + contentionscope对应于要为pthread_attr_setscope设置的值，以及一个指向要从pthread_attr_getscope获得的值的指针
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
++ POSIX允许线程用不同的方式继承调度策略
++ pthread_attr_getinheritsched函数负责查看调度继承策略
++ pthread_attr_setinheritsched函数负责为一个属性对象设置调度继承策略
+  + `int pthread_attr_getinheritsched(const pthread_attr_t *restrict attr, int *restrict inheritsched);`
+  + `int pthread_attr_setinheritsched(pthread_attr_t *attr, int inheritsched);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回一个非零的错误码
+
+## 线程同步
+
++ POSIX支持用于短期锁定的互斥锁以及可以等待无期限事件的条件变量
+
+### 互斥锁
+
++ 互斥量，是一种特殊的变量，它可以处于锁定(locked)状态，也可以处于解锁(unlocked)状态
++ 如果互斥量是锁定的，就有一个特定的线程持有(hold)或拥有(own)这个互斥量
++ 如果没有线程持有这个互斥量，就说这个互斥量处于解锁(unlocked)，空闲(free)或可用(available)的状态
+
++ 互斥量还有一个等待持有该互斥量的线程队列。
++ 互斥量的等待队列中的线程获得互斥量的顺序由线程调度策略确定，但POSIX没有要求实现任何特定的策略
+
++ 互斥量(mutex)或互斥锁(mutex lock)，是最简单也是最有效的线程同步机制
++ 程序用互斥锁来保护临界区，以获得对资源的排他性访问权
++ 互斥量只能被段时间地持有。
++ 互斥函数不是线程取消点，也不能被信号中断
++ 除非进程终止了，（从信号处理程序中）用pthread_exit终止了线程，或者异步取消了线程(通常不用这种方法)，否则，等待互斥量的线程不能被逻辑地中断
+
++ 出现等待输入这样的持续时间不确定的情况下，用条件变量来进行同步
+
++ POSIX使用 pthread_mutex_t 类型的变量来表示互斥锁
++ 程序在用 pthread_mutex_t 变量进行同步之前，通常必须对其进行初始化
+  + 对静态分配的 pthread_mutex_t 变量来说，只要将PTHREAD_MUTEX_INITIALIZER赋给变量就可以了
+  + 对动态分配或没有默认互斥属性的互斥变量来说，要调用pthread_mutex_init来执行初始化工作
+
++ pthread_mutex_init的参数mutex是一个指向要初始化的互斥量的指针
+  + `int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);`
++ 参数
+  + attr， 互斥属性对象，传入NULL，使用默认属性
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ pthread_mutex_destroy函数销毁了它的参数所引用的互斥量
+  + `int pthread_mutex_destroy(pthread_mutex_t *mutex);`
++ 参数
+  + mutex，是一个指向要销毁的互斥量指针
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ pthread_mutex_lock函数会一直阻塞到互斥量可用为止
++ pthread_mutex_trylock函数，通常会立即返回
++ pthread_mutex_unlock函数用来释放指定的互斥量
+  + `int pthread_mutex_lock(pthread_mutex_t *mutex);`
+  + `int pthread_mutex_trylock(pthread_mutex_t *mutex);`
+  + `int pthread_mutex_unlock(pthread_mutex_t *mutex);`
++ 这三个函数都只有一个参数mutex，这个参数是一个指向互斥量的指针
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码

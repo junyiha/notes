@@ -5,11 +5,26 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "notes/test",
+        "name": "test/main",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/test/test",
-        "args": [],
+        "program": "${workspaceFolder}/test/main",
+        "args": [
+            // "--path",
+            // "/home/user/"
+
+            // "--fixpath",
+            // "--http",
+            // "https://192.167.15.56/Model/NVIDIA%20GeForce%20RTX%202080/FACE/",
+            // "--detect",
+            // "DETECT.conf",
+            // "--feature",
+            // "FEATURE.conf"
+
+            "--detector-conf-inline",
+            "--detector-conf",
+            "@--detector-models@/home/user/Face/DETECT.conf@/home/user/Face/FEATURE.conf@"
+        ],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],
