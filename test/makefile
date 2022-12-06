@@ -13,6 +13,7 @@ INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/op
 LIBRARY_PATH= -L/usr/local/lib/ -L/usr/local/lib/
 
 ${target}:${src}
+	# rm ${target}
 	${CXX} ${CXX_FLAGS} $^ -o $@ ${INCLUDE_PATH} ${DEPEND_LIBS}
 
 all:${target}

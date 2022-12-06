@@ -3,7 +3,7 @@
 
 #include "args.hpp"
 
-class Test
+class Test : public Base
 {
 public:
     typedef std::map<std::string, std::string> TmpMap;
@@ -27,12 +27,16 @@ public:
     virtual ~Test();
 
 public:
+    int test_mkstemp(Args &args);
+
     int test_FixPath(Args &args);
 
     int test_ConfInline(Args &args);
 
 public:
-    int test_access();
+    int test_string();
+
+    int test_access(Args &args);
 
     int test_array_at();
 
@@ -183,6 +187,18 @@ Test::~Test()
 {
 }
 
+int Test::test_mkstemp(Args &args)
+{
+    int tmp_fd = -1;
+    char *tmp = new char[4096];
+    tmp = const_cast<char *>("/tmp/network-XXXXXX");
+    tmp_fd = mkstemp64(tmp);
+    if(tmp_fd == -1)
+    {
+        printf("Failed to generate tmp file name \n");
+    }
+}
+
 int Test::test_FixPath(Args &args)
 {
     std::string http_path;
@@ -236,11 +252,41 @@ int Test::test_ConfInline(Args &args)
     return 0;
 }
 
-int Test::test_access()
+int Test::test_string()
 {
-    int i = access("/home/user/workspace/stdlib/access.cpp", R_OK);
+    std::string tmp;
+    tmp = "http://192.167.15.99:8084/";
+    tmp += "platform/";
 
-    std::cout << i << std::endl;
+    char *image_path = new char[4096];
+    
+    image_path = const_cast<char *>("image/db1/123.jpeg");
+    std::string path = tmp + image_path;
+
+    std::cout << path << std::endl;
+
+    return 0;
+}
+
+int Test::test_access(Args &args)
+
+{
+    int chk = -1;
+    std::string file;
+
+    file = args.value("--access-file", "/home/user/file.txt");
+
+    chk = access(file.c_str(), R_OK);
+    if(chk == -1)
+    {
+        printf("the file : {%s} is not exist \n", file.c_str());
+    }
+    else
+    {
+        printf("The file : {%s} exist \n", file.c_str());
+    }
+
+    return chk;
 }
 
 int Test::test_array_at()

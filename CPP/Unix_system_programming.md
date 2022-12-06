@@ -1372,3 +1372,392 @@
 + 返回值：
   + 成功，返回0
   + 失败，返回非零的错误码
+
++ 因为互斥锁必须能被所有需要同步的线程访问，所以，它们通常会以全局变量的形式出现（内部或外部链接）
+
++ 线程化程序中大多数共享的数据结构都必须由同步机制保护，以确保能得到正确的结果
+
+### 最多一次和至少一次的执行
+
++ 单次初始化的概念非常重要，POSIX甚至还提供了一个pthread_once函数来确保这个语义的实现
+  + `int pthread_once(pthread_once_t *once_control, void (*init_routine)(void));`
+  + `pthread_once_t once_control = PTHREAD_ONCE_INIT;`
++ 必须用PTHREAD_ONCE_INIT对参数`once_control`进行静态初始化
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
+### 条件变量
+
++ 考虑一个使进程一直等待，直到某个任意的条件被满足了为止的问题。
++ 具体来说，假设有两个变量x和y被多个线程共享。希望一个线程一直等到x和y相等为止。
++ 典型的不正确的忙等解决方法是：
+  + `while (x != y);`
+
++ 断言x == y为真所用的正确的非忙等策略
+  + 锁定互斥量
+  + 测试条件x == y
+  + 如果为真，解除对互斥量的锁定，并退出循环
+  + 如果为假，将线程挂起，并解除对互斥量的锁定
+
++ 应用程序通过使用pthread_mutex_lock和pthread_mutex_unlock这样定义的很明确的系统库函数来操纵互斥队列。
++ 这些函数还不足以实现（用一种简单的方式）这里要求的队列操作。
++ 需要一种新的数据类型，一种与等待x == y这样的任意条件为真的进程队列相关的数据类型。这样的数据类型被称为条件变量(condition variable)
+
++ 函数pthread_cond_wait将一个条件变量和一个互斥量作为参数，它原子地挂起调用线程并解除对互斥量的锁定
++ 可以认为它将线程放入了一个线程队列，队列中的线程都在等待条件发生变化的通知
++ 线程收到通知时，函数会带着重新获得的互斥量返回
++ 在继续执行之前，线程必须再次对条件进行测试
+
++ 如何用POSIX条件变量v和互斥量m来等待条件x == y
+  + `pthread_mutex_lock(&m);`
+  + `while (x != y)`
+    + `pthread_cond_wait(&v, &m);`
+  + `pthread_mutex_unlock(&m);`
+
++ 函数pthread_cond_wait只能由拥有互斥量的线程调用，当函数返回时，线程就再次拥有了互斥量
+
+### 条件变量的使用和sigsuspend的使用
+
++ 两个概念是相似的
+
++ 阻塞信号并对条件进行测试。因为在信号被阻塞的时候，信号处理程序不能访问全局变量sigreceived，所以阻塞信号与锁定互斥是类似的
++ 当sigsuspend返回时，信号再次被阻塞。
+
++ 线程用条件变量锁定互斥量来保护它的临界区并对条件进行测试。
++ pthread_cond_wait原子地释放了互斥量并将进行挂起。当pthread_cond_wait返回时，线程就再次拥有了互斥量
+
+### 创建和销毁条件变量
+
++ POSIX用pthread_cond_t类型的变量来表示条件变量
+
++ 程序必须在使用该变量之前对其进行初始化
++ 对那些静态分配的，带有默认属性的pthread_cond_t变量来说，简单地将PTHREAD_COND_INITIALIZE赋给变量就可以完成初始化
++ 对那些动态分配的或不具有默认属性的变量来说，就要调用pthread_cond_init来执行初始化
+  + `int pthread_cond_init(pthread_cond_t *restrict cond, const pthread_condattr_t *restrict attr);`
+  + `pthread_cond_t cond = PTHREAD_COND_INITIALIZE;`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ 函数pthread_cond_destroy销毁了它的参数cond引用的条件变量
+  + `int pthread_cond_destroy(pthread_cond_t *cond);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
+### 等待并通知条件变量
+
++ 条件变量是与断言或条件的测试一同调用的，条件变量的名字就是从这个事实引申出来的
+
++ 通常，线程会对一个断言进行测试，如果测试失败，就调用pthread_cond_wait
++ 函数pthread_cond_timewait可以用来等待一段有限的时间
+  + `int pthread_cond_timewait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex, const struct timespec *restrict abstime);`
+  + `int pthread_cond_wait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex);`
++ 这些函数的第一个参数是cond，这是一个指向条件变量的指针
++ 第二个参数是mutex，这是一个指向互斥连的遏制真
+  + 线程在调用之前应该拥有这个互斥量
+  + 当线程被放置在条件变量等待队列中时，等待操作会使线程释放这个互斥量
++ pthread_cond_timewait函数的第三个参数是一个指向返回时间的指针，这个值表示的是绝对时间，而不是时间间隔
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ 当另一个线程修改了可能会使断言成真的变量时，它应该唤醒一个或多个在等待断言成真的线程
++ pthread_cond_signal函数至少解除了对一个阻塞在cond指向的条件变量上的线程的阻塞
++ pthread_cond_broadcast函数解除了所有阻塞在cond指向的条件变量上的线程的阻塞
+  + `int pthread_cond_broadcast(pthread_cond_t *cond);`
+  + `int pthread_cond_signal(pthread_cond_t *cond);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
+### 条件变量规则
+
++ 条件变量没有被链接到特定的断言上去，pthread_cond_wait可能会因为假唤醒而返回
+
++ 使用条件变量时要遵守的规则
+  + 在测试断言之前获得互斥量
+  + 因为返回可能是由某些不相关的事件或无法使断言成真的pthread_cond_signal引起的，所以要在从pthread_cond_wait返回值后重新对断言进行测试
+  + 在修改断言中出现的任一变量之前，要获得互斥量
+  + 仅仅在较短的时间段中持有互斥量 -- 通常是在测试断言或者修改共享变量的时候
+  + 显示地(用pthread_mutex_unlock)或隐式地(用pthread_cond_wait)释放互斥量
+
+### 信号处理与线程
+
++ 进程中所有线程都共享进程的信号处理程序，但每个线程都有它自己的信号掩码
++ 由于线程的操作可以异步于信号，所以线程与信号的交互会比较复杂
++ 三种类型的信号及其相应的传递方法
+  + 异步  --  传递给某些解除了对该信号的阻塞的线程
+  + 同步  --  传递给引发（该信号）的线程
+  + 定向的  -- 传递给标识了的线程(pthread_kill)
+
++ SIGFPE(浮点异常)这样的信号就是同步于引发它们的线程（也就是说，它们通常在线程执行的相同位置上产生）
+
++ pthread_kill函数要求产生信号码为sig的信号，并将其传送到thread指定的线程中去
+  + `int pthread_kill(pthread_t thread, int sig);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ 使线程将它自己和整个进程都杀死
+  + `if (pthread_kill(pthread_self(), SIGKILL))`
+    + `fprintf(stderr, "Failed to commit suicide \n");`
++ 一种常见的概念混淆是假定pthread_kill总是会使进程终止的，但实际上并不是这样的，pthread_kill仅仅为线程产生一个信号
+
++ 为线程屏蔽信号。虽然信号处理程序是进程范围的，但是每个线程都有它自己的信号掩码
++ 线程可以用pthread_sigmask函数来检查或设置它的信号掩码
+  + `int pthread_sigmask(int how, const sigset_t *restrict set, sigset_t *restrict oset);`
++ 参数how和set指出了修改信号掩码的方式
+  + how的值SIG_SETMASK会使线程的信号掩码被set取代
+  + 也就是说，现在线程阻塞set中所有的信号，但不阻塞任何其他信号
+  + how的值SIG_BLOCK使线程阻塞set中的其他信号（添加到线程当前的信号掩码中）
+  + how的值SIG_UNBLOCK从线程当前的信号掩码中将set中当前被阻塞的信号删除（不再阻塞）
++ 如果参数oset不为NULL，函数就将*oset设置为线程的前一个信号掩码
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ 为信号处理指定专用线程
++ 信号处理程序是进程范围的，与在单线程的进程中一样，可以用sigaction调用来安装它们
++ 在线程化程序中，进程范围的信号处理程序和线程特定的信号掩码之间的区别是很重要的
+
++ 在多线程的进程中进行信号处理的一种推荐策略是：为信号处理使用特定的线程
++ 主线程在创建线程之前阻塞了所有的信号。信号掩码是从创建线程中继承的。
++ 这样，所有的线程都将信号阻塞了。然后，专门用来处理信号的线程对那个信号执行sigwait
++ 或者，线程可以用pthread_sigmask来接触对信号的阻塞
+
+### 读者和写者
+
++ 读-写者问题指的是这样的一种情况：
+  + 在这种情况下，允许对资源进行两种类型的访问（读和写）
+  + 一种类型的访问必须确保是排他的（比如，写操作），但是另一种类型的访问可以是共享的（比如，读操作）
+
++ 处理读-写者同步的两种常见的策略被称为强读者同步(strong reader synchronization)和强写者同步(strong writer synchronization)
+  + 在强读者同步中，总是给读者以优先权，只要写者当前没有进行写操作，读者就可以获得访问权
+  + 在强写者同步中，通常将优先权交给写者，二将读者延迟到所有等待或活动的写者都完成了为止
+
++ POSIX提供了读-写锁：如果写者没有持有锁，就允许多个读者获得这个锁
++ POSIX声明，当前写者阻塞在锁上时，就由实现来决定是否允许读者获取锁
+
++ POSIX读-写锁由pthread_rwlock_t类型的变量表示。
++ 程序在用pthread_rwlock_t变量进行同步之前，必须调用pthread_rwlock_init来初始化这个变量
+  + `int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock, const pthread_rwlockattr_t *restrict attr);`
++ 参数rwlock是一个指向读-写锁的指针
++ 将NULL传递给pthread_rwlockattr_t，以便用默认属性来初始化读-写锁。否则，就要使用与线程属性对象类似的方法，县创建，然后再初始化读-写锁属性对象
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ pthread_rwlock_destroy函数销毁了它的参数引用的读-写锁
+  + `int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);`
++ 参数rwlock是一个指向读-写锁的指针
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
++ pthread_rwlock_rdlock和pthread_rwlock_tryrdlock函数允许线程为读操作获取一个读-写锁
++ pthread_rwlock_wrlock和pthread_rwlock_trywrlock函数允许线程为写操作获取一个读-写锁
+
++ pthread_rwlock_ldlock和pthread_rwlock_wrlock函数一直保持阻塞，到有锁可用为止
++ pthread_rwlock_tryldlock和pthread_rwlock_trywrlock函数则会立即返回
+
++ pthread_rwlock_unlock函数会将锁释放掉
+  + `int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);`
+  + `int pthread_rwlock_tryrdlock(pthread_rwlock_t *rwlock);`
+  + `int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);`
+  + `int pthread_rwlock_trywrlock(pthread_rwlock_t *rwlock);`
+  + `int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);`
++ 这些函数要求将一个指向锁的指针作为参数传递
++ 返回值：
+  + 成功，返回0
+  + 失败，返回非零的错误码
+
+### strerror_r的实现
+
++ 通常，主线程是唯一一个打印错误消息的线程
++ strerror为非线程安全的函数
+
++ perror_r和sterror_r函数既是线程安全的，又是异步信号安全的
+
+## 临界区和信号量
+
++ 管理共享资源的程序必须以互斥的方式来执行被称为临界区的代码段
+
+### 处理临界区
+
++ 共享设备，被称为排他性资源(exclusive resources)，因为它们一次只能由一个进程访问
++ 进程必须以互斥(mutually exclusive)的方式来执行访问这些共享资源的代码
+
++ 临界区(critical section)，是必须以互斥的方式执行的代码段，也就是说，在临界区的范围内，只能有一个活动的执行线程
++ 临界区问题(critical section problem)，是指安全，公平和对称的方式来执行临界区代码的问题
+
++ 可以将带有同步临界区的代码组织成不同的部分
+  + 入口区(entry section)，包含了请求对共享变量或其他资源进行修改的代码
+  + 临界区(critical section)，包括访问共享资源或执行不可重入代码的代码
+  + 退出区(exit section)，提供的对访问权的显示释放是必须的
+  + 剩余区(remainder section)，释放了访问权之后，线程可以执行的其他代码
+
++ 好的临界区问题解决方案要求公平和排他性访问(exclusive access)。
+  + 试图进入临界区的执行线程不应该被无限期地推迟
+  + 线程也应该有进展
+  + 如果当前没有线程在临界区，就应该允许一个等待线程进入
+
+### 信号量
+
++ 信号量是一个整型变量，它带有两个原子操作wait和signal
+  + wait还可以被称为down， P或lock
+  + signal还可以称为up， V， unlock或post
+
++ 在POSIX：SEM的术语中，wait和signal操作分别被称为信号量锁定(semaphore lock)和信号量解锁(semaphore unlock)
++ 我们可以把信号量想成一个整数值和一个等待signal操作的进程列表
+
++ wait和signal操作必须是原子的。
++ 原子操作(atomic operation)是这样一种操作，一旦将其启动了，就要以一种逻辑上不可分割的方式来完成（也就是说，不会与任何其他相关的指令产生交错）
+
+### POSIX：SEM无名信号量
+
++ POSIX：SEM信号量是一个sem_t类型的变量，有相关的原子操作来对它的值进行初始化，增量和减量操作
++ POSIX：SEM信号量扩展定义了两种类型的信号量：命名信号量和无名信号量
+
++ 如果一个实现在unistd.h中定义了_POSIX_SEMAPHORES，那么这个实现就支持POSIX：SEM信号量
++ 无名信号量和命名信号量之间的区别类似于普通管道和命名管道(FIFO)之间的区别
+  + `#include <semaphore.h>`
+  + `sem_t sem;`
+
++ 必须在使用POSIX：SEM信号量之前对其进行初始化
++ sem_init函数将sem引用的无名信号量初始化为value
+  + `int sem_init(sem_t *sem, int pshared, unsigned value);`
++ 参数value不能为负
++ pshared等于0，说明信号量只能由初始化这个信号量的进程中的线程使用
++ 如果pshared非0，任何可以访问sem的进程就都可以使用这个信号量
++ 返回值：
+  + 成功，sem_init就将sem初始化
+  + （没有定义返回值）
+
++ sem_destroy函数销毁了一个参数sem引用的，已经初始化了的无名信号量
+  + `int sem_destroy(sem_t *sem);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ sem_post对信号量的值进行增量操作
+  + `int sem_post(sem_t *sem);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ sem_wait函数实现了经典的信号量wait操作
+  + `int sem_wait(sem_t *sem);`
++ 如果信号量的值为0，调用进程就一直阻塞直到一个相应的sem_post调用解除了对它的阻塞为止，或者直到它被信号中断为止
+
++ sem_trywait与sem_wait类似，只是在试图对一个为零的信号量进行减量操作时，它不阻塞，而是返回-1并将errno置为EAGAIN
+  + `int sem_trywait(sem_t *sem);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ sem_getvalue函数允许用户检测一个命名信号量或者无名信号量的值
+  + `int sem_getvalue(sem_t *restrict sem, int *strict sval);`
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
+### POSIX:SEM命名信号量
+
++ 可以用POSIX：SEM命名信号量来同步那些不共享内存的进程
++ 命名信号量和文件一样，有一个名字，一个用户ID，一个组ID的权限
++ 信号量的名字是一个遵守路径名构造规则的字符串
+
++ sem_open函数建立了命名信号量和sem_t值之间的连接
+  + `sem_t *sem_open(const char *name, int oflag, ...);`
++ 参数name是一个用名字来标识信号量的字符串，这个名字可以对应于文件系统中实际的对象，也可以不对应
++ 参数oflag用来确定是创建信号量，还是仅仅由函数对其进行访问
++ 返回值：
+  + 成功，返回信号量的地址
+  + 失败，返回SEM_FAILED，并设置errno
+
++ sem_close函数关闭命名信号量，但是这样做并不能将信号量从系统中删除
+  + `int sem_close(sem_t *sem);`
++ 参数sem，用来指定要关闭的信号量
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
++ sem_unlink函数与文件或FIFO的unlink函数类似，在所有的进程关闭了命名信号量之后将命名信号量从系统中删除
++ 当进程显式地调用sem_close, _exit, exit, exec或执行从main的返回时，就会出现关闭操作
+  + `int sem_unlink(const char *name);`
++ 参数name，指向要删除的信号量的指针
++ 返回值：
+  + 成功，返回0
+  + 失败，返回-1，并设置errno
+
+## POSIX IPC
+
+ + 共享内存，消息队列和信号量集等经典的UNIX进程间通信(IPC)机制都在POSIX：XSI扩展中进行了标准化
+ + 这些机制允许不相关的进程通过一种合理有效的途径来交换信息，这些机制用键(key)来标识，创建或访问相应的额实体
+
+### POSIX：XSI进程间通信
+
++ POSIX进程间通信(interprocess communication, IPC)，是POSIX：XSI扩展的一部分，起源于UNIX System V进程间通信
++ IPC中包含消息队列，信号量集和共享内存，为同一个系统中的进程提供了共享信息的机制
+  + 消息队列
+    + msgctl  --  控制
+    + msgget  --  创建或访问
+    + msgrcv  --  接收消息
+    + msgsnd  --  发送消息
+  + 信号量
+    + semctl  --  控制
+    + semget  --  创建或访问
+    + semop   --  执行操作（等待或发送）
+  + 共享内存
+    + shmat   --  将内存附加到进程中去
+    + shmctl  --  控制
+    + shmdt   --  将内存从进程中分离开
+    + shmget  --  创建并初始化或访问
+
++ POSIX：XSI用一个唯一的整数来标识每个IPC对象，这个整数大于或等于零，从对象的获取函数中返回这个整数的方式与open函数返回表示文件描述符的整数的方式类似
+
++ 创建或访问一个IPC对象时，必须指定一个键来说明要创建或访问的特定对象。
++ 有三种方式来选择一个键
+  + 由系统来选择一个键(IPC_PRIVATE)
+  + 直接选一个键
+  + 通过调用ftok请求系统从指定的路径中生成一个键
+
++ ftok函数允许独立的进程根据一个已知的路径名导出相同的键。
+  + `#include <sys/ipc.h>`
+  + `key_t ftok(const char *path, int id);`
++ 对应于路径名的文件必须存在，并且必须能够被那些想访问IPC对象的进程访问
++ path和id的组合唯一地标识了IPC对象。
++ 参数id允许几个相同类型的IPC对象从一个路径名中生成键值
++ 返回值：
+  + 成功，返回一个键
+  + 失败，返回-1，并设置errno
+
++ 从命令解释程序中访问POSIX：XSI IPC资源
+  + 命令解释程序和实用程序的POSIX：XSI扩展定义了检查和删除IPC资源的命令解释程序命令，这时POSIX：SEM信号量所没有的一项很方便的特性
+  + ipcs命令，显示了与POSIX：XSI进程间通信资源有关的信息
+    + `ipcs [-qms] [-a | -bcopt]`
+  + 小写的-q, -s, -m选项用对象ID分别指定要删除的消息队列，信号量集或共享内存段
+  + 大写的选项使用初始的创建键(creation key)
+
+### POSIX:XSI信号量集
+
++ POSIX：XSI信号量由一个信号量元素(semaphore element)数组组成
++ 信号量元素与Dijsktra提出的标准的整数信号量类似，但两者并不完全相同。
++ 进程可以在单个调用中对整个集合执行操作
++ 将POSIX：XSI信号量称为信号量集(semaphore set)，与POSIX：SEM信号量区分开
+
++ 每个信号量元素中至少包含下列信息
+  + 一个表示信号量元素值的非负整数(semval)
+  + 最后一个操纵信号量元素的进程的进程ID(sempid)
+  + 等待信号量元素值增加的进程的数量(semncnt)
+  + 等待信号量元素值变为零的进程的数量(semzcnt)
++ 信号量主要的数据结构是semid_ds，它是在sys/sem.h中定义的
++ 每个信号量元素都有两个与之相关的队列：
+  + 一个等待信号量值变为0的进程队列
+  + 一个等待信号量值增加的进程对量
++ 信号量元素操作允许进程阻塞，知道信号量元素值为0或者它增加到一个大于零的特定值为止
+
++ 信号量集的创建
+  + semget
