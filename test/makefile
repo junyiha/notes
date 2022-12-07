@@ -3,13 +3,15 @@ makefile_path:=$(abspath $(lastword $(MAKEFILE_LIST)))
 cur_makefile_path:=$(patsubst %/makefile, %/, ${shell ls $(makefile_path)})
 
 src=${wildcard ${cur_makefile_path}*.cpp}
+src+=${wildcard ${cur_makefile_path}*.c}
 target=${patsubst %.cpp, %, ${src}}
 
-CXX=g++
+# CXX=g++
+CXX=clang++
 CXX_FLAGS=-g 
 DEPEND_LIBS= -lpthread -lopencv_highgui -lopencv_imgcodecs -lopencv_core -ljsoncpp
 
-INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/opencv4/  -I/usr/local/include/
+INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/opencv4/  -I/usr/local/include/ -I./
 LIBRARY_PATH= -L/usr/local/lib/ -L/usr/local/lib/
 
 ${target}:${src}

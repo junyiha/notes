@@ -197,6 +197,8 @@ int Test::test_mkstemp(Args &args)
     {
         printf("Failed to generate tmp file name \n");
     }
+
+    return 0;
 }
 
 int Test::test_FixPath(Args &args)
@@ -435,6 +437,8 @@ int Test::test_set_name(const char *name)
     const char *m_name = ((name && name[0]) ? name : "");
     printf("name[0] = {%c}\n", name[0]);
     printf("m_name:{%s} \n", m_name);
+
+    return 0;
 }
 
 int Test::test_remove()
@@ -774,6 +778,8 @@ int Test::test_printferror(const char *format, ...)
     vsnprintf(buffer, 256, format, args);
     perror(buffer);
     va_end(args);
+
+    return 0;
 }
 
 int Test::test_vsnprintf()
@@ -858,6 +864,8 @@ int Test::test_getpid()
 {
     printf("i am process %ld \n", static_cast<long>(getpid()));
     printf("my parent process is %ld \n", static_cast<long>(getppid()));
+
+    return 0;
 }
 
 int Test::test_getegid()
@@ -865,6 +873,8 @@ int Test::test_getegid()
     printf("i am user of %ld \n", static_cast<long>(geteuid()));
     printf("i am group of %ld \n", static_cast<long>(getegid()));
     usleep(500);
+
+    return 0;
 }
 
 int Test::test_fork()
@@ -873,6 +883,8 @@ int Test::test_fork()
     fork();
     x = 1;
     printf("i am process %ld and my x is %d \n", static_cast<long>(getpid()), x);
+
+    return 0;
 }
 
 int Test::test_strchr(const char *str, char delimiter)
@@ -881,6 +893,8 @@ int Test::test_strchr(const char *str, char delimiter)
 
     ret = const_cast<char *>(strchr(str, delimiter));
     printf("after %c is %s \n", delimiter, ret);
+
+    return 0;
 }
 
 int Test::test_lambda()
@@ -894,6 +908,8 @@ int Test::test_lambda()
     {
         printf("%d \n", n);
     }
+
+    return 0;
 }
 
 int Test::test_strtok(char *str, const char *delimiter)
@@ -933,6 +949,8 @@ int Test::test_strtok(char *str, const char *delimiter)
             }
         }
     }
+
+    return 0;
 }
 
 int Test::test_fgets()
@@ -1043,6 +1061,8 @@ int Test::test_fgets()
         free(line_ptr);
         line_ptr = NULL;
     }
+    
+    return 0;
 }
 
 int Test::test_pipe()
@@ -1098,6 +1118,8 @@ int Test::test_sigset_t()
         }
     }
     putchar('\n');
+
+    return 0;
 }
 
 std::string Test::test_map_end(int id)
@@ -1212,6 +1234,8 @@ final_end:
 
     if (line_ptr)
         free(line_ptr);
+
+    return 0;
 }
 
 int Test::test_enum_map()
@@ -1280,6 +1304,8 @@ int Test::test_enum_map()
 
     printf("detect model : %s \n", m_infers[DETECT]->engine_conf_file.c_str());
     printf("detect handle : %s \n", (*(m_infers[DETECT]->engine_handle)).c_str());
+
+    return 0;
 }
 
 /**
@@ -1387,6 +1413,8 @@ jump_here:
 
         printf("next loop !!!\n");
     }
+
+    return 0;
 }
 
 int Test::test_spp_search()
@@ -1401,6 +1429,8 @@ int Test::test_spp_search()
     sscanf(box_info, "%d|%lf|%lf|%lf|%lf%*[^\n]", &face_id, &x1, &y1, &x2, &y2);
 
     printf("%d %lf %lf %lf %lf \n", face_id, x1, y1, x2, y2);
+
+    return 0;
 }
 
 int Test::test_jsoncpp()
@@ -1489,6 +1519,8 @@ int Test::test_jsoncpp()
     output_json["recognize"] = face;
     std::string result = writer.write(output_json);
     printf("%s \n", result.c_str());
+
+    return 0;
 }
 
 size_t Test::test_base64()
@@ -1540,6 +1572,8 @@ int Test::test_usleep()
     usleep(1000000);
 
     printf("!!!!!!\n");
+
+    return 0;
 }
 
 int Test::test_readfile(const char *file)
@@ -1601,6 +1635,8 @@ int Test::test_readfile(const char *file)
     }
     ifs.close();
     // getchar();
+
+    return 0;
 }
 
 int Test::test_StringToJson(const char *file)
@@ -1705,6 +1741,8 @@ int Test::test_StringToJson(const char *file)
 
     // printf("uuid is %s, x1:{%d}, y1:{%d}, x2:{%d}, y2:{%d} \n", uuid.c_str(), x1, y1, x2, y2);
     // std::cout << root.begin() << "\n";
+
+    return 0;
 }
 
 int Test::test_StringToBox(std::string box_str)
@@ -1751,12 +1789,16 @@ int Test::test_StringToBox(std::string box_str)
     // sscanf("hello|world", "%[^|]|%[^|]",tmp1, tmp2);
     // printf("%d %d \n", x1, y1);
     // printf("tmp1 is {%s} , tmp is {%s} \n", tmp1, tmp2);
+
+    return 0;
 }
 
 int Test::test_sizeof()
 {
     char *tmp = new char[4096];
     std::cout << sizeof(tmp) << "\n";
+
+    return 0;
 }
 
 int Test::test_write()
@@ -1774,6 +1816,8 @@ int Test::test_write()
     fprintf(fp, "%s", tmp);
 
     fclose(fp);
+
+    return 0;
 }
 
 int Test::test_DeleteBase64Flag()
@@ -1787,6 +1831,8 @@ int Test::test_DeleteBase64Flag()
         flag.erase(pos_data, (pos_base64 - pos_data) + 7);
         printf("%s \n", flag.c_str());
     }
+
+    return 0;
 }
 
 int Test::test_OpenWrongfile(const char *file)
@@ -1799,6 +1845,8 @@ int Test::test_OpenWrongfile(const char *file)
         std::cout << "fclose(fp)"
                   << "\n";
     }
+
+    return 0;
 }
 
 int Test::test_fwrite(const char *file)
@@ -1808,6 +1856,8 @@ int Test::test_fwrite(const char *file)
     fp = fopen(file, "w");
     fwrite(str, sizeof(str), 1, fp);
     fclose(fp);
+
+    return 0;
 }
 
 int Test::test_fseek(std::string file)
@@ -1837,6 +1887,8 @@ int Test::test_fseek(std::string file)
 
     std::cout << data << std::endl;
     std::cout << length << std::endl;
+
+    return 0;
 }
 
 int Test::test_fstream(const char *file)
@@ -1862,6 +1914,8 @@ int Test::test_fstream(const char *file)
 
     infile.close();
     free(data);
+
+    return 0;
 }
 
 int Test::test_ctime()
@@ -1870,6 +1924,8 @@ int Test::test_ctime()
 
     tcurrent = time(NULL);
     printf("The current time is %s \n", ctime(&tcurrent));
+
+    return 0;
 }
 
 int Test::test_localtime()
@@ -1879,6 +1935,8 @@ int Test::test_localtime()
     current_time = time(NULL);
     tcurrent = localtime(&current_time);
     printf("%d days have elapsed since Jan 1 \n", tcurrent->tm_yday);
+
+    return 0;
 }
 
 int Test::test_clock()
@@ -1901,6 +1959,8 @@ int Test::test_clock()
 
     timedif = (tmpend.tv_sec - tmpstart.tv_sec) + (tmpend.tv_nsec - tmpstart.tv_nsec) / 1000;
     printf("The function test_localtime() took %ld microsenconds \n", timedif);
+
+    return 0;
 }
 
 int Test::test_sleep(int argc)
@@ -1937,6 +1997,8 @@ int Test::test_nanosleep()
     long time = end.tv_sec - start.tv_sec;
 
     printf("nanotime is %ld, time is %ld \n", ntime, time);
+
+    return 0;
 }
 
 int Test::test_intTochar()
@@ -1944,6 +2006,8 @@ int Test::test_intTochar()
     int i = 0;
     std::string var;
     std::cout << std::to_string(i) << std::endl;
+
+    return 0;
 }
 
 int Test::test_vector()
@@ -1958,6 +2022,8 @@ int Test::test_vector()
     {
         std::cout << tmp[i] << std::endl;
     }
+
+    return 0;
 }
 
 int Test::test_int64_t()
@@ -1974,6 +2040,8 @@ int Test::test_int64_t()
     {
         std::cout << ids[i] << std::endl;
     }
+
+    return 0;
 }
 
 #endif // TEST_HPP

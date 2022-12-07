@@ -166,7 +166,7 @@ ssize_t Args::dump(const char *pathfile)
 
 void Args::parse(int argc, char *argv[])
 {
-    assert(argv > 0 && argv != NULL);
+    assert(argc > 0 && argv != NULL);
 
     std::string it_key = m_key_prefix;
 
