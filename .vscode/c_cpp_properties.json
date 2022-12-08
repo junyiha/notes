@@ -6,7 +6,9 @@
                 "${workspaceFolder}/**",
                 "/usr/local/include/opencv4/"
             ],
-            "defines": [],
+            "defines": [
+                // "__cplusplus"
+            ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "gnu++14",

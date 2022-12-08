@@ -25,11 +25,15 @@
             // "--detector-conf",
             // "@--detector-models@/home/user/Face/DETECT.conf@/home/user/Face/FEATURE.conf@"
 
-            "--download-tmpfile",
-            "--src",
-            "http://192.167.15.99:8084/platform/images/recognize/db1/20221205113935.txt",
-            "--dst",
-            "/tmp/tmp-XXXXXX",
+            // "--download-tmpfile",
+            // "--src",
+            // "http://192.167.15.99:8084/platform/images/recognize/db1/20221205113935.txt",
+            // "--dst",
+            // "/tmp/tmp-XXXXXX",
+
+            // "--test-flag"
+
+            "--test-mongoose"
         ],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
