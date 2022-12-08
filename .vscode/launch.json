@@ -33,7 +33,12 @@
 
             // "--test-flag"
 
-            "--test-mongoose"
+            // "--test-mongoose"
+
+            // "--test-vector"
+            // "--mkstemp"
+
+            "--test-string"
         ],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",

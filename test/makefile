@@ -4,10 +4,11 @@ cur_makefile_path:=$(patsubst %/makefile, %/, ${shell ls $(makefile_path)})
 
 src=${wildcard ${cur_makefile_path}*.cpp}
 src+=${wildcard ${cur_makefile_path}*.c}
-target=${patsubst %.cpp, %, ${src}}
+# target=${patsubst %.cpp, %, ${src}}
+target=main
 
-# CXX=g++
-CXX=clang++
+CXX=g++
+# CXX=clang++
 CXX_FLAGS=-g 
 DEPEND_LIBS= -lpthread -lopencv_highgui -lopencv_imgcodecs -lopencv_core -ljsoncpp
 

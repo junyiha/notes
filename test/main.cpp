@@ -32,6 +32,17 @@ int main(int argc, char *argv[])
     int res = -1;
     args.parse(argc, argv);
 
+    if (args.exist("--test-string"))
+    {
+        test.test_string();
+    }
+
+    if (args.exist("--test-vector"))
+    {
+        std::vector<int> ids;
+        test.test_vector(ids);
+    }
+
     if (args.exist("--test-mongoose"))
     {
         test_mongoose(args);

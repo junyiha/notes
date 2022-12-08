@@ -126,7 +126,7 @@ public:
 
     std::string test_map_end(int id);
 
-    const char *test_map_second(const char *id);
+    std::string test_map_second(const char *id);
 
     int test_file_parse(const char *file, const char *delimiter);
 
@@ -190,13 +190,14 @@ Test::~Test()
 int Test::test_mkstemp(Args &args)
 {
     int tmp_fd = -1;
-    char *tmp = new char[4096];
-    tmp = const_cast<char *>("/tmp/network-XXXXXX");
-    tmp_fd = mkstemp64(tmp);
+    char tmp[] = "/tmp/network-XXXXXX";
+    tmp_fd = mkstemp(tmp);
     if(tmp_fd == -1)
     {
         printf("Failed to generate tmp file name \n");
     }
+
+    printf("temporary file :{%s}\n", tmp);
 
     return 0;
 }
@@ -260,9 +261,8 @@ int Test::test_string()
     tmp = "http://192.167.15.99:8084/";
     tmp += "platform/";
 
-    char *image_path = new char[4096];
-    
-    image_path = const_cast<char *>("image/db1/123.jpeg");
+    char image_path[] = "image/db1/123.jpeg";
+
     std::string path = tmp + image_path;
 
     std::cout << path << std::endl;
@@ -484,8 +484,6 @@ int Test::test_scanf()
     if (!fp)
     {
         printf("failed to open the file -- %s \n", path);
-        fclose(fp);
-        fp = NULL;
     }
 
     char *line_ptr = NULL;
@@ -557,7 +555,7 @@ int Test::test_strtol()
 {
     char szNumbers[] = "00001 abcde -111111111111111111 0x6ffffffff";
     char *pEnd;
-    long int li1, li2, li3, li4;
+    long int li1, li2;
     li1 = strtol(szNumbers, &pEnd, 20);
     li2 = strtol(pEnd, &pEnd, 16);
 
@@ -591,6 +589,11 @@ int Test::test_union()
 
 int Test::test_vector(std::vector<int> &tmp_ids)
 {
+    if (tmp_ids.size() == 0)
+    {
+        printf("the vector is empty !");
+    }
+
     for (int i = 0; i < 10; i++)
     {
         tmp_ids.push_back(i);
@@ -622,6 +625,9 @@ int Test::test_virtual()
     A *a = new A(); // A::foo()
     // A *a = new B();  // B::foo()
     a->foo();
+
+    delete a;
+    a = nullptr;
 
     return 0;
 }
@@ -709,7 +715,7 @@ int Test::test_strlen()
 
     std::string tmp;
     tmp = "/home/user/file.txt";
-    printf("strlen is %d \n, string.size() is %lu \n", (int)strlen(tmp.c_str()), tmp.size());
+    printf("strlen is %d \n, string.size() is %zu \n", (int)strlen(tmp.c_str()), tmp.size());
 
     return 0;
 }
@@ -1147,7 +1153,7 @@ std::string Test::test_map_end(int id)
     return result;
 }
 
-const char *Test::test_map_second(const char *id)
+std::string Test::test_map_second(const char *id)
 {
     TmpMap m_tmp;
     m_tmp["123"] = "/home/user";
@@ -1158,7 +1164,7 @@ const char *Test::test_map_second(const char *id)
 
     // printf("iterator.second is %s \n", (tmp_it->second).c_str());
 
-    return (tmp_it->second).c_str();
+    return tmp_it->second;
 }
 
 int Test::test_file_parse(const char *file, const char *delimiter)
@@ -1397,7 +1403,7 @@ int Test::test_queue()
             goto jump_here;
         }
     }
-    printf("Have push 11 number into queue, and the size of q is %lu \n", q.size());
+    printf("Have push 11 number into queue, and the size of q is %zu \n", q.size());
 
 jump_here:
     for (int i = 0;; i++)
@@ -1532,8 +1538,7 @@ size_t Test::test_base64()
     fp = fopen(path, "r");
     if (!fp)
     {
-        fclose(fp);
-        fp = NULL;
+        printf("Failed to open the file :%{%s} !", path);
     }
 
     std::ifstream input_file_stream;
@@ -1541,6 +1546,8 @@ size_t Test::test_base64()
     if (!input_file_stream.is_open())
     {
         std::cout << "failed to read the file" << std::endl;
+        fclose(fp);
+        fp = nullptr;
         return -1;
     }
 
@@ -1561,6 +1568,12 @@ size_t Test::test_base64()
     // printf("the size of pic variable is : %lu \n", pic.size());
     // printf("the size of tmp variable is : %lu \n", tmp.size());
     // getchar();
+    if (fp)
+    {
+        fclose(fp);
+        fp = nullptr;
+    }
+
     return pic.size();
 }
 
@@ -1790,6 +1803,17 @@ int Test::test_StringToBox(std::string box_str)
     // printf("%d %d \n", x1, y1);
     // printf("tmp1 is {%s} , tmp is {%s} \n", tmp1, tmp2);
 
+    if (tmp1)
+    {
+        delete []tmp1;
+        tmp1 = nullptr;
+    }
+
+    if (tmp2)
+    {
+        delete []tmp2;
+        tmp2 = nullptr;
+    }
     return 0;
 }
 
@@ -1797,6 +1821,11 @@ int Test::test_sizeof()
 {
     char *tmp = new char[4096];
     std::cout << sizeof(tmp) << "\n";
+    if (!tmp)
+    {
+        delete tmp;
+        tmp = nullptr;
+    }
 
     return 0;
 }
@@ -1846,6 +1875,12 @@ int Test::test_OpenWrongfile(const char *file)
                   << "\n";
     }
 
+    if (fp)
+    {
+        fclose(fp);
+        fp = nullptr;
+    }
+
     return 0;
 }
 
@@ -1887,6 +1922,12 @@ int Test::test_fseek(std::string file)
 
     std::cout << data << std::endl;
     std::cout << length << std::endl;
+
+    if (data)
+    {
+        free(data);
+        data = nullptr;
+    }
 
     return 0;
 }
