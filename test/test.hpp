@@ -1538,7 +1538,7 @@ size_t Test::test_base64()
     fp = fopen(path, "r");
     if (!fp)
     {
-        printf("Failed to open the file :%{%s} !", path);
+        // printf("Failed to open the file :%{%s} !", path);
     }
 
     std::ifstream input_file_stream;

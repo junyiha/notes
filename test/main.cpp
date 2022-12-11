@@ -25,12 +25,35 @@ int test_mongoose(Args &args)
     }
 }
 
+int test_atomic(Args &args)
+{
+    int tmp = 0;
+
+    _atomic_compare_and_swap(&tmp, 0, 1);
+    std::cout << "compare and swap, tmp is : " << tmp << "\n";
+
+    if (_atomic_load(&tmp) == 1)
+    {
+        std::cout << "the tmp equal 1 \n";
+    }
+
+    _atomic_store(&tmp, 3);
+    std::cout << "atomice store, tmp is : " << tmp << "\n";
+
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
     Test test;
     Args args;
     int res = -1;
     args.parse(argc, argv);
+
+    if (args.exist("--test-atomic"))
+    {
+        test_atomic(args);
+    }
 
     if (args.exist("--test-string"))
     {
