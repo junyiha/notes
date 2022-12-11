@@ -50,6 +50,11 @@ int main(int argc, char *argv[])
     int res = -1;
     args.parse(argc, argv);
 
+    if (args.exist("--test-mmap"))
+    {
+        test.test_mmap(args);
+    }
+
     if (args.exist("--test-atomic"))
     {
         test_atomic(args);

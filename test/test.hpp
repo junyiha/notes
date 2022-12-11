@@ -27,6 +27,8 @@ public:
     virtual ~Test();
 
 public:
+    int test_mmap(Args &args);
+
     int test_mkstemp(Args &args);
 
     int test_FixPath(Args &args);
@@ -185,6 +187,41 @@ Test::Test()
 
 Test::~Test()
 {
+}
+
+int Test::test_mmap(Args &args)
+{
+    int fd = -1;
+    size_t fsize = 0;
+    void *fdata = nullptr;
+    std::string input_file; 
+    
+    input_file = args.value("--input-file", "");
+    fd = open(input_file.c_str(), O_RDONLY | __O_LARGEFILE | __O_CLOEXEC, 0);
+    if (fd < 0)
+    {
+        printf("Failed to open {%s} \n", input_file.c_str());
+        return fd;
+    }
+
+    struct stat file_attr = {0};
+    if (fstat(fd, &file_attr) != 0)
+        return -1;
+    
+    fsize = file_attr.st_size;
+    fdata = mmap(0, fsize, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (!fdata)
+        return -1;
+    
+    printf("mmap : %p \n", fdata);
+
+    if (fdata)
+        munmap(fdata, fsize);
+    
+    if (fd >= 0)
+        close(fd);
+
+    return 0;
 }
 
 int Test::test_mkstemp(Args &args)
