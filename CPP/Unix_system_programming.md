@@ -1826,3 +1826,218 @@
 
 + 串行服务器(serial server)，要在完全地处理好一个请求之后才能接受其他的请求
 + 串行服务器一次只处理一个请求，因此处理像文件传输这样长寿命请求的繁忙的服务器不能采用串行服务器策略
+
++ 什么是僵子进程？
+  + 僵进程(zombie)，是一种已经执行完毕但没有被其父进程等待的进程
+  + 僵进程没有释放它所有的资源，所以系统最终会耗尽一些关键的资源，例如：内存或进程ID
+
++ 线程化服务器(threaded server)，服务器在它自己的进程空间创建一个线程，而不是创建子进程来处理客户机请求。
+
+### 通用因特网通信接口
+
++ UICI(Universal Internet Communication Interface，通用因特网通信接口)库，为UNIX中的面向连接通信提供了简化接口
++ UICI，不是任何UNIX标准的一部分。
++ 接口是由作者设计的，在隐藏了底层网络协议细节的同时，对网络通信的实质进行了抽象。
++ UICI是公开的，使用UICI的程序中应该包含uici.h头文件
+
++ 使用套接字时，服务器创建一个通信端点(一个套接字)并将其与一个知名端口相关联(将套接字绑定到端口上)
++ 在等待客户机请求之前，服务器要将套接字设置为被动的，这样套接字就可以接收客户机请求了(将套接字设置为监听状态)
++ 一旦在这个端点检测到客户机连接请求，服务器就为此客户机的私有双工通信创建一个新的通信端点
++ 客户机和服务器通过文件描述符进行读和写操作来实现对通信端点的访问。
++ 当通信完成时，两端都关闭文件描述符，释放与此通信信道相关的资源
+
++ 客户机-服务器通信中使用的UICI调用的典型顺序
+  + 服务器创建一个通信端点(u_open)并等待客户机发送请求(u_accept)
+  + u_accept函数返回一个私有通信文件描述符
+  + 客户机为服务器的通信创建一个通信端点(u_connect)
++ 一旦它们之间建立了连接，客户机和服务器就可以在网络上用普通的read和write函数进行通信了
+
++ 总之，UICI服务器按如下步骤工作：
+  + 打开一个知名的监听端口(u_open)。u_open函数返回一个监听文件描述符(listening file descriptor)
+  + 在监听文件描述符上等待连接请求(u_accept)。u_accept函数一直阻塞，直到有客户机请求连接为止，然后它返回一个通信文件描述符(communication file descriptor)，并将这个文件描述符用作私有双工客户机-服务器通信的句柄
+  + 通过通信文件描述符(read和write)与客户机进行通信
+  + 关闭通信文件描述符(close)
++ UICI客户机按如下步骤工作：
+  + 连接到一个指定的主机和端口(u_connect)。连接请求返回与服务器进行双工通信时使用的通信文件描述符
+  + 通过通信文件描述符(read和write)与服务器通信
+  + 关闭通信文件描述符(close)
+
+### UICI的套接字实现
+
++ 通过使用带有TCP的套接字实现UICI API的概况
+  + socket  --  创建通信端点
+  + bind    --  将端点与指定的端口相关联
+  + listen  --  将端点设置为被动的监听者
+  + accept  --  接收来自客户机的连接请求
+  + socket  --  创建通信端点
+  + connect --  请求向服务器建立连接
+
++ 服务器创建一个句柄(socket)，将它与网络上的一个物理位置相关联(bind)，然后设置挂起请求的队列长度(listen)
++ UICI的u_open函数中封装了这三个函数，它返回一个对应于被动或监听套接字的文件描述符，然后，服务器监听客户机的请求(accept)
+
++ 客户机也创建一个句柄(socket)，并将这个句柄与服务器的网络位置相关联(connect)
++ UICI的u_connect函数封装了这两个函数。
+
++ 服务器和客户机句柄是文件描述符，有时也将它们称作通信端点(communication endpoint)或传输端点(transmission endpoint)
++ 一旦客户机和服务器建立了连接，它们就可以通过普通的read和write调用进行通信了
+
++ socket函数，创建了一个通信端点并返回一个文件描述符
+  + `#include <sys/socket.h>`
+  + `int socket(int domain, int type, int protocol);`
++ 参数
+  + `domain`  --  选择所用的协议族，AF_INET，代表IPv4
+  + `type`    --  
+    + SOCK_STREAM, 表示有序，可靠，双工，面向连接的字节流，通常由TCP实现
+    + SOCK_DGRAM， 通过订场的，不可靠消息提供无连接通信，通常由UDP实现
+  + `protocol`-- 指定特定的通信type使用的协议。在大多数实现中，每个type参数只能使用一种协议。例如，SOCK_STREAM使用TCP， SOCK_DGRAM使用UDP
++ 返回值：
+  + 成功  --  返回一个对应于套接字文件描述符的非负整数
+  + 失败  --  返回-1，并设置errno
++ 使用面向连接的协议为因特网通信创建一个套接字通信端点
+  + `int sock;`
+  + `if ((sock = socket(AF_INET, SOCK_STREAM, 0) == -1))`
+    + `perror("Failed to create socket!\n);`
+
++ bind函数，将套接字通信端点的句柄与一个特定的逻辑网络连接关联起来。因特网域协议用端口号来指定逻辑连接
+  + `#include <sys/socket.h>`
+  + `int bind(int socket, const struct sockaddr *address, socklen_t address_len);`
++ 参数：
+  + `socket`      --  前一个socket函数调用返回的文件描述符
+  + `*address`    --  该结构中包含一个协议族名和与协议相关的信息
+  + `address_len` --  是`*address`结构中的字节数
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1，并设置errno
+
++ 因特网域用`struct sockaddr_in`代替`struct sockaddr`
++ POSIX规定应用程序在和套接字函数一同使用时，要将`struct sockaddr_in`强制转换成`struct sockaddr`
++ 在`netinet/in.h`中定义的`struct sockaddr_in`结构至少包含下列成员，这些成员都是用网络字节顺序来表示的
+  + `sa_family_t sin_family;  /* AF_NET */`
+  + `in_port_t   sin_port;    /* port number */`
+  + `struct in_addr sin_addr; /* IP address */`
++ 对因特网通信来说，sin_family的值为AF_INET， sin_port指的是端口号
++ struct in_addr结构有一个被称为s_addr的成员，s_addr成员是in_addr_t类型，装载了因特网地址的数字值
++ 服务器可以将sin_addr.s_addr字段设置为INADDR_ANY，表示套接字应该接收任何一个主机网络接口上的连接请求
++ 客户机将sin_addr.s_addr字段设置为服务器主机的IP地址
+
++ 将端口8652与一个对应于打开的文件描述符sock的套接字相关联
+  ```struct sockaddr_in server;
+     int sock;
+     server.sin_family = AF_INET;
+     server.sin_addr.s_addr = htonl(INADDR_ANY);
+     server.sin_port = htons((short)8652);
+     if (bind(sock, (struct sockaddr *)&server, sizeof(server)) == -1)
+      perror("Failed to bind the socket to port !\n);`
+  ```
++ `htonl`和`htons`将INADDR_ANY和8652的字节按照网络字节顺序重新排序
+  + `htonl`函数对long（长整数）重新排序，将其从主机字节顺序转换为网络字节顺序
+  + `htons`函数将short（短整数）重新排序为网络字节顺序
++ 它们的镜像函数`ntohl`和`ntohs`对整数进行重新排序，将整数从网络字节顺序转到主机字节顺序
+
++ 大尾数计算机先存储最高有效字节(most significant byte), 小尾数计算机先存储最低有效字节(least significant type)  --  大端，小端
++ 当使用不同字节存放次序的计算机进行通信时，整数的字节顺序会带来一个问题， 因为不同的计算机会对端口号这样的协议信息产生错误的理解
++ 不幸的是，这两种字节存放次序都很常见
+  + SPARC结构(由Sun Microsystems公司开发)采用大数在先结构
+  + 而Intel结构采用小数在先结构
++ 因特网协议规定网络字节顺序(network byte order)，采用大数在先结构，POSIX要求某些套接字地址字段按网络字节顺序给出
+
++ socket函数创建了一个通信端点，而bind函数将这个通信端点与一个特定的网络地址相关联。
++ 此时，客户机可以用套接字与服务器进行连接。要用套接字来接收连接请求，应用程序必须通过调用listen函数将套接字设置成被动状态
+
++ listen函数使底层的系统网络基础结构分配队列以承载那些待处理的连接请求
+  + `#include <sys/socket.h>`
+  + `int listen(int socket, int backlog);`
++ 当客户机发出连接请求时，客户机和服务器网络子系统交换信息（TCP的三次握手）以建立连接
++ 因为服务器可能正忙，所以主机的网络子系统会将客户机的连接请求排队，直到服务器准备好接收这些请求为止
++ 如果服务器主机拒绝了客户机的连接请求，客户机会收到一个ECONNREFUSED错误。
++ 参数：
+  + socket值，就是上一次socket调用返回的描述符，
+  + backlog，给出了允许排队等待的客户机请求数目的最大值
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1，并设置errno
+
++ 建立了一个被动的监听套接字(socket, bind, listen)之后，服务器通过调用accept函数来处理到来的客户机连接
+  + `#include <sys/socket.h>`
+  + `int accept(int socket, struct sockaddr *restrict address, socklen_t *restrict address_len);`
++ accept的参数与bind的参数类似，
+  + 但是，bind函数要求在调用之前将`*address`字段填好，这样它才能知道服务器会在哪个端口和接口上接收连接请求
+  + 与之相反，accept函数用`*address`字段来返回与建立连接的客户机有关的信息。尤其要支出的是，`struct sockaddr_in`结构的`sin_addr`成员中包含一个`s_addr`成员，这个成员中装载了客户机的因特网地址
+  + accept函数的`*address_len`参数的值指定了address指向的缓冲区的长度。在调用之前，要在这个参数中填上`*address`结构的长度，调用之后，`*address_len`中函数的是由accept调用实际填写的缓冲区字节数
++ 返回值：
+  + 成功  --  返回对应于已接收套接字的非负文件描述符
+  + 失败  --  返回-1，并设置errno
+
++ 客户机调用socket来建立一个传输端点，然后用connect来建立远程服务器知名端口的连接
+  + `#include <sys/socket.h>`
+  + `int connect(int socket, const struct sockaddr *address, socklen_t address_len);`
++ connect像bind一样填写struct sockaddr结构
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1，并设置errno
+
+### 主机名和IP地址
+
++ 对大多数网络库调用来说，主机名都必须映射成数字网络地址
++ 作为系统配置的一部分，系统管理员要定义将名字翻译成网络地址的机制。这个机制可能包括本地表查询，如果必要的话，还可以对域名服务器进行查询。
++ 域名服务(Domain Name Service, DNS)，是整合因特网命名的粘合剂
+
++ 一般来说，主机可以由它的名字或者地址来指定。程序中的主机名通常用ASCII字符串来标识
++ IPv4地址可以用二进制格式（采用与struct in_addr的s_addr字段一样的网络字节顺序）或人类易读的格式表示，这种易读的格式被称作点分十进制表示法(dotted-decimal notation)或因特网地址点分表示法(Internet address dot notation)
++ 地址的点分形式是一个字符串，这个字符串的值是以小数点分隔，用十进制表示的四个字节
++ IPv4地址的二进制表示有4字节长。因此4字节地址没有为未来的因特网扩展提供足够的空间，所以这个协议的新版本IPv6，采用了16字节的地址结构
++ inet_addr和inet_ntoa函数在点分十进制表示法和struct sockaddr_in的struct in_addr字段中使用二进制网络字节顺序格式之间进行转换
+  
++ inet_addr函数将采用点分十进制表示法的地址转换成采用网络字节顺序的二进制地址。得到的值可以直接存储在struct sockaddr_in的sin_addr.s_addr字段中
+  + `#include <arpa/inet.h>`
+  + `in_addr_t inet_addr(const char *cp);`
++ 返回值：
+  + 成功  --  返回因特网地址
+  + 失败  --  返回-1
+
++ inet_ntoa函数，接收一个struct in_addr结构，这个结构中包含一个采用网络字节顺序的二进制地址，并返回相应的用点分十进制表示法表示的字符串
+  + `#include <arpa/inet.h>`
+  + `char *inet_ntoa(const struct in_addr in);`
++ 二进制地址可以从`struct sockaddr_in`结构的`sin_addr`字段中得到
++ 返回的字符串是静态分配的，因此在线程化应用程序中使用inet_ntoa可能不安全
++ 返回值：
+  + 返回一个指向网络地址的指针，这个网络地址是用因特网标准的点分表示法表示的
+
++ 将主机名转换成二进制地址的传统方法是调用gethostbyname函数
+  + `#include <netdb.h>`
+  + `struct hostent *gethostbyname(const char *name);`
++ 函数将主机名字符串作为参数，并返回一个指向struct hostent结构的指针，该结构中包含相应主机的名字和地址信息
++ 返回值：
+  + 成功  --  返回一个指向struct hostent指针
+  + 失败  --  返回一个NULL指针，并设置errno
+
++ 从地址到名字的转换可以用gethostbyaddr实现，
+  + `#include <netdb.h>`
+  + `struct hostent *gethostbyaddr(const void *addr, socklen_t len, int type);`
++ 对IPv4来说，type应该是AF_INET，len的值应该是4字节，参数addr应该指向一个struct in_addr结构
++ 返回值：
+  + 成功  --  返回一个指向struct hostent结构的指针
+  + 失败  --  返回一个NULL指针，并设置errno
+
++ 在主机名和地址之间进行转换的第二种方法是使用`getnameinfo`和`getaddrinfo`，它们在2001年首次称为被认可的POSIX标准
+  + `#include <sys/socket.h>`
+  + `#include <netdb.h>`
+  + `void freeaddrinfo(struct addrinfo *ai);`
+  + `int getaddrinfo(const char *restrict nodename, const char *restrict servname, const struct addrinfo *restrict hints, struct addrinfo **restrict res);`
+  + `int getnameinfo(const struct sockaddr *restrict sa, socklen_t salen, char *restrict node, socklen_t nodelen, char *restrict service, socklen_t servicelen, unsigned flags);`
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回一个错误码
+
++ 使用uname来获取主机名
+  + `#include <sys/utsname.h>`
+  + `int uname(struct utsname *name);`
++ 返回值：
+  + 成功  --  返回一个非负值
+  + 失败  --  返回-1，并设置errno
++ 在`sys/utsname.h`中定义的struct ustname结构至少包含下列成员
+  + `char sysname[];  /* 本OS实现的名字 */`
+  + `char nodenamep[];  /* 在通信网络中本节点的名字 */`
+  + `char release[];  /* 本实现当前发布的级别 */`
+  + `char version[];  /* 本次发布的当前版本的级别 */`
+  + `char machine[];  /* 系统正在运行的硬件类型名 */`
