@@ -34,7 +34,8 @@
 
 #include "jsoncpp/json/json.h"
 #include "libavutil/base64.h"
-#include "opencv4/opencv2/imgcodecs.hpp"
-#include "opencv4/opencv2/highgui.hpp"
+#include "opencv2/core.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
 
 #endif // __HEADER_H
