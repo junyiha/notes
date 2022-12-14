@@ -40,9 +40,11 @@
 
             // "--test-string"
 
-            "--test-mmap",
-            "--input-file",
-            "/home/user/Pictures/new_year/image-042.jpg"
+            // "--test-mmap",
+            // "--input-file",
+            // "/home/user/Pictures/new_year/image-042.jpg"
+
+            "--test-http-server"
         ],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",

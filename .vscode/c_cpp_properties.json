@@ -4,6 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "/usr/include/**",
                 "/usr/local/**",
                 "/usr/lib/x86_64-linux-gnu/**"
             ],

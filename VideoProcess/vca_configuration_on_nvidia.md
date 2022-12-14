@@ -105,7 +105,7 @@
 ## nvidia-container-toolkit
 
 + 官方链接
-  + https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html``
+  + `https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html`
 
 + Add the package repositories
   - `distribution=$(. /etc/os-release;echo $ID$VERSION_ID)`
