@@ -27,12 +27,12 @@ static void EventHandler(struct mg_connection *c, int ev, void *ev_data, void *f
         if (cl == NULL) {
             cl = &unknown;
         }
-        // MG_INFO(("%.*s %.*s %.*s %.*s", (int)hm->message.len, hm->method.ptr, (int)hm->uri.len, hm->uri.len, (int)tmp.uri.len, tmp.uri.ptr, (int)cl->len, cl->ptr));
-        MG_INFO(("%.*s %.*s %.*s %.*s", (int) hm->method.len, hm->method.ptr,
-                (int) hm->uri.len, hm->uri.ptr, (int) tmp.uri.len, tmp.uri.ptr,
-                (int) cl->len, cl->ptr));
+        MG_INFO(("%.*s %.*s %.*s %.*s", 
+                (int)hm->message.len, hm->method.ptr, 
+                (int)hm->uri.len, hm->uri.ptr, 
+                (int)tmp.uri.len, tmp.uri.ptr, 
+                (int)cl->len, cl->ptr));
     }
-
     (void) fn_data;
 }
 
