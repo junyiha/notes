@@ -28,6 +28,11 @@ public:
     long FileRead(int file, void *data, long size);
 
 public:
+    int OpenDir(const char *dir_path, std::vector<std::string> &files);
+    
+    int SeparationName(const char *file_name, std::string &prefix, std::string &postfix);
+
+public:
     int DownloadFile(const char *src, const char *dst, char err[1000]); 
 
     int DownloadTmpFile(const char *src, char *dst, char err[1000]);
@@ -292,6 +297,62 @@ long Base::FileRead(int file, void *data, long size)
 
     return read_total;
 }
+
+int Base::OpenDir(const char *dir_path, std::vector<std::string> &files) 
+{
+    DIR *dir = nullptr;
+    struct dirent *ptr = nullptr;
+
+    dir = opendir(dir_path);
+    if (dir == NULL) {
+        printf("Failed to open the directory : %s !\n", dir_path);
+        return -1;
+    }
+
+    while ((ptr = readdir(dir)) != NULL) {
+        if (strcmp(ptr->d_name, ".") == 0 || strcmp(ptr->d_name, "..") == 0) {
+            continue;
+        }
+        else if (ptr->d_type == 8) {  /*file*/
+            std::string str_file = dir_path;
+            // str_file += "/";
+            str_file += ptr->d_name;
+            files.push_back(str_file);
+            str_file.clear();
+        } 
+    }
+
+    closedir(dir);
+
+    return 0;
+}
+
+int Base::SeparationName(const char *file_name, std::string &prefix, std::string &postfix)
+{
+    if (file_name == NULL) {
+        return -1;
+    }
+
+    char *pre = new char[1024];
+    char *post = new char[1024];
+
+    sscanf(file_name, "%[^.].%[^\n]", pre, post);
+    prefix = pre;
+    postfix = post;
+
+    if (pre) {
+        delete []pre;
+        pre = nullptr;
+    }
+
+    if (post) {
+        delete []post;
+        post = nullptr;
+    }
+
+    return 0;
+}
+
 
 int Base::DownloadFile(const char *src, const char *dst, char err[1000])
 {

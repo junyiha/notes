@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/usr/include/**",
                 "/usr/local/**",
-                "/usr/lib/x86_64-linux-gnu/**"
+                "/usr/lib/x86_64-linux-gnu/**",
+                "/usr/include/x86_64-linux-gnu"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",

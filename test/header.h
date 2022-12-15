@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <utility>   // std::pair, std::make_pair
 #include <typeinfo>  // std::typeid

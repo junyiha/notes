@@ -1,5 +1,6 @@
 #include "args.hpp"
 #include "test.hpp"
+#include "image.hpp"
 
 __BEGIN_DECLS
 
@@ -174,10 +175,17 @@ int test_atomic(Args &args)
 
 int main(int argc, char *argv[])
 {
-    Test test;
     Args args;
+    Test test;
+    Image img;
     int res = -1;
     args.parse(argc, argv);
+
+    if (args.exist("--test-pngtojpeg")) {
+        img.m_file = args.value("--png-image", "");
+        img.m_dir_path = args.value("--dir-path", "/home/user/Face_Images/");
+        img.PngToJpeg();
+    }
 
     if (args.exist("--test-mmap")) {
         test.test_mmap(args);

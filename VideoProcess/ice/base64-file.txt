@@ -1,6 +1,6 @@
 
 --search-image-box
-1,562,386,860,400
+1,562,386,660,400
 
 
 --search-image
