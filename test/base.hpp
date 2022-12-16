@@ -16,6 +16,8 @@ public:
 public:
     void FreePtr(void **pptr);
 
+    int FindParamIndex(const char **argv, int argc, const char *parm);
+
 public:
     void FileClose(int *file);
 
@@ -84,6 +86,31 @@ void Base::FreePtr(void **pptr)
     free(*pptr);
 
     *pptr = nullptr;
+}
+
+int Base::FindParamIndex(const char **argv, int argc, const char *parm)
+{
+    int count = 0;
+    int index = -1;
+
+    for (int i = 0; i < argc; i++) {
+        if (strncmp(argv[i], parm, 100) == 0) {
+            index = i;
+            count++;
+        }
+    }
+
+    if (count == 0 || count == 1) {
+        return index;
+    }
+    else {
+        std::cout <<"Error, parameter " << parm
+                  << " has been specified more than once, exiting \n"
+                  << std::endl;
+        return -1;
+    }
+
+    return -1;
 }
 
 void Base::FileClose(int *file)

@@ -343,3 +343,13 @@
 + 修改`fstab`，添加分区`/dev/disk/by-uuid`对应的`uuid`
   + 使用`mount`将`ro`设置为`rw`
   + 修改`fstab`
+
+## 算力节点--手动killpython3，vca.exe, ice.exe
+
++ `sudo killall -s 9 python3 && sudo killall -s 9 vca.exe && sudo killall -s 9 ice.exe`
+
+## 车牌检测 -- 命令
+
++ `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detect-type@1@--detector-models@/data/public/models/LP/DETECT_LP.conf@--detector-models@xxxx.conf@--detector-models@yyyy.conf@--detector-models@/data/public/models/LP/LPOCR.conf@" --input-video-name /home/user/2022-10-27-10-43-16-169.mp4 --output-type 2 --output-video-name /home/user/aaa.mp4`
+
++ `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detect-type@1@--detector-models@http://192.167.66.113:8084/models/LP_NVIDIA_1080/DETECT_LP.conf@--detector-models@xxxx.conf@--detector-models@yyyy.conf@--detector-models@http://192.167.66.113:8084/models/LP_NVIDIA_1080/LPOCR.conf@" --input-video-name /home/user/Videos/test_lp.mp4 --output-type 2 --output-video-name /home/user/aaa.mp4`
