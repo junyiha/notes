@@ -78,3 +78,7 @@
   + 任何主机线程通过`cudaMallocHost(), cudaHostAlloc(), cudaHostRegister()`申请的主机内存都会将它们的生命周期与设备device关联起来
   + 任何通过主机线程创建的流或事件都会和设备device关联起来
   + 任何通过主机线程由`cudaLaunchKernel()`发生的内核调用都会在设备device上执行
+  + 这个调用可能在任何时间，由任何主机线程在任何设备上调用。
++ 返回值：
+  + 成功  --  cudaSuccess
+  + 失敗  --  cudaErrorInvalidDevice | cudaErrorDeviceAlreadyInUse
