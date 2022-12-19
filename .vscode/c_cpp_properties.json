@@ -7,7 +7,8 @@
                 "/usr/include/**",
                 "/usr/local/**",
                 "/usr/lib/x86_64-linux-gnu/**",
-                "/usr/include/x86_64-linux-gnu"
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include/x86_64-linux-gnu/sys/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
