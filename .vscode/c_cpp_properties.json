@@ -3,16 +3,15 @@
         {
             "name": "Linux",
             "includePath": [
+                "/usr/include/x86_64-linux-gnu/**",
                 "${workspaceFolder}/**",
-                "/usr/local/**",
-                "/usr/lib/x86_64-linux-gnu/**"
+                "/usr/include/c++/7/**",
+                "/usr/local/include/opencv4/**"
             ],
-            "defines": [],
-            "compilerPath": "/usr/bin/g++",
-            "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64",
-            "configurationProvider": "ms-vscode.makefile-tools"
+            "defines": [
+                "__x86_64__"
+            ],
+            "compilerPath": "/usr/bin/clang"
         }
     ],
     "version": 4

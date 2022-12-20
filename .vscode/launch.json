@@ -33,16 +33,24 @@
 
             // "--test-flag"
 
-            // "--test-mongoose"
+            // "--test-mongoose-server",
+            "--test-mongoose-client"
 
             // "--test-vector"
             // "--mkstemp"
 
             // "--test-string"
 
-            "--test-mmap",
-            "--input-file",
-            "/home/user/Pictures/new_year/image-042.jpg"
+            // "--test-mmap",
+            // "--input-file",
+            // "/home/user/Pictures/new_year/image-042.jpg"
+
+            // "--test-http-server"
+
+            // "--test-pngtojpeg", 
+            // "--png-image",
+            // // "/tmp/gaosong.png",
+            // "//home/user/Face_Images/高耸.png"
         ],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",

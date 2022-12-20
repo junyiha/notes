@@ -1,3 +1,9 @@
+## read
+
++ 从命令行读取标准输入
++ 读取输入，保存到变量
+  + `read -p "please input >>>" var`
+
 ## more
 
 + more, 一次显示一页
