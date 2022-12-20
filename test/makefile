@@ -12,7 +12,7 @@ CXX=g++
 CXX_FLAGS=-g 
 DEPEND_LIBS= -lpthread -lopencv_highgui -lopencv_imgcodecs -lopencv_core -ljsoncpp
 
-INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/opencv4/  -I/usr/local/include/ -I./
+INCLUDE_PATH= -I/home/user/workspace/notes/test/include/ -I/usr/local/include/opencv4/  -I/usr/local/include/ -I./ -I/usr/include/x86_64-linux-gnu/sys/
 LIBRARY_PATH= -L/usr/local/lib/ -L/usr/local/lib/
 
 ${target}:${src}

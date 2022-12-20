@@ -10,6 +10,8 @@ __END_DECLS
 
 #include "test_macro.h"
 
+#include "websocket_server.hpp"
+
 static int s_signo;
 std::string s_root_dir;
 std::string s_ssi_pattern;
@@ -178,8 +180,13 @@ int main(int argc, char *argv[])
     Args args;
     Test test;
     Image img;
+    Server server;
     int res = -1;
     args.parse(argc, argv);
+
+    if (args.exist("--test-server")) {
+        server.demo();
+    }
 
     if (args.exist("--test-pngtojpeg")) {
         img.m_file = args.value("--png-image", "");
