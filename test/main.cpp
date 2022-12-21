@@ -180,13 +180,17 @@ int main(int argc, char *argv[])
     Args args;
     Test test;
     Image img;
-    Server server;
+    // Server server;
     int res = -1;
     args.parse(argc, argv);
 
-    if (args.exist("--test-server")) {
-        server.demo();
+    if (args.exist("--test-memory")) {
+        test.test_memory(args);
     }
+
+    // if (args.exist("--test-server")) {
+    //     server.demo();
+    // }
 
     if (args.exist("--test-pngtojpeg")) {
         img.m_file = args.value("--png-image", "");

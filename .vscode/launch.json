@@ -4,12 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
     {
         "name": "test/main",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/main",
+        "program": "${workspaceFolder}/test/main",
         "args": [
+            "--test-memory"
             // "--path",
             // "/home/user/"
 
@@ -34,7 +36,7 @@
             // "--test-flag"
 
             // "--test-mongoose-server",
-            "--test-mongoose-client"
+            // "--test-mongoose-client"
 
             // "--test-vector"
             // "--mkstemp"

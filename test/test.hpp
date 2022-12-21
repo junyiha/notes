@@ -35,6 +35,8 @@ public:
 
     int test_ConfInline(Args &args);
 
+    int test_memory(Args &args);
+
 public:
     int test_string();
 
@@ -291,6 +293,27 @@ int Test::test_ConfInline(Args &args)
 
     return 0;
 }
+
+int Test::test_memory(Args &args)
+{
+    std::string tmp_str = args.value("--string", "hello world");
+    char *str= new char[4096];
+
+    strncpy(str, tmp_str.data(), tmp_str.size());
+    
+    printf("pointer address : %p\n", str);
+    printf("string : %s\n", str);
+
+    if (str) {
+        delete []str;
+        str = nullptr;
+    }
+
+    printf("%p\n", str);
+
+    return 0;
+}
+
 
 int Test::test_string()
 {
