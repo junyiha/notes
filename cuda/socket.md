@@ -156,4 +156,4 @@
 + POSIX(可移植操作系统接口)，是Portable Operating System Inteface的首字母缩写。
 + 它并不是单个标准，而是由电气与电子工程学会(the Institute for Electrical and Electronics Engineers Inc)即IEEE开发的一系列标准  
 + 具体可查看`http://www.pasc.org/standing/sdll.html`
-
+    
