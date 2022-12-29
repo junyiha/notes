@@ -353,3 +353,18 @@
 + `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detect-type@1@--detector-models@/data/public/models/LP/DETECT_LP.conf@--detector-models@xxxx.conf@--detector-models@yyyy.conf@--detector-models@/data/public/models/LP/LPOCR.conf@" --input-video-name /home/user/2022-10-27-10-43-16-169.mp4 --output-type 2 --output-video-name /home/user/aaa.mp4`
 
 + `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detect-type@1@--detector-models@http://192.167.66.113:8084/models/LP_NVIDIA_1080/DETECT_LP.conf@--detector-models@xxxx.conf@--detector-models@yyyy.conf@--detector-models@http://192.167.66.113:8084/models/LP_NVIDIA_1080/LPOCR.conf@" --input-video-name /home/user/Videos/test_lp.mp4 --output-type 2 --output-video-name /home/user/aaa.mp4`
+
++ `./vca.exe --id 1 --detector-conf-inline --detector-conf "@--detect-type@1@--detector-models@http://192.169.4.113:8084/models/LP_BITMAINLAND/DETECT_LP.conf@--detector-models@xxxx.conf@--detector-models@yyyy.conf@--detector-models@http://192.169.4.113:8084/models/LP_BITMAINLAND/LPOCR.conf@" --input-video-name /home/user/Videos/test_lp.mp4 --output-type 2 --output-video-name /home/user/aaa.mp4`
+
+
+### uwsgi 
+
++ 会检查系统变量`LD_LIBRARY_PATH`中的路径下的所有动态库，如果有错误，就报错
+
+### tar
+
++ `tar cvf mjpeg_face_v6.tar --exclude=/sys --exclude=/system --exclude=/proc --exclude=/mjpeg_face_v6.tar --exclude=/data/dagger/Anaconda3-2021.04-Linux-aarch64.sh --exclude=/data/dagger/logs/supervisor/* --exclude=/data/dagger/logs/web_backend/* --exclude=/data/dagger/logs/warning_record/* --exclude=/data/dagger/computing_node/logs/control/* --exclude=/data/dagger/computing_node/logs/process/* --exclude=/data/dagger/manager_node/web_frontend/dist.backup* --exclude=/tmp/* /`
+
+### docker run
+
++ `sudo docker run -itd --restart=always --privileged=true --name face  -p 8083:8083 -p 8084:8084 -p 16379:6379  -v /system:/system mjpeg:face-v4  /bin/bash /etc/init.d/start_server.sh`
