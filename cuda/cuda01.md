@@ -209,3 +209,45 @@
     + 不要受制于访问带宽
 
 ### 六
+
++ CPU-GPU交互
+  + 各自的物理内存空间
+  + 通过PCIE总线互连
+  + 交互开销较大
+
++ 访存速度
+  + Register
+  + Shared Memory
+  + Local Memory
+  + Global Memory
+  + Constant Memory
+  + Texture Memory
+  + Instruction Memory
+
++ 线程组织架构说明
+  + 一个Kernel具有大量线程
+  + 线程被划分成线程块 blocks
+  + Kernel启动一个grid，包含若干线程块
+  + 线程和线程块具有唯一的标识
+
++ 编程模型：
+  + 常规意义的GPU用于处理图形图像
+  + 操作于像素，每个像素的操作都类似
+  + 可以应用SIMD，也可以认为是数据并行分割
+
++ CUDA编程模式：Extended C              
+
++ CUDA函数声明
+  + __global__定义一个kernel函数：入口函数，CPU上调用，GPU上执行，必须返回void
+
+### 7
+
++ 2007 -- NVIDIA发布CUDA
+  + CUDA  --  全称 Compute Uniform Device  Architecture，统一计算设备架构
+
++ CUDA术语
+  + Host  --  即主机端，通常指CPU。采用ANSI标准C语言编程
+  + Device --  即设备端，通常指GPU（数据可并行）。采用ANSI 标准C的扩展语言编程
+  + Host和Device拥有各自的存储器
+  + CUDA编程：包括主机端和设备端两部分代码
+  + Kernel  --  数据并行处理函数。通过调用kernel函数在设备端创建轻量级线程，线程由硬件负责创建并进行管理
