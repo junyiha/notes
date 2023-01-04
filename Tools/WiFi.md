@@ -6,12 +6,12 @@
 
 + wpa_supplicant.conf文件：
   ```
-    ctrl_interface=/var/run/wpa_supplicant       //wpa_supplicant命令执行文件目录
+    ctrl_interface=/sbin/wpa_supplicant       //wpa_supplicant命令执行文件目录
     ap_scan=1
      
     network={
-    ssid="WiFi-AP"   //WiFi 名字
-    psk="12345678"  //WiFi 密码
+    ssid="GH_wx_05"   //WiFi 名字
+    psk="Grand@honor666666!@#"  //WiFi 密码
     key_mgmt=WPA-PSK  //加密方式
     # key_mgmt=NONE  //不加密
     }
