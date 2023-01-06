@@ -368,3 +368,10 @@
 ### docker run
 
 + `sudo docker run -itd --restart=always --privileged=true --name face  -p 8083:8083 -p 8084:8084 -p 16379:6379  -v /system:/system mjpeg:face-v4  /bin/bash /etc/init.d/start_server.sh`
+
+
+## 增加HTTP协议，ZMQ，KAFKA默认关闭，如果需要，编译之前手动开启
+
++ 手动开启ZMQ，KAFKA命令
+  + `export HAVE_ZMQ=yes`
+  + `export HAVE_KAFKA=yes`
