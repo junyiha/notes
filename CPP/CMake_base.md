@@ -53,3 +53,426 @@ CMake的执行过程分为三个阶段:
    - CMake打印消息`Generating done`以表示生成阶段结束
 3. 构建阶段:
    - 这一阶段由构建系统负责,在这个阶段中将生成项目的目标
+
+## CMake 基础
+
++ 在经过一番搜索和学习，我开始了解 Modern CMake 的一些用法与理念，它主张放弃传统的基于变量的方法，而采用基于 target 的结构化模式，使其成为一个更可维护、更直观、更易集成、更具意义的方案。
+
+### 1.1 Modern CMake 介绍
+
++ 这部分内容是 `An Introduction to Modern CMake` 的总结，并不会讲的非常详细，希望通过几句话来高度总结各个用法，旨在了解 CMake 有哪能力，如果对某些部分感兴趣请大家自行查阅具体内容。
+
++ 为什么需要一个好的构建系统？如果你有以下需求，那么使用 CMake 可以从中获益
+  + 你想避免硬编码路径
+  + 你需要在多台电脑上建立一个软件包
+  + 你想使用CI（持续集成）
+  + 你需要支持不同的操作系统（甚至可能只是Unix的不同版本）
+  + 你想支持多个编译器
+  + 你想使用IDE，但也许并不是所有时间都想使用
+  + 你想要更好地组织程序的结构
+  + 你想使用别人的库
+  + 你想使用工具，比如Clang-Tidy，来帮助你编写代码
+  + 你想使用调试器
+
++ 为什么一定是 CMake？其他工具不行吗？
+  + 各个 IDE 都支持 CMake，使用 CMake 可以有更大程度的方便, save you life
+  + 目前很多 C/C++ 开源项目都在使用 CMake，通过 find CMake 或者 CMake config 很容易将它们集成至你的项目中
+  + 使用 CMake 来管理发布，让别人更容易使用你的库
+
++ 为什么要用现代 CMake？
+  + 通常认为 3.1+ 版本是现代 CMake。CMake 是向下兼容的，可以放心使用
+  + 至少应该使用你的编译器出来之后的 CMake 版本，因为它需要知道该版本的编译标志等等
+  + 高版本 CMake 有更多特性，可以节省数百行和数小时的 CMakeLists.txt 编写工作，长运来看更容易维护
+
+### 1.2 运行CMake
+
++ 经典用法
+  ```
+    ~/package $ mkdir build
+    ~/package $ cd build
+    ~/package/build $ cmake ..
+    ~/package/build $ make
+  ``` 
+
++ 新版本可以简单一点
+  ```
+    ~/package $ cmake -S . -B build
+    ~/package $ cmake --build build
+  ``` 
+
++ 安装命令
+  ```
+    #From the build directory (pick one)
+    ~/package/build $ make install
+    ~/package/build $ cmake --build . --target install
+    ~/package/build $ cmake --install . # CMake 3.15+ only
+
+    #From the source directory (pick one)
+    ~/package $ cmake --build build --target install
+    ~/package $ cmake --install build # CMake 3.15+ only
+  ``` 
+
++ 推荐使用 `--build` 用法
+  + 通过 `-v` 显示执行的构建命令: `cmake --build build -v`
+  + 通过 `--target` 来选择目标：`cmake --build --target install`
+
++ 设置 CC 和 CXX 环境变量来选择 C/C++ 编译器
+  + `~/package/build $ CC=clang CXX=clang++ cmake ..`
+
++ 选择不同的工具进行构建
+  + make 通常是默认的，通过 cmake --help 查看支持的构建器
+  + `cmake -G"My Tool"` 设置构建器，例如 `cmake -S . -B buildXcode -G"Xcode"`
+
++ 通过 `-D` 来设置选项，例如 `cmake -S . -B build -DCMAKE_INSTALL_PREFIX=dist`
+
++ `--trace` 打印 `CMake configure` 阶段的输出，例如 `cmake -S . -B build --trace`
+
++ 不好的 CMake 的用法
+  + 不要使用全局函数，例如 `link_directories`，`include_libraries`，`add_definitions` 等，请你忘记它们
+  + 不要滥用 `PUBLIC`，除非有依赖传递，否则请你使用 `PRIVATE` 替换 `PUBLIC`
+  + 不要使用 `GLOB` 来添加文件
+  + 不要直接链接文件，而是链接目标
+  + 链接时千万不要跳过 `PUBLIC/PRIVATE`，这会导致未来的链接都没有关键字
+
++ 良好的 CMake 用法
+  + 把 CMake 视作代码，保持它的整洁和可读性
+  + 围绕 target 构建你的 CMake。将需要的信息打包在 target 里，然后链接那个目标
+  + 导出你的接口
+  + 写 Config.cmake 文件，这是一个库作者应该做的，可以方便别人使用你的库
+  + 使用 ALAS 目标，以保持使用一致性
+  + 将常用的功能提取成函数或者宏，通常函数更好
+  + 使用小写的函数名，全大写是变量
+  + 使用 cmake_policy 或者 range of versions
+
+### 1.3 基础语法
+
++ 最低版本
+  + `cmake_minimum_required(VERSION 3.1)` 指定最低版本
+  + `cmake_minimum_required(VERSION 3.7...3.18)` CMake 3.12+ 后，可以指定版本范围
+
++ Project
+  + `VERSION` 指定版本，并设置一系列变量，例如`MyProject_VERSION` 等
+  + `DESCRIPTION` 项目的描述
+  + `LANGUAGES` 支持 `C/CXX/Fortran/ASM/CUDA(3.8+)/CSharp(3.8+)/SWIFT(3.15+)`, C/C++ 为默认值
++ 示例：
+  ```
+    project(MyProject VERSION 1.0
+                      DESCRIPTION "Very nice project"
+                      LANGUAGES CXX)
+  ``` 
+
++ 生成可执行文件
+  + `add_executable(one two.cpp three.h)`
+
++ 生成库
+  + 库类型包括 `STATIC`、`SHARED`、`MODULE`、`OBJECT` 等。如果没有指定库类型，那么 `BUILD_SHARED_LIBS` 的值将决定编译 `STATIC` 或者 `SHARED`
+  + 有些库并不需要编译，例如 `header only` 库。基于 `target` 的思想，我们可以将它们打包在一种叫 `INTERFACE` 的库中。
++ 示例
+  + `add_library(one STATIC two.cpp three.h)`
+
++ 给 target 添加属性
+  + `target_include_directories` 为 target 添加 `include` 路径
+  + `PUBLIC` 对于可执行文件而言意义不大，对于库来说，它让 CMake 知道链接这个目标的目标也需要这个 include 目录。也就是 “我自己要用，其他链接我的也要用”，具有传递性
+  + `PRIVATE` 表示 “我自己用，其他人不用”
+  + `INTERFACE` 表示 “我自己不用，其他链接我的要用”
+  + target 的属性包括 include 文件夹、需要链接的库、编译选项、宏定义等，这些都可以通过 `target_link_libraries` 进行传递
++ 示例
+  ```
+    # PUBLIC 表示外部也需要这个 include 目录
+    target_include_directories(one PUBLIC include)
+    add_library(another STATIC another.cpp another.h)
+    # 由于具有传递性，another 可以连接 one 的 include 目录
+    target_link_libraries(another PUBLIC one)
+  ``` 
+
+### 1.4 变量与缓存
+
++ 局部变量
+  + `set(MY_VARIABLE "value")` 设置局部变量，其作用域为当前文件夹，以及 `add_subdirectory` 进入的文件夹
+  + `set(MY_VARIABLE "value" PARENT_SCOPE)` 将作用域设置为父目录，通常用在子目录向父目录传递信息
+  + `set(MY_LIST "one" "two")` 会在变量值中间加入 `“;”`，等价于 `set(MY_LIST "one;two")`
+
++ 缓存变量
+  + 通过 `set(MY_CACHE_VARIABLE "VALUE" CACHE STRING "Description")` 设置缓存变量
+  + 缓存变量将持久存在于 CMakeCache.txt 中
+  + 通过 `cmake -DXXX` 命令传递的参数为缓存变量
+
++ 环境变量
+  + `set(ENV{variable_name} value)` 设置环境变量
+  + `$ENV{variable_name}` 获取环境变量
+
++ 属性
+  + 属性有点像变量，但它依附在某个 target 或者文件、目录上。许多属性的初始值来自于 `CMAKE_` 开头的变量，例如设置 `CMAKE_CXX_STANDARD`，将会设置 target 的 `CXX_STANDARD` 属性初始值。
+  + `set_property` 用于设置属性，`get_property` 用于获取属性
+
+### 1.5 用CMake编程
+
++ 控制流
+  + 利用 if 语句来控制程序流
+  + if 语句中支持的关键字包括：
+    + 一元判断：`NOT、‘TARGET’、EXISTS、DEFINED` 等
+    + 二元判断：`STRQUAL，AND，OR，MATCH，VERSION_LESS，VERSION_LESS_EQUAL`
++ 示例
+  ```
+    if(variable)
+        # If variable is `ON`, `YES`, `TRUE`, `Y`, or non zero number
+    else()
+        # If variable is `0`, `OFF`, `NO`, `FALSE`, `N`, `IGNORE`, `NOTFOUND`, `""`, or ends in `-      NOTFOUND`
+    endif()
+    # If variable does not expand to one of the above, CMake will expand it then try again
+
+    if(NOT TARGET libA OR EXISTS "test.xml")
+     # If libA or test.xml exist 
+    endif()
+  ``` 
+
++ 生成器表达式, generator-expressions
+  + CMake 大多数命令在 configure 阶段就被执行了，而生成器表达可以在 build 阶段，或者 install 阶段被执行
++ 示例
+  ```
+    target_include_directories(MyTarget 
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+    )
+  ``` 
+
++ 宏与函数
+  + 它们的区别：函数里头的变量作用域为该函数，而宏没有作用域
+  + 推荐用函数，因为它不会 “泄露” 变量。即使想要从函数中传递某些变量给外面，可以主动通过 PARENT_SCOPE 来设置
+
++ 参数
+  + 可以通过 `cmake_parse_arguments` 来解析函数参数
+
+### 1.6 与你的代码进行交互
+
++ 从 CMake 中获取信息，并生成代码。configure_file 命令可以实现这个。
++ 读取文件，例如从 version.h 中获取版本信息。file 命令可以实现这个。
+
+### 1.7 如何组织你的工程
+
++ 示例
+  ```
+    - project
+      - .gitignore
+      - README.md
+      - LICENCE.md
+      - CMakeLists.txt
+      - cmake
+        - FindSomeLib.cmake
+        - something_else.cmake
+      - include
+        - project
+          - lib.hpp
+      - src
+        - CMakeLists.txt
+        - lib.cpp
+      - apps
+        - CMakeLists.txt
+        - app.cpp
+      - tests
+        - CMakeLists.txt
+        - testlib.cpp
+      - docs
+        - CMakeLists.txt
+      - extern
+        - googletest
+      - scripts
+        - helper.py
+  ``` 
+
++ 在 configure 阶段运行命令
+  + `execute_process` 在 configure 阶段运行命令
++ 示例：
+  ```
+    find_package(Git QUIET)
+
+    if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        endif()
+    endif()
+  ``` 
+
++ 在 build 阶段运行命令
++ 示例：
+  ```
+    find_package(PythonInterp REQUIRED)
+    add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/Generated.hpp"
+        COMMAND "${PYTHON_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/GenerateHeader.py" --argument
+        DEPENDS some_target)
+
+    add_custom_target(generate_header ALL
+        DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/include/Generated.hpp")
+
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/Generated.hpp DESTINATION include)
+  ``` 
+
++ `cmake -E <mode>` 运行内置的一些命令，例如解压、复制等
+
+## 添加特性
+
+### 1.1 C++11及以后
+
++ CMake 3.8+: Meta compiler features
+  + target_compile_features(myTarget PUBLIC cxx_std_11) 开启 c++11 特性，当然你也可以选择 cxx_std_14 和 cxx_std_17
+  + set_target_properties(myTarget PROPERTIES CXX_EXTENSIONS OFF)，关闭扩展特性
+
++ CMake 3.1+: 全局和属性设置
+  + 全局变量设置
+    ```
+      set(CMAKE_CXX_STANDARD 11)
+      set(CMAKE_CXX_STANDARD_REQUIRED ON)
+      set(CMAKE_CXX_EXTENSIONS OFF)
+    ``` 
+  + 属性设置
+    ```
+      set_target_properties(myTarget PROPERTIES
+          CXX_STANDARD 11
+          CXX_STANDARD_REQUIRED YES
+          CXX_EXTENSIONS NO
+      )
+    ``` 
+
+## 其他
+
+### 1.1 
+
++ 地址无关代码（Position independent code; PIC），CMake 会自动将 -fPIC 添加到 SHARED 和 MODULE 库中，当然你也可以显示指定
+  + 作用于全局变量，`set(CMAKE_POSITION_INDEPENDENT_CODE ON)`
+  + 或者作用于 target，`set_target_properties(lib1 PROPERTIES POSITION_INDEPENDENT_CODE ON)`
+
++ 小型库
+  + 如果你需要 dl 库，那么这么写最简单 `target_link_libraries(libA PRIVATE ${CMAKE_DL_LIBS})`
++ 有些库就没有这么方便了，例如 m, pthread 等，但你可以这么写
+  ```
+    find_library(MATH_LIBRARY m)
+    if(MATH_LIBRARY)
+        target_link_libraries(MyTarget PUBLIC ${MATH_LIBRARY})
+    endif()
+  ``` 
+
++ Interprocedural optimization，运行时优化（link time optimization），即 -flto
+  + CMake 3.9+ 支持设置全局变量开启 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+  + CMake 3.8+ 支持设置属性
+    ```
+      set_target_properties(myTarget PROPERTIES 
+                          INTERPROCEDURAL_OPTIMIZATION ON)
+    ``` 
+  + 通过 check_ipo_supported 来检查当前版本是否支持 LTO
+    ```
+      include(CheckIPOSupported)
+      check_ipo_supported(RESULT result)
+      if(result)
+        set_target_properties(foo PROPERTIES 
+                      INTERPROCEDURAL_OPTIMIZATION TRUE)
+      endif()
+    ``` 
+
++ 在 CMake 中可以配合其他工具
+  + CCache，使用它来加快编译速度
+  + Clang tidy，对你的代码做静态扫描
+  + Include what you use, 检查冗余头文件
+
++ CMake Modules 非常有用，简单介绍一些常用的
+  + CMakeDependentOption，根据一组变量来设置选项，例如
+     ```
+      include(CMakeDependentOption)
+      cmake_dependent_option(BUILD_TESTS "Build your tests" ON "VAL1;VAL2" OFF)
+     ```
+  + CMakePrintHelpers，用于打印属性或变量
+  + CheckCXXCompilerFlag，用于判断是否支持某个编译选项
+  + WriteCompilerDetectionHeader，与 CheckCXXCompilerFlag 类似，但它更强大。它可以找到编译器支持的特性列表，并生成 C++ 头文件，让你知道哪些特性可用
+  + try_compile/try_run，可以让尝试编译（运行）一些代码，这可以让你获得系统能力的信息
+
++ 调试CMake代码
+  + 打印永远是调试的最简单的办法
+    ```
+      message(STATUS "MY_VARIABLE=${MY_VARIABLE}")
+
+      include(CMakePrintHelpers)
+      cmake_print_variables(MY_VARIABLE)
+
+      cmake_print_properties(
+        TARGETS my_target
+        PROPERTIES POSITION_INDEPENDENT_CODE)
+    ``` 
+  + --trace-source="filename" 让你观察 CMake 文件到底发生了什么，例如
+    + `cmake -S . -B build --trace-source=CMakeLists.txt`
+
++ 引入其他项目
+  + Submodule
+    + 通过 `git submodule add ../../owner/repo.git extern/repo` 将 `extern` 添加为子仓库
+    + 可以在 CMake 中内置子仓库更新命令
+      ```
+        find_package(Git QUIET)
+        if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+        # Update submodules as needed
+            option(GIT_SUBMODULE "Check submodules during build" ON)
+            if(GIT_SUBMODULE)
+                message(STATUS "Submodule update")
+                execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                                RESULT_VARIABLE GIT_SUBMOD_RESULT)
+                if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+                    message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+                endif()
+            endif()
+        endif()
+
+        if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/repo/CMakeLists.txt")
+            message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+        endif()
+      ``` 
+
++ DownloadProject
+  + 在 CMake 3.11 以前，主要下载命令都是在 build 阶段完成的（例如 ExternalProject_Add）。这就导致你无法使用 add_subdirectory。
+  + CMake 3.11之前，如果想要在 configure 阶段下载，参考 Crascit/DownloadProject
+
++ Fetch(CMake 3.11+)
+  + CMake 3.11 后，你可以使用 FetchContent 在 configure 阶段下载文件或者项目
+
+## 测试
+
+### 1.1
+
++ 通常不在子目录时编译测试代码
++ 示例
+  ```
+    if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+      add_subdirectory(tests)
+    endif()
+  ``` 
++ 通过 `add_test(NAME TestName COMMAND TargetName)` 注册测试
+
++ GoogleTest
+  + 推荐通过以 git submodule 的形式引入 GoogleTest
+  + 可以通过作者提供的 AddGoogleTest 工具引入 GoogleTest
+  + 通过 FetchContent 引入 GoogleTest
+
++ Catch
+  + Catch 是个 header only 库，如果直接将它的 include 引入你的仓库中，你需要做一些准备，以便使用
+    ```
+      # Prepare "Catch" library for other executables
+      set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/catch)
+      add_library(Catch2::Catch IMPORTED INTERFACE)
+      set_property(Catch2::Catch PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${CATCH_INCLUDE_DIR}")
+    ``` 
+  + 通过 ExternalProject、FetchContent 或者 git submodule 引入 Catch，那么直接 add_subdirectory 即可
+
+## Exporting and Installing
+
+### 1.1
+
++ 关于 Installing，参考 CMake之install方法的使用
++ 关于 Exporting，可以将 build directories 信息导出，以供其他工程使用（注意与 Installing 的区别：Installing 导出的是安装目录的信息）
++ 关于 Package ，没怎么用过，似乎是将你需要的内容进行打包
+
+## 寻找库
+
+### 1.1 
+
++ 介绍了引入 CUDA、OpenMP、Boost、MPI、ROOT、Minuit2 等库的标准姿势
