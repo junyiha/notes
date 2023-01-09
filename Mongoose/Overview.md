@@ -128,7 +128,7 @@
 
 ### 1.1 数据结构
 
-+ `struct mg_addr`
+#### `struct mg_addr`
   ```
     struct mg_addr {
       uint16_t port;    // TCP or UDP port in network byte order
@@ -139,7 +139,7 @@
   ``` 
 + 该结构包含网络地址。它可以被认为`sockaddr`结构在Mongoose中的等价结构体
 
-+ `struct mg_mgr`
+#### `struct mg_mgr`
   ```
     struct mg_mgr {
       struct mg_connection *conns;  // List of active connections  结构体数组
@@ -152,7 +152,7 @@
   ``` 
 + 它是一个事件管理结构体，能够保存一个正在活动的连接列表，以及一些维持管理的信息
 
-+ `struct mg_connection`
+#### `struct mg_connection`
   ```
     struct mg_connection {
       struct mg_connection *next;  // Linkage in struct mg_mgr :: connections
@@ -191,7 +191,7 @@
 
 ### 1.2 核心API调用
 
-+ `mg_mgr_init()`
+#### `mg_mgr_init()`
   + `void mg_mgr_init(struct mg_mgr *mgr);`
   + 初始化事件管理器结构体变量，它所做的工作：
     + 将活动连接的列表设置为null
@@ -205,7 +205,7 @@
       struct mg_mgr mgr;
       mg_mgr_init(&mgr);
     ``` 
-+ `mg_mgr_poll()`
+#### `mg_mgr_poll()`
   + `void mg_mgr_poll(struct mg_mgr *mgr, int ms);`
   + 在所有连接中迭代，接受新的连接，发送和接收数据，关闭连接并调用事件处理程序的功能，以适用于各自事件。
   + 执行一次池迭代(poll iteration)。对在`mgr->conns`列表中的每一个连接进行如下操作
@@ -220,7 +220,7 @@
   + 示例
     + `while (running == true) mg_mgr_poll(&mgr, 1000 /*1 second*/);`
 
-+ `mg_mgr_free()`
+#### `mg_mgr_free()`
   + `void mg_mgr_free(struct mg_mgr *mgr);`
   + 关闭所有连接，释放所有资源
   + 参数：
@@ -234,7 +234,7 @@
       mg_mgr_free(&mgr);
     ``` 
 
-+ `mg_listen()`
+#### `mg_listen()`
   + `struct mg_connection *mg_listen(struct mg_mgr *mgr, const char *url, mg_event_handler_t fn, void *fn_data);`
   + 创建一个监听连接，并将这个连接追加到`mgr->conns`连接列表中
   + 参数：
@@ -246,7 +246,7 @@
   + 示例
     + `struct mg_connection *c = mg_listen(&mgr, "tcp://127.0.0.1:8080", fn, NULL);`
 
-+ `mg_connect()`
+#### `mg_connect()`
   + `struct mg_connection *mg_connect(struct mg_mgr *mgr, const char *url, mg_event_handler_t fn, void *fn_data);`
   + 创建一个出站连接，并将这个连接追加到`mgr->conns`队列中
   + 参数：
@@ -261,7 +261,7 @@
   + 示例
     + `struct mg_connection *c = mg_connect(&mgr, "http://example.org", fn, NULL);`
 
-+ `mg_send()`
+#### `mg_send()`
   + `int mg_send(struct mg_connection *c, const void *data, size_t size);`
   + 将大小为`size`的数据追加到`c->send`缓冲区。返回追加的字节数
   + 注意：
@@ -276,7 +276,7 @@
   + 示例
     + `mg_send(c, "hi", 2);  // Append string "hi" to the output buffer`
 
-+ `mg_printf(), mg_vprintf()`
+#### `mg_printf(), mg_vprintf()`
   + `int mg_printf(struct mg_connection *, const char *fmt, ...);`
   + `int mg_vprintf(struct mg_connection *, const char *fmt, va_list *ap);`
   + 与`mg_send()`相同，但是使用`printf()`语义格式化数据。返回追加到输出缓冲区的字节数。有关支持格式规范列表，参见`mg_snprintf`
@@ -287,7 +287,7 @@
   + 示例
     + `mg_printf(c, "Hello, %s!", "world"); // Add "Hello, world!" to output buffer`
 
-+ `mg_wrapfd()`
+#### `mg_wrapfd()`
   + `struct mg_connection *mg_wrapfd(struct mg_mgr *mgr, int fd, mg_event_handler_t fn, void *fn_data);`
   + 将给定的文件描述符`fd`包装到连接中，然后将该连接添加到事件管理器中。这个`fd`文件描述符必须支持`send(), recv(), select()`系统调用，而且是非阻塞的。Mongoose将把它当做TCP套接字使用。`c->rem`和`c->loc`地址将会变为空的
   + 参数：
@@ -297,7 +297,7 @@
     + `ud`  --  一个用户数据指针。它将被当做`fn_data`参数传递给`fn`
   + 返回值：返回创建的连接 或者 NULL作为错误
 
-+ `mg_mkpipe()`
+#### `mg_mkpipe()`
   + `int mg_mkpipe(struct mg_mgr *mgr, mg_event_handler_t fn, void *fn_data, bool udp);`
   + 创建两个互相连接的套接字，用于线程间通信。其中一个套接字被包装到一个Mongoose连接，并被添加到事件管理结构体中。另一个套接字将会被返回，且它应该被传递给工作线程。当一个工作线程使用`send()`发送任何数据到这个套接字，都将唤醒`mgr`和`fn`事件处理函数接收一个`MG_EV_READ`事件。另外，`fn`向工作线程发送的任何数据，都被由工作线程使用`recv()`接收。
   + 参数：
@@ -308,7 +308,7 @@
   + 返回值：成功，返回创建的套接字；失败，返回-1
   + 使用案例参见`examples/multi-threaded`
 
-+ `mg_hello()`
+#### `mg_hello()`
   + `void mg_hello(const char *url);`
   + 便利功能，在给定的监听URL上启动一个简单的Web服务器。这个函数只有在接收到一个`/quit`请求才会返回。服务器处理以下URI
     + `/quit`  --  退出服务，且退出函数
@@ -319,7 +319,7 @@
 
 ### 1.3 HTTP API
 
-+ `struct mg_http_header`
+#### `struct mg_http_header`
   + 声明：
     ```
       struct mg_http_header {
@@ -329,7 +329,7 @@
     ``` 
   + 结构代表HTTP标头，像`Content-Type: text/html`。`Content-Type` 是一个 Header name，`text/html/`是一个 Header value
 
-+ `struct mg_http_message`
+#### `struct mg_http_message`
   + 声明
     ```
       struct mg_http_message {
@@ -341,7 +341,7 @@
     ``` 
   + 结构代表HTTP消息。
 
-+ `mg_http_listen()`
+#### `mg_http_listen()`
   + `struct mg_connection *mg_http_listen(struct mg_mgr *mgr, const char *url, mg_event_handler_t fn, void *fn_data);`
   + 创建HTTP侦听器。
   + 参数：
@@ -356,7 +356,7 @@
       if (c == NULL) fatal_error("Cannot create listener");
     ``` 
 
-+ `mg_http_connect()`
+#### `mg_http_connect()`
   + `struct mg_connection *mg_http_connect(struct mg_mgr *, const char *url, mg_event_handler_t fn, void *fn_data);`
   + 创建HTTP客户端连接。这个函数不能连接到对端，它仅仅分配需要的资源和启动连接进程。当对端真正连接好了，会向连接事件处理函数发送一个`MG_EV_CONNECT`事件
   + 参数：
@@ -371,20 +371,367 @@
       if (c == NULL) fatal_error("Cannot create connection");
     ``` 
 
-+ `mg_http_status()`
+#### `mg_http_status()`
   + `int mg_http_status(const struct mg_http_message *hm);`
   + 获取HTTP响应的状态代码。
   + 参数：
     + `hm`  --  需要解析的HTTP响应
   + 返回值：返回状态码。例如：200表示成功
 
-+ `mg_http_get_request_len()`
+#### `mg_http_get_request_len()`
   + `int mg_http_get_request_len(const unsigned char *buf, size_t buf_len);`
-  + 获取请求的长度。请求的长度是直到HTTP头结束的字节数
+  + 获取请求的长度。请求的长度是直到HTTP头结束的字节数。它不包括HTTP请求体的长度
+  + 参数：
+    + `buf`  --  指向存放请求数据的缓冲区的指针
+    + `buf_len`  --  缓冲区大小
+  + 返回值： 
+    + -1  --  错误
+    + 0   --  消息不完整
+    + 请求的长度
+  + 示例
+    ```
+      const char *buf = "GET /test \n\nGET /foo\n\n";
+      int req_len = mg_http_get_request_len(buf, strlen(buf));  // req_len == 12
+    ``` 
+
+#### `mg_http_parse()`
+  + `int mg_http_parse(const char *s, size_t len, struct mg_http_message *hm);`
+  + 解析请求报文字符串，并存入到`mg_http_message`结构体中
+  + 参数：
+    + `s`    --  一个请求字符串
+    + `len`  --  请求字符串的长度
+    + `hm`   --  存储解析请求报文结果的结构体指针
+  + 返回值：返回请求报文的长度
+  + 示例
+    ```
+      struct mg_http_message hm;
+      const char *buf = "GET / HTTP/1.0\n\n";
+      if (mg_http_parse(buf, strlen(buf), &hm) > 0) { /* success */ }
+    ``` 
+
+#### `mg_http_printf_chunk()`
+  + `void mg_http_printf_chunk(struct mg_connection *c, const char *fmt, ...);`
+  + 使用`printf()`语义，写一个块编码的块数据。(Write a chunk of data in chunked encoding format, using printf() semantic)
+  + 参数：
+    + `c`    --  一个连接指针
+    + `fmt`  --  以`printf()`语义的字符串
+  + 返回值：无
+  + 示例
+    + `mg_http_printf_chunk(c, "Hello, %s!", "world");`
+
+#### `mg_http_write_chunk()`
+  + `void mg_http_write_chunk(struct mg_connection *c, const char *buf, size_t len);`
+  + 写入一个块编码格式的块数据(Write a chunk of data in chunked encoding format.)
+  + 参数：
+    + `c`   --  一个连接指针
+    + `buf` --  需要写入的数据
+    + `len` --  写入数据的长度
+  + 返回值：无
+  + 示例：
+    + `mg_http_write_chunk(c, "hi", 2);`
+
+#### `mg_http_delete_chunk()`
+  + `void mg_http_delete_chunk(struct mg_connection *c, struct mg_http_message *hm);`
+  + 从输入缓冲区中删除指定的块(chunk)
+  + 参数：
+    + `c`  --  连接指针
+    + `hm` --  需要删除的块(chunk)
+  + 返回值：无
+  + 示例：
+    ```
+      // Mongoose events handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_CHUNK) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          mg_http_delete_chunk(c, hm); // Remove received chunk
+        }
+      }
+    ``` 
+
+#### `struct mg_http_serve_opts`
+  + 声明：
+    ```
+      struct mg_http_serve_opts {
+        const char *root_dir;       // Web root directory, must be non-NULL
+        const char *ssi_pattern;    // SSI file name pattern, e.g. #.shtml
+        const char *extra_headers;  // Extra HTTP headers to add in responses
+        const char *mime_types;     // Extra mime types, ext1=type1,ext2=type2,..
+        const char *page404;        // Path to the 404 page, or NULL by default
+        struct mg_fs *fs;           // Filesystem implementation. Use NULL for POSIX
+      };
+    ``` 
+  + 传递给`mg_http_serve_dir()`和`mg_http_serve_file()`的结构，该结构驱动了这两个函数的行为
+
+#### `mg_http_serve_dir()`
+  + `void mg_http_serve_dir(struct mg_connection *c, struct mg_http_message *hm, const struct mg_http_serve_opts *opts);`
+  + 根据给定选项服务多个静态文件。文件也可以被压缩,包括目录索引。所有压缩文件都必须以.gz结尾，并且不得在没有扩展名的情况下存在具有相同名称的文件，否则将优先考虑
+  + 注意：
+    + 为了启动SSI，需要设置`-DMSG_ENABLE_SSI=1`构件标志
+    + 在`root_dir`中为了避免双点`..`，如果需要引用高级目录，则需要使用绝对路径
+  + 参数：
+    + `c`     --  使用的连接
+    + `hm`    --  应该被服务的HTTP消息
+    + `opts`  --  服务选项。请注意，`opts.root_dir`可以选择接受额外的逗号分隔`uri=path`
+  + 返回值：无
+  + 示例：
+    ```
+      // Mongoose events handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          struct mg_http_serve_opts opts;
+          memset(&opts, 0, sizeof(opts));
+          opts.root_dir = "/var/www,/conf=/etc";  // Serve /var/www. URIs starting with /conf are served from /etc
+          mg_http_serve_dir(c, hm, &opts);
+        }
+      }
+    ``` 
+
+#### `mg_http_serve_file()`
+  + `void mg_http_serve_file(struct mg_connection *c, struct mg_http_message *hm, const char *path, struct mg_http_serve_opts *opts);`
+  + 服务一个静态文件。如果不存在带有路径中指定的文件名的文件，则Mongoose尝试附加`.gz`；如果存在这样的文件，它将使用`Content-Encoding: gzip` header 去服务
+  + 注意：
+    + `opts->root_dir`设置被这个函数忽略
+    + `opts->extra_headers` 必须以`\r\n`结束
+  + 参数：
+    + `c`     --  使用的连接
+    + `hm`    --  需要服务的HTTP消息
+    + `path`  --  需要服务的文件路径
+    + `opts`  --  服务选项
+  + 返回值：无
+  + 示例：
+    ```
+      // Mongoose events handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          struct mg_http_serve_opts opts = {
+            .mime_types = "png=image/png",
+            .extra_headers = "AA: bb\r\nCC: dd\r\n"
+          };
+          mg_http_serve_file(c, hm, "a.png", &opts);
+        }
+      }
+    ```
+
+#### `mg_http_reply()`
+  + `void mg_http_reply(struct mg_connection *c, int status_code, const char *headers, const char *body_fmt, ...);`
+  + 通过使用`printf()`语义发送简单的HTTP响应。这个函数根据`body_fmt`格式化响应体(response body)，然后自动追加到一个正确的`Content-Length`头(header)。额外的`headers`需要通过`headers`参数传递
+  + 参数：
+    + `c`     --  使用的连接
+    + `status_code`  --  一个HTTP响应状态码
+    + `headers`      --  额外的headers，默认为NULL，如果不是空，则必须以`\r\n`结尾
+    + `fmt`    --  使用`printf`语义，需要格式化成HTTP body的字符串
+  + 返回值：无
+  + 示例：
+    + 发送一个简单的JSON响应：
+      + `mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{\"result\": %d}", 123);`
+    + 发送一个302重定向：
+      + `mg_http_reply(c, 302, "Location: /\r\n", "");`
+    + 发送一个错误
+      + `mg_http_reply(c, 403, "", "%s", "Not Authorized\n");`
+
+#### `mg_http_get_header()`
+  + `struct mg_str *mg_http_get_header(struct mg_http_message *hm, const char *name);`
+  + 获取HTTP header值
+  + 参数：
+    + `hm`    --  需要寻找 header 的HTTP消息
+    + `name`  --  Header name
+  + 返回值：HTTP header 值 或 NULL表示没有找到
+  + 示例：
+    ```
+      // Mongoose event handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          struct mg_str *s = mg_http_get_header(hm, "X-Extra-Header");
+          if (s != NULL) {
+            mg_http_reply(c, 200, "", "Holly molly! Header value: %.*s", (int) s->len, s->ptr);
+          } else {
+            mg_http_reply(c, 200, "", "Oh no, header is not set...");
+          }
+        }
+      }
+    ```
+
+#### `mg_http_get_header_var()`
+  + `struct mg_str mg_http_get_header_var(struct mg_str s, struct mg_str v);`
+  + 解析具有表格`name1=value1; name=value2;...`的HTTP header，并获取一个给定的变量
+  + 参数：
+    + `s`  --  HTTP header
+    + `name`  --  变量名字的名字
+  + 返回值：一个请求的变量 或 一个空的字符串
+  + 示例：
+    ```
+      struct mg_str *cookie = mg_http_get_header(hm, "Cookie");
+      struct mg_str token = mg_str("");
+
+      if (cookie != NULL) {
+        token = mg_http_get_header_var(*cookie, mg_str("access_token"));
+      }
+    ```
+
+#### `mg_http_var()`
+  + `struct mg_str mg_http_var(struct mg_str buf, struct mg_str name);`
+  + 获取未编码的HTTP变量
+  + 参数：
+    + `buf`  --  一个url编码的字符串：HTTP请求体或查询字符串(HTTP request body or query string)
+    + `name` --  获取的变量名字
+  + 返回值：返回变量的值 或 返回一个空的字符串，表示没有找到
+  + 示例：
+    ```
+      // We have received a request to /my/uri?a=b&c=d%20
+      // The hm->query points to "a=b&c=d%20"
+      struct mg_str v = mg_http_var(hm->query, mg_str("c"));  // v = "d%20"
+    ``` 
+
+#### `mg_http_get_var()`
+  + `int mg_http_get_var(const struct mg_str *var, const char *name, char *buf, int len);`
+  + 获取并解码HTTP 变量
+  + 参数：
+    + `var`    --  HTTP请求体(HTTP request body)
+    + `name`   --  变量名
+    + `buf`    --  写入解码变量的缓冲区(Buffer to write decoded variable)
+    + `len`    --  缓冲区大小
+  + 返回值：解码变量的长度 或 0，负数表示错误
+  + 示例：
+    ```
+      char buf[100] = "";
+      mg_http_get_var(&hm->body, "key1", buf, sizeof(buf)) {
+        ...
+      }
+    ``` 
+
+#### `mg_http_creds()`
+  + `void mg_http_creds(struct mg_http_message *hm, char *user, size_t userlen, char *pass, size_t passlen);`
+  + 从请求获取身份验证证书，然后将它存储到`user`, `userlen`, `pass`, `passlen`缓冲区中。
+  + 证书按以下顺序查找
+    + 从HTTP header中的`Authorization`中：
+      + 基本身份(Basic auth) ，填充到`user` 和 `pass`
+      + 持票人身份(Bearer auth)，仅填充到`pass`
+    + 从 cookie 的`access_token`中，填充`pass`
+    + 从搜索字符串参数的`?access_token=...`，填充`pass`
+  + 如果都没有，`user`和`pass`都被设置为以NULL结尾的字符串
+  + 参数：
+    + `hm`    --  需要查找证书的HTTP 消息
+    + `user`  --  接收用户名字的缓冲区
+    + `userlen`  --  user缓冲区的大小
+    + `pass`  --  接收密码的缓冲区
+    + `passlen`  --  pass缓冲区的大小
+  + 返回值：空
+  + 示例：
+    ```
+      // Mongoose events handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          char user[100], pass[100];
+          mg_http_creds(hm, user, sizeof(user), pass, sizeof(pass)); // "user" is now user name and "pass" is now password from request
+        }
+      }
+    ``` 
+
+#### `mg_http_match_uri()`
+  + `bool mg_http_match_uri(const struct mg_http_message *hm, const char *glob);`
+  + 检查在HTTP请求报文中，是否有和给定的`glob`字符串相匹配的字符串
+  + 参数：
+    + `hm`    --  需要匹配检索的HTTP消息
+    + `glob`  --  匹配的字符串
+  + 返回值：如果在HTTP请求报文中找到了匹配的字符串，返回 True 或者 返回 False表示未匹配到
+  + 示例：
+    ```
+      // Mongoose events handler
+      void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          if (mg_http_match_uri(hm, "/secret")) {
+            mg_http_reply(c, 200, NULL, "Very big secret!");
+          } else {
+            mg_http_reply(c, 200, NULL, "hello world..");
+          }
+        }
+      }
+    ``` 
+
+#### `mg_http_bauth()`
+  + `void mg_http_bauth(struct mg_connection *c, const char *user, const char *pass);`
+  + 将一个基本的`Authorization` header写入到输出缓冲区
+  + 参数：
+    + `c`    --  使用的连接
+    + `user` --  用户名
+    + `pass` --  密码
+  + 返回值：无
+  + 示例：使用基本验证来创建Stripe订阅的用法示例
+    ```
+        mg_printf(c, "POST /v1/subscriptions HTTP/1.1\r\n"
+                     "Host: api.stripe.com\r\n"
+                     "Transfer-Encoding: chunked\r\n");
+        mg_http_bauth(c, stripe_private_key, NULL);     // Add Basic auth header
+        mg_printf(c, "%s", "\r\n");                     // End HTTP headers
+
+        mg_http_printf_chunk(c, "&customer=%s", customer_id);   // Set customer
+        mg_http_printf_chunk(c, "&items[0][price]=%s", price);  // And price
+        mg_http_printf_chunk(c, "");                            // End request
+    ``` 
+
+#### `struct mg_http_part`
+  + 声明：
+    ```
+      // Parameter for mg_http_next_multipart
+      struct mg_http_part {
+        struct mg_str name;      // Form field name
+        struct mg_str filename;  // Filename for file uploads
+        struct mg_str body;      // Part contents
+      };
+    ``` 
+  + 描述HTTP 多个消息(multipart message)中单个部分的结构体
+
+#### `mg_http_next_multipart()`
+  + `size_t mg_http_next_multipart(struct mg_str body, size_t offset, struct mg_http_part *part);`
+  + 根据给定的`offset`，在`body`中解析multipart chunk。一个初始的`offset`应该为0.在提供的`part`中填充参数，可能为空。返回下一块的offsete，或者返回0表示没有其他块(chunks)
+  + 参数：
+    + `body`  --  消息体(message body)
+    + `offset`  --  开始偏移量(start offset)
+    + `part`  --  指向需要填充的`struct mg_http_part`结构体
+  + 返回值：返回下一块的offsete，或者返回0表示没有其他块(chunks)
+  + 示例：
+    ```
+      struct mg_http_part part;
+      size_t pos = 0;
+
+      while ((pos = mg_http_next_multipart(body, pos, &part)) != 0) {
+        // Use part
+      }
+    ``` 
+
+#### `mg_http_upload()`
+  + `int mg_http_upload(struct mg_connection *c, struct mg_http_message *hm, struct mg_fs *fs, const char *path, size_t max_size);`
+  + 这是一个助手实用程序功能，用于通过小块上传大型文件。将HTTP POST 数据追加到指定目录的文件中。文件名和文件偏移由查询字符串参数指定:`POST /upload?name=firmware.bin&offset=2048 HTTP/1.1`。如果偏移量为0，则将文件截断。客户的责任是将文件分为较小的块，并发送一系列由此功能处理的POST请求
+  + 参数：
+    + `c`    --  一个连接
+    + `hm`   --  一个需要被解析的HTTP message
+    + `fs`   --  需要写文件的文件系统，例如：`&mg_fs_posix`
+    + `path` --  一个文件名
+    + `max_size`  --  允许的文件大小的最大值
+  + 返回值：写完后，返回文件的大小  或者 返回一个负数表示错误
+  + 示例：
+    ```
+      static void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
+        if (ev == MG_EV_HTTP_MSG) {
+          struct mg_http_message *hm = (struct mg_http_message *) ev_data;
+          if (mg_http_match_uri(hm, "/upload")) {
+            mg_http_upload(c, hm, &mg_fs_posix, "/tmp/myfile.bin", 99999);
+          } else {
+            struct mg_http_serve_opts opts = {.root_dir = "."};   // Serve
+            mg_http_serve_dir(c, ev_data, &opts);                 // static content
+          }
+        }
+      }
+    ``` 
 
 ### 1.4 WebSocket API
 
-+ `struct mg_ws_message`
+#### `struct mg_ws_message`
   + 声明：
     ```
       struct mg_ws_message {
@@ -394,7 +741,7 @@
     ``` 
   + 该结构代表Websocket消息。这个`flag`元素对应于`RFC 6455`第5.2节中所述的第一个字节。(`https://www.rfc-editor.org/rfc/rfc6455#section-5.2`)
 
-+ WebSockete message type:
+#### WebSockete message type:
   + 要从传入消息中提取消息类型，在结构体`mg_ws_message`的`flag`元素中检查四个`LSBs`
   + 可能存在的WebSocket消息类型：
     ```
@@ -422,7 +769,7 @@
     ``` 
   + 当调用`mg_ws_send()`或`ms_ws_printf()`发送消息时，请使用`RFC 6455`第5.6节中所述的正确消息类型进行数据帧(`https://www.rfc-editor.org/rfc/rfc6455#section-5.6`)
 
-+ `mg_ws_connect()`
+#### `mg_ws_connect()`
   + `struct mg_connection *mg_ws_connect(struct mg_mgr *mgr, const char *url, mg_event_handler_t fn, void *fn_data, const char *fmt, ...);`
   + 创建客户端Websocket连接。这个函数不能连接到对端，它仅仅分配需要的资源和启动连接进程。当对端真正连接好了，会向连接事件处理函数发送一个`MG_EV_CONNECT`事件
   + 参数：
@@ -438,7 +785,7 @@
       if(c == NULL) fatal("Cannot create connection");
     ``` 
 
-+ `mg_ws_upgrade()`
+#### `mg_ws_upgrade()`
   + `void mg_ws_upgrade(struct mg_connection *c, struct mg_http_message *, const char *fmt, ...);`
   + 升级给定HTTP连接到Websocket。`fmt`是一个类似于`printf()`格式的字符串，用于额外的HTTP标头，返回给Websocket握手的客户端。如果不需要额外的标头，将`fmt`设置为空。
   + 参数：
@@ -457,7 +804,7 @@
       }
     ``` 
 
-+ `mg_ws_send()`
+#### `mg_ws_send()`
   + `size_t mg_ws_send(struct mg_connection *c, const void *buf, size_t len, int op);`
   + 向WebSocket对端发送数据
   + 参数：
@@ -477,7 +824,7 @@
       }
     ``` 
 
-+ `mg_ws_printf(), mg_ws_vprintf()`
+#### `mg_ws_printf(), mg_ws_vprintf()`
   + `size_t mg_ws_printf(struct mg_connection *, int op, const char *fmt, ...);`
   + `size_t mg_ws_vprintf(struct mg_connection *, int op, const char *fmt, va_list *);`
   + 和`ms_ws_send()`相同，但是使用`printf()`语义格式化数据
@@ -489,7 +836,7 @@
   + 示例
     + `mg_ws_printf(c, WEBSOCKET_OP_TEXT, "Hello, %s!", "world");`
 
-+ `mg_ws_wrap()`
+#### `mg_ws_wrap()`
   + `size_t mg_ws_wrap(struct mg_connection *c, size_t len, int op)`
   + 将输出缓冲区中的数据转换为Websocket格式。有用然后通过WebSocket实施协议。具体示例参见`examples/mqtt-over-ws-client`
   + 参数：
