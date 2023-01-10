@@ -851,10 +851,638 @@
       mg_ws_wrap(c, c->send.len - len, WEBSOCKET_OP_BINARY); // Wrap it into WS
     ``` 
 
-### 1.5 JSON API
+### 1.5 Timer API
 
-### 1.6 Utility API
+#### `mg_timer_add()`
+  + `struct mg_timer *mg_timer_add(struct mg_mgr *mgr, uint64_t period_ms, unsigned flags, void (*fn)(void *), void *fn_data);`
+  + 设置一个计时器。这是一个高级计时器API，允许将软件计时器添加到活动管理器。这个函数使用`calloc()`一个新的计时器，并将它添加到`mgr->timers`列表中。当调用`mg_mgr_poll()`时，所有添加的计时器均进行轮询，并在计时器到期时调用计时器设定的函数
+  + 注意：
+    + 确保计时器的间隔等于或大于`mg_mgr_poll()`的超时时间
+  + 参数：
+    + `mgr`   --  指向事件管理器的结构体指针
+    + `ms`    --  一个时间间隔，以毫秒为单位
+    + `flags` --  计时器标志掩码：`MG_TIMER_REPEAT`和`MG_TIMER_RUN_NOW`
+    + `fn`    --  函数调用
+    + `fn_data`  --  调用的函数参数
+  + 返回值：返回一个指向创建的计时器的指针
+  + 示例：
+    ```
+      void timer_fn(void *data) {
+        // ...
+      }
 
-### 1.7 URL API
+      mg_timer_add(mgr, 1000, MG_TIMER_REPEAT, timer_fn, NULL);
+    ``` 
 
-### 1.8 Logging API
+#### `struct mg_timer`
+  + 声明：
+    ```
+      struct mg_timer {
+        uint64_t period_ms;       // Timer period in milliseconds
+        uint64_t expire;          // Expiration timestamp in milliseconds
+        unsigned flags;           // Possible flags values below
+      #define MG_TIMER_ONCE 0     // Call function once
+      #define MG_TIMER_REPEAT 1   // Call function periodically
+      #define MG_TIMER_RUN_NOW 2  // Call immediately when timer is set
+        void (*fn)(void *);       // Function to call
+        void *arg;                // Function argument
+        struct mg_timer *next;    // Linkage
+      };
+    ``` 
+  + 计时器结构体。描述一个软件计时器。计时器粒度与主事件循环中的`mg_mgr_poll()`的超时参数相同
+
+#### `mg_timer_init()`
+  + `void mg_timer_init(struct mg_timer **head, struct mg_timer *t, uint64_t period_ms, unsigned flags, void (*fn)(void *), void *fn_data);`
+  + 设置一个计时器
+  + 参数：
+    + `head`    --  指向`mg_timer`队列头部的指针
+    + `t`       --  指向一个需要被初始化的`mg_timer`
+    + `ms`      --  时间间隔，以毫秒为单位
+    + `flags`   --  计时器标志掩码：`MG_TIMER_REPEAT`和`MG_TIMER_RUN_NOW`
+    + `fn`    --  函数调用
+    + `fn_data`  --  调用的函数参数
+  + 返回值：无
+  + 示例：
+    ```
+      void timer_fn(void *data) {
+        // ...
+      }
+
+      struct mg_timer timer, *head = NULL;
+      mg_timer_init(&head, &timer, 1000, MG_TIMER_REPEAT, timer_fn, NULL);
+    ``` 
+
+#### `mg_timer_free()`
+  + `void mg_timer_free(struct mg_timer **head, struct mg_timer *t);`
+  + 释放计时器，将其从内部计时器列表中删除。
+  + 参数：
+    + `head`  --  指向`mg_timer`队列头部的指针
+    + `t`     --  需要释放的计时器
+  + 返回值：无
+  + 示例：
+    ```
+      struct mg_timer timer;
+      // ...
+      mg_timer_free(&timer);
+    ``` 
+
+#### `mg_timer_poll()`
+  + `void mg_timer_poll(struct mg_timer **head, uint64_t uptime_ms);`
+  + 如果当前的时间戳`uptime_ms`超过了计时器的到期时间，则计时器遍历列表，并调用它们
+  + 参数：
+    + `head`   --  指向`mg_timer`列表头部的指针
+    + `uptime_ms`  --  当前时间戳
+  + 返回值：无
+  + 示例
+    + `mg_timer_poll(mg_millis());`
+
+### 1.6 Time
+
+#### `mg_millis()`
+  + `int64_t mg_millis(void);`
+  + 以毫秒返回当前的正常运行时间。
+  + 参数：无
+  + 返回值：当前时间戳
+  + 示例：
+    + `int64_t uptime = mg_millis();`
+
+### 1.7 String
+
+#### `struct mg_str`
+  + 声明：
+    ```
+      struct mg_str {
+        const char *ptr;  // Pointer to string data
+        size_t len;       // String len
+      };
+    ``` 
+  + 该结构代表了任意内存的一部分，并不一定是`zero-terminated`。这是一个`mongoose string`，它在代码库中广泛使用，而不是C zero-terminated strings
+  + 例如
+    + 当一个HTTP request到达时，Mongoose创建了一个`mg_http_message`结构体，该结构体包含一个指向请求方法，URI，头部等`struct mg_str`结构体集合。这样，Mongoose避免了任何堆申请，并且不会修改接收的缓冲区。相反，它使用`struct mg_str`来描述HTTP请求的各个部分
+    + 许多其他情况也是如此。
+  + 注意：
+    + 由于`ptr`不一定是`zero-terminated`，因此请勿使用libc字符串函数，例如：`strlen()`或`sscanf()`
+
+#### `mg_str()`
+  + `struct mg_str mg_str(const char *s)`
+  + 从`NULL-terminated C-string`创建一个Mongoose字符串。这个函数不重复提供字符串，并且将指针存储在创建的`mg_str`结构中
+  + 注意：
+    + 在C++(构造函数)中存在此问题，这个功能有同义词`mg_str_s`
+  + 参数：
+    + `s`  --  一个指向需要存储到`mg_str`结构中的`NULL-terminated string`
+  + 返回值：创建的Mongoose string
+  + 示例：  
+    + `struct mg_str str = mg_str("Hello, world!);`
+
+#### `mg_str_n()`
+  + `struct mg_str mg_str_n(const char *s, size_t n);`
+  + 从C-string（可以是`non-NULL terminated`，长度由`n`指定）创建Mongoose string。这个函数不重复提供字符串，并且将指针存储在创建的`mg_str`结构中
+  + 参数：
+    + `s`  --  指向需要存储到创建的`mg_str`的字符串
+    + `n`  --  字符串长度
+  + 返回值：创建的Mongoose string
+  + 示例：
+    + `struct mg_str str = mg_str_n("hi", 2);`
+
+#### `mg_casecmp()`
+  + `int mg_casecmp(const char *s1, const char *s2);`
+  + 不区分大小写的，比较两个 NULL-terminated strings
+  + 参数：
+    + `s1`, `s2`  --  指向两个需要比较的字符串的指针
+  + 返回值：
+    + 如果两个字符串相等，则返回0
+    + 如果第一个参数比第二个参数长，则返回大于0的数
+    + 如果第一个参数比第二个参数短，则返回小于0的数
+  + 示例：
+    ```
+      if (mg_casecmp("hello", "HELLO") == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_ncasecmp()`
+  + `int mg_ncasecmp(const char *s1, const char *s2, size_t len);`
+  + 不区分大小写的比较两个C-strings的前`len`个字符，或者遇到`\0`字符
+  + 参数：
+    + `s1`, `s2`  --  指向需要比较的两个字符串
+    + `len`   --  比较的最大长度
+  + 返回值：
+    + 如果两个字符串相等，则返回0
+    + 如果第一个参数比第二个参数长，则返回大于0的数
+    + 如果第一个参数比第二个参数短，则返回小于0的数
+  + 示例：
+    ```
+      if (mg_ncasecmp("hello1", "HELLO2", 5) == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_vcmp()`
+  + `int mg_vcmp(const struct mg_str *s1, const char *s2);`
+  + 比较 mongoose string 和 C-string
+  + 参数：
+    + `s1`  --  指向需要比较的 mongoose string
+    + `s2`  --  指向需要比较的 C-string
+  + 返回值：
+    + 如果两个字符串相等，则返回0
+    + 如果第一个参数比第二个参数长，则返回大于0的数
+    + 如果第一个参数比第二个参数短，则返回小于0的数
+  + 示例：
+    ```
+      struct mg_str str = mg_str("hello");
+      if (mg_vcmp(str, "hello") == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_vcasecmp()`
+  + `int mg_vcasecmp(const struct mg_str *str1, const char *str2);`
+  + 不区分大小的比较 mongoose string 和 C-string
+  + 参数：
+    + `s1`  --  指向需要比较的 mongoose string
+    + `s2`  --  指向需要比较的 C-string
+  + 返回值：
+    + 如果两个字符串相等，则返回0
+    + 如果第一个参数比第二个参数长，则返回大于0的数
+    + 如果第一个参数比第二个参数短，则返回小于0的数
+  + 示例：
+    ```
+      struct mg_str str = mg_str("hello");
+      if (mg_vcasecmp(str, "HELLO") == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_strcmp()`
+  + `int mg_strcmp(const struct mg_str str1, const struct mg_str str2);`
+  + 比较两个 mongoose strings
+  + 参数：
+    + `str1`, `str2`  --  指向两个需要比较的 mongoose strings
+  + 返回值：
+    + 如果两个字符串相等，则返回0
+    + 如果第一个参数比第二个参数长，则返回大于0的数
+    + 如果第一个参数比第二个参数短，则返回小于0的数
+  + 示例：
+    ```
+      struct mg_str str1 = mg_str("hello");
+      struct mg_str str2 = mg_str("hello");
+      if (mg_strcmp(str1, str2) == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_strdup()`
+  + `struct mg_str mg_strdup(const struct mg_str s);`
+  + 重复提供的字符串。返回一个新的字符串或者`MG_NULL_STR`表示错误。
+  + 注意：
+    + 这个函数为返回的字符串分配内存。需要使用`free()`函数释放
+  + 参数：
+    + `s`  --  需要重复的 mongoose string
+  + 返回值：重复的字符串
+  + 示例：
+    ```
+      struct mg_str str1 = mg_str("hello");
+      struct mg_str str2 = mg_strdup(str1);
+      //...
+      free((void *)str2.ptr);
+    ``` 
+
+#### `mg_strstr()`
+  + `const char *mg_strstr(const struct mg_str haystack, const struct mg_str needle)`
+  + 在`haystack`字符串中查找`needle`子字符串
+  + 参数：
+    + `haystack`  --  需要查找子字符串的 mongoose string
+    + `needle`    --  需要查找的 mongoose string
+  + 返回值：
+    + 返回一个指向`neddle`在`haystack`中发生的位置的指针
+    + 失败，返回NULL
+  + 示例：
+    ```
+      struct mg_str str = mg_str("Hello, world");
+      struct mg_str sub_str = mg_str("world");
+
+      if (mg_strstr(str, sub_str) != NULL) {
+        // Found
+      }
+    ``` 
+
+#### `mg_strstrip()`
+  + `struct mg_str mg_strstrip(struct mg_str s)`
+  + 删除 mongoose string `s`的头部和尾部的空格
+  + 参数：
+    + `s`  --  需要修剪的 mongoose string
+  + 返回值：输入的字符串
+  + 示例：
+    ```
+      struct mg_str str = mg_strstrip(mg_str("   Hello, world   "));
+      if (mg_vcmp(str, "Hello, world") == 0) {
+        // Strings are equal
+      }
+    ``` 
+
+#### `mg_match()`
+  + `bool mg_match(struct mg_str str, struct mg_str pattern, struct mg_str *caps);`
+  + 检查字符串`str`是否匹配`pattern`，可选地将通配符捕获到提供的数组`caps`中
+  + 注意：
+    + 如果`caps`是非空的，那么`caps`数组的大小最小为`pattern`的长度加1.
+    + 最后的 cap 将会被初始化成一个空的字符串
+  + 全局匹配规则：
+    + `?`  --  匹配任何单个字符
+    + `*`  --  匹配0个或多个字符，除了`/`
+    + `#`  --  匹配0个或多个字符
+    + 任何其他字符只匹配它自身
+  + 参数：
+    + `str`    --  需要匹配的字符串
+    + `patter` --  与之匹配的规则（模式）
+    + `caps`   --  通配符符号的可选捕获数组`?`, `*`, `#`
+  + 返回值：
+    + 匹配成功，返回true
+    + 其他情况，返回false
+  + 示例：
+    ```
+      // Assume that hm->uri holds /foo/bar. Then we can match the requested URI:
+      struct mg_str caps[3];  // Two wildcard symbols '*' plus 1
+      if (mg_match(hm->uri, mg_str("/*/*"), caps)) {
+        // caps[0] holds `foo`, caps[1] holds `bar`.
+      }
+    ``` 
+
+#### `mg_commalist()`
+  + `bool mg_commalist(struct mg_str *s, struct mg_str *k, struct mg_str *v);`
+  + 解析字符串S，这是一个分隔的条目列表。条目可以是任意字符串，该字符串存储在`v`中，或者分别存储在`k`和`v`中的`KEY=VALUE`
+  + 重要：
+    + 此函数通过指向下一个条目来修改`s`。
+  + 参数：
+    + `s`  --  需要搜索条目的字符串
+    + `k`  --  一个指向`mg_str`的指针，接收条目键
+    + `v`  --  一个指向`mg_str`的指针，接收条目值
+  + 返回值：
+    + 如果条目被找到，返回true
+    + 其他情况，返回false
+  + 示例：
+    ```
+      struct mg_str k, v, s = mg_str("a=333,b=777");
+      while (mg_commalist(&s, &k, &v))                      // This loop output:
+        printf("[%.*s] set to [%.*s]\n",                    // [a] set to [333]
+               (int) k.len, k.ptr, (int) v.len, v.ptr);     // [b] set to [777]
+    ``` 
+
+#### `mg_hex()`
+  + `char *mg_hex(const void *buf, size_t len, char *dst);`
+  + 十六进制编码的二进制数据`buf`，`len`输入到一个缓冲区`dst`，并将其终止。这个输出缓冲区至少比`2 x len + 1`大
+  + 参数：
+    + `buf`  --  十六进制编码的数据
+    + `len`  --  数据长度
+    + `dst`  --  指向输出缓冲区的指针
+  + 返回值：
+    + 返回`dst`指针。这个编码的字符是小写的
+  + 示例：
+    ```
+      char data[] = "\x1\x2\x3";
+      char buf[sizeof(data)*2];
+      char *hex = mg_hex(data, sizeof(data) - 1, buf);
+      LOG(LL_INFO, ("%s", hex)); // Output "010203";
+      free(hex);
+    ``` 
+
+#### `mg_unhex()`
+  + `void mg_unhex(const char *buf, size_t len, unsigned char *to);`
+  + 十六进制字符串`buf`，`len`输入到缓冲区`to`。这个缓冲区`to`必须大于`lsn / 2`
+  + 参数：
+    + `buf`  --  需要十六进制解码的数据
+    + `len`  --  数据大小
+    + `to`   --  指向输出缓冲区的指针
+  + 返回值：无
+  + 示例：
+    ```
+      char data[] = "010203";
+      char *buf[sizeof(data)/2];
+      char *hex = mg_unhex(data, sizeof(data) - 1, buf); // buf is now [1,2,3]
+      free(hex);
+    ``` 
+
+#### `mg_unhexn()`
+  + `unsigned long mg_unhexn(const char *s, size_t len);`
+  + 解析十六进制编码的字符串`s`的`len`个字节。这个`len`最大值为`long x 2`的宽度，例如：32-bit platform it is 8
+  + 参数：
+    + `s`   --  需要解析的字符串
+    + `len` --  字符串长度
+  + 返回值：返回解析的值
+  + 示例：
+    ```
+      char data[] = "010203";
+      char *buf[sizeof(data)/2];
+      unsigned long val = mg_unhex(data, sizeof(data) - 1); // val is now 123
+    ``` 
+
+#### `mg_remove_double_dots()`
+  + `char *mg_remove_double_dots(char *s);`
+  + 通过从中删除双点，修改字符串`s`。用于修改从网络收到的文件名或URI
+  + 参数：
+    + `s`  --  需要修改的字符串
+  + 返回值：返回`s`指针
+  + 示例：
+    ```
+      char data[] = "../../a.txt";
+      mg_remove_double_dots(data);  // data is /a.txt
+    ``` 
+
+#### `mg_snprintf(), mg_vsnprintf()`
+  + `size_t mg_snprintf(char *buf, size_t len, const char *fmt, ...);`
+  + `size_t mg_vsnprintf(char *buf, size_t len, const char *fmt, va_list ap);`
+  + 像`snprintf()`标准函数一样，打印格式的字符串到字符串缓冲区中,但是以一种可预测的方式，不取决于C库或构建环境。返回值可以大于缓冲区长度`len`，在这种情况下，溢出字节未打印。Mongoose库通常用于以JSON格式交换数据因此，还支持非标准`％q`，`％v`，`％h`指定符用于格式化JSON字符串
+  + 参数：
+    + `buf`  --  指向输出缓冲区的指针
+    + `len`  --  缓冲区大小
+    + `fmt`  --  类似于printf的格式字符串
+  + 支持格式指定符
+    + `hhd`, `hd`, `d`, `ld`, `lld`  --  用于 `char`, `short`, `int`, `long`, `int64_t`
+    + `hhu`, `hu`, `u`, `lu`, `llu`  --  相同，但是用于无符号
+    + `hhx`, `hx`, `x`, `lx`, `llx`  --  相同，无符号并且以十六进制输出
+    + `s`  --  对应`char *`
+    + `q`  --  对应`char *`，输出JSON格式字符串(extension)
+    + `Q`  --  对应`char *`，输出双引号的JSON格式字符串(extension)
+    + `H`  --  对应`int`, `void *`, 输出双引号的十六进制字符串(extension)
+    + `I`  --  对应`int`（4 或 6）， `void *`, 输出IP地址(extension)
+    + `A`  --  对应`void *`， 输出硬件地址(extension)
+    + `V`  --  对应`int`, `void *`， 输出双引号的base64 字符串(extension)
+    + `M`  --  对应`mg_pfn_t`，调用另一个输出函数(extension)
+    + `g`, `f`  --  对应`double`
+    + `c`  --  对应`char`
+    + `%`  --  对应`%`字符自己
+    + `p`  --  对应任何指针，输出`0x....`十六进制值
+    + `%X.Y`  --  可选宽度和精度修饰符
+    + `%.*`   --  可选的精度修饰符指定为`int`参数
+  + 返回值：返回打印的字节数
+  + 发送一个JSON HTTP response： 
+    + `mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{%Q: %g}", "value", 1.2345);`
+  + 使用更复杂格式字符串的示例：
+    ```
+      mg_snprintf(buf, sizeof(buf), "%lld", (int64_t) 123);   // 123
+      mg_snprintf(buf, sizeof(buf), "%.2s", "abcdef");        // ab
+      mg_snprintf(buf, sizeof(buf), "%.*s", 2, "abcdef");     // ab
+      mg_snprintf(buf, sizeof(buf), "%05x", 123);             // 00123
+      mg_snprintf(buf, sizeof(buf), "%%-%3s", "a");           // %-  a
+      mg_snprintf(buf, sizeof(buf), "hi, %Q", "a");           // hi, "a"
+      mg_snprintf(buf, sizeof(buf), "r: %M, %d", f,1,2,7);    // r: 3, 7
+      mg_snprintf(buf, sizeof(buf), "%I", 4, "abcd");         // 97.98.99.100
+      mg_snprintf(buf, sizeof(buf), "%A", "abcdef");          // 61:62:63:64:65:66
+
+      // Printing sub-function for %M specifier. Grabs two int parameters
+      size_t f(void (*out)(char, void *), void *ptr, va_list *ap) {
+        int a = va_arg(*ap, int);
+        int b = va_arg(*ap, int);
+        return mg_xprintf(out, ptr, "%d", a + b);
+      }
+    ``` 
+
+#### `mg_mprintf(), mg_vmprintf()`
+  + `char *mg_mprintf(const char *fmt, ...);`
+  + `char *mg_vmprintf(const char *fmt, va_list *ap);`
+  + 将消息打印输出到分配的缓冲区中。调用者必须手动释放缓冲区
+  + 参数：
+    + `fmt`  --  类似于printf的格式字符串
+  + 返回值：分配的内存缓冲区
+  + 示例：
+    ```
+      char *msg = mg_mprintf("Double quoted string: %Q!", "hi");
+      free(msg);
+    ``` 
+
+#### `mg_xprintf(), mg_vxprintf()`
+  + `size_t mg_xprintf(void (*out)(char, void *), void *param, const char *fmt, ...);`
+  + `size_t mg_vxprintf(void (*out)(char, void *), void *param, const char *fmt, va_list *ap);`
+  + 使用指定字符输出函数打印消息
+  + 参数：
+    + `out`   --  被用于打印字符的函数
+    + `param` --  被传给`out`的参数
+    + `fmt`   --  类似于printf的格式字符串
+  + 返回值：返回打印的字节数
+  + 示例：
+    ```
+      void myfn(char c, void *p);
+
+      size_t len = mg_xprintf(myfn, myfn_p, "Double quoted string: %Q!", "hi");
+    ``` 
+
+#### `mg_pfn_iobuf()`
+  + `void mg_pfn_iobuf(char ch, void *param);`
+  + 将一个字符打印到通用IO缓冲区 `Generic IO buffer`
+  + 参数：
+    + `ch`    --  被打印的字节
+    + `param` --  必须是`struct mg_iobuf *`
+  + 示例：
+    + `mg_xprintf(mg_pfn_iobuf, &c->send, "hi!");  // Append to the output buffer`
+
+#### `mg_to64()`
+  + `int64_t mg_to64(struct mg_str str);`
+  + `uint64_t mg_tou64(struct mg_str str);`
+  + 解析字符串持有的64位整数的值。
+  + 参数：
+    + `str`  --  需要解析的字符串
+  + 返回值：解析的值
+  + 示例：
+    + `int64_t val = mg_to64(mg_str("123")); // Val is now 123`
+
+#### `mg_aton()`
+  + `bool mg_aton(struct mg_str str, struct mg_addr *addr);`
+  + 解析存储在`str`的IP地址，并将结果存储在`addr`
+  + 参数：
+    + `str`   --  需要解析的字符串，例如：`1.2.3.4`, `[::1]`, `01:02::03`
+    + `addr`  --  指向接收解析结果的`mg_addr`字符串的指针
+  + 返回值：
+    + 成功，返回true
+    + 其他情况，返回false
+  + 示例：
+    ```
+      struct mg_addr addr;
+      if (mg_aton(mg_str("127.0.0.1"), &addr)) {
+        // addr is now binary representation of 127.0.0.1 IP address
+      }
+    ``` 
+
+### 1.8 JSON API
+
++ 请注意，Mongoose的打印功能支持非标准格式指定Q和％m，它们可以轻松打印JSON字符串：
+  + `char *json = mg_mprintf("{%Q:%d}", "value", 123);  // {"value":123}`
+  + `free(json);`
++ 因此，对于完整的JSON支持，需要一组解析功能 - 如下所述。
+
+#### `mg_json_get()`
+  + `enum { MG_JSON_TOO_DEEP = -1, MG_JSON_INVALID = -2, MG_JSON_NOT_FOUND = -3 };`
+  + `int mg_json_get(struct mg_str json, const char *path, int *toklen);`
+  + 解析JSON字符串`json`，并且返回JSON `path` 指定的元素的偏移。这个元素的长度被存储在`toklen`
+  + 参数：
+    + `json`  --  保存有一个有效JSON的字符串
+    + `path`  --  一个JSON 路径，必须由`$`开始，例如：`$.user`
+    + `toklen` --  指向接收元素的长度的指针，可以为NULL
+  + 返回值：
+    + 返回元素的偏移量
+    + 返回负数 `MG_JSON_*`表示错误
+  + 示例：
+    ```
+      // Create a json string: { "a": 1, "b": [2, 3] }
+      char *buf = mg_mprintf("{ %Q: %d, %Q: [%d, %d] }", "a", 1, "b", 2, 3);
+      struct mg_str json = mg_str(buf);
+      int offset, length;
+
+      // Lookup "$", which is the whole JSON. Can be used for validation
+      offset = mg_json_get(json, "$", &length);    // offset = 0, length = 23
+
+      // Lookup attribute "a". Point to value "1"
+      offset = mg_json_get(json, "$.a", &length);  // offset = 7, length = 1
+
+      // Lookup attribute "b". Point to array [2, 3]
+      offset = mg_json_get(json, "$.b", &length);  // offset = 15, length = 6
+
+      // Lookup attribute "b[1]". Point to value "3"
+      offset = mg_json_get(json, "$.b[1]", &length); // offset = 19, length = 1
+
+      free(buf);
+    ``` 
+
+#### `mg_json_get_num()`
+  + `bool mg_json_get_num(struct mg_str json, const char *path, double *v);`
+  + 在JSON路径`path`，从`json`字符串获取数字值(double)。如果成功，返回true
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+    + `v`     --  一个对应于值的占位符
+  + 返回值：
+    + 成功，返回true
+    + 失败，返回false
+  + 示例：
+    ```
+      double d = 0.0;
+      mg_json_get_num(mg_str("[1,2,3]", "$[1]", &d));     // d contains 2
+      mg_json_get_num(mg_str("{\"a\":1.23}", "$.a", &d)); // d contains 1.23
+    ``` 
+
+#### `mg_json_get_bool()`
+  + `bool mg_json_get_bool(struct mg_str json, const char *path, bool *v);`
+  + 在JSON路径`path`，从`json`字符串获取布尔值(bool)。如果成功，返回true
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+    + `v`     --  一个对应于值的占位符
+  + 返回值：
+    + 成功，返回true
+    + 失败，返回false
+  + 示例：
+    ```
+      bool b = false;
+      mg_json_get_bool(mg_str("[123]", "$[0]", &b));   // Error. b remains to be false
+      mg_json_get_bool(mg_str("[true]", "$[0]", &b));  // b is true
+    ``` 
+
+#### `mg_json_get_long()`
+  + `long mg_json_get_long(struct mg_str json, const char *path, long default_val);`
+  + 在JSON路径`path`，从`json`字符串获取数字值(long)。
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+    + `v`     --  一个对应于值的占位符
+  + 返回值：
+    + 返回找到的值
+    + 返回`default_val`值
+  + 示例：
+    ```
+      long a = mg_json_get_long(mg_str("[123]", "$a", -1));   // a = -1
+      long b = mg_json_get_long(mg_str("[123]", "$[0]", -1)); // b = 123
+    ``` 
+
+#### `mg_json_get_str()`
+  + `char *mg_json_get_str(struct mg_str json, const char *path);`
+  + 在JSON路径`path`，从`json`字符串获取字符串值。如果找到，使用`calloc()`分配内存的字符串，没有转义的返回给调用者。调用者需要手动使用`free()`释放返回的字符串
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+  + 返回值：
+    + 成功，返回non-NULL
+    + 失败，返回NULL
+  + 示例：
+    ```
+      struct mg_str json = mg_str("{\"a\": \"hi\"}");  // json = {"a": "hi"}
+      char *str = mg_json_get_str(json, "$.a");        // str = "hi"
+      free(str);
+    ``` 
+
+#### `mg_json_get_hex()`
+  + `char *mg_json_get_hex(struct mg_str json, const char *path, int *len);`
+  + 在JSON路径`path`，从`json`字符串获取十六进制编码的缓冲区。如果找到，使用`calloc()`分配内存的缓冲区，解码，并且返回给调用者。调用者需要手动调用`free()`释放返回的字符串。返回的缓冲区是 0-terminated
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+    + `len`   --  一个指向接收解码长度的指针。可以为NULL
+  + 返回值：
+    + 成功，返回non-NULL
+    + 失败，返回NULL
+  + 示例：
+    ```
+      struct mg_str json = mg_str("{\"a\": \"6869\"}"); // json = {"a": "6869"}
+      char *str = mg_json_get_hex(json, "$.a", NULL);   // str = "hi"
+      free(str);
+    ``` 
+
+#### `mg_json_get_b64()`
+  + `char *mg_json_get_b4(struct mg_str json, const char *path, int *len);`
+  + 在JSON路径`path`，从`json`字符串获取base64 编码的缓冲区。如果找到，使用`calloc()`申请内存的缓冲区，解码，并返回给调用者。调用者需要手动调用`free()`释放返回的字符串。返回的缓冲区是 0-terminated
+  + 参数：
+    + `json`  --  保存有效JSON字符串
+    + `path`  --  一个JSON路径。必须以`$`开始
+    + `len`   --  一个指向接收解码长度的指针。可以为NULL
+  + 返回值：
+    + 成功，返回non-NULL
+    + 失败，返回NULL
+  + 示例：
+    ```
+      struct mg_str json = mg_str("{\"a\": \"YWJj\"}"); // json = {"a": "YWJj"}
+      char *str = mg_json_get_b64(json, "$.a", NULL);   // str = "abc"
+      free(str);
+    ``` 
+
+### 1.9 Utility API
+
+### 2.0 URL API
+
+### 2.1 Logging API
