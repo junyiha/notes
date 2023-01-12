@@ -1,3 +1,87 @@
+# cmake基础
+
+## arwen 机械臂项目 CMakeLists.txt 笔记
+
+### cmake_minimum_required()
+  + 为项目设置cmake的最低要求版本
+  + 示例：
+    + `cmake_minimum_required(VERSION 3.10)`
+
+### project()
+  + 为整个项目设置名称、版本并启用语言
+  + 示例：
+    + `project(arwen)`
+
+### set()
+  + 将常规变量、缓存变量或环境变量设置为给定值。
+  + 示例：
+    + `set(CMAKE_CXX_STANDARD 17)`
+
+### include_directories()
+  + 向构建中添加包含目录
+  + 示例：
+    + `include_directories(./include)`
+
+### ${PROJECT_SOURCE_DIR}
+  + 内置变量，当前项目的顶级源目录。
+
+### ${PROJECT_BINARY_DIR}
+  + 内置变量，为项目构建目录的完整路径(Full path to build directory for project.)
+
+### link_directories()
+  + 指定链接器将在其中查找库的目录
+  + 示例：
+    + `link_directories(${PROJECT_BINARY_DIR}/lib)`
+
+### execute_process()
+  + 执行一个或多个子进程
+  + 示例：
+    + `execute_process( COMMAND ${CMAKE_COMMAND} -E make_directory ${LOG_DIR})`
+
+### ${CMAKE_COMMAND}
+  + 可执行文件“cmake(1)”的完整路径
+
+### add_subdirectory()
+  + 向构建中添加子目录。
+  + 示例：
+    + `add_subdirectory(src)`
+
+### file()
+  + 文件操作命令
+  + 规则：
+    + `file(WRITE <filename> <content>...)`
+    + `file(APPEND <filename> <content>...)`
+  + 详解：
+    + 将`<content>`写入名为`<filename>`的文件中。如果这个文件不存在，则创建该文件。如果该文件已经存在，则`WRITE`模式下将会覆盖该文件，`APPEND`模式下将会追加到该文件的末尾.由`<filename>`指定的路径中任何不存在的目录将被创建
+    + 如果文件是一个构建输入，使用`configure_file()`命令仅在其内容更改时更新文件。
+
+### add_library()
+  + 使用指定的源文件向项目添加库
+  + 示例：
+    + `add_library(${PROJECT_NAME} STATIC  ${SOURCE_FILES})`
+
+### target_include_directories()
+  + 向目标添加包含目录
+  + 示例：
+    + `target_include_directories( ${PROJECT_NAME} PUBLIC ${PRJECT_SOURCE_DIR})`
+
+### find_package()
+  + 加载外部项目的设置。
+  + 示例：
+    + `find_package(Etherlab REQUIRED)`
+
+### target_link_libraries()
+  + 指定链接给定目标和/或其依赖项时要使用的库或标志
+  + 示例：
+    + `target_link_libraries(${PROJECT_NAME} PUBLIC ${Etherlab_LIBRARIES})`
+
+### set_target_properties()
+  + 目标可以具有影响如何构建它们的属性。
+  + 示例：
+    + `set_target_properties(arwen-planning PROPERTIES LINKER_LANGUAGE CXX)`
+
+# modern cmake >= 3.11
+
 ## 简介
 
 + CMake可以编译源代码,制作程序库,产生适配器(wrapper),可以用任意的顺序构建执行档
