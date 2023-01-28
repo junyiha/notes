@@ -499,6 +499,7 @@ void movejCMD()
       std::cout << "Start running moveJ command" << std::endl;
       planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
       running = false;
+      break;
     }
     else
     {
