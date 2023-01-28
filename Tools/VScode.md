@@ -1,3 +1,17 @@
+# VSCode 基础
+
+## 下载
+
++ 首先，在官网找到需要下载的文件，点击下载，并将下载连接复制下来，例如：
+  + `https://az764295.vo.msecnd.net/stable/97dec172d3256f8ca4bfb2143f3f76b503ca0534/code_1.74.3-1673284829_amd64.deb`
+
++ 然后，将`az764295.vo.msecnd.net`替换为`vscode.cdn.azure.cn`，例如：
+  + `https://vscode.cdn.azure.cn/stable/97dec172d3256f8ca4bfb2143f3f76b503ca0534/code_1.74.3-1673284829_amd64.deb`
+
++ 这就是国内的镜像
+
+# VSCode C++ 配置
+
 ## 三个文件:`task.json` `launch.json` `c_cpp_properties.json`
 
 1. IntelliSense：Intelligence Sense，代码自动补全
