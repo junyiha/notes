@@ -64,8 +64,7 @@ RT_TASK driver_task;
 RT_TASK control_task;
 RT_TASK planning_task;
 
-RT_TASK webserver_task;
-RT_TASK print_JointInfo;
+RT_TASK ws_auto_send_task;
 Planning planner;
 bool running = false;
 bool flag_movel = false;
@@ -477,11 +476,22 @@ void PlanningThread(void* arg) {
   }
 }
 
-bool auto_send_exit_flag = false;  /*true : exit auto send thread; false : not*/
 struct JointData_t
 {
   double position_value;
 };
+
+int GetResponseHeader(std::string &response_header)
+{
+  response_header =  "Content-Type: application/json\r\n";
+  response_header += "Connection: keep-alive\r\n";
+  response_header += "Server: armcontrol\r\n";
+  response_header += "Cache-control: no-cache, max-age=0, must-revalidate\r\n";
+  response_header += "Access-Control-Allow-Origin: *\r\n";
+  response_header += "Access-Control-Allow-Methods: *\r\n";
+
+  return 0;
+}
 
 void movejCMD()
 {
@@ -489,8 +499,8 @@ void movejCMD()
 
   // planner.MoveJ();
   JointVector joint_point01(6);  // 一个目标点，保存六个关节转动的目标角度
-  joint_point01.data << 10.0, 0.0, 0.0, 0.0, 0.0, 0.0;
-  joint_point01.data << joint_point01.data / 180 * M_PI ;
+  joint_point01.data << 1.0, 0.0, 0.0, 0.0, 0.0, 0.0;
+  joint_point01.data << joint_point01.data / 180 * M_PI;
 
   while(true)
   {
@@ -508,6 +518,45 @@ void movejCMD()
   }
 }
 
+int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *connect)
+{
+  std::string response_header;
+  GetResponseHeader(response_header);
+
+  std::string tmp_str;
+  double jointPosition[6];
+  for (int i = 0; i < 6; i++)
+  {
+    tmp_str =  "$["+ std::to_string(i) +"]";
+    mg_json_get_num(http_msg->body, tmp_str.c_str(), &jointPosition[i]);
+    std::cout << "jointPositon[" << i << "] : " << jointPosition[i] << '\n';
+  }
+
+  JointVector joint_point01(6);
+  joint_point01.data << jointPosition[0], jointPosition[1], jointPosition[2], jointPosition[3], jointPosition[4], jointPosition[5];
+  joint_point01.data << joint_point01.data / 180 * M_PI;
+
+  if (running && !planner.IsRunning() && !planner.getStopFlag())
+  {
+    planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
+    running = false;
+    mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "movJ", "success");
+  }
+  else
+  {
+    std::string tmp_reply = "failed, the data :";
+    for (int i = 0; i < 6; i++)
+    {
+      tmp_reply += std::to_string(jointPosition[i]);
+      tmp_reply += ", ";
+    }
+    // mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", "failed, not ready");
+    mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", tmp_reply.c_str());
+  }
+
+  return 0;
+}
+
 void WSMSGProcess(struct mg_ws_message *ws_msg)
 {
   std::cout << "websocket message is :[" << ws_msg->data.ptr << "]" << std::endl;
@@ -517,8 +566,8 @@ void WSMSGProcess(struct mg_ws_message *ws_msg)
   }
 }
 
-// webserver task
-void WebserverThread(void* arg) {
+// webserver auto send status info task
+void WSAutoSendThread(void* arg) {
   RTIME now_ns;
   uint64_t tid = 0;
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
@@ -527,9 +576,6 @@ void WebserverThread(void* arg) {
   struct mg_connection *connect = (struct mg_connection *)arg;
   std::string JointInfo_str;
   struct JointData_t joint_data_array[ARM_DOF];
-
-  std::ofstream data_file;
-  data_file.open("/tmp/log/data.txt");
 
   while (true) {
     rt_task_wait_period(nullptr);  // wait for next cycle
@@ -540,12 +586,6 @@ void WebserverThread(void* arg) {
     for (int k = 0; k < ARM_DOF; k++) 
     {
       joint_data_array[k].position_value = ecat_taike[k].actual_position_ / JOINTS_PULSE;
-      data_file << joint_data_array[k].position_value;
-      // data_file << ecat_taike[k].actual_position_ / JOINTS_PULSE;
-      data_file << "\n";
-      // data[k].joint_position =  ecat_taike[k].actual_position_ / JOINTS_PULSE;
-      // data[k].joint_velocity = ecat_taike[k].actual_velocity_;
-      // data[k].joint_torque = ecat_taike[k].actual_torque_;
     }
 
     JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
@@ -557,95 +597,10 @@ void WebserverThread(void* arg) {
                                 joint_data_array[5].position_value);
 
     mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
-    data_file << "next status info \n";
-    //send data
-    // if (system_ready && ws_connected) {
-
-    // }
-
-    // ++tid;
   }
-  data_file << "End";
-  data_file.close();
 }
 
-// 关节位置， planning  都要加规划  长按 调用speed J，检测到
-void PrintJointInfoThread(void *arg)
-{
-  RTIME now_ns;
-  uint64_t tid = 0;
-  rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
-
-  std::vector<std::string> tmp(6);
-
-  std::string ident = "JointInfo";
-  std::vector<const char *> joint01;
-  std::vector<const char *> joint02;
-  std::vector<const char *> joint03;
-  std::vector<const char *> joint04;
-  std::vector<const char *> joint05;
-  std::vector<const char *> joint06;
-
-  // driver_status_message
-
-  struct timespec rqtp;
-  struct timespec tmtp;
-  rqtp.tv_nsec = 0;  /* 1 秒*/
-  rqtp.tv_sec = 1;
-
-  openlog(ident.c_str(), LOG_NOWAIT, LOG_INFO);
-  std::ofstream outfile;
-  outfile.open("/tmp/log/webserver.txt");
-  for (int i = 0;; i++)
-  {
-    // rt_task_wait_period(nullptr);  // wait for next cycle
-      if (break_flag)
-        break;
-      
-      joint01.push_back(std::to_string(ecat_taike[1].status_word_).c_str());
-      joint02.push_back(std::to_string(ecat_taike[2].status_word_).c_str());
-      joint03.push_back(std::to_string(ecat_taike[3].status_word_).c_str());
-      joint04.push_back(std::to_string(ecat_taike[4].status_word_).c_str());
-      joint05.push_back(std::to_string(ecat_taike[5].status_word_).c_str());
-      joint06.push_back(std::to_string(ecat_taike[6].status_word_).c_str());
-
-      outfile << *(joint01.data());
-      outfile << *(joint02.data());
-      outfile << *(joint03.data());
-      outfile << *(joint04.data());
-      outfile << *(joint05.data());
-      outfile << *(joint06.data());
-      outfile << "\n";
-
-      syslog(LOG_INFO, *(joint01.data()));
-      syslog(LOG_INFO, *(joint02.data()));
-      syslog(LOG_INFO, *(joint03.data()));
-      syslog(LOG_INFO, *(joint04.data()));
-      syslog(LOG_INFO, *(joint05.data()));
-      syslog(LOG_INFO, *(joint06.data()));
-
-      // sleep(1);
-    // nanosleep(&rqtp, &tmtp);  
-  }
-
-  outfile << "Done";
-  closelog();
-  outfile.close();
-  
-  return ;
-}
-
-int GetResponseHeader(std::string &response_header)
-{
-  response_header =  "Content-Type: application/json\r\n";
-  response_header += "Connection: keep-alive\r\n";
-  response_header += "Server: armcontrol\r\n";
-  response_header += "Cache-control: no-cache, max-age=0, must-revalidate\r\n";
-  response_header += "Access-Control-Allow-Origin: *\r\n";
-  response_header += "Access-Control-Allow-Methods: *\r\n";
-
-  return 0;
-}
+// // 关节位置， planning  都要加规划  长按 调用speed J，检测到
 
 void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data, void *func_data)
 {
@@ -658,18 +613,21 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
       GetResponseHeader(response_header);
       mg_ws_upgrade(connect, http_msg, response_header.c_str());
     }
+    else if (mg_http_match_uri(http_msg, "/api/control/manual/jointPosition/movj"))
+    {
+      api_manual_movJ(http_msg, connect);
+    }
   }
   else if (event == MG_EV_WS_OPEN)
   {
-    auto_send_exit_flag = false;
-    // std::thread tmp{WebserverThread, connect};
+    // std::thread tmp{WSAutoSendThread, connect};
     // tmp.detach();
-    rt_task_create(&webserver_task, "webserver_task", 1024 * 1024 * 4, 50, 0);
-    rt_task_start(&webserver_task, &WebserverThread, connect);
+    rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+    rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
   }
   else if (event == MG_EV_CLOSE)
   {
-    auto_send_exit_flag = true;
+    rt_task_delete(&ws_auto_send_task);
   }
   else if (event == MG_EV_WS_MSG)
   {
@@ -696,7 +654,6 @@ void StartMGServer(std::string listen_addr, struct mg_mgr *manager, struct mg_co
 	return ;
 }
 
-
 int main(int argc, char* argv[]) {
   // signal mask
   signal(SIGHUP, signal_handler);
@@ -707,8 +664,6 @@ int main(int argc, char* argv[]) {
   signal(SIGKILL, signal_handler);
   signal(SIGSEGV, signal_handler);
   signal(SIGTERM, signal_handler);
-
-  // planner
 
   // Avoids memory swapping for this program
   mlockall(MCL_CURRENT | MCL_FUTURE);
@@ -725,7 +680,6 @@ int main(int argc, char* argv[]) {
   // master active
   // printf("---activate---\n");
   ecatmaster.activateWithDC(0, CYCLE_NS);
-
 
   //  printf("\n--create cyclic(ethercat) task ...\n");
   rt_task_create(&driver_task, "cyclic_task", 1024 * 1024 * 4, 90, 0);
@@ -745,19 +699,6 @@ int main(int argc, char* argv[]) {
   std::string listen_addr = getarg("0.0.0.0:9999", "--listen-address");
   StartMGServer(listen_addr, &manager, connect);
 
-  // rt_task_create(&webserver_task, "webserver_task", 1024 * 1024 * 4, 50, 0);
-  // rt_task_start(&webserver_task, &WebserverThread, nullptr);
-
-  // rt_task_create(&print_JointInfo, "print_JointInfo", 1024 * 1024 * 4, 50, 0);
-  // rt_task_start(&print_JointInfo, &PrintJointInfoThread, nullptr);
-
-  // std::thread print_thread{print_JointInfo};
-  // print_thread.detach();
-  // print_JointInfo();
-  // start_webserver();
-  // arwen::WebServer::Help();
-  // std::thread test{test_file};
-  // test.detach();
   /**************************************************************/
 
   // pause
@@ -770,8 +711,7 @@ int main(int argc, char* argv[]) {
   rt_task_delete(&control_task);
   rt_task_delete(&planning_task);
 
-  rt_task_delete(&print_JointInfo);
-  rt_task_delete(&webserver_task);
+  rt_task_delete(&ws_auto_send_task);
 
   printf("\n\n\t !! Controller Stopped!! \n");
   ecatmaster.deactivate();
