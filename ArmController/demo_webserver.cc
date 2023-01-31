@@ -64,6 +64,7 @@ RT_TASK driver_task;
 RT_TASK control_task;
 RT_TASK planning_task;
 RT_TASK ws_auto_send_task;
+bool AutoSendTask_ = false;  //  标志定时发送信息的线程是否创建： true, 已创建； false， 未创建
 
 Planning planner;
 bool running = false;
@@ -149,6 +150,7 @@ void DriverThread(void* arg)
       ecat_taike[k].target_position_ = ecat_taike[k].actual_position_;
     }
     driver_status_message->store(driver_status_buffer);
+    
     if (!system_ready) 
     {
       driver_command_buffer.header = driver_status_buffer.header;
@@ -266,6 +268,49 @@ int GetResponseHeader(std::string &response_header)
   return 0;
 }
 
+// webserver auto send status info task
+void WSAutoSendThread(void* arg) {
+  RTIME now_ns;
+  uint64_t tid = 0;
+  std::string JointInfo_str;
+  unsigned long long count = 0;
+  struct JointData_t joint_data_array[ARM_DOF];
+  rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
+  struct mg_connection *connect = (struct mg_connection *)arg;
+
+  protocol::message::DriverStatusMessage driver_status_buffer;
+
+  while (true) 
+  {
+    rt_task_wait_period(nullptr);  // wait for next cycle
+    if (break_flag) { break; }
+    //read data
+    for (int k = 0; k < ARM_DOF; k++) 
+    {
+      joint_data_array[k].position_value = (ecat_taike[k].actual_position_ / JOINTS_PULSE) * 100;
+    }
+
+    driver_status_buffer = driver_status_message->load();
+    // JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
+    //                             joint_data_array[0].position_value,
+    //                             joint_data_array[1].position_value,
+    //                             joint_data_array[2].position_value,
+    //                             joint_data_array[3].position_value,
+    //                             joint_data_array[4].position_value,
+    //                             joint_data_array[5].position_value);
+
+    JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
+                                driver_status_buffer.data[0].joint_position * 100 / 2,
+                                driver_status_buffer.data[1].joint_position * 100 / 2,
+                                driver_status_buffer.data[2].joint_position * 100 / 2,
+                                driver_status_buffer.data[3].joint_position * 100 / 2,
+                                driver_status_buffer.data[4].joint_position * 100 / 2,
+                                driver_status_buffer.data[5].joint_position * 100 / 2);
+
+    mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
+  }
+}
+
 int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *connect)
 {
   std::string response_header;
@@ -304,41 +349,61 @@ int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *conn
   return 0;
 }
 
-void WSMSGProcess(struct mg_ws_message *ws_msg)
+void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
   std::cout << "websocket message is :[" << ws_msg->data.ptr << "]" << std::endl;
-}
 
-// webserver auto send status info task
-void WSAutoSendThread(void* arg) {
-  RTIME now_ns;
-  uint64_t tid = 0;
-  std::string JointInfo_str;
-  unsigned long long count = 0;
-  struct JointData_t joint_data_array[ARM_DOF];
-  rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
-  struct mg_connection *connect = (struct mg_connection *)arg;
-
-  while (true) 
+  std::string json_key;
+  int offset, length;
+  offset = mg_json_get(ws_msg->data, "$", &length);
+  for (int i = 0; i < sizeof("jointSpace") - 1; i++)
   {
-    rt_task_wait_period(nullptr);  // wait for next cycle
-    if (break_flag) { break; }
-    //read data
-    for (int k = 0; k < ARM_DOF; k++) 
+      json_key += ws_msg->data.ptr[offset + 2 + i];
+  }
+  if (mg_ncasecmp(json_key.c_str(), "jointSpace", sizeof("jointSpace")) == 0)
+  {
+    // Create auto send info RT task
+    if (!AutoSendTask_)
     {
-      joint_data_array[k].position_value = (ecat_taike[k].actual_position_ / JOINTS_PULSE) * 100;
+      rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+      rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
+      AutoSendTask_ = true;
     }
 
-    JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
-                                joint_data_array[0].position_value,
-                                joint_data_array[1].position_value,
-                                joint_data_array[2].position_value,
-                                joint_data_array[3].position_value,
-                                joint_data_array[4].position_value,
-                                joint_data_array[5].position_value);
+    // receive joint space position and call planner.movej()
+    std::vector<double> joint_space_position_;
+    std::string tmp_str;
+    std::string tmp_position_str;
+    std::string string_msg = ws_msg->data.ptr;
+    for (int i = 0; i < 6; i++)
+    {
+      tmp_str = "$.jointSpace[";
+      tmp_str += std::to_string(i);
+      tmp_str += "]";
+      offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
+      tmp_position_str = ws_msg->data.ptr[offset];
+      joint_space_position_.push_back(std::atoi((string_msg.substr(offset, length)).c_str()));
+    }
 
-    mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
+    // offset = mg_json_get(ws_msg->data, "$.jointSpace", &length);
+    // for (int i = 0; i < length; i++)
+    // {
+    //   joint_space_position_.push_back(ws_msg->data.ptr[offset + i]);
+    // }
+
+    JointVector joint_point02(6);
+    joint_point02.data << joint_space_position_[0], joint_space_position_[1], joint_space_position_[2], joint_space_position_[3], joint_space_position_[4], joint_space_position_[5];
+    joint_point02.data << joint_point02.data / 180 * M_PI;
+
+    if (!planner.IsRunning() && !planner.getStopFlag())
+    {
+      planner.MoveJ(joint_point02, max_vel, max_acc, max_jerk);
+    }
+    
+    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Success to call movej");
+    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
   }
+
 }
 
 // // 关节位置， planning  都要加规划  长按 调用speed J，检测到
@@ -360,17 +425,24 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
   }
   else if (event == MG_EV_WS_OPEN)
   {
-    rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
-    rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
+    std::cout << "There is a event : MG_EV_WS_OPEN" << std::endl;
+    std::string flag_str = mg_mprintf("{%Q:%d}", "flag", 1);
+    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
+
+    // rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+    // rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
   }
   else if (event == MG_EV_CLOSE)
   {
-    rt_task_delete(&ws_auto_send_task);
+    if (AutoSendTask_)
+    {
+      rt_task_delete(&ws_auto_send_task);
+    }
   }
   else if (event == MG_EV_WS_MSG)
   {
     struct mg_ws_message *ws_msg = (struct mg_ws_message *) event_data;
-    WSMSGProcess(ws_msg);
+    WSMSGProcess(connect, ws_msg);
   }
   else
   {
@@ -443,7 +515,11 @@ int main(int argc, char* argv[])
   rt_task_delete(&driver_task);
   rt_task_delete(&control_task);
   rt_task_delete(&planning_task);
-  rt_task_delete(&ws_auto_send_task);
+
+  if (AutoSendTask_)
+  {
+    rt_task_delete(&ws_auto_send_task);
+  }
 
   printf("\n\n\t !! Controller Stopped!! \n");
   ecatmaster.deactivate();
