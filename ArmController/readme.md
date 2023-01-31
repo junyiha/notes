@@ -13,6 +13,20 @@
 + 查看状态
   + `ethercat slv`
 
+### 1.2 公式
+
++ 编码器增量 enc 转换 关节位置 rad （弧度）
+  + `rad = (double) (enc - offset) / (double) (gear_ratio * enc_size) * (2 * PI)`
+
++ 关节位置 rad （弧度） 转换 编码器增量 enc
+  + `enc = (int) (rad) / (2.0 * PI) * (gear_ratio * enc_size) + offset`
+
++ 弧度 rad 和 角度 deg 的变换
+  + `deg = rad * (180 / PI)`
+
++ 角度 deg 和 弧度 rad 的变换
+  + `rad = deg * (PI / 180)`
+
 ### 1.2 启动测试程序
 
 + 可运行程序
@@ -29,6 +43,9 @@
 + `Taike_POS: 5 , Taike_STATE: Fault` 输出代码位置：
   + `arwen/include/ecat/ecat_taike.h` 100行
 
++ `Command joint position lower overrun` 输出代码位置：
+  + `arwen/src/planning/security_module.cpp` 32行
+
 ---
 
 ## demo_webserver.cc 代码分析
@@ -36,6 +53,8 @@
 ### 读取从站信息
 
 + 每个从站，使用一个类`EcatTaike`的对象描述，六个从站放到一个存放数据类型为类`EcatTaike`类型的数组
+
++ planner 应该有获取机械臂当前状态信息的接口
 
 ### planner
 
