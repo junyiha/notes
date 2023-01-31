@@ -58,6 +58,20 @@
 
 ### planner
 
++ class Planning
++ 成员函数：
+  + `Init()`
+  + `ProcessFrame()`
+  + `IsRunning()`
+  + `MoveJ()`
+  + `MoveL()`
+  + `Stop()`
+  + `SpeedJ()`
+  + `SpeedL()`
+  + `StopRelease()`
+  + `getStopFlag()`
+  + `SetVirtualWall()`
+
 + `const bool planner.IsRunning()` ： 判断机械臂是否在运行，
   + 如果在运行，就返回 true，这个时候就不能执行其他指令；
   + 如果不在运行，就返回 false，这个时候才可以执行其他指令
