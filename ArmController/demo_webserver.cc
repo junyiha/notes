@@ -269,12 +269,9 @@ int GetResponseHeader(std::string &response_header)
 }
 
 // webserver auto send status info task
-void WSAutoSendThread(void* arg) {
-  RTIME now_ns;
-  uint64_t tid = 0;
+void WSAutoSendThread(void* arg) 
+{
   std::string JointInfo_str;
-  unsigned long long count = 0;
-  struct JointData_t joint_data_array[ARM_DOF];
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
   struct mg_connection *connect = (struct mg_connection *)arg;
 
@@ -284,28 +281,16 @@ void WSAutoSendThread(void* arg) {
   {
     rt_task_wait_period(nullptr);  // wait for next cycle
     if (break_flag) { break; }
+
     //read data
-    for (int k = 0; k < ARM_DOF; k++) 
-    {
-      joint_data_array[k].position_value = (ecat_taike[k].actual_position_ / JOINTS_PULSE) * 100;
-    }
-
     driver_status_buffer = driver_status_message->load();
-    // JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
-    //                             joint_data_array[0].position_value,
-    //                             joint_data_array[1].position_value,
-    //                             joint_data_array[2].position_value,
-    //                             joint_data_array[3].position_value,
-    //                             joint_data_array[4].position_value,
-    //                             joint_data_array[5].position_value);
-
     JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
-                                driver_status_buffer.data[0].joint_position * 100 / 2,
-                                driver_status_buffer.data[1].joint_position * 100 / 2,
-                                driver_status_buffer.data[2].joint_position * 100 / 2,
-                                driver_status_buffer.data[3].joint_position * 100 / 2,
-                                driver_status_buffer.data[4].joint_position * 100 / 2,
-                                driver_status_buffer.data[5].joint_position * 100 / 2);
+                                driver_status_buffer.data[0].joint_position * 180 / M_PI,
+                                driver_status_buffer.data[1].joint_position * 180 / M_PI,
+                                driver_status_buffer.data[2].joint_position * 180 / M_PI,
+                                driver_status_buffer.data[3].joint_position * 180 / M_PI,
+                                driver_status_buffer.data[4].joint_position * 180 / M_PI,
+                                driver_status_buffer.data[5].joint_position * 180 / M_PI);
 
     mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
   }
@@ -316,35 +301,80 @@ int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *conn
   std::string response_header;
   GetResponseHeader(response_header);
 
+  int offset, length;
   std::string tmp_str;
-  double jointPosition[6];
-  for (int i = 0; i < 6; i++)
+  std::string key_json_;
+  std::string string_http_msg_;
+  std::vector<double> joint_position_;
+
+  string_http_msg_ = http_msg->body.ptr;
+  offset = mg_json_get(http_msg->body, "$", &length);
+  key_json_ = string_http_msg_.substr(offset + 2, strlen("jointPosition"));
+  std::cout << key_json_ << '\n';
+  if (strncasecmp(key_json_.c_str(), "jointPosition", strlen("jointPosition")) == 0)
   {
-    tmp_str =  "$["+ std::to_string(i) +"]";
-    mg_json_get_num(http_msg->body, tmp_str.c_str(), &jointPosition[i]);
-    std::cout << "jointPositon[" << i << "] : " << jointPosition[i] << '\n';
+    for (int i = 0; i < 6; i++)
+    {
+      tmp_str =  "$.jointPosition[" + std::to_string(i) +"]";
+      offset = mg_json_get(http_msg->body, tmp_str.c_str(), &length);
+      joint_position_.push_back(std::atoi((string_http_msg_.substr(offset, length)).c_str()));
+      std::cout << "jointPositon[" << i << "] : " << joint_position_[i] << '\n';
+    }
+
+    JointVector joint_point01(6);
+    joint_point01.data << joint_position_[0], joint_position_[1], joint_position_[2], joint_position_[3], joint_position_[4], joint_position_[5];
+    joint_point01.data << joint_point01.data / 180 * M_PI;
+
+    if (!planner.IsRunning() && !planner.getStopFlag())
+    {
+      planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
+      mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "movJ", "success");
+    }
+    else
+    {
+      mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", "failed, not ready");
+    }
   }
 
-  JointVector joint_point01(6);
-  joint_point01.data << jointPosition[0], jointPosition[1], jointPosition[2], jointPosition[3], jointPosition[4], jointPosition[5];
-  joint_point01.data << joint_point01.data / 180 * M_PI;
+  return 0;
+}
+
+// 精确控制处理：接收目标点信息，调用movej
+int WSJointSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
+{
+  // Create auto send info RT task
+  if (!AutoSendTask_)
+  {
+    rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+    rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
+    AutoSendTask_ = true;
+  }
+
+  // receive joint space position and call planner.movej()
+  std::vector<double> joint_space_position_;
+  int offset, length;
+  std::string tmp_str;
+  std::string tmp_position_str;
+  std::string string_msg = ws_msg->data.ptr;
+  for (int i = 0; i < 6; i++)
+  {
+    tmp_str = "$.jointSpace[" + std::to_string(i) + "]";
+    offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
+    tmp_position_str = ws_msg->data.ptr[offset];
+    joint_space_position_.push_back(std::atoi((string_msg.substr(offset, length)).c_str()));
+  }
+
+  JointVector joint_point02(6);
+  joint_point02.data << joint_space_position_[0], joint_space_position_[1], joint_space_position_[2], joint_space_position_[3], joint_space_position_[4], joint_space_position_[5];
+  joint_point02.data << joint_point02.data / 180 * M_PI;
 
   if (!planner.IsRunning() && !planner.getStopFlag())
   {
-    planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
-    mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "movJ", "success");
+    planner.MoveJ(joint_point02, max_vel, max_acc, max_jerk);
   }
-  else
-  {
-    std::string tmp_reply = "failed, the data :";
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_reply += std::to_string(jointPosition[i]);
-      tmp_reply += ", ";
-    }
-    mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", "failed, not ready");
-    // mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", tmp_reply.c_str());
-  }
+  
+  std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Success to call movej");
+  mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
 
   return 0;
 }
@@ -355,55 +385,23 @@ void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 
   std::string json_key;
   int offset, length;
+  std::string tmp_str_msg;
+  tmp_str_msg = ws_msg->data.ptr;
+
   offset = mg_json_get(ws_msg->data, "$", &length);
-  for (int i = 0; i < sizeof("jointSpace") - 1; i++)
-  {
-      json_key += ws_msg->data.ptr[offset + 2 + i];
-  }
+  json_key = tmp_str_msg.substr(offset + 2, strlen("jointSpace"));
+  
   if (mg_ncasecmp(json_key.c_str(), "jointSpace", sizeof("jointSpace")) == 0)
   {
-    // Create auto send info RT task
-    if (!AutoSendTask_)
-    {
-      rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
-      rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
-      AutoSendTask_ = true;
-    }
-
-    // receive joint space position and call planner.movej()
-    std::vector<double> joint_space_position_;
-    std::string tmp_str;
-    std::string tmp_position_str;
-    std::string string_msg = ws_msg->data.ptr;
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_str = "$.jointSpace[";
-      tmp_str += std::to_string(i);
-      tmp_str += "]";
-      offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
-      tmp_position_str = ws_msg->data.ptr[offset];
-      joint_space_position_.push_back(std::atoi((string_msg.substr(offset, length)).c_str()));
-    }
-
-    // offset = mg_json_get(ws_msg->data, "$.jointSpace", &length);
-    // for (int i = 0; i < length; i++)
-    // {
-    //   joint_space_position_.push_back(ws_msg->data.ptr[offset + i]);
-    // }
-
-    JointVector joint_point02(6);
-    joint_point02.data << joint_space_position_[0], joint_space_position_[1], joint_space_position_[2], joint_space_position_[3], joint_space_position_[4], joint_space_position_[5];
-    joint_point02.data << joint_point02.data / 180 * M_PI;
-
-    if (!planner.IsRunning() && !planner.getStopFlag())
-    {
-      planner.MoveJ(joint_point02, max_vel, max_acc, max_jerk);
-    }
-    
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Success to call movej");
+    WSJointSpace(connect, ws_msg);
+  }
+  else
+  {
+    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Failed to call movej");
     mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
   }
 
+  return;
 }
 
 // // 关节位置， planning  都要加规划  长按 调用speed J，检测到
