@@ -34,17 +34,44 @@
 
 ### 1.2 
 
-+ `----status_word_:0x0,control_word:0x0---`输出的代码位置：
-  + `arwen/include/ecat/ecat_taike.h` 39行
++ `----status_word_:0x0,control_word:0x0---`
+  + 输出的代码位置：
+    + `arwen/include/ecat/ecat_taike.h` 39行
 
-+ `I20230130 11:40:28.236125  5564 planning.cpp:504] No new point in buffer!` 输出代码位置：
-  + `arwen/src/planning/planning.cpp` 504行
++ `I20230130 11:40:28.236125  5564 planning.cpp:504] No new point in buffer!` 
+  + 输出代码位置：
+    + `arwen/src/planning/planning.cpp` 504行
 
-+ `Taike_POS: 5 , Taike_STATE: Fault` 输出代码位置：
-  + `arwen/include/ecat/ecat_taike.h` 100行
++ `Taike_POS: 5 , Taike_STATE: Fault` 
+  + 输出代码位置：
+    + `arwen/include/ecat/ecat_taike.h` 100行
 
-+ `Command joint position lower overrun` 输出代码位置：
-  + `arwen/src/planning/security_module.cpp` 32行
++ `Command joint position lower overrun` 
+  + 输出代码位置：
+    + `arwen/src/planning/security_module.cpp` 32行
+
++ `Joint num : 3 Command joint position upper overrun!` 
+  + 输出代码位置
+    + `arwen/src/planning/security_module.cpp` 26行
+  + 原因：安全模块检测到了下发的指令超出了约束
+  + 解决办法：
+    + 在文件：`arwen/src/protocol/configuration/manipulator.cpp` 中，把除以2的去掉就是关键可以转动正负180度
+
++ `The velocity is a negtive value:0` 
+  + 输出代码位置：
+    + `arwen/src/planning/curves/double_s_stop.cpp` 76行
+
++ `delta_pos.norm : 0.194793` 
+  + 输出代码位置：
+    + `arwen/src/planning/planner/move_line.cpp` 74行
+
++ `KDL error: The joint position increments are to small` 
+  + 输出代码位置：
+    + `arwen/src/dynamics/solver/ik_solver_pos_lma.cpp` 55行
+
++ `singular point! please choose another point!` 
+  + 输出代码位置：
+    + `arwen/src/planning/planning.cpp`  682行
 
 ---
 
@@ -56,7 +83,7 @@
 
 + planner 应该有获取机械臂当前状态信息的接口
 
-### planner
+### Planning
 
 + class Planning
 + 成员函数：
@@ -85,6 +112,27 @@
   + 如果传入的flag为false，表示没有
 
 ---
+
+### FkSolverPosKdl
+
++ `class arwen::dynamics::solver::FkSolverPosKdl`
++ 成员函数：
+  + `Init()`
+  + `JntToCart()`
+    + 计算 机械臂从关节空间坐标到笛卡尔空间坐标的正运动学
+
+### Frame
+
++ `class arwen::dynamics::common::Frame`
++ 该类表示相对于 {Ref} 的笛卡尔坐标 {Obj}。
++ 换句话说，它表示从 {Ref} 到 {Obj} 的齐次转换。齐次矩阵形式的帧为 frame {Ref} {Obj} = [旋转 {Ref} {Obj}， p{Ref} {Obj};0, 1]
+
+### Rotation
+
++ `class arwen::dynamics::common::Rotation`
++ 该类表示笛卡尔空间中的旋转。
++ 旋转矩阵 rotate {Rel} {Obj} (我们称之为从 {Ref} 到 {Obj} 的旋转)表示 {Obj} 相对于 {Rel} 的方向。
++ 换句话说，它表示从 {Obj} 到 {Ref} 的旋转。具有以下属性:`旋转{A}{B} =旋转逆{B}{A} =旋转转置{B}{A}旋转{A}{C} =旋转{A}{B}*旋转{B}{C} p{A} = 旋转{A}{B}*p{B}`
 
 ## WebServer
 
