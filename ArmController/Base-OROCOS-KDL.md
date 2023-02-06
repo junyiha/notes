@@ -1,0 +1,44 @@
+## OROCOS
+
+### 1.1 简介
+
++ `Orocos`， 代表`Open Robot Control Software`，即开源机器人控制软件。
++ Orocos 为软件开发人员提供了开源的机器人软件框架，提供了很多功能，方 便开发人员快速的开发机器人软件模块。
++ Orocos 由 Kinematics Dynamics Library，Bayesian Filtering Library 及 Orocos Toolchain 组成。 官方网站：`orocos.org`
+
+## KDL
+
+### 1.1 简介
+
++ KDL（Kinematics and Dynamics）：机器人运动学与动力学组件，为运动学提供了实时的动力学约束计算，这个组件非常有用，有了这个组件，很多机器人开发者可以快速地开发机器人算法。
++ 对于机器人学领域的同学们，如果想要学习机器人路径规划、轨迹规划、逆解算法，甚至编程的话，这是一个很好的学习素材
+
++ 机器人学中表示机器人姿态有多种方法，orocos中定义的方法有RPY方法，角-轴，欧拉角方法，四元数方法。  
+
+### 1.2 安装使用
+
++ KDL库的底层计算用到Eigen库，因此KDL编译时要加入Eigen的路径
+
+### 1.3 类Vector
+
++ 类Vector， 包含向量的多种运算
+
+### 1.4 类Rotation
+
++ 类Rotation表示机器人的旋转矩阵（姿态）
+
+## Eigen3
+
+### 1.1 简介
+
++ Eigen3是一个C++的线性代数模板库，包括矩阵、向量及相关算法
+
+## BFL
+
+### 1.1 简介
+
++ BFL（Bayesian Filtering Library）：贝叶斯过滤库提供了一个独立于应用程序的动态贝叶斯网络推导框架，即基于贝叶斯规则的递归信息处理和估计算法，如卡尔曼滤波器，粒子滤波器法等。
+
+## Toolchain
+
++ Toolchain：Orocos工具链是使用模块化运行时可配置软件组件创建实时机器人应用程序的主要工具。工具链包含了实时工具集（Real-Time Toolkit）、Orocos组件库（Orocos Component Library）等

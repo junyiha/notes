@@ -121,6 +121,38 @@
   + `JntToCart()`
     + 计算 机械臂从关节空间坐标到笛卡尔空间坐标的正运动学
 
+### FkSolverPosRecursive
+
++ `class arwen::dynamices::solver::FkSolverPosRecursive`
++ 简介：计算一般运动链(arwen::dynamics::chain:: chain)从关节空间到笛卡尔空间位置变换的递归正向位置运动学算法。
+
++ 初始化solvers，示例：
+  ```
+    std::shared_ptr<arwen::dynamics::chain::Chain> chain = 
+         std::make_shared<arwen::dynamics::chain::Chain>(Manipulator());
+    FkSolverPosRecursive fk_solver_pos;
+    fk_solver_pos.Init(chain);
+    IkSolverPosLma ik_solver_pos_lma;
+    ik_solver_pos_lma.Init(chain);
+  ``` 
+
+### Pose
+
++ `class arwen::dynamics::common::Pose`
++ 简介：姿态是框架的另一种表达方式。旋转部分表示为矢量，方向与旋转轴对齐，范数为旋转角度。
+
++ Pose， 里面有 p 和 rot， 分别对应位置和姿态
+
++ 示例代码：
+  ```
+    Frame frame_init;
+    Pose pose_init;
+    fk_solver_pos.JntToCart(q_init, frmae_init);
+    pose_init = frame_init.ToPose();
+    std::cout << "q: " << q_init.data.transpose() << std::endl;
+    std::cout << "pose: " << Pose2Vec(pose_init).transpose() << std::endl;
+  ``` 
+
 ### Frame
 
 + `class arwen::dynamics::common::Frame`
@@ -133,6 +165,12 @@
 + 该类表示笛卡尔空间中的旋转。
 + 旋转矩阵 rotate {Rel} {Obj} (我们称之为从 {Ref} 到 {Obj} 的旋转)表示 {Obj} 相对于 {Rel} 的方向。
 + 换句话说，它表示从 {Obj} 到 {Ref} 的旋转。具有以下属性:`旋转{A}{B} =旋转逆{B}{A} =旋转转置{B}{A}旋转{A}{C} =旋转{A}{B}*旋转{B}{C} p{A} = 旋转{A}{B}*p{B}`
+
+### Vector
+
++ `class arwen::dynamics::common::Vector`
++ 简介：笛卡尔空间中常见的三维向量。
++ 向量 p{Ref}{Obj} 表示指向 {Ref} 中 {Obj} 原点的向量。两个向量的叉乘可以表示为第一个向量和第二个向量的斜对称矩阵的点积。
 
 ## WebServer
 
