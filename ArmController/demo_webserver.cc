@@ -558,43 +558,29 @@ int WSMoveL(struct mg_connection *connect, struct mg_ws_message *ws_msg)
   cart_point02 = cart_point01;
   Pose pose_cur = cart_point01.ToPose();
   PrintPoseInfo(pose_cur);
-  // cart_point02.p(0) = cart_point02.p(0) + moveL_point_[0];  // set x
-  // cart_point02.p(1) = cart_point02.p(1) + moveL_point_[1];  // set y
-  // cart_point02.p(2) = cart_point02.p(2) + moveL_point_[2];  // set z
-  // Rotation rot_x = Rotation::RotX(moveL_point_[3] * M_PI / 180);
-  // cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
-
-  // Rotation rot_y = Rotation::RotX(moveL_point_[4] * M_PI / 180);
-  // cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
   
-  // Rotation rot_z = Rotation::RotX(moveL_point_[5] * M_PI / 180);
-  // cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
+  cart_point02.p(0) = cart_point02.p(0) + moveL_point_[0];  // set x
+  cart_point02.p(1) = cart_point02.p(1) + moveL_point_[1];  // set y
+  cart_point02.p(2) = cart_point02.p(2) + moveL_point_[2];  // set z
+  Rotation rot_x = Rotation::RotX(moveL_point_[3] * M_PI / 180);
+  cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
+
+  Rotation rot_y = Rotation::RotX(moveL_point_[4] * M_PI / 180);
+  cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
+  
+  Rotation rot_z = Rotation::RotX(moveL_point_[5] * M_PI / 180);
+  cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
 
   // input_joint_point02.data << moveL_point_[0], moveL_point_[1], moveL_point_[2], moveL_point_[3], moveL_point_[4], moveL_point_[5];
   // input_joint_point02.data = input_joint_point02.data / 180 * M_PI;
   // fk_solver_kdl.JntToCart(input_joint_point02, cart_point01);
   // cart_point02 = cart_point01;
 
-  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart xyz info : "<< '\n';
-  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(2) : " << cart_point02.p(2) << '\n';
-  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(1) : " << cart_point02.p(1) << '\n';
-  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(0) : " << cart_point02.p(0) << '\n';
-
-
-  cart_point02.p(2) = cart_point02.p(2) + 0.50;  //  move 5cm in -z
-  cart_point02.p(1) = cart_point02.p(1) + 0.50;  //  move 5cm in -y
-  cart_point02.p(0) = cart_point02.p(0) + 0.50;  //  move 5cm in -x
+  // cart_point02.p(2) = cart_point02.p(2) + 0.10;  //  move 5cm in -z
+  // cart_point02.p(1) = cart_point02.p(1) + 0.10;  //  move 5cm in -y
+  // cart_point02.p(0) = cart_point02.p(0) + 0.10;  //  move 5cm in -x
   Pose pose_init = cart_point02.ToPose();
   PrintPoseInfo(pose_init);
-
-  // Rotation rot_x = Rotation::RotX(0.2);  // rotate 0.2 rad around x axis
-  // cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
-
-  // Rotation rot_y = Rotation::RotY(0.2);  // rotate 0.2 rad around y axis
-  // cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
-
-  // Rotation rot_z = Rotation::RotZ(0.2);  // rotate 0.2 rad around y axis
-  // cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
 
   if (!planner.IsRunning() && !planner.getStopFlag())
   {
