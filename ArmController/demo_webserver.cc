@@ -64,13 +64,22 @@ RT_TASK driver_task;
 RT_TASK control_task;
 RT_TASK planning_task;
 RT_TASK ws_auto_send_task;
-bool AutoSendTask_ = false;  //  标志定时发送信息的线程是否创建： true, 已创建； false， 未创建
+std::atomic_bool AutoSendTask_ = false;  //  标志定时发送信息的线程是否创建： true, 已创建； false， 未创建
 
 Planning planner;
+FkSolverPosKdl fk_solver_kdl;
+FkSolverPosRecursive fk_solver_pos;
 bool running = false;
 bool flag_movel = false;
 bool flag_speedj = false;
 bool flag_speedl = false;
+// parameters of joint space and cartesian space:
+double cart_max_vel = 0.01;
+double cart_max_acc = 0.01;
+double cart_max_jerk = 0.01;
+double rot_max_vel = 0.01;
+double rot_max_acc = 0.01;
+double rot_max_jerk = 0.01;
 JointVector max_vel(6);
 JointVector max_acc(6);
 JointVector max_jerk(6);
@@ -221,11 +230,13 @@ void PlanningThread(void* arg)
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS);
   protocol::message::JointStatusMessage joint_status_buffer;
 
+  planner.Init(0.001, chain, timestamp, joint_command_message, joint_status_message);
+
   max_vel.data  << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
   max_acc.data  << 2.0, 2.0, 2.0, 3.0, 3.0, 3.0;
   max_jerk.data << 2.0, 2.0, 2.0, 2.0, 2.0, 2.0;
-  max_vel.data  = max_vel.data / 180 * M_PI;
-  max_acc.data  = max_acc.data / 180 * M_PI;
+  max_vel.data  = max_vel.data  / 180 * M_PI;
+  max_acc.data  = max_acc.data  / 180 * M_PI;
   max_jerk.data = max_jerk.data / 180 * M_PI;
 
   /*********************MOVEJ joint points*********************/ 
@@ -236,8 +247,33 @@ void PlanningThread(void* arg)
   joint_init.data   = joint_init.data / 180 * M_PI;
   joint_point1.data = joint_point1.data / 180 * M_PI;
   /***********************************************************/ 
+  /*********************MOVEL cart points*********************/ 
+  Frame cart_point01;
+  Frame cart_point02;
+  // FkSolverPosKdl fk_solver_kdl;
+  fk_solver_kdl.Init(chain);
+  fk_solver_pos.Init(chain);
+
+  JointVector input_joint_point02(6);
+  input_joint_point02.data << -40.0, 10.0, -40.0, 40.0, -70.0, -40.0;
+  input_joint_point02.data = input_joint_point02.data / 180 * M_PI;
+  fk_solver_kdl.JntToCart(input_joint_point02, cart_point01);
+  cart_point02 = cart_point01;
+
+  cart_point02.p(2) = cart_point02.p(2) - 0.05;  //  move 5cm in -z
+  cart_point02.p(1) = cart_point02.p(1) - 0.05;  //  move 5cm in -y
+  cart_point02.p(0) = cart_point02.p(0) - 0.05;  //  move 5cm in -x
+
+  Rotation rot_x = Rotation::RotX(0.2);  // rotate 0.2 rad around x axis
+  cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
+
+  Rotation rot_y = Rotation::RotY(0.2);  // rotate 0.2 rad around y axis
+  cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
+
+  Rotation rot_z = Rotation::RotZ(0.2);  // rotate 0.2 rad around y axis
+  cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
+  /***********************************************************/ 
   // planning Init
-  planner.Init(0.001, chain, timestamp, joint_command_message, joint_status_message);
   while (true) 
   {
     rt_task_wait_period(nullptr);  // wait for next cycle
@@ -268,10 +304,48 @@ int GetResponseHeader(std::string &response_header)
   return 0;
 }
 
+Eigen::Matrix<double, 6, 1> Pose2Vec(
+    const arwen::dynamics::common::Pose& pose) {
+  Eigen::Matrix<double, 6, 1> vec;
+  vec.segment(0, 3) = pose.p.data;
+  vec.segment(3, 3) = pose.rot.data;
+  return vec;
+};
+
+void PrintPoseInfo(arwen::dynamics::common::Pose &pose_init)
+{
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.p.data.x: " << pose_init.p.X() << std::endl;
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.p.data.y: " << pose_init.p.Y() << std::endl;
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.p.data.z: " << pose_init.p.Z() << std::endl;
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.rot.data.x: " << pose_init.rot.X() * 180 / M_PI << std::endl;
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.rot.data.y: " << pose_init.rot.Y() * 180 / M_PI<< std::endl;
+  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_init.rot.data.z: " << pose_init.rot.Z() * 180 / M_PI<< std::endl;
+
+  return;
+}
+
+void PrintCartInfo(arwen::dynamics::common::JointVector &q_in)
+{
+  Frame frame_init;
+  Pose pose_init;
+  fk_solver_pos.JntToCart(q_in, frame_init);
+  pose_init = frame_init.ToPose();
+  std::cout <<  __FILE__ << __LINE__ << " : " << "q: " << q_in.data.transpose() << std::endl;
+  PrintPoseInfo(pose_init);
+
+  return ;
+}
+
 // webserver auto send status info task
 void WSAutoSendThread(void* arg) 
 {
+  std::string RunningFlag;
+  std::string CartInfo_str;
   std::string JointInfo_str;
+  std::string Info_str;
+  JointVector joint_vector(6);
+  Frame frame_init;
+  Pose pose_init;
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
   struct mg_connection *connect = (struct mg_connection *)arg;
 
@@ -284,7 +358,21 @@ void WSAutoSendThread(void* arg)
 
     //read data
     driver_status_buffer = driver_status_message->load();
-    JointInfo_str = mg_mprintf("{%Q:[%f,%f,%f,%f,%f,%f]}", "JointInfo",
+
+    joint_vector.data << std::round(driver_status_buffer.data[0].joint_position), 
+                         std::round(driver_status_buffer.data[1].joint_position), 
+                         std::round(driver_status_buffer.data[2].joint_position), 
+                         std::round(driver_status_buffer.data[3].joint_position), 
+                         std::round(driver_status_buffer.data[4].joint_position), 
+                         std::round(driver_status_buffer.data[5].joint_position);
+
+    fk_solver_pos.JntToCart(joint_vector, frame_init);
+    pose_init = frame_init.ToPose();
+
+    // std::cout << "Starting to print CartInfo" << '\n';
+    // PrintCartInfo(joint_vector);
+
+    JointInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "JointInfo",
                                 driver_status_buffer.data[0].joint_position * 180 / M_PI,
                                 driver_status_buffer.data[1].joint_position * 180 / M_PI,
                                 driver_status_buffer.data[2].joint_position * 180 / M_PI,
@@ -292,8 +380,50 @@ void WSAutoSendThread(void* arg)
                                 driver_status_buffer.data[4].joint_position * 180 / M_PI,
                                 driver_status_buffer.data[5].joint_position * 180 / M_PI);
 
-    mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
+    CartInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "CartInfo",
+                               pose_init.p.X(),
+                               pose_init.p.Y(),
+                               pose_init.p.Z(),
+                               pose_init.rot.X() * 180 / M_PI,
+                               pose_init.rot.Y() * 180 / M_PI,
+                               pose_init.rot.Z() * 180 / M_PI);
+    
+    if (planner.IsRunning())
+      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "True");
+    else
+      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "False");
+
+    Info_str = mg_mprintf("{%Q:{%s, %s, %s}}", "Info", RunningFlag.c_str(), JointInfo_str.c_str(), CartInfo_str.c_str());
+
+    mg_ws_send(connect, Info_str.c_str(), Info_str.size(), WEBSOCKET_OP_TEXT);
+    // mg_ws_send(connect, JointInfo_str.c_str(), JointInfo_str.size(), WEBSOCKET_OP_TEXT);
   }
+}
+
+int api_login(struct mg_http_message *http_msg, struct mg_connection *connect)
+{
+    std::string response_header;
+    GetResponseHeader(response_header);
+
+    double passwd = 0.0;
+    if (mg_json_get_num(http_msg->body, "$.passwd", &passwd))
+    {
+        std::cout << __FILE__ << __LINE__ << " : " <<  passwd << std::endl;
+        if (passwd == 123456)
+        {
+            mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "login", "success");
+        }
+        else
+        {
+            mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "login", "failed");
+        }
+    }
+    else
+    {
+        mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "login", "failed");
+    }
+
+    return 0;
 }
 
 int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *connect)
@@ -309,16 +439,16 @@ int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *conn
 
   string_http_msg_ = http_msg->body.ptr;
   offset = mg_json_get(http_msg->body, "$", &length);
-  key_json_ = string_http_msg_.substr(offset + 2, strlen("jointPosition"));
-  std::cout << key_json_ << '\n';
-  if (strncasecmp(key_json_.c_str(), "jointPosition", strlen("jointPosition")) == 0)
+  key_json_ = string_http_msg_.substr(offset + 2, strlen("movj"));
+  std::cout << __FILE__ << __LINE__ << " : " <<  "the key value of api_manual_movJ is : " << key_json_ << '\n';
+  if (strncasecmp(key_json_.c_str(), "movj", strlen("movj")) == 0)
   {
     for (int i = 0; i < 6; i++)
     {
-      tmp_str =  "$.jointPosition[" + std::to_string(i) +"]";
+      tmp_str =  "$.movj[" + std::to_string(i) +"]";
       offset = mg_json_get(http_msg->body, tmp_str.c_str(), &length);
       joint_position_.push_back(std::atoi((string_http_msg_.substr(offset, length)).c_str()));
-      std::cout << "jointPositon[" << i << "] : " << joint_position_[i] << '\n';
+      std::cout << __FILE__ << __LINE__ << " : " << "jointPositon[" << i << "] : " << joint_position_[i] << '\n';
     }
 
     JointVector joint_point01(6);
@@ -328,13 +458,30 @@ int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *conn
     if (!planner.IsRunning() && !planner.getStopFlag())
     {
       planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
-      mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "movJ", "success");
     }
     else
     {
       mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "movJ", "failed, not ready");
     }
+    while(true)
+    {
+      if (!planner.IsRunning() && !planner.getStopFlag())
+      {
+        mg_http_reply(connect, 200, response_header.c_str(), "{%Q:%Q}\n", "movJ", "success");
+        break;
+      }
+    }
   }
+
+  return 0;
+}
+
+int api_error(struct mg_http_message *http_msg, struct mg_connection *connect)
+{
+  std::string response_header;
+  GetResponseHeader(response_header);
+
+  mg_http_reply(connect, 404, response_header.c_str(), "{%Q:%Q}\n", "status","Error Command");
 
   return 0;
 }
@@ -342,13 +489,13 @@ int api_manual_movJ(struct mg_http_message *http_msg, struct mg_connection *conn
 // 精确控制处理：接收目标点信息，调用movej
 int WSJointSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
-  // Create auto send info RT task
-  if (!AutoSendTask_)
-  {
-    rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
-    rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
-    AutoSendTask_ = true;
-  }
+  // // Create auto send info RT task
+  // if (!AutoSendTask_)
+  // {
+  //   rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+  //   rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
+  //   AutoSendTask_ = true;
+  // }
 
   // receive joint space position and call planner.movej()
   std::vector<double> joint_space_position_;
@@ -379,9 +526,103 @@ int WSJointSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
   return 0;
 }
 
+int WSMoveL(struct mg_connection *connect, struct mg_ws_message *ws_msg)
+{
+  int offset, length;
+  std::vector<double> moveL_point_;
+  std::string tmp_str;
+  std::string tmp_point_str;
+  std::string string_msg = ws_msg->data.ptr;
+  for (int i = 0; i < 6; i++)
+  {
+    tmp_str = "$.moveL[" + std::to_string(i) + "]";
+    offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
+    tmp_point_str = ws_msg->data.ptr[offset];
+    moveL_point_.push_back(std::atof((string_msg.substr(offset, length)).c_str()));
+  }
+
+  Frame cart_point01;
+  Frame cart_point02;
+  JointVector joint_vector_cur(6);
+  JointVector input_joint_point02(6);
+  protocol::message::DriverStatusMessage driver_status_buffer;
+
+  driver_status_buffer = driver_status_message->load();
+  joint_vector_cur.data << std::round(driver_status_buffer.data[0].joint_position), 
+                           std::round(driver_status_buffer.data[1].joint_position), 
+                           std::round(driver_status_buffer.data[2].joint_position), 
+                           std::round(driver_status_buffer.data[3].joint_position), 
+                           std::round(driver_status_buffer.data[4].joint_position), 
+                           std::round(driver_status_buffer.data[5].joint_position);
+  fk_solver_kdl.JntToCart(joint_vector_cur, cart_point01);
+  cart_point02 = cart_point01;
+  Pose pose_cur = cart_point01.ToPose();
+  PrintPoseInfo(pose_cur);
+  // cart_point02.p(0) = cart_point02.p(0) + moveL_point_[0];  // set x
+  // cart_point02.p(1) = cart_point02.p(1) + moveL_point_[1];  // set y
+  // cart_point02.p(2) = cart_point02.p(2) + moveL_point_[2];  // set z
+  // Rotation rot_x = Rotation::RotX(moveL_point_[3] * M_PI / 180);
+  // cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
+
+  // Rotation rot_y = Rotation::RotX(moveL_point_[4] * M_PI / 180);
+  // cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
+  
+  // Rotation rot_z = Rotation::RotX(moveL_point_[5] * M_PI / 180);
+  // cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
+
+  // input_joint_point02.data << moveL_point_[0], moveL_point_[1], moveL_point_[2], moveL_point_[3], moveL_point_[4], moveL_point_[5];
+  // input_joint_point02.data = input_joint_point02.data / 180 * M_PI;
+  // fk_solver_kdl.JntToCart(input_joint_point02, cart_point01);
+  // cart_point02 = cart_point01;
+
+  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart xyz info : "<< '\n';
+  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(2) : " << cart_point02.p(2) << '\n';
+  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(1) : " << cart_point02.p(1) << '\n';
+  // std::cout << __DATE__ << __TIME__ << __FILE__ << ":" << __LINE__ << "] " << "cart_point02.p(0) : " << cart_point02.p(0) << '\n';
+
+
+  cart_point02.p(2) = cart_point02.p(2) + 0.50;  //  move 5cm in -z
+  cart_point02.p(1) = cart_point02.p(1) + 0.50;  //  move 5cm in -y
+  cart_point02.p(0) = cart_point02.p(0) + 0.50;  //  move 5cm in -x
+  Pose pose_init = cart_point02.ToPose();
+  PrintPoseInfo(pose_init);
+
+  // Rotation rot_x = Rotation::RotX(0.2);  // rotate 0.2 rad around x axis
+  // cart_point02.rot.data = rot_x.data * cart_point02.rot.data;
+
+  // Rotation rot_y = Rotation::RotY(0.2);  // rotate 0.2 rad around y axis
+  // cart_point02.rot.data = rot_y.data * cart_point02.rot.data;
+
+  // Rotation rot_z = Rotation::RotZ(0.2);  // rotate 0.2 rad around y axis
+  // cart_point02.rot.data = rot_z.data * cart_point02.rot.data;
+
+  if (!planner.IsRunning() && !planner.getStopFlag())
+  {
+    /*********************MOVEL cart points*********************/ 
+    std::cout <<  __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "Execute planner.MoveJ()" << std::endl;
+    // planner.MoveJ(input_joint_point02, max_vel, max_acc, max_jerk);
+    planner.MoveJ(joint_vector_cur, max_vel, max_acc, max_jerk);
+
+    std::cout <<  __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "Execute planner.MoveL()" << std::endl;
+    bool result = planner.MoveL(cart_point02, cart_max_acc, cart_max_acc, cart_max_jerk, rot_max_vel, rot_max_acc, rot_max_jerk);
+    if (result)
+    {
+      std::string reply_str = mg_mprintf("{%Q:%Q}", "movel", "Success");
+      mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);
+    }
+    else
+    {
+      std::string reply_str = mg_mprintf("{%Q:%Q}", "movel", "Failed");
+      mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);
+    }
+    /***********************************************************/ 
+  }
+  return 0;
+}
+
 void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
-  std::cout << "websocket message is :[" << ws_msg->data.ptr << "]" << std::endl;
+  std::cout <<  __FILE__ << __LINE__ << " : " << "websocket message is :[" << ws_msg->data.ptr << "]" << std::endl;
 
   std::string json_key;
   int offset, length;
@@ -389,9 +630,16 @@ void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
   tmp_str_msg = ws_msg->data.ptr;
 
   offset = mg_json_get(ws_msg->data, "$", &length);
+  json_key = tmp_str_msg.substr(offset + 2, strlen("moveL"));
+  if (mg_ncasecmp(json_key.c_str(), "moveL", strlen("moveL")) == 0)
+  {
+    WSMoveL(connect, ws_msg);
+    return;
+  }
+
   json_key = tmp_str_msg.substr(offset + 2, strlen("jointSpace"));
   
-  if (mg_ncasecmp(json_key.c_str(), "jointSpace", sizeof("jointSpace")) == 0)
+  if (mg_ncasecmp(json_key.c_str(), "jointSpace", strlen("jointSpace")) == 0)
   {
     WSJointSpace(connect, ws_msg);
   }
@@ -420,10 +668,26 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
     {
       api_manual_movJ(http_msg, connect);
     }
+    else if (mg_vcmp(&(http_msg->uri), "/api/login") == 0)
+    {
+      api_login(http_msg, connect);
+    }
+    else
+    {
+      api_error(http_msg, connect);
+    }
   }
   else if (event == MG_EV_WS_OPEN)
   {
-    std::cout << "There is a event : MG_EV_WS_OPEN" << std::endl;
+    std::cout << __FILE__ << " " << __LINE__ <<" There is a event : MG_EV_WS_OPEN" << std::endl;
+    // Create auto send info RT task
+    if (!AutoSendTask_)
+    {
+      std::cout << __FILE__ << " " << __LINE__ << " Create Real Time Task" << '\n';
+      rt_task_create(&ws_auto_send_task, "ws_auto_send_task", 1024 * 1024 * 4, 50, 0);
+      rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
+      AutoSendTask_ = true;
+    }
     std::string flag_str = mg_mprintf("{%Q:%d}", "flag", 1);
     mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
 
@@ -432,9 +696,12 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
   }
   else if (event == MG_EV_CLOSE)
   {
+    std::cout << __FILE__ << " " << __LINE__ << " There is a event : MG_EV_CLOSE" << '\n';
     if (AutoSendTask_)
     {
+      std::cout << __FILE__ << " " <<  __LINE__ << " Delete Real Time Task" << '\n';
       rt_task_delete(&ws_auto_send_task);
+      AutoSendTask_ = false;
     }
   }
   else if (event == MG_EV_WS_MSG)
