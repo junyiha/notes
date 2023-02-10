@@ -10,6 +10,17 @@
 
 + 这就是国内的镜像
 
+## 使用root用户打开vscode
+
++ 背景：
+  + 在远程调试机械臂的时候，需要使用到root权限来运行程序，所以在调试的时候需要使用到root权限
+
++ 方法：
+  + 在`.bashrc`中加入一行代码：
+    + `alias code='/usr/share/code/code . --no-sandbox --unity-lanuch'`
+  + 然后，直接在终端使用vscode命令打开vscode : `code`
+
+
 # VSCode C++ 配置
 
 ## 三个文件:`task.json` `launch.json` `c_cpp_properties.json`
@@ -59,7 +70,6 @@
 + 仅当执行到达与内联断点关联的列时，才会命中内联断点。
 + 这在调试一行中包含多个语句的缩小代码时特别有用。比如for循环，短路运算符等一行代码包含多个表达式时
 + 在指定位置按`shift + F9`
-
 
 ## 快捷键
 
