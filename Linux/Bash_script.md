@@ -14,6 +14,15 @@
   - 发送钉钉通知
   - 清理保持备份个数
 
+## bash shell脚本中使用换行符
+
++ 单独输出一个空行：`$ echo -e`
+
++ 双引号中的字符串：`$ echo -e "This is First Line \nThis is Second Line"`
++ 单引号中的字符串：`$ echo -e 'This is First Line \nThis is Second Line'`
++ 带$前缀的字符串：$ echo $'This is First Line\nThis is Second Line'
++ 使用printf命令：`$ printf "This is First Line \nThis is Second Line"`
+
 ## `#!` : 
 
 + 它是一个约定的标记,告诉系统这个脚本需要什么解释器来执行,即使用哪一种`shell`

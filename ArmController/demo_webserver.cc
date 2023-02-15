@@ -24,11 +24,10 @@
 #include "control/control.h"
 #include "driver/driver.h"
 /************* webserver *************/
-// #include "webserver/server.h"
-#include "getopt.h"
-#include <syslog.h>
-#include "webserver/webserver.h"
-
+#include "webserver/getopt.hpp"
+#include "webserver/mongoose.h"
+#include "webserver/webserver_api.h"
+#include "webserver/webserver_base.h"
 /************************************/
 
 #include "dynamics/solver/fk_solver_pos_kdl.h"
@@ -85,6 +84,10 @@ double rot_max_jerk = 0.01;
 JointVector max_vel(6);
 JointVector max_acc(6);
 JointVector max_jerk(6);
+
+/***********************/
+
+std::string abs_webroot_str;
 
 /***********************/
 std::shared_ptr<arwen::dynamics::chain::Chain> chain = std::make_shared<arwen::dynamics::chain::Chain>(Manipulator());
@@ -291,15 +294,7 @@ void PlanningThread(void* arg)
   }
 }
 
-void GetResponseHeader(std::string &response_header)
-{
-  response_header =  "Content-Type: application/json\r\n";
-  response_header += "Connection: keep-alive\r\n";
-  response_header += "Server: armcontrol\r\n";
-  response_header += "Cache-control: no-cache, max-age=0, must-revalidate\r\n";
-  response_header += "Access-Control-Allow-Origin: *\r\n";
-  response_header += "Access-Control-Allow-Methods: *\r\n";
-}
+/**********************--WebServer--****************************/ 
 
 Eigen::Matrix<double, 6, 1> Pose2Vec(
     const arwen::dynamics::common::Pose& pose) {
@@ -308,18 +303,6 @@ Eigen::Matrix<double, 6, 1> Pose2Vec(
   vec.segment(3, 3) = pose.rot.data;
   return vec;
 };
-
-void PrintPoseInfo(arwen::dynamics::common::Pose &pose)
-{
-  std::cout << '\n';
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.p.data.x: " << pose.p.X() << std::endl;
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.p.data.y: " << pose.p.Y() << std::endl;
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.p.data.z: " << pose.p.Z() << std::endl;
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.rot.data.x: " << pose.rot.X() * 180 / M_PI << std::endl;
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.rot.data.y: " << pose.rot.Y() * 180 / M_PI << std::endl;
-  std::cout << __DATE__ << __TIME__ << __FILE__ << __LINE__ << " : " << "pose_info.rot.data.z: " << pose.rot.Z() * 180 / M_PI << std::endl;
-  std::cout << '\n';
-}
 
 void PrintCartInfo(arwen::dynamics::common::JointVector &q_in)
 {
@@ -371,14 +354,15 @@ void WSAutoSendThread(void* arg)
                                 driver_status_buffer.data[4].joint_position * 180 / M_PI,
                                 driver_status_buffer.data[5].joint_position * 180 / M_PI);
 
+    // 前端显示，乘以1000，单位为毫米
     CartInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "CartInfo",
-                               pose_init.p.X(),
-                               pose_init.p.Y(),
-                               pose_init.p.Z(),
+                               pose_init.p.X() * 1000,
+                               pose_init.p.Y() * 1000,
+                               pose_init.p.Z() * 1000,
                                pose_init.rot.X() * 180 / M_PI,
                                pose_init.rot.Y() * 180 / M_PI,
                                pose_init.rot.Z() * 180 / M_PI);
-    
+
     if (planner.IsRunning() && !planner.getStopFlag())
       RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "True");
     else
@@ -388,37 +372,6 @@ void WSAutoSendThread(void* arg)
 
     mg_ws_send(connect, Info_str.c_str(), Info_str.size(), WEBSOCKET_OP_TEXT);
   }
-}
-
-int http_api_reply(struct mg_connection *connect, int status, const char *reply_key, const char *reply_value)
-{
-  std::string response_header;
-  GetResponseHeader(response_header);
-
-  mg_http_reply(connect, status, response_header.c_str(), "{%Q:%Q}\n", reply_key, reply_value);
-
-  return 0;
-}
-
-// 登录功能，默认密码为 123456
-int api_login(struct mg_http_message *http_msg, struct mg_connection *connect)
-{
-  std::string response_header;
-  GetResponseHeader(response_header);
-
-  double passwd = 0.0;
-  if (mg_json_get_num(http_msg->body, "$.passwd", &passwd))
-  {
-    std::cout << __FILE__ << __LINE__ << " : " <<  passwd << std::endl;
-    if (passwd == 123456)
-        http_api_reply(connect, 200, "login", "success");
-    else
-        http_api_reply(connect, 404, "login", "failed");
-  }
-  else
-        http_api_reply(connect, 404, "login", "Unknown key");
-
-  return 0;
 }
 
 // 手动控制界面的关节空间位置控制
@@ -554,6 +507,15 @@ int api_manual_tcpPosition_movJ(struct mg_http_message *http_msg, struct mg_conn
   }
   else
     http_api_reply(connect, 404, "Status", "Unknown key");
+
+  return 0;
+}
+
+int api_webroot(struct mg_http_message *http_msg, struct mg_connection *connect)
+{
+  // struct mg_http_serve_opts server_opts{.root_dir = "/home/user/zhangjunyi/arwen/webroot/dist/"};
+  struct mg_http_serve_opts server_opts{.root_dir = abs_webroot_str.c_str()};
+  mg_http_serve_dir(connect, http_msg, &server_opts);
 
   return 0;
 }
@@ -834,22 +796,13 @@ void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
     WSMoveL(connect, ws_msg);
     return;
   }
-  else
-  {
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Failed to call moveL");
-    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
-  }
 
   // 关节空间
   json_key = tmp_str_msg.substr(offset + 2, strlen("jointSpace"));
   if (mg_ncasecmp(json_key.c_str(), "jointSpace", strlen("jointSpace")) == 0)
   {
     WSJointSpace(connect, ws_msg);
-  }
-  else
-  {
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Failed in joint space");
-    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
+    return;
   }
 
   // TCP空间
@@ -857,12 +810,11 @@ void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
   if (mg_ncasecmp(json_key.c_str(), "tcpSpace", strlen("tcpSpace")) == 0)
   {
     WSTcpSpace(connect, ws_msg);
+    return;
   }
-  else
-  {
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Failed in tcp space");
-    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
-  }
+
+  std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Unknown Message");
+  mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
 
   return;
 }
@@ -893,7 +845,7 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
     }
     else
     {
-      http_api_reply(connect, 404, "status","Error Command");
+      api_webroot(http_msg, connect);
     }
   }
   else if (event == MG_EV_WS_OPEN)
@@ -945,6 +897,7 @@ void StartMGServer(std::string listen_addr, struct mg_mgr *manager, struct mg_co
 
 	return ;
 }
+/***********************************************************/ 
 
 int main(int argc, char* argv[]) 
 {
@@ -985,6 +938,7 @@ int main(int argc, char* argv[])
   struct mg_connection *connect;
 
   std::string listen_addr = getarg("0.0.0.0:9999", "--listen-address");
+  abs_webroot_str = getarg("/home/user/zhangjunyi/arwen/webroot/dist/", "--abs-webroot-path");
   mg_mgr_init(&manager);
   StartMGServer(listen_addr, &manager, connect);
   mg_mgr_free(&manager);

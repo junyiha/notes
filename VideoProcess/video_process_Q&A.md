@@ -315,7 +315,7 @@
 + 使用命令启动任务
   - `./vca.exe --server-order-protocol 1 --server-response-timeout --server-zmq-address tcp://127.0.0.1:9102 --mid 1 --cmd 2 --id 1 --detector-conf-inline --detector-conf @--detector-models@/data/models/zhuoer/DETECT.conf@xxxx@yyyy@  --input-video-name /home/user/Videos/forget_v1.mkv --output-type `
 + 参数：
-  - `--server-order-protocol < TYPE >`  --  服务端指令协议。默认：1。(1：ZMQ | 2：KAFKA)
+  - `--server-order-protocol < TYPE >`      --  服务端指令协议。默认：1。(1：ZMQ | 2：KAFKA)
   - `--server-response-timeout < NUMBER >`  --  服务端响应超时(秒)。默认：86400
   - `--server-zmq-address < ADDRESS(ZMQ) >` --  服务端ZMQ地址。默认：tcp://127.0.0.1:9102
   - `--mid < NUMBER >`  --  消息ID
