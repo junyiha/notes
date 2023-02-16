@@ -17,17 +17,15 @@ int api_login(struct mg_http_message *http_msg, struct mg_connection *connect)
   std::string response_header;
   GetResponseHeader(response_header);
 
-  double passwd = 0.0;
-  if (mg_json_get_num(http_msg->body, "$.passwd", &passwd))
+  std::string passwd_value = parse_loginPasswd(http_msg->body.ptr);
+  if (strcmp(passwd_value.c_str(), "123456") == 0)
   {
-    std::cout << __FILE__ << __LINE__ << " : " <<  passwd << std::endl;
-    if (passwd == 123456)
-        http_api_reply(connect, 200, "login", "success");
-    else
-        http_api_reply(connect, 404, "login", "failed");
+    http_api_reply(connect, 200, "login", "success");
   }
   else
-        http_api_reply(connect, 404, "login", "Unknown key");
+  {
+    http_api_reply(connect, 404, "login", "failed");
+  }
 
   return 0;
 }
