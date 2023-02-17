@@ -1,5 +1,33 @@
 # cmake基础
 
+## CMake 常用操作
+
+### 添加动态链接库
+
++ 如果使用gcc进行单个c文件编译的时候，有时候后面会需要添加如-L -l之类的参数，如下
+  + `gcc -o test test.c -L/usr/local/lib/ -lopencv`
++ 在这里
+  + `-L`是制定动态库的位置，
+  + `-l`则是指定打算连接的动态库名字
+
++ 那么在进行项目编译的时候就需要通过cmake来通过Cmakelist.txt引导make进行项目编译。
++ 那么就需要在cmakelists.txt文件内添加动态链接库的配置，具体参数如下
+  + 首先申明动态库的位置,`LINK_DIRECTORIES({your_library_path})`，例如：
+    + `LINK_DIRECTORIES(/usr/local/lib)`
+  + 然后制定具体的动态库的名称, `target_link_libraries(${PROJECT_NAME} -l{library_name})`，例如：
+    + 指定hiredis的动态链接文件 libhiredis.dylib ： `target_link_libraries(${PROJECT_NAME} -lhiredis)`
+
+### 引入外部静态库
+
++ `include_directories(${ROOT_DIR}/3party/include)`
+  + 用于指定头文件的搜索路径
+
++ `link_directories(${ROOT_DIR}/3party/lib)`
+  + 指定静态库或者动态库的搜索路径
+
++ `target_link_libraries(sample libmath.a)`
+  + 指定要连接的静态库，必须要有，第二个参数也可以换成math，那么将自动去搜索libmath.a或者libmath.so或者libmath.dyld动态库
+
 ## arwen 机械臂项目 CMakeLists.txt 笔记
 
 ### cmake_minimum_required()
@@ -28,11 +56,6 @@
 ### ${PROJECT_BINARY_DIR}
   + 内置变量，为项目构建目录的完整路径(Full path to build directory for project.)
 
-### link_directories()
-  + 指定链接器将在其中查找库的目录
-  + 示例：
-    + `link_directories(${PROJECT_BINARY_DIR}/lib)`
-
 ### execute_process()
   + 执行一个或多个子进程
   + 示例：
@@ -56,9 +79,52 @@
     + 如果文件是一个构建输入，使用`configure_file()`命令仅在其内容更改时更新文件。
 
 ### add_library()
-  + 使用指定的源文件向项目添加库
-  + 示例：
-    + `add_library(${PROJECT_NAME} STATIC  ${SOURCE_FILES})`
+
++ 该指令的主要作用就是将指定的源文件生成链接文件，然后添加到工程中去。该指令常用的语法如下：
+  ```
+    add_library(<name> [STATIC | SHARED | MODULE]
+                [EXCLUDE_FROM_ALL]
+                [source1] [source2] [...])
+  ``` 
++ 参数：
+  + 其中`<name>`表示库文件的名字，该库文件会根据命令里列出的源文件来创建。
+  + 而`STATIC`、`SHARED`和`MODULE`的作用是指定生成的库文件的类型。
+    + `STATIC`库是目标文件的归档文件，在链接其它目标的时候使用。
+    + `SHARED`库会被动态链接（动态链接库），在运行时会被加载。
+    + `MODULE`库是一种不会被链接到其它目标中的插件，但是可能会在运行时使用dlopen-系列的函数。
+    + 默认状态下，库文件将会在于源文件目录树的构建目录树的位置被创建，该命令也会在这里被调用
+  + 而语法中的`source1` `source2`分别表示各个源文件。
++ 使用指定的源文件向项目添加库
++ 示例：
+  + `add_library(${PROJECT_NAME} STATIC  ${SOURCE_FILES})`
+
+### link_directories()
+
++ 该指令的作用主要是指定要链接的库文件的路径，该指令有时候不一定需要。因为find_package和find_library指令可以得到库文件的绝对路径。该指令的常用语法如下：
+  ```
+    link_directories(
+        lib
+    )
+  ``` 
++ 不过你自己写的动态库文件放在自己新建的目录下时，可以用该指令指定该目录的路径以便工程能够找到。
++ 指定链接器将在其中查找库的目录
++ 示例：
+  + `link_directories(${PROJECT_BINARY_DIR}/lib)`
+
+### target_link_libraries()
+
++ 该指令的作用为将目标文件与库文件进行链接。该指令的语法如下：
+  ```
+    target_link_libraries(<target> [item1] [item2] [...]
+                          [[debug|optimized|general] <item>] ...)
+  ``` 
++ 参数：
+  + 指令中的`<target>`是指通过`add_executable()`和`add_library()`指令生成已经创建的目标文件。
+  + 而`[item]`表示库文件没有后缀的名字。默认情况下，库依赖项是传递的。当这个目标链接到另一个目标时，链接到这个目标的库也会出现在另一个目标的连接线上。
+  + 这个传递的接口存储在`interface_link_libraries`的目标属性中，可以通过设置该属性直接重写传递接口。
++ 指定链接给定目标和/或其依赖项时要使用的库或标志
++ 示例：
+  + `target_link_libraries(${PROJECT_NAME} PUBLIC ${Etherlab_LIBRARIES})`
 
 ### target_include_directories()
   + 向目标添加包含目录
@@ -69,11 +135,6 @@
   + 加载外部项目的设置。
   + 示例：
     + `find_package(Etherlab REQUIRED)`
-
-### target_link_libraries()
-  + 指定链接给定目标和/或其依赖项时要使用的库或标志
-  + 示例：
-    + `target_link_libraries(${PROJECT_NAME} PUBLIC ${Etherlab_LIBRARIES})`
 
 ### set_target_properties()
   + 目标可以具有影响如何构建它们的属性。

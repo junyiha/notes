@@ -1,3 +1,43 @@
+# Git 常用技巧
+
+## git删除远程分支文件
+
++ git删除远程分支文件包括两种情况：
+  + （1）仅仅删除远程分支文件，不删除本地的文件；
+  + （2）删除远程分支文件的同时，删除本地的文件。
+
+### 仅仅删除远程分支文件，不删除本地文件
+
++ 删除远程文件filename
+  ```
+    git rm --cached filename
+    git commit -m "delete remote file filename "
+    git push -u origin master(此处是当前分支的名字)
+  ``` 
+
++ 删除远程文件夹directoryname
+  ```
+    git rm -r --cached directoryname
+    git commit -m "delete remote directory directoryname "
+    git push -u origin master(此处是当前分支的名字)
+  ``` 
+
+### 删除本地文件与远程分支文件
+
++ 删除文件filename
+  ```
+    git rm filename
+    git commit -m "delete file filename "
+    git push -u origin master(此处是当前分支的名字)
+  ``` 
+
++ 删除文件夹directoryname
+  ```
+    git rm -r directoryname
+    git commit -m "delete directory directoryname "
+    git push -u origin master(此处是当前分支的名字)
+  ``` 
+
 # Git 笔记
 
 ## git常见错误

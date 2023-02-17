@@ -5,6 +5,7 @@
 /**************mongoose****************/
 #include "webserver/mongoose.h"
 /************************************/
+#include "webserver/webserver_base.h"
 
 void GetResponseHeader(std::string &response_header);
 

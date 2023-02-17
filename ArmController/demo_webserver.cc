@@ -317,22 +317,24 @@ void PrintCartInfo(arwen::dynamics::common::JointVector &q_in)
 // webserver auto send status info task
 void WSAutoSendThread(void* arg) 
 {
-  std::string Info_str;
-  std::string RunningFlag;
-  std::string CartInfo_str;
-  std::string JointInfo_str;
-  JointVector joint_vector(6);
+  const int JOINT_NUMBER = 6;
+  double cart_arr[JOINT_NUMBER];
+  double joint_arr[JOINT_NUMBER];
+  std::string info_str;
+  std::string cart_info_str;
+  std::string joint_info_str;
+  std::string running_flag;
+
   Frame frame_init;
   Pose pose_init;
+  JointVector joint_vector(JOINT_NUMBER);
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
   struct mg_connection *connect = (struct mg_connection *)arg;
   protocol::message::DriverStatusMessage driver_status_buffer;
-
   while (true) 
   {
     rt_task_wait_period(nullptr);  // wait for next cycle
     if (break_flag) { break; }
-
     //read data
     driver_status_buffer = driver_status_message->load();
 
@@ -342,35 +344,32 @@ void WSAutoSendThread(void* arg)
                          std::round(driver_status_buffer.data[3].joint_position), 
                          std::round(driver_status_buffer.data[4].joint_position), 
                          std::round(driver_status_buffer.data[5].joint_position);
-
     fk_solver_pos.JntToCart(joint_vector, frame_init);
     pose_init = frame_init.ToPose();
-
-    JointInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "JointInfo",
-                                driver_status_buffer.data[0].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[1].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[2].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[3].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[4].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[5].joint_position * 180 / M_PI);
-
     // 前端显示，乘以1000，单位为毫米
-    CartInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "CartInfo",
-                               pose_init.p.X() * 1000,
-                               pose_init.p.Y() * 1000,
-                               pose_init.p.Z() * 1000,
-                               pose_init.rot.X() * 180 / M_PI,
-                               pose_init.rot.Y() * 180 / M_PI,
-                               pose_init.rot.Z() * 180 / M_PI);
-
+    cart_arr[0] = pose_init.p.X() * 1000;
+    cart_arr[1] = pose_init.p.Y() * 1000;
+    cart_arr[2] = pose_init.p.Z() * 1000;
+    cart_arr[3] = pose_init.rot.X() * 180 / M_PI;
+    cart_arr[4] = pose_init.rot.Y() * 180 / M_PI;
+    cart_arr[5] = pose_init.rot.Z() * 180 / M_PI;
+    for (int i = 0; i < JOINT_NUMBER; i++)
+    {
+      joint_arr[i] = driver_status_buffer.data[i].joint_position * 180 / M_PI;
+    }
+    cart_info_str  = ArrayToJsonString("CartInfo", cart_arr, JOINT_NUMBER);
+    joint_info_str = ArrayToJsonString("JointInfo", joint_arr, JOINT_NUMBER);
     if (planner.IsRunning() && !planner.getStopFlag())
-      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "True");
+      running_flag = StringToJsonString("RunningFlag", "TRUE");
     else
-      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "False");
+      running_flag = StringToJsonString("RunningFlag", "FALSE");
 
-    Info_str = mg_mprintf("{%Q:{%s, %s, %s}}", "Info", RunningFlag.c_str(), JointInfo_str.c_str(), CartInfo_str.c_str());
-
-    mg_ws_send(connect, Info_str.c_str(), Info_str.size(), WEBSOCKET_OP_TEXT);
+    std::vector<std::string> mutli_json_str;
+    mutli_json_str.push_back(cart_info_str);
+    mutli_json_str.push_back(joint_info_str);
+    mutli_json_str.push_back(running_flag);
+    info_str = MultiJsonStringToSingle(mutli_json_str, "Info");
+    mg_ws_send(connect, info_str.c_str(), info_str.size(), WEBSOCKET_OP_TEXT);
   }
 }
 
@@ -379,57 +378,36 @@ int api_manual_jointPosition_movJ(struct mg_http_message *http_msg, struct mg_co
 {
   std::string response_header;
   GetResponseHeader(response_header);
-
   bool result = false;
-  int offset, length;
-  std::string tmp_str;
-  std::string key_json_;
-  std::string string_http_msg_;
-  std::vector<double> joint_position_;
+  double position_array[6];
+  JointVector jointSpace_point(6);
 
-  string_http_msg_ = http_msg->body.ptr;
-  offset = mg_json_get(http_msg->body, "$", &length);
-  key_json_ = string_http_msg_.substr(offset + 2, strlen("movj"));
-  std::cout << __FILE__ << __LINE__ << " : " <<  "the key value of api_manual_jointPosition_movJ is : " << key_json_ << '\n';
-  if (strncasecmp(key_json_.c_str(), "movj", strlen("movj")) == 0)
-  {
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_str =  "$.movj[" + std::to_string(i) +"]";
-      offset = mg_json_get(http_msg->body, tmp_str.c_str(), &length);
-      joint_position_.push_back(std::atof((string_http_msg_.substr(offset, length)).c_str()));
-      std::cout << __FILE__ << __LINE__ << "] : " << "jointPositon[" << i << "] : " << joint_position_[i] << '\n';
-    }
-
-    JointVector joint_point01(6);
-    joint_point01.data << joint_position_[0], joint_position_[1], joint_position_[2], joint_position_[3], joint_position_[4], joint_position_[5];
-    joint_point01.data << joint_point01.data / 180 * M_PI;
-
-    if (!planner.IsRunning() && !planner.getStopFlag())
-    {
-      result = planner.MoveJ(joint_point01, max_vel, max_acc, max_jerk);
-      if (result)
-      {
-        while(true)
-        {
-          if (break_flag)
-            break;
-          
-          if (!planner.IsRunning() && !planner.getStopFlag())
-          {
-            http_api_reply(connect, 200, "movJ", "Success");
-            break;
-          }
+  GetArrayFromJsonString(http_msg->body.ptr, position_array, "movj");
+  jointSpace_point.data << position_array[0],
+                           position_array[1],
+                           position_array[2],
+                           position_array[3],
+                           position_array[4],
+                           position_array[5];
+  jointSpace_point.data = jointSpace_point.data / 180 * M_PI;
+  if (!planner.IsRunning() && !planner.getStopFlag()) {
+    result = planner.MoveJ(jointSpace_point, max_vel, max_acc, max_jerk);
+    if (result) {
+      while (true) {
+        if (break_flag)
+          break;
+        
+        if (!planner.IsRunning() && !planner.getStopFlag()) {
+          http_api_reply(connect, 200, "STATUS", "SUCCESS");
+          break;
         }
       }
-      else
-        http_api_reply(connect, 404, "movJ", "Failed to call moveJ");
+    } else {
+      http_api_reply(connect, 404, "STATUS", "FAILED");
     }
-    else
-        http_api_reply(connect, 404, "movJ", "Failed, not ready");
+  } else {
+    http_api_reply(connect, 404, "STATUS", "FAILED");
   }
-  else
-        http_api_reply(connect, 404, "Status", "Unknown key");
 
   return 0;
 }
@@ -441,73 +419,45 @@ int api_manual_tcpPosition_movJ(struct mg_http_message *http_msg, struct mg_conn
   GetResponseHeader(response_header);
 
   bool result = false;
-  int offset, length;
-  std::vector<double> tcpSpace_point_;
-  std::string tmp_str;
-  std::string key_json_;
-  std::string tmp_point_str;
-  std::string string_http_msg_ = http_msg->body.ptr;
+  double tcpSpace_point[6];
+  GetArrayFromJsonString(http_msg->body.ptr, tcpSpace_point, "movj");
+  Frame cart_point;
+  JointVector joint_point_out(6);
+  JointVector joint_point_init(6);
 
-  offset = mg_json_get(http_msg->body, "$", &length);
-  key_json_ = string_http_msg_.substr(offset + 2, strlen("movj"));
-  std::cout << __FILE__ << __LINE__ << " : " <<  "the key value of api_manual_tcpPosition_movJ is : " << key_json_ << '\n';
-  if (strncasecmp(key_json_.c_str(), "movj", strlen("movj")) == 0)
-  {
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_str = "$.movj[" + std::to_string(i) + "]";
-      offset = mg_json_get(http_msg->body, tmp_str.c_str(), &length);
-      tmp_point_str = http_msg->body.ptr[offset];
-      tcpSpace_point_.push_back(std::atof((string_http_msg_.substr(offset, length)).c_str()));
-      std::cout << __FILE__ << __LINE__ << "] : " << "tcpPosition[" << i << "] : " << tcpSpace_point_[i] << '\n';
-    }
-
-    Frame cart_point;
-    JointVector joint_point_init(6);
-    JointVector joint_point_out(6);
-    joint_point_init.data << 0, 0, 0, 0, 0, 0;
-    joint_point_init.data = joint_point_init.data / 180 * M_PI;
-
-    cart_point.p(0) = tcpSpace_point_[0];  // x
-    cart_point.p(1) = tcpSpace_point_[1];  // y
-    cart_point.p(2) = tcpSpace_point_[2];  // z
-    Rotation rot_x = Rotation::RotX(tcpSpace_point_[3] * M_PI / 180);
-    cart_point.rot.data = rot_x.data * cart_point.rot.data;
-    Rotation rot_y = Rotation::RotY(tcpSpace_point_[4] * M_PI / 180);
-    cart_point.rot.data = rot_y.data * cart_point.rot.data;
-    Rotation rot_z = Rotation::RotZ(tcpSpace_point_[5] * M_PI / 180);
-    cart_point.rot.data = rot_z.data * cart_point.rot.data;
-
-    result = ik_solver_pos_lma.CartToJnt(joint_point_init, cart_point, joint_point_out);
-    if (result)
-    {
-      if (!planner.IsRunning() && !planner.getStopFlag())
-      {
-        result = planner.MoveJ(joint_point_out, max_vel, max_acc, max_jerk);
-        if (result)
-        {
-          while (true)
-          {
-            if (break_flag)
-              break;
-            
-            if (!planner.IsRunning() && !planner.getStopFlag())
-            {
-              http_api_reply(connect, 200, "tcpSpace_movJ", "Success");
-              break;
-            }
+  joint_point_init.data << 0, 0, 0, 0, 0, 0;
+  joint_point_init.data = joint_point_init.data / 180 * M_PI;
+  cart_point.p(0) = tcpSpace_point[0];  // x
+  cart_point.p(1) = tcpSpace_point[1];  // y
+  cart_point.p(2) = tcpSpace_point[2];  // z
+  Rotation rot_x = Rotation::RotX(tcpSpace_point[3] * M_PI / 180);
+  cart_point.rot.data = rot_x.data * cart_point.rot.data;
+  Rotation rot_y = Rotation::RotY(tcpSpace_point[4] * M_PI / 180);
+  cart_point.rot.data = rot_y.data * cart_point.rot.data;
+  Rotation rot_z = Rotation::RotZ(tcpSpace_point[5] * M_PI / 180);
+  cart_point.rot.data = rot_z.data * cart_point.rot.data;
+  result = ik_solver_pos_lma.CartToJnt(joint_point_init, cart_point, joint_point_out);
+  if (result) {
+    if (!planner.IsRunning() && !planner.getStopFlag()) {
+      result = planner.MoveJ(joint_point_out, max_vel, max_acc, max_jerk);
+      if (result) {
+        while (true) {
+          if (break_flag)
+            break;
+          
+          if (!planner.IsRunning() && !planner.getStopFlag()) {
+            http_api_reply(connect, 200, "STATUS", "SUCCESS");
+            break;
           }
         }
-        else
-          http_api_reply(connect, 404, "tcpSpace_movJ", "Failed to call moveJ");
+      } else {
+        http_api_reply(connect, 404, "STATUS", "FAILED");
       }
-      else
-        http_api_reply(connect, 404, "tcpSpace_movJ", "Failed! System not ready");
+    } else {
+      http_api_reply(connect, 404, "STATUS", "FAILED");
     }
   }
-  else
-    http_api_reply(connect, 404, "Status", "Unknown key");
-
+    
   return 0;
 }
 
@@ -523,48 +473,31 @@ int api_webroot(struct mg_http_message *http_msg, struct mg_connection *connect)
 // 精确控制处理：接收目标点信息，调用movej
 int WSJointSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
-  int offset, length;
-  std::string tmp_str;
-  std::string key_json_;
-  std::string tmp_position_str;
-  std::string string_ws_msg = ws_msg->data.ptr;
-  std::vector<double> joint_space_position_;
+  bool result = false;
+  std::string reply_str;
+  double jointSpace_point[6];
+  GetArrayFromJsonString(ws_msg->data.ptr, jointSpace_point, "jointSpace");
 
-  offset = mg_json_get(ws_msg->data, "$", &length);
-  key_json_ = string_ws_msg.substr(offset + 2, strlen("jointSpace"));
-  std::cout << __FILE__ << __LINE__ << " : " <<  "the key value of WSJointSpace is : " << key_json_ << '\n';
-  if (strncasecmp(key_json_.c_str(), "jointSpace", strlen("jointSpace")) == 0)
+  JointVector joint_point(6);
+  joint_point.data << jointSpace_point[0],
+                      jointSpace_point[1],
+                      jointSpace_point[2],
+                      jointSpace_point[3],
+                      jointSpace_point[4],
+                      jointSpace_point[5];
+  joint_point.data << joint_point.data / 180 * M_PI;
+  if (!planner.IsRunning() && !planner.getStopFlag())
   {
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_str = "$.jointSpace[" + std::to_string(i) + "]";
-      offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
-      tmp_position_str = ws_msg->data.ptr[offset];
-      joint_space_position_.push_back(std::atoi((string_ws_msg.substr(offset, length)).c_str()));
+    result = planner.MoveJ(joint_point, max_vel, max_acc, max_jerk);
+    if (result) {
+      reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "SUCCESS");
+    } else {
+      reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
     }
-
-    JointVector joint_point02(6);
-    joint_point02.data << joint_space_position_[0], 
-                          joint_space_position_[1], 
-                          joint_space_position_[2], 
-                          joint_space_position_[3], 
-                          joint_space_position_[4], 
-                          joint_space_position_[5];
-    joint_point02.data << joint_point02.data / 180 * M_PI;
-
-    if (!planner.IsRunning() && !planner.getStopFlag())
-    {
-      planner.MoveJ(joint_point02, max_vel, max_acc, max_jerk);
-    }
-    
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Success to call movej");
-    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
+  } else {
+      reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
   }
-  else
-  {
-    std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Error key");
-    mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
-  }
+  mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);
 
   return 0;
 }
@@ -704,78 +637,42 @@ int WSMoveL(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 int WSTcpSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
   bool result = false;
-  int offset, length;
-  std::vector<double> tcpSpace_point_;
-  std::string tmp_str;
-  std::string key_json_;
-  std::string tmp_point_str;
-  std::string string_ws_msg = ws_msg->data.ptr;
+  std::string reply_str;
+  double tcpSpace_point[6];
+  GetArrayFromJsonString(ws_msg->data.ptr, tcpSpace_point, "tcpSpace");
 
-  offset = mg_json_get(ws_msg->data, "$", &length);
-  key_json_ = string_ws_msg.substr(offset + 2, strlen("tcpSpace"));
-  std::cout << __FILE__ << __LINE__ << " : " <<  "the key value of WSTcpSpace is : " << key_json_ << '\n';
-  if (strncasecmp(key_json_.c_str(), "tcpSpace", strlen("tcpSpace")) == 0)
-  {
-    for (int i = 0; i < 6; i++)
-    {
-      tmp_str = "$.tcpSpace[" + std::to_string(i) + "]";
-      offset = mg_json_get(ws_msg->data, tmp_str.c_str(), &length);
-      tmp_point_str = ws_msg->data.ptr[offset];
-      tcpSpace_point_.push_back(std::atof((string_ws_msg.substr(offset, length)).c_str()));
-    }
+  Frame cart_point;
+  JointVector jointSpace_point_out(6);
+  JointVector jointSpace_point_init(6);
+  jointSpace_point_init.data << 0, 0, 0, 0, 0, 0;
+  jointSpace_point_init.data = jointSpace_point_init.data / 180 * M_PI;
 
-    JointVector joint_point_init(6);
-    JointVector joint_point_out(6);
-    joint_point_init.data << 0, 0, 0, 0, 0, 0;
-    joint_point_init.data = joint_point_init.data / 180 * M_PI;
+  cart_point.p(0) = tcpSpace_point[0];  // x
+  cart_point.p(1) = tcpSpace_point[1];  // y
+  cart_point.p(2) = tcpSpace_point[2];  // z
+  Rotation rot_x = Rotation::RotX(tcpSpace_point[3] * M_PI / 180);
+  cart_point.rot.data = rot_x.data * cart_point.rot.data;
+  Rotation rot_y = Rotation::RotY(tcpSpace_point[4] * M_PI / 180);
+  cart_point.rot.data = rot_y.data * cart_point.rot.data;
+  Rotation rot_z = Rotation::RotZ(tcpSpace_point[5] * M_PI / 180);
+  cart_point.rot.data = rot_z.data * cart_point.rot.data;
 
-    Frame cart_point;
-    cart_point.p(0) = tcpSpace_point_[0];  // x
-    cart_point.p(1) = tcpSpace_point_[1];  // y
-    cart_point.p(2) = tcpSpace_point_[2];  // z
-    Rotation rot_x = Rotation::RotX(tcpSpace_point_[3] * M_PI / 180);
-    cart_point.rot.data = rot_x.data * cart_point.rot.data;
-
-    Rotation rot_y = Rotation::RotY(tcpSpace_point_[4] * M_PI / 180);
-    cart_point.rot.data = rot_y.data * cart_point.rot.data;
-
-    Rotation rot_z = Rotation::RotZ(tcpSpace_point_[5] * M_PI / 180);
-    cart_point.rot.data = rot_z.data * cart_point.rot.data;
-
-    result = ik_solver_pos_lma.CartToJnt(joint_point_init, cart_point, joint_point_out);
-    if (result)
-    {
-      if (!planner.IsRunning() && !planner.getStopFlag())
-      {
-        result = planner.MoveJ(joint_point_out, max_vel, max_acc, max_jerk);
-        if (result)
-        {
-          std::string reply_str = mg_mprintf("{%Q:%Q}", "tcpSpace", "Success");
-          mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);
-        }
-        else  
-        {
-          std::string reply_str = mg_mprintf("{%Q:%Q}", "tcpSpace", "Failed");
-          mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);  
-        }
+  result = ik_solver_pos_lma.CartToJnt(jointSpace_point_init, cart_point, jointSpace_point_out);
+  if (result) {
+    if (!planner.IsRunning() && !planner.getStopFlag()) {
+      result = planner.MoveJ(jointSpace_point_out, max_vel, max_acc, max_jerk);
+      if (result) {
+        reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "SUCCESS");
+      } else {
+        reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
       }
-      else
-      {
-          std::string reply_str = mg_mprintf("{%Q:%Q}", "tcpSpace", "failed, not ready");
-          mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT);
-      }
+    } else {
+        reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
     }
-    else  
-    {
-        std::string reply_str = mg_mprintf("{%Q:%Q}", "tcpSpace", "Error Point");
-        mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT); 
-    }
+  } else {
+    reply_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
   }
-  else
-  {
-    std::string reply_str = mg_mprintf("{%Q:%Q}", "Status", "Error key");
-    mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT); 
-  }
+  mg_ws_send(connect, reply_str.c_str(), reply_str.size(), WEBSOCKET_OP_TEXT); 
 
   return 0;
 }
@@ -783,38 +680,25 @@ int WSTcpSpace(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 void WSMSGProcess(struct mg_connection *connect, struct mg_ws_message *ws_msg)
 {
   std::cout <<  __FILE__ << __LINE__ << " : " << "websocket message is :[" << ws_msg->data.ptr << "]" << std::endl;
+  enum STATUS status;
 
-  int offset, length;
-  std::string json_key;
-  std::string tmp_str_msg = ws_msg->data.ptr;
-
-  // moveL 指令
-  offset = mg_json_get(ws_msg->data, "$", &length);
-  json_key = tmp_str_msg.substr(offset + 2, strlen("moveL"));
-  if (mg_ncasecmp(json_key.c_str(), "moveL", strlen("moveL")) == 0)
+  status = WSSpaceParse(ws_msg->data.ptr);
+  switch (status)
   {
-    WSMoveL(connect, ws_msg);
-    return;
+    case JOINT_SPACE:
+      WSJointSpace(connect, ws_msg);
+      break;
+    case TCP_SPACE:
+      WSTcpSpace(connect, ws_msg);
+      break;
+    case MOVEL:
+      WSMoveL(connect, ws_msg);
+      break;
+    case UNKNOWN:
+      std::string flag_str = mg_mprintf("{%Q:%Q}", "STATUS", "FAILED");
+      mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
+      break;
   }
-
-  // 关节空间
-  json_key = tmp_str_msg.substr(offset + 2, strlen("jointSpace"));
-  if (mg_ncasecmp(json_key.c_str(), "jointSpace", strlen("jointSpace")) == 0)
-  {
-    WSJointSpace(connect, ws_msg);
-    return;
-  }
-
-  // TCP空间
-  json_key = tmp_str_msg.substr(offset + 2, strlen("tcpSpace"));
-  if (mg_ncasecmp(json_key.c_str(), "tcpSpace", strlen("tcpSpace")) == 0)
-  {
-    WSTcpSpace(connect, ws_msg);
-    return;
-  }
-
-  std::string flag_str = mg_mprintf("{%Q:%Q}", "Status", "Unknown Message");
-  mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
 
   return;
 }
@@ -859,7 +743,7 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
       rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
       AutoSendTask_ = true;
     }
-    std::string flag_str = mg_mprintf("{%Q:%d}", "flag", 1);
+    const std::string flag_str = NumberToJsonString("flag", 1);
     mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
   }
   else if (event == MG_EV_CLOSE)
