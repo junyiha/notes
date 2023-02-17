@@ -32,9 +32,9 @@ const std::string setFlag(bool is_connect)
   return flag_str.c_str();
 }
 
-const std::string parse_loginPasswd(const char *passwd_data)
+const std::string GetValueFromJSON(const char *json_str, const char *json_key)
 {
-  const std::string passwd_str = passwd_data;
+  const std::string passwd_str = json_str;
   const auto passwd_str_len = static_cast<int>(passwd_str.length());
   Json::Value root;
   JSONCPP_STRING err;
@@ -48,7 +48,7 @@ const std::string parse_loginPasswd(const char *passwd_data)
     std::cout << "error" << std::endl;
     return nullptr;
   }
-  const std::string passwd_value = root["passwd"].asString();
+  const std::string passwd_value = root[json_key].asString();
 
   return passwd_value;
 }
@@ -117,4 +117,67 @@ enum STATUS WSSpaceParse(const char *json_str)
   }
 
   return status;
+}
+
+const std::string ArrayToJsonString(const char *json_key, double *arr_num, int arr_size)
+{
+  Json::Value root;
+  Json::Value array;
+  for (int i = 0; i < arr_size; i++)
+  {
+    array[i] = arr_num[i];
+  }
+  root[json_key] = array;
+  Json::StreamWriterBuilder builder;
+  const std::string arr_str = Json::writeString(builder, root);
+
+  return arr_str;
+}
+
+const std::string StringToJsonString(const char *json_key, const char *json_value)
+{
+  Json::Value root;
+  root[json_key] = json_value;
+  Json::StreamWriterBuilder builder;
+  const std::string json_str = Json::writeString(builder, root);
+
+  return json_str;
+}
+
+const std::string NumberToJsonString(const char *json_key, int json_value)
+{
+  Json::Value root;
+  root[json_key] = json_value;
+  Json::StreamWriterBuilder builder;
+  const std::string json_str = Json::writeString(builder, root);
+
+  return json_str;
+}
+
+const std::string MultiJsonStringToSingle(std::vector<std::string>& multi_json_str, const char *root_json_key)
+{
+  bool result = false;
+  Json::Value info;
+  Json::Value root;
+  Json::Value item;
+  JSONCPP_STRING err;
+  Json::CharReaderBuilder char_builder;
+
+  const std::unique_ptr<Json::CharReader> char_reader(char_builder.newCharReader());
+  for (auto& i : multi_json_str)
+  {
+    result = char_reader->parse(i.c_str(), i.c_str() + i.size(), &item, &err);
+    if (!result)
+    {
+      std::cout << "error" << std::endl;
+      return nullptr;
+    }
+    info.append(item);
+  }
+  root[root_json_key] = info;
+
+  Json::StreamWriterBuilder builder;
+  const std::string json_str = Json::writeString(builder, root);
+
+  return json_str;
 }

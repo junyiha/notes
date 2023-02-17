@@ -317,22 +317,24 @@ void PrintCartInfo(arwen::dynamics::common::JointVector &q_in)
 // webserver auto send status info task
 void WSAutoSendThread(void* arg) 
 {
-  std::string Info_str;
-  std::string RunningFlag;
-  std::string CartInfo_str;
-  std::string JointInfo_str;
-  JointVector joint_vector(6);
+  const int JOINT_NUMBER = 6;
+  double cart_arr[JOINT_NUMBER];
+  double joint_arr[JOINT_NUMBER];
+  std::string info_str;
+  std::string cart_info_str;
+  std::string joint_info_str;
+  std::string running_flag;
+
   Frame frame_init;
   Pose pose_init;
+  JointVector joint_vector(JOINT_NUMBER);
   rt_task_set_periodic(nullptr, TM_NOW, CYCLE_NS_WS);
   struct mg_connection *connect = (struct mg_connection *)arg;
   protocol::message::DriverStatusMessage driver_status_buffer;
-
   while (true) 
   {
     rt_task_wait_period(nullptr);  // wait for next cycle
     if (break_flag) { break; }
-
     //read data
     driver_status_buffer = driver_status_message->load();
 
@@ -342,35 +344,32 @@ void WSAutoSendThread(void* arg)
                          std::round(driver_status_buffer.data[3].joint_position), 
                          std::round(driver_status_buffer.data[4].joint_position), 
                          std::round(driver_status_buffer.data[5].joint_position);
-
     fk_solver_pos.JntToCart(joint_vector, frame_init);
     pose_init = frame_init.ToPose();
-
-    JointInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "JointInfo",
-                                driver_status_buffer.data[0].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[1].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[2].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[3].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[4].joint_position * 180 / M_PI,
-                                driver_status_buffer.data[5].joint_position * 180 / M_PI);
-
     // 前端显示，乘以1000，单位为毫米
-    CartInfo_str = mg_mprintf("%Q:[%f,%f,%f,%f,%f,%f]", "CartInfo",
-                               pose_init.p.X() * 1000,
-                               pose_init.p.Y() * 1000,
-                               pose_init.p.Z() * 1000,
-                               pose_init.rot.X() * 180 / M_PI,
-                               pose_init.rot.Y() * 180 / M_PI,
-                               pose_init.rot.Z() * 180 / M_PI);
-
+    cart_arr[0] = pose_init.p.X() * 1000;
+    cart_arr[1] = pose_init.p.Y() * 1000;
+    cart_arr[2] = pose_init.p.Z() * 1000;
+    cart_arr[3] = pose_init.rot.X() * 180 / M_PI;
+    cart_arr[4] = pose_init.rot.Y() * 180 / M_PI;
+    cart_arr[5] = pose_init.rot.Z() * 180 / M_PI;
+    for (int i = 0; i < JOINT_NUMBER; i++)
+    {
+      joint_arr[i] = driver_status_buffer.data[i].joint_position * 180 / M_PI;
+    }
+    cart_info_str  = ArrayToJsonString("CartInfo", cart_arr, JOINT_NUMBER);
+    joint_info_str = ArrayToJsonString("JointInfo", joint_arr, JOINT_NUMBER);
     if (planner.IsRunning() && !planner.getStopFlag())
-      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "TRUE");
+      running_flag = StringToJsonString("RunningFlag", "TRUE");
     else
-      RunningFlag = mg_mprintf("%Q:%Q", "RunningFlag", "FALSE");
+      running_flag = StringToJsonString("RunningFlag", "FALSE");
 
-    Info_str = mg_mprintf("{%Q:{%s, %s, %s}}", "Info", RunningFlag.c_str(), JointInfo_str.c_str(), CartInfo_str.c_str());
-
-    mg_ws_send(connect, Info_str.c_str(), Info_str.size(), WEBSOCKET_OP_TEXT);
+    std::vector<std::string> mutli_json_str;
+    mutli_json_str.push_back(cart_info_str);
+    mutli_json_str.push_back(joint_info_str);
+    mutli_json_str.push_back(running_flag);
+    info_str = MultiJsonStringToSingle(mutli_json_str, "Info");
+    mg_ws_send(connect, info_str.c_str(), info_str.size(), WEBSOCKET_OP_TEXT);
   }
 }
 
@@ -744,7 +743,7 @@ void EventHandlerFunc(struct mg_connection *connect, int event, void *event_data
       rt_task_start(&ws_auto_send_task, &WSAutoSendThread, connect);
       AutoSendTask_ = true;
     }
-    const std::string flag_str = setFlag(true);
+    const std::string flag_str = NumberToJsonString("flag", 1);
     mg_ws_send(connect, flag_str.c_str(), flag_str.size(), WEBSOCKET_OP_TEXT);
   }
   else if (event == MG_EV_CLOSE)
