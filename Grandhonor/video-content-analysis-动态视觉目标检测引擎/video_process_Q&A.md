@@ -152,6 +152,9 @@
 + `rm -rf /data/dagger/computing_node/etc/SystemId/`
 + `VideoProcess/bin/showdevices.exe --fmt 2 --out  /data/dagger/computing_node/etc/devices.json`
 
++ `delete from gh_t_face_db;`
+  + 清除mysql数据
+
 ## KMS 服务未启动或未授权 || mqtt
 
 + 计算节点的kms的ip地址配置错误
