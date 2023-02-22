@@ -1,4 +1,15 @@
-# cmake基础
+## cmake基础
+
+## CMake 调试
+
++ 示例：
+  ```
+    include(CMakePrintHelpers)
+    # 打印变量 PROJECT_SOURCE_DIR
+    cmake_print_variables(PROJECT_SOURCE_DIR)
+
+    cmake_print_properties(TARGETS arwen-webserver PROPERTIES POSITION_INDEPENDENT_CODE)
+  ``` 
 
 ## CMake 常用操作
 
