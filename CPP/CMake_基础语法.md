@@ -11,7 +11,28 @@
     cmake_print_properties(TARGETS arwen-webserver PROPERTIES POSITION_INDEPENDENT_CODE)
   ``` 
 
+## CMake 常用命令
+
+### aux_source_directory()
+
++ 简介：查找在某个路径下的所有源文件。
+  + 搜集所有在指定路径下的源文件的文件名，将输出结果列表储存在指定的变量中。
+  + 该命令主要用在那些使用显式模板实例化的工程上。模板实例化文件可以存储在Templates子目录下，然后可以使用这条命令自动收集起来；这样可以避免手工罗列所有的实例。
++ 语法：`aux_source_directory(< dir > < variable >)`
+
+### add_executable()
+
++ 简介：使用指定的源文件来生成目标可执行文件。这里的目标可执行文件分为三类：普通可执行目标文件、导入可执行目标文件、别名可执行目标文件。分别对应下面的三种命令格式。
++ 语法：
+  + `add_executable (<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] [source1] [source2 ...])`
+  + `add_executable (<name> IMPORTED [GLOBAL])`
+  + `add_executable (<name> ALIAS <target>)`
+
 ## CMake 常用操作
+
+### 生成动态库或静态库
+
++ 
 
 ### 添加动态链接库
 
