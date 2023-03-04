@@ -143,6 +143,8 @@
 
 #### 1.3.2 使用`el::Configurations`类的成员函数
 
++ 参考`workspace/test/src/test_easylogging.cc : test_easylogging_logfile`
+
 + 在`Easylogging++`日志库中，封装了配置类`el::Configurations`，该类提供了完成日志配置功能的全部接口，建议参考该类的源码，可以查看和了解更多更详细和更全面的功能接口。
 + 下面的代码演示了几个常用接口的用法：
   ```
