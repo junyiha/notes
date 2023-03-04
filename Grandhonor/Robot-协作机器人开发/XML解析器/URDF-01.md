@@ -1,0 +1,152 @@
+## URDF 是什么
+
++ 参考
+  + `https://baike.baidu.com/item/urdf/23744717`
+  + `https://www.cnblogs.com/TNTksals/p/15559136.html`
+
+### 百度百科
+
++ URDF，全称为Unified Robot Description Format，中文可以翻译为“统一机器人描述格式”。
++ 与计算机文件中的.txt文本格式、.jpg图像格式等类似，URDF是一种基于XML规范、用于描述机器人结构的格式。
++ 根据该格式的设计者所言，设计这一格式的目的在于提供一种尽可能通用（as general as possible）的机器人描述规范
+
++ 从机构学角度讲，机器人通常被建模为由连杆和关节组成的结构。
++ 连杆是带有质量属性的刚体，而关节是连接、限制两个刚体相对运动的结构。关节也被称为运动副。通过关节将连杆依次连接起来，就构成了一个个运动链（也就是这里所定义的机器人模型）。
++ 一个URDF文档即描述了这样的一系列关节与连杆的相对关系、惯性属性、几何特点和碰撞模型。具体来说，包括 
+  + 机器人模型的运动学与动力学描述
+  + 机器人的几何表示
+  + 机器人的碰撞模型
+
+---
+
++ 根据关节与连杆相关元素的定义，列举如下基于URDF的机器人描述示例：
+
++ 单连杆机器人，一个仅由一根连杆构成的机器人模型可用URDF描述如下：
+  ```
+    <?xml version="1.0"?>
+    <robot name="mybot">  
+        <link name="base_link">    
+            <visual>      
+                <geometry>        
+                    <cylinder length="0.6" radius="0.2"/>      
+                </geometry>    
+            </visual>  
+        </link>
+    </robot>
+  ``` 
+  + 以上定义描述了一个名称为`mybot`的机器人，该机器人具有一根名为`base_link`的连杆，该连杆是一个长为`0.6`、横截面半径为`0.2`的圆柱体。根据机器人操作系统（ROS）的官方文档，URDF格式采用`“米-千克-秒”`制，因此上述数值单位为米。
+
++ 二连杆机器人
+  ```
+    <?xml version="1.0"?>
+    <robot name="two_link_bot">
+        <link name="link_0">
+            <visual>
+                <geometry>
+                    <cylinder length="0.6" radius="0.2"/>
+                </geometry>
+            </visual>
+        </link>
+        
+        <link name="link_1">
+            <visual>
+                <geometry>
+                    <cylinder length="0.6" radius="0.2"/>
+                </geometry>
+            </visual>
+        </link>
+        
+        <joint name="joint_0" type="revolute">
+            <axis xyz="0 0 1"/>
+            <limit effort="100.0" lower="0.0" upper="0.5" velocity="0.5"/>
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.3"/>
+            <parent link="link_0"/>
+            <child link="link_1"/>
+        </joint>
+    </robot>
+  ``` 
+  + 以上定义描述了一个名称为`two_link_bot`的机器人，该机器人具有两根连杆，两根连杆由一个旋转关节`joint_0`连接。
+
+### URDF 文件
+
++ Unified Robot Description Format，统一机器人描述格式，简称为URDF
++ ROS中的urdf功能包包含一个URDF的C++解析器，URDF文件使用XML格式描述机器人模型
+
++ `<robot>`
+  + 完整机器人模型的最顶层标签
+  + `<link>`和`<joint>`标签都必须包含在`<robot>`标签内
+  + 一个完整的机器人模型，由一系列`<link>`和`<joint>`组成
+  + 示例：
+    ```
+      <robot name="robot_name">
+          <link>......</link>
+          <link>......</link>
+          
+          <joint>......</joint>
+          <joint>......</joint>
+      </robot>
+    ``` 
+
++ `<link>`
+  + urdf 中的 link 标签用于描述机器人某个部件(也即刚体部分)的外观和物理属性，比如：机器人底座、轮子、激光雷达、摄像头...每一个部件都对应一个 link
+  + 在 link 标签内，可以设计该部件的形状（shape）、尺寸（size）、颜色（color）、惯性矩阵（inertial matrix）、碰撞参数（collision properties）等一系列属性
+  + 属性：
+    + `name`（必需）  --  link的名字
+  + 子标签：
+    + `<visual>`  --  描述机器人link部分的外观参数
+      + `<geometry>`：可视化对象的形状
+        + box：矩形
+        + cylinder：圆柱体
+        + sphere：球体
+        + mesh：网格，纹理（更为复杂的模型）
+      + `<origin>`：设置偏移量与倾斜弧度
+      + `<material>`：可视化组件的材料
+        + color：颜色
+      + `<texture>`：材料属性（纹理）
+    + `<inertial>`：描述link的惯性参数
+      + `<origin>`：定义连杆质心坐标
+      + `<mass>`：连杆的质量
+      + `<inertia>`：惯性张量
+    + `<collision>`：描述link的碰撞属性
+      + `<origin>`：碰撞组件的参考坐标系相对于连杆坐标系的参考坐标系
+      + `<geometry>`：与上述geometry元素描述相同
+
++ `<joint>`
+  + urdf 中的 joint 标签用于描述机器人关节的运动学和动力学属性，还可以指定关节运动的安全极限，
+  + 机器人的两个部件(分别称之为 parent link 与 child link)以"关节"的形式相连接，不同的关节有不同的运动形式:转、滑动、固定、旋转速度、旋转角度限制等等，
+  + 比如：安装在底座上的轮子可以360度旋转，而摄像头则可能是完全固定在底座上
+  + joint标签对应的数据在模型中是不可见的
+  + 属性：
+    + `<name>`（必需）：指定joint的名字（唯一的）
+    + type（必需）：指定joint的类型，有下列几种：
+      + continuous	旋转关节，可以绕单轴无限旋转
+      + revolute	旋转关节，类似于 continues,但是有旋转角度限制
+      + prismatic	滑动关节，可以沿着一个轴滑动，有最大值和最小值限制
+      + planer	    平面关节，允许在平面正交方向上平移或旋转
+      + floating	浮动关节，允许进行平移、旋转运动
+      + fixed	    这不是一个实际的关节，因为它无法运动，所有的自由度都被锁定。这种类型的关节不需要指定轴、动力学特征、标度和最大值最小值限制
+  + 子标签：
+    + `<parent>`：parent link的名字是一个强制的属性，是这个link在机器人结构树中的名字。 可以理解为parent是主体，child是固定在主体上的配件
+    + `<child>`：child link的名字，是这个link在机器人结构树中的名字
+    + `<origin>`：从parent link到child link的变换，joint位于child link的原点
+    + `<calibration>`：关节的参考位置，用来校准关节的绝对位置
+      + rising：当joint正向运动时，参考点会触发一个上升沿
+      + falling：当joint正向运动时，参考点会触发一个下降沿
+    + `<axis>`：设置围绕哪个关节轴运动
+    + `<dynamics>`：描述关节的物理属性，例如阻尼值、物理静摩擦力等，经常在动力学仿真中用到
+      + damping：joint的阻尼值
+      + friction：joint的摩擦力值
+    + `<limit>`：描述运动的一些极限值，包括关节运动的上下限位置、速度限制、力矩限制等
+      + lower：指定joint运动范围下界的属性，连续型的joint忽略该属性
+      + upper：指定joint运动范围上界的属性，连续型的joint忽略该属性
+      + effort：该属性指定了joint运行时的最大的力
+      + velocity：该属性指定了joint运行时的最大的速度
+    + `<mimic>`：指定该joint来模仿已存在的joint
+      + joint：需要模仿的joint的名字
+      + multiplier：指定上述公式中的乘数因子
+      + offset：指定上述公式中的偏移项，默认值为0
+    + `<safety_controller>`：描述安全控制器参数
+      + soft_lower_limit：该属性指定了joint安全控制边界的下界，是joint安全控制的起始限制点，默认为0
+      + soft_upper_limit：该属性指定了joint安全控制边界的上界，是joint安全控制的起始限制点，默认为0
+      + k_position：本属性用于说明位置和速度之间的关系
+      + k_velocity：本属性用于说明力和速度之间的关系

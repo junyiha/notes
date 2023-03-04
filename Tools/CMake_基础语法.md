@@ -1,6 +1,63 @@
-# cmake基础
+## cmake基础
+
+### CMake 定义宏
+
+#### `add_definitions()`
+
++ 采用`add_definitions`定义宏，对于无值宏：
+  + `add_definitions(-DMG_ENABLE_OPENSSL)`
++ 对应于C语言中的
+  + `#define MG_ENABLE_OPENSSL`
+
++ 而对于有值宏：
+  + `add_definitions(-DLIBEVENT_VERSION_NUMBER=0x02010800)`
++ 对应于C语言：
+  + `#define LIBEVENT_VERSION_NUMBER 0x02010800`
+
+#### `add_compile_definitions()`
+
++ `add_compile_definitions`定义宏，但是这个指令只要高版本的cmake支持，所以推荐使用第1种，比如：
+  + `add_compile_definitions(MG_ENABLE_OPENSSL=1)`
++ 对应于C语言中的
+  + `#define MG_ENABLE_OPENSSL 1`
+
+#### 小结
+
++ CMakeLists.txt 文件中定义的宏在后面C/C++程序中是可以直接使用的
+
+### CMake 调试
+
++ 示例：
+  ```
+    include(CMakePrintHelpers)
+    # 打印变量 PROJECT_SOURCE_DIR
+    cmake_print_variables(PROJECT_SOURCE_DIR)
+
+    cmake_print_properties(TARGETS arwen-webserver PROPERTIES POSITION_INDEPENDENT_CODE)
+  ``` 
+
+## CMake 常用命令
+
+### aux_source_directory()
+
++ 简介：查找在某个路径下的所有源文件。
+  + 搜集所有在指定路径下的源文件的文件名，将输出结果列表储存在指定的变量中。
+  + 该命令主要用在那些使用显式模板实例化的工程上。模板实例化文件可以存储在Templates子目录下，然后可以使用这条命令自动收集起来；这样可以避免手工罗列所有的实例。
++ 语法：`aux_source_directory(< dir > < variable >)`
+
+### add_executable()
+
++ 简介：使用指定的源文件来生成目标可执行文件。这里的目标可执行文件分为三类：普通可执行目标文件、导入可执行目标文件、别名可执行目标文件。分别对应下面的三种命令格式。
++ 语法：
+  + `add_executable (<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] [source1] [source2 ...])`
+  + `add_executable (<name> IMPORTED [GLOBAL])`
+  + `add_executable (<name> ALIAS <target>)`
 
 ## CMake 常用操作
+
+### 生成动态库或静态库
+
++ 
 
 ### 添加动态链接库
 
