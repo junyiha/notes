@@ -1,5 +1,41 @@
 ## cmake基础
 
+### execute_process() 
+
++ execute_process 命令将从当前正在执行的CMake进程中派生一个或多个子进程，从而提供了在配置项目时运行任意命令的方法。可以在一次调用 execute_process 时执行多个命令。但请注意，每个命令的输出将通过管道传输到下一个命令中。该命令接受多个参数：
+  + `COMMAND`：子进程命令行。
+  + `WORKING_DIRECTORY`：指定应该在哪个目录中执行命令。
+  + `TIMEOUT`：如果在指定的时间内（以秒为单位计算，允许有小数位）子进程执行仍未完成，则将会被中断。
+  + `RESULT_VARIABLE`：包含进程运行的结果。这要么是一个整数表示执行成功，要么是一个带有错误条件的字符串。
+  + `RESULTS_VARIABLE`：变量将被设置为以分号分隔的列表形式包含所有进程的结果，按给定命令参数的顺序排列。每个条目都是对应子项的整数返回码或描述错误条件的字符串。
+  + `OUTPUT_VARIABLE`和`ERROR_VARIABLE`将包含执行命令的标准输出和标准错误。由于命令的输出是通过管道传输的，因此只有最后一个命令的标准输出才会保存到OUTPUT_VARIABLE中。
+  + `INPUT_FILE` 指定标准输入重定向的文件名。
+  + `OUTPUT_FILE` 指定标准输出重定向的文件名。
+  + `ERROR_FILE` 指定标准错误输出重定向的文件名
+  + `设置OUTPUT_QUIET和ERROR_QUIET`后，CMake将静默地忽略标准输出和标准错误。
+  + `COMMAND_ECHO <where>`：正在运行的命令将被回送到`<where>`，而`<where>`将被设置为STDERR、STDOUT或NONE中的一个。
+  + `设置OUTPUT_STRIP_TRAILING_WHITESPACE`，可以删除运行命令的标准输出中的任何尾随空 格。
+  + `设置ERROR_STRIP_TRAILING_WHITESPACE`，可以删除运行命令的错误输出中的任何尾随空格。
+  + `ENCODING <name>`：适用于windows平台，编码名称有NONE、AUTO、ANSI、OEM、UTF8或UTF-8。
+  + `ECHO_OUTPUT_VARIABLE, ECHO_ERROR_VARIABLE`：标准输出或标准错误不会被专门重定向到配置的变量。
+  + `COMMAND_ERROR_IS_FATAL <ANY|LAST>`：
+    + `ANY`：如果命令列表中的任何命令失败，`execute_process（）`命令将因错误而停止。
+    + `LAST`：如果命令列表中的最后一个命令失败，则`execute_process（）`命令会因错误而停止。列表中前面的命令不会导致致命错误。
+  + 如果在同一管道中同时指定了多个`OUTPUT_*`或`ERROR_*`选项，则优先级顺序是未知的（应避免这种情况）。
+  + 如果未指定任何`OUTPUT_*`或`ERROR_*`选项，则命令CMake所在进程共享输出管道。
+
++ 示例：
+  ```
+    execute_process(
+      COMMAND
+        ${PYTHON_EXECUTABLE} "-c" "import ${_module_name}; print(${_module_name}.__version__)"
+      OUTPUT_VARIABLE _stdout
+      ERROR_VARIABLE _stderr
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      ERROR_STRIP_TRAILING_WHITESPACE
+      )
+  ``` 
+
 ### CMake 定义宏
 
 #### `add_definitions()`
