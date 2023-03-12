@@ -1,5 +1,36 @@
 # Git 常用技巧
 
+## git tag 标签的使用
+
+### 标签(tag)相关的常用命令
+
++ `git tag` 查看标签
++ `git tag <tag-name>` 创建命名标签
++ `git tag -a <tag-name> -m <message>` 添加一个注解标签
++ `git tag <tag-name> <commit-id> -a -m <message>` 给过去提交记录创建标签
++ `git push origin <tag-name>` 推送标签到远程仓库
++ `git push origin --tags` 推送全部标签
++ `git pull origin --tags` 远程拉取标签
++ `git tag -d <tag-name>` 删除本地标签
++ `git push origin :refs/tags/<tag-name>` 删除远程标签
+
+### 使用标签的方式
+
++ `git clone [--branch tag-name/branch-name] <git-url> [dir]` 下载并绑定指定分支或下载指定标签
+
+### 使用流程
+
++ 在本地仓库创建标签，并推送到远程：
+  + `git tag -a v1.0 -m "create tag"`
+  + `git push origin v1.0`
+
++ 下载指定标签到本地：
+  + `git clone --branch v1.0 http://192.169.4.28/zjy/clean_code.git`
+
++ 下载标签之后，出现的提示：
+  + 你处于分离的HEAD状态。您可以环顾四周，进行实验性更改并提交它们，您可以放弃在此状态下所做的任何提交，而不会通过执行另一次签出影响任何分支。
+  + 如果您想创建一个新的分支来保留您创建的提交，您可以(现在或以后)再次使用-b和chckout命令。
+
 ## git同步项目进度方法
 
 + 创建三个分支：

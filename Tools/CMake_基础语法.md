@@ -1,5 +1,23 @@
 ## cmake基础
 
+### for循环
+
++ foreach:
+  ```
+    set(VAR a b c)
+     
+    foreach(f ${VAR})
+      message(${f})
+    endforeach()
+  ``` 
+
+### cmake 加入调试信息
+
++ 首先，加入：`SET(CMAKE_BUILD_TYPE "Debug")`
++ 然后在下面加入：
+  + `SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")`
+  + `SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")`
+
 ### execute_process() 
 
 + execute_process 命令将从当前正在执行的CMake进程中派生一个或多个子进程，从而提供了在配置项目时运行任意命令的方法。可以在一次调用 execute_process 时执行多个命令。但请注意，每个命令的输出将通过管道传输到下一个命令中。该命令接受多个参数：

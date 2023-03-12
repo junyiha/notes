@@ -1,3 +1,12 @@
+## SSH
+
+### Linux和Windows互相拷贝
+
++ 从Linux复制到Windows：
+  + `scp /home/user/data/tmp.txt user@192.169.4.16:/C:Users/user/Desktop`
+
+
+
 ## 信号详情
 
 |     名称      |    默认动作  |   说明    |

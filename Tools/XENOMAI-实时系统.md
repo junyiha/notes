@@ -25,6 +25,112 @@
 
 + **中断方面，**`I-pipe(interrupt Pipeline)`分发Linux和Xenomai之间的中断，并以Domain优先级顺序传递中断。I-pipe传递中断，对于实时内核注册的中断，中断产生后能够直接得到处理，保证实时性。对于linux的中断，先将中断记录在i-log,等实时任务让出CPU后，linux得到运行，该中断才得到处理。
 
+## xenomai内核解析之xenomai初探
+
++ 参考链接：
+  + `https://www.cnblogs.com/wsg1100/p/12833126.html`
+
+### xenomai3
+
++ xenomai3于2015年正式发布，从xenomai3开始支持两种方式构建linux实时系统，分别是cobalt 和 mercury。
+  + cobalt ：添加一个实时内核核，双核结构。具有实时内核cobalt、实时驱动模型RTDM、实时应用POSIX接口库libcobalt，然后再基于libcobalt实现的其他API skins，如Alchemy API、VxWorks® emulator、pSOS® emulator等(具体查看应用编程接口文档`https://xenomai.org/documentation/xenomai-3/html/xeno3prm`)，即VxWorks、pSOS应用程序可稍微修改源码就可以在xenomai上编译运行。
+    + 需要说明的是Alchemy API是xenomai除posix外的官方编程接口，提供了更接近于传统RTOS编程方式的编程接口，对于不熟悉linux应用开发的MCU开发人员也能很快上手。在xenomai2上Alchemy API是xenomai的原生编程接口，性能最好，posix API是在Alchemy API上实现的skin。在xenomai3相反，Alchemy API、VxWorks、pSOS均基于posix接口实现，也正因为这样诞生了mercury方式。
+  + mercury ：基于直接修改linux内核源代码的PREEMPT RT，应用空间在glibc之上，添加xenomai API库，如下图所示。可以在不支持cobalt内核时，可使用该方法运行xenomai应用；也就是说你还可以通过mercury方式在PREEMPT RT上编译运行VxWorks、pSOS等接口的应用程序。 当然，也可不需要PREEMPT RT，直接使用linux，只是实时性就……
+
+### xenomai各种接口应用编译
+
+#### 编译参数获取
+
++ xenomai 3组成结构小节说到，xenomai库libcobalt提供了多种编程接口，这些接口编写的实时应用程序如何编译呢？xenomai提供了一个脚本工具`xeno-config`来生成各个接口的GCC编译链接参数：
+  ```
+    root@cor01:/usr/xenomai/bin# ./xeno-config --help
+    Usage xeno-config OPTIONS
+    Options :
+            --help
+            --v,--verbose
+            --version
+            --cc
+            --ccld
+            --arch
+            --prefix
+            --[skin=]posix|vxworks|psos|alchemy|rtdm|smokey|cobalt
+            --auto-init|auto-init-solib|no-auto-init
+            --mode-check|no-mode-check
+            --cflags
+            --ldflags
+            --lib*-dir|libdir|user-libdir
+            --core
+            --info
+            --compat
+    root@cor01:/usr/xenomai/bin# ./xeno-config --v
+    xeno-config --verbose
+            --core=cobalt
+            --version="3.2.1"
+            --cc="gcc"
+            --ccld="/usr/xenomai/bin/wrap-link.sh gcc"
+            --arch="x86"
+            --prefix="/usr/xenomai"
+            --library-dir="/usr/xenomai/lib"
+    root@cor01:/usr/xenomai/bin# 
+  ``` 
++ 其中`--[skin=]`参数指定我们编译的应用程序是什么接口类型，例如编译一个POSIX接口的实时应用，指定接口`(skin)--posix`，同时使用参数`--cflags`来获取POSIX接口实时应用的编译参数：
+  ```
+    root@cor01:/usr/xenomai/bin# ./xeno-config --posix --cflags
+    -I/usr/xenomai/include/cobalt -I/usr/xenomai/include -D_GNU_SOURCE -D_REENTRANT -fasynchronous-unwind-tables -D__COBALT__ -D__COBALT_WRAP__
+  ``` 
+
+####  链接参数获取
+
++ 获取链接参数，`--ldflags` 得到链接参数：
+  ```
+    root@cor01:/usr/xenomai/bin# ./xeno-config --posix --ldflags
+    -Wl,--no-as-needed -Wl,@/usr/xenomai/lib/cobalt.wrappers -Wl,@/usr/xenomai/lib/modechk.wrappers  /usr/xenomai/lib/xenomai/bootstrap.o -Wl,--wrap=main -Wl,--dynamic-list=/usr/xenomai/lib/dynlist.ld -L/usr/xenomai/lib -lcobalt -lmodechk -lpthread -lrt  
+  ``` 
++ 同样通过指定`--[skin=]`为vxworks、psos来编译VxWorks、psos实时应用程序到xenomai上运行。
+
+### xenomai 内核系统调用
+
++ 参考链接：
+  + `https://www.cnblogs.com/wsg1100/p/13160821.html`
+
+#### 关于系统调用
+
++ 解析系统调用是了解内核架构最有力的一把钥匙。
++ 在Linux内核基础上加入xenomai实时系统内核后，在内核空间两个内核共存，实时任务需要xenomai内核来完成实时的服务，如果实时任务需要用到linux的服务，还可以调用linux内核的系统调用，你可能会好奇xenomai与linux两个内核共存后系统调用是如何实现的？
+
++ 为什么需要系统调用？现代操作系统中，处理器的运行模式一般分为两个空间：内核空间和用户空间，大部分应用程序运行在用户空间，而操作系统内核和设备驱动程序运行在内核空间，如果应用程序需要访问硬件资源或者需要内核提供服务，该怎么办？
++ 为了向用户空间上运行的应用程序提供服务，内核提供了一组接口。透过该接口，应用程序可以访问硬件设备和其他操作系统资源。这组接口在应用程序和内核之间扮演了使者的角色，应用程序发送各种请求，而内核负责满足这些请求，这些接口就是系统调用，它是用户空间和内核空间一个中间层。
+
++ 系统调用层主要作用有三个：
+  + 它为用户空间提供了一种统一的硬件的抽象接口。比如当需要读些文件的时候，应用程序就可以不去管磁盘类型和介质，甚至不用去管文件所在的文件系统到底是哪种类型。
+  + 系统调用保证了系统的稳定和安全。应用程序要访问内核就必须通过系统调用层，内核可以在系统调用层对应用程序的访问权限、用户类型和其他一些规则进行过滤，这避免了应用不正确地访问内核，保证了系统和各个应用程序的安全性。
+  + 可移植性。可以让应用程序在不修改源代码的情况下，在不同的操作系统或拥有不同硬件架构的系统中重新编译运行。
+
++ 回到本文开头的问题，该问题细分为如下两个问题：
+  + 双核共存时，如何区分应用发起的系统调用是xenomai内核调用还是linux内核调用？
+  + 一个xenomai实时任务既可以调用xenomai内核服务，也可以调用linux内核服务，这是如何做到的？
+
+#### 32位Linux系统调用
+
++ linux操作系统的API通常以C标准库的方式提供，比如linux中的libc库。C标准库中提供了POSIX的绝大部分API实现，glibc为了提高应用程序的性能，还对一些系统调用进行了封装。
++ 此外，由于32位系统系统调用使用软中断`int 0x80`指令实现，应用程序也可以通过汇编直接进行系统调用。软中断属于异常的一种，通过执行该指令陷入(trap)内核，trap在整理的文档x86 Linux中断系统有说明。内核初始化过程中，通过函数`tarp_init()`设置IDT（Interrupt Descriptor Table 记录每个中断异常处理程序的地址的一张表），有关`int 0x80`的IDT表项如下：
+  ```
+    static const __initconst struct idt_data def_idts[] = {
+    	......
+    	SYSG(IA32_SYSCALL_VECTOR,	entry_INT80_32),
+    	......
+    };
+  ``` 
++ 当产生系统调用时，硬件根据向量号在 IDT 中找到对应的表项，即中断描述符，进行特权级检查，发现 DPL = CPL = 3 ，允许调用。然后硬件将切换到内核栈 (tss.ss0 : tss.esp0)。接着根据中断描述符的 segment selector 在 GDT / LDT 中找到对应的段描述符，从段描述符拿到段的基址，加载到 cs 。将 offset 加载到 eip。最后硬件将 ss / sp / eflags / cs / ip / error code 依次压到内核栈。于是开始执行entry_INT80_32函数，该函数在entry_32.S定义：
++ 在内核栈的最高地址端，存放的是结构 pt_regs，首先通过 push 和 SAVE_ALL 将当前用户态的寄存器，保存在栈中 pt_regs 结构里面.保存完毕后，关闭中断，将当前栈指针保存到 eax，即do_int80_syscall_32的参数1。
++ 调用do_int80_syscall_32=>do_syscall_32_irqs_on
++ 在这里，将系统调用号从pt_reges中eax 里面取出来，然后根据系统调用号，在系统调用表中找到相应的函数进行调用，并将寄存器中保存的参数取出来，作为函数参数。如果仔细比对，就能发现，这些参数所对应的寄存器，和 Linux 的注释是一样的。ia32_sys_call_table系统调用表生成后面解析(此图来源于网络)
++ 相关内核调用执行完后，一直返回到 do_syscall_32_irqs_on ，如果系统调用有返回值，会被保存到 regs->ax 中。接着返回 entry_INT80_32 继续执行，最后执行 INTERRUPT_RETURN 。 INTERRUPT_RETURN 在 arch/x86/include/asm/irqflags.h 中定义为 iret ，iret 指令将原来用户态保存的现场恢复回来，包含代码段、指令指针寄存器等。这时候用户态进程恢复执行。
+
+#### 32位实时系统调用
+
++ xenomai+linux双内核架构下，通过I-pipe 拦截系统调用，并将系统调用定向到实现它们的系统。
+
 ## xenomai内核解析
 
 + 参考链接：`https://www.cnblogs.com/wsg1100/p/13836497.html`
