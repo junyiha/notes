@@ -1,11 +1,33 @@
 ## SSH
 
+### 修改SSH配置文件
+
++ `sudo vim /etc/ssh/sshd_config`
++ 搜索`PermitRootLogin`，将一下配置：
+  ```
+    33 #LoginGraceTime 2m
+    34 #PermitRootLogin prohibit-password
+    35 #StrictModes yes
+    36 #MaxAuthTries 6
+    37 #MaxSessions 10
+  ``` 
++ 修改为：
+  ```
+     LoginGraceTime 2m
+     PermitRootLogin yes
+     StrictModes yes
+     #MaxAuthTries 6
+     #MaxSessions 10
+  ``` 
+
+### 重启ssh，使配置生效
+
++ `sudo service ssh restart`
+
 ### Linux和Windows互相拷贝
 
 + 从Linux复制到Windows：
   + `scp /home/user/data/tmp.txt user@192.169.4.16:/C:Users/user/Desktop`
-
-
 
 ## 信号详情
 

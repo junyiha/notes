@@ -1,5 +1,13 @@
 # Git 常用技巧
 
+## 直接拉取远程分支
+
++ 查看远程分支最新的commitSHA，例如：`aa4339fbe90f68bc82901d976a7c11fe92179ef3`
+  
++ 使用命令直接从指定的commit新建分支：
+  + `git branch [branch-name] [commit-id]`
+  + `git branch v1.x aa4339fbe90f68bc82901d976a7c11fe92179ef3`
+
 ## git tag 标签的使用
 
 ### 标签(tag)相关的常用命令
