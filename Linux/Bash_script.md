@@ -14,6 +14,29 @@
   - 发送钉钉通知
   - 清理保持备份个数
 
+## 递归查找指定后缀名文件
+
++ `find . -name "*.py"|xargs git add --`
+  + 递归复制当前目录下所有后缀为.py的文件并git add
+
++ `find . -name '*.so' | xargs -i cp {} ../lib/`
+  + 递归复制当前目录下所有后缀为.so的至../lib中
+
+## linux 如何判断文件和目录
+
++ `-f "file"` : 判断file是否是文件
++ `-d "file"` : 判断file是否是目录
++ 示例：
+  ```
+    #! /bin/bash +x
+    filename="/home"
+    if [ -d "${filename}" ]; then
+      echo "${filename} is a directory"
+    elif [ -f "#{filename}" ]; then 
+      echo "${filename} is a file"
+    fi
+  ``` 
+
 ## bash shell脚本中使用换行符
 
 + 单独输出一个空行：`$ echo -e`
