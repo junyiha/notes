@@ -1,4 +1,10 @@
-## 常用的bash脚本
+## Shell 编程参考
+
+### 基础
+
++ `https://blog.csdn.net/ljlfather/article/details/105066066`
+
+### 常用的bash脚本
 
 + `https://gitbook.curiouser.top/origin/bash-scirpts.html`
   - 判断curl返回状态码
@@ -13,6 +19,267 @@
   - 检查系统网络
   - 发送钉钉通知
   - 清理保持备份个数
+
+## Bash Shell中的各种运算符
+
++ 在 Bash Shell 中，支持很多类型的运算符：
+  + 算术运算符 
+  + 整数关系运算符（只支持整数） 
+  + 逻辑运算符 
+  + 字符串关系运算符 
+  + 目录或文件测试文件运算符
+
+### 算术运算符
+
+|  算术运算符  |    说明    |
+|  :---      |    :---    |
+|    +       |    加      |
+|    -       |    减      |
+|    *       | 乘(必须*转义，才能够正常使用)  |
+|    /       |    除      |
+|    %       |    取余     |
+
++ 如何实现算术运算（+ - * /）：
+  + 在 shell 中，+ - * / 默认全都当成了字符；
+  + 由于 `*` 有特殊含义，在使用 `“expr”` 实现运算的时候，必须使用 `\*` 转义，但使用 `let [] (())` 的时候不必转义！
+
++ 使用 let 实现算术运算：
+  ```
+    root@zhengzelin:~# a=1
+    root@zhengzelin:~# b=2
+    root@zhengzelin:~# let c=a+b   或 let c=$a+$b
+    root@zhengzelin:~# echo $c
+    3
+
+    root@zhengzelin:~# let c=a*b
+    root@zhengzelin:~# echo $c
+    2
+  ``` 
+
++ 使用 expr 结合 ( ) 实现算术运算：
+  ```
+    expr 他本身就是一个运算命令：
+    root@zhengzelin:~# expr 1 + 2
+    3
+
+    但是在脚本里可不能这样参加运算；得这样：
+    root@zhengzelin:~# a=1
+    root@zhengzelin:~# b=2
+
+    root@zhengzelin:~# c=$(expr $a + $b)
+    root@zhengzelin:~# echo $c
+    3
+
+    # 关于乘法：
+    root@zhengzelin:~# c=$(expr $a * $b)
+    expr: syntax error
+    root@zhengzelin:~# c=$(expr $a \* $b);echo $c
+    2
+  ``` 
+
++ 使用 [ ] 实现算术运算：
+  ```
+    root@zhengzelin:~# a=1
+    root@zhengzelin:~# b=2
+    root@zhengzelin:~# c=$[a+b]  或 c=$[$a+$b]
+    root@zhengzelin:~# echo $c
+    3
+  ``` 
+
++ 使用 (( )) 实现算术运算:
+  ```
+    root@zhengzelin:~# a=1
+    root@zhengzelin:~# b=2
+
+    root@zhengzelin:~# c=$((a+b))
+    root@zhengzelin:~# echo $c
+    3
+  ``` 
+
+### 关系运算符
+
+|  []中使用的比较符  |  [[]]中使用的比较符  |  (())中使用的比较符  |  作用    |
+|  :---           |    :---            |    :---            |  :---   |
+|  -eq或==        |  -eq或==            |  ==                |  等于   |
+|  -ne或!=        |  -ne或!=            |  !=                |  不等于  |
+|  -gt或\>        |  -gt或>             |  >                 |  大于   |
+|  -lt或\<        |  -lt或<             |  <                 | 小于    |
+|  -ge            |  -ge               |  >=                | 大于等于 |
+|  -le            |  -le               |  <=                | 小于等于 |
+
++ 注：
+  + 在 [ ] 中 使用 > 和 < 得用转义字符！而 [[ ]] 、(( )) 中不需要！
+  + `-eq`不能用于字符串的比较，例如：`if [ "one" -eq "one" ]`，这是错误的，正确的应该为：`if [ "one" == "one" ]`
+
++ [ ] 中 使用 > 的例子：
+  ```
+    root@zhengzelin:~# vim test.sh 
+    a=1
+    b=2
+    if [ $a \> $b ];then     # 注意格式， [ ] 两边用空格隔开
+        echo "a > b"
+    else
+        echo "a < b"
+        exit;
+    fi
+    root@zhengzelin:~# ./test.sh 
+    a < b
+
+    "# 因为 [ ] 是 bash 的内部命令；而 bash 也用 < 和 > 表示重定向"
+  ```  
+
++ [[ ]] 中 使用 > 的例子：
+  ```
+    root@zhengzelin:~# vim test.sh 
+    a=1
+    b=2
+    if [[ $a > $b ]];then                                                                                                          
+        echo "a > b"
+    else
+        echo "a < b"
+        exit;
+    fi
+    root@zhengzelin:~# ./test.sh 
+    a < b
+  ``` 
+
++ (( )) 中使用 > 的例子：
+  ```
+    root@zhengzelin:~# cat test.sh 
+    #!/bin/bash
+    a=2
+    b=3
+    if (( $a < $b ));then 
+        echo "a < b"
+    else
+        echo "a > b"
+        exit;
+    fi
+    root@zhengzelin:~# ./test.sh 
+    a < b
+  ``` 
+
+### 逻辑运算符
+
+|  []中逻辑运算符  |  [[]]中逻辑运算符  |  (())中逻辑运算符  |      作用      |
+|  :---          |  :---            |  :---            |  :---         |
+|    -a          |    &&            |    &或者&&        |  两边的条件都成立，结果才为true(与) |
+|    -o          |    ||            |    |或者||        |  一边条件成立，则为true(或)       |
+|    !           |    !             |     无           |  条件为true，返回false(非         |
+
++  [ ] 中使用 -a ：
+   ```
+      root@zhengzelin:~# vim test.sh 
+      #!/bin/bash
+      a=2
+      b=3
+      if [ $a \< $b -a $a \> 0 ];then
+          echo "a < b"
+      else
+          echo "a > b"
+          exit;
+      fi
+
+      root@zhengzelin:~# ./test.sh 
+      a < b
+   ``` 
+
++ [[ ]] 中使用 &&：
+  ```
+    root@zhengzelin:~# cat test.sh 
+    #!/bin/bash
+    a=2
+    b=3
+    if [[ $a < $b && $a < 5 ]];then 
+        echo "a < b"
+    else
+        echo "a > b"
+        exit;
+    fi
+
+    root@zhengzelin:~# ./test.sh 
+    a < b
+  ``` 
+
++ (( )) 中使用 &&：
+  ```
+    root@zhengzelin:~# ./test.sh 
+    a < b
+    root@zhengzelin:~# cat test.sh 
+    #!/bin/bash
+    a=2
+    b=3
+    if (( $a < $b && $a < 5 ));then 
+        echo "a < b"
+    else
+        echo "a > b"
+        exit;
+    fi
+
+    root@zhengzelin:~# ./test.sh 
+    a < b
+  ``` 
+
+### 字符串关系运算符
+
+|  []中逻辑运算符  |  [[]]中逻辑运算符  |  (())中逻辑运算符  |      作用      |
+|  :---          |  :---            |  :---            |  :---         |
+|    =或==       |    =或==          |    无            | 两个字符串的比较是否相等  |        
+|    -z          |    -z            |    无            |  判断是否为空字符串，为空返回 true，反之返回flase  |
+|    -n          |    -n            |    无            |  判断是否为非空字符串，不为空字符串则返回 true，反之则返回 flase  |
+
++ [ ]、[[ ]] 中使用 = 或 ==：
+  ```
+    声明变量（不声明也行，直接使用字符串）：
+    root@zhengzelin:~# test="abcde"
+    root@zhengzelin:~# zzl="abcde"
+    —————————————————————————————————————————————————————————————————————————————————————————————————————————
+    "[ ] 中："
+    root@zhengzelin:~# if [ $test = $zzl ];then echo "他俩一样";else echo "no";fi 
+    他俩一样
+    root@zhengzelin:~# if [ $test == $zzl ];then echo "他俩一样";else echo "no";fi 
+    他俩一样
+    ——————————————————————————————————————————————————————————————————————————————————————————————————————————
+    "[[ ]] 中："
+    root@zhengzelin:~# if [[ $test = $zzl ]];then echo "他俩一样";else echo "no";fi 
+    他俩一样
+    root@zhengzelin:~# if [[ $test == $zzl ]];then echo "他俩一样";else echo "no";fi 
+    他俩一样
+  ``` 
+
++ [ ]、 [[ ]] 中使用 -z 和 -n 和 !(逻辑非)
+  ```
+    "注意： -z 和 -n 刚好代表的含义相反："
+    -z ： 判断字符串是否为空！(如果这个字符串为空，则返回 true 的值，如果不为空，则返回 flase 的值！)
+    -n ： 判断字符串是否为非空！(如果这个字符串为非空，则返回 true 的值；如果为空，则返回 flase 的值！)
+
+    然后这里有意思的就是“逻辑非”(!) 如果你使用 "! -z" 那么他的意思就跟“-n”是一样的！()
+    例子如下：
+    —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    "[ ] 中使用 -z 、-n 、!(逻辑非)："
+    root@zhengzelin:~# set | grep zzl
+    zzl=abc
+    root@zhengzelin:~# if [ -z $zzl ];then echo "这是一个空字符串";else echo "这不是一个空字符串"; fi
+    这不是一个空字符串
+    root@zhengzelin:~# if [ -n $zzl ];then echo "这是一个空字符串";else echo "这不是一个空字符串"; fi
+    这是一个空字符串 
+    root@zhengzelin:~# if [ ! -z $zzl ];then echo "这是一个空字符串";else echo "这不是一个空字符串"; fi
+    这是一个空字符串
+
+    # 证明： "! -z" = -n
+    ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    "[[ ]] 中使用 -z、-n、 !(逻辑非)："
+
+    略~~  跟上方 [ ] 中是一样的！
+    —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    (( )) 中使用：
+
+    root@zhengzelin:~# if (( -z $zzl ));then echo "这是一个空字符串";else echo "这不是一个空字符串"; fi
+    -bash: ((: -z abc : syntax error in expression (error token is "abc ")
+    这不是一个空字符串
+
+    我知道会报错，但是我不知道为啥，如果有大佬知道的话不嫌麻烦的话告诉一下小弟吧！
+  ``` 
 
 ## 递归查找指定后缀名文件
 
@@ -159,7 +426,7 @@
 
 ## 处理参数的特殊字符
 
-+ `@#` 传递到脚本的参数个数
++ `$#` 传递到脚本的参数个数
 + `$*` 以一个单字符串显示所有向脚本传递的参数
 + `$$` 脚本运行的当前进程的ID号
 + `$!` 后台运行的最后一个进程的ID号
