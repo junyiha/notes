@@ -26,3 +26,6 @@
     + 创建一个文件为`logs/basic-log.txt`，并设置输出的消息标识为`file_logger`的日志文件，通过使用`my_logger`来操作该日志文件
   + 将日志输出到日志文件中：
     + `my_logger->info("Helo Info");`
+
++ 输出行号：
+  + `SPDLOG_DEBUG("some debug message about program: {}", "robot");`
