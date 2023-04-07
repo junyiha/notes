@@ -2,6 +2,15 @@
 
 ## 直接拉取远程分支
 
++ 新建分支分支并切换到指定分支
+  + `git checkout -b dev origin/dev`
+  + `git checkout -b 本地分支名 origin/远程分支名`
++ 该命令可以将远程Git仓库里的指定分支拉取到本地，这样就在本地新建了一个dev分支，并和指定的远程分支`origin/dev`关联起来了。
++ 示例：
+  + `git checkout -b dev notes/dev` : 切换指定远程分支
+
+## 在本地使用指定提交id创建分支
+
 + 查看远程分支最新的commitSHA，例如：`aa4339fbe90f68bc82901d976a7c11fe92179ef3`
   
 + 使用命令直接从指定的commit新建分支：
@@ -153,7 +162,7 @@
 + `git tag` : 列出所有本地标签
 + `git tag <tagname>` : 基于最新提交的创建标签
 + `git tag -d <tagname>` : 删除标签
-+ `git branch -b dev notes/dev` : 切换指定远程分支
++ `git checkout -b dev notes/dev` : 切换指定远程分支
 
 ### 合并和衍合
 

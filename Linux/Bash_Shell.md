@@ -1,5 +1,16 @@
 ## Shell 编程参考
 
+### for循环变量
+
++ 基于数字序列：
+  + `for i in {1..10}`
+  
++ 基于数组：
+  + `for i in "${array[@]}"`
+  
++ 基于命令输出：
+  + `for i in $(ls)`
+
 ### 基础
 
 + `https://blog.csdn.net/ljlfather/article/details/105066066`
