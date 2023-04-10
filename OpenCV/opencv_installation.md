@@ -1,3 +1,11 @@
+## cmake 编译安装
+
++ `cmake -DCMAKE_INSTALL_PREFIX=/home/user/zjy-190/Documents/OpenCV/4.5.2/install -DCMAKE_TYPE=RELEASE -DWITH_FFMPEG=OFF ..`
++ 参数：
+  + `CMAKE_INSTALL_PREFIX` : 设置安装路径
+  + `CMAKE_TYPE` : 设置编译类型
+  + `WITH_FFMPEG` : 设置是否带有ffmpeg，因为ffmpeg版本不对应，安装会失败，所以关掉了
+
 ## 安装opencv
 
 + 安装依赖环境
