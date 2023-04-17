@@ -106,6 +106,12 @@
 
 + Video I/O, 视频输入和输出
 
++ 用到的对象
+  + cv::VideoCapture
+
++ 需要链接的库文件：
+  + libopencv_videoio.so
+
 ### video
 
 + Video Analysis，视频分析
