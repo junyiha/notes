@@ -1,3 +1,22 @@
+## apt 家族
+
+### apt
+
+### apt-get 
+
+### apt-cache 
+
+### apt-file
+
++ 查找包文件
+  + `apt-file find libopenssh.so`
+
+### apt-mark
+
+### apt-sortpkgs
+
+## aptitude 
+
 ## free
 
 + Linux free命令用于显示内存状态。
@@ -268,10 +287,6 @@
 + du(disk usage),命令用于显示目录或文件的大小
 + du会显示指定的目录或文件所占用的磁盘空间
 
-## apt-file
-
-+ 查找包文件
-  + `apt-file find libopenssh.so`
 
 ## useradd 
 
