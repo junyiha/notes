@@ -1,3 +1,15 @@
+## mysql 5.7
+
+### 不用密码也能登录的问题
+
++ 在ubuntu下载mysql后，用mysql命令就可以直接登录数据库了，这是因为在mysql.user表里有个plugin的字段，root这个用户的值是auth_socket, 需要把它改成mysql_native_password。
++ 具体步骤如下：
+  + `use mysql;`
+  + `update user set authentication_string=PASSWORD("密码") where user=‘root‘;`
+  + `update user set plugin="mysql_native_password"; `
+  + `flush privileges;`
+  + `quit;`
+
 ## SQL 
 
 + SQL 是用于访问和处理数据库的标准的计算机语言。

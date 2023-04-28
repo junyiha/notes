@@ -16,6 +16,103 @@
 
 + 真正要处理的不是这两个文件，是要检查正在跑的容器内的服务，有没有往容器本地写文件的行为，如果有，则要把写文件的路径挂载出来，或者直接在容器中删除文件
 
+## docker 管理命令
+
+### builder
+
++ manage builds
+
+#### build
+
++ 命令：`docker builder build [OPTIONS] PATH | URL | -`
++ 简介：从Dockerfile创建一个镜像
++ 选项：
+  + `--add-host` : 添加一个自定义的主机到IP的映射（host:ip）
+  + `--build-arg` : 设置构建时的变量
+  + `--cache-from` : 考虑作为缓存来源的镜像
+  + `--cgroup-parent` : 容器的可选父级c组
+  + `--compress` : 使用gzip压缩构建环境
+  + `--cpu-period`
+  + `--cpu-quota`
+  + `--cpu-shares,-c`
+  + `--cpuset-cpus`
+  + `--cpuset-mems`
+  + `--disable-content-true` : 跳过镜像验证，默认为true
+  + `--file,-f` : Dockerfile的名称，默认为PATH/Dockerfile
+  + `--force-rm` : 始终移除中间的容器
+  + `--iidfile` : 将镜像的ID写入到文件中
+  + `--isolation` : 容器隔离技术
+  + `--label` : 设置镜像的元数据
+  + `--memory,-m` : 内存限制
+  + `--memory-swap` : 交换限制等于内存加交换：-1表示启用无限制交换。
+  + `--network` : 在构建过程中为RUN指令设置网络模式
+  + `--no-cache` : 在构建镜像的时候不要使用缓存
+  + `--platform` : 如果服务器是多平台的，则设置平台
+  + `--pull` : 始终尝试拉取一个较新版本的镜像
+  + `--quiet,-q` : 过滤构建镜像的输出，仅在成功时输出镜像的ID
+  + `--rm` : 构建成功后删除中间容器
+  + `--security-opt` : 安全选项
+  + `--shm-size` : /dev/shm的大小
+  + `--squash` : 将新建的层压成一个新的层
+  + `--tag,-t` : 名称和可选的标签，格式为name:tag
+  + `--target` : 设置目标构建阶段为构建。
+  + `--ulimit` : 限定选项
+
+### run
+
++ 命令：`docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
++ 简介：docker run命令首先在指定的镜像上创建一个可写的容器层，然后用指定的命令启动它。也就是说，docker run相当于API中的/containers/create然后/containers/(id)/start。一个停止的容器可以用docker start来重新启动，其之前的所有变化都是完整的。
++ 选项：
+  + `--add-host` : 添加一个自定义的主机到IP的映射（host:ip）
+  + `--attach,-a` : 附加到STDIN、STDOUT或STDERR上
+  + `--blkio-weight` : 区块IO（相对权重），在10和1000之间，或0表示禁用（默认为0）。
+  + `--blkio-weight-device` : 块状IO重量（相对设备重量）
+  + `--cap-add` : 	增加Linux功能
+  + `--cap-drop` : 	降低Linux的能力
+  + `--cgroup-parent` : 容器的可选父级c组
+  + `--cgroupns`
+  + `--cidfile` : 将容器ID写到文件中
+  + `--cpu-count` : CPU计数，仅支持Windows
+  + `--cpu-percent` : 
+  + `--cpu-period` 
+  + `--cpu-quota`
+  + `--cpu-rt-period`
+  + `--cpu-rt-runtime`
+  + `--cpu-shared,-c`
+  + `--cpus` : cpu的数量
+  + `--cpuset-cpus`
+  + `--cpuset-mems`
+  + `--detach,-d` : 在后台运行容器并打印容器ID
+  + `--detach-keys` : 覆盖脱离容器的按键顺序
+  + `--device` : 在容器中添加一个主机设备
+  + `--device-cgroup-rule` : 在cgroup允许的设备列表中添加一条规则
+  + `--device-read-bps` : 限制从一个设备上的读取速率（每秒字节数）。
+  + `--device-read-iops` : 限制从一个设备的读取率（每秒的IO）。
+  + `--device-write-bps`
+  + `--device-write-iops`
+  + `--disable-content-trust` : 跳过镜像验证，默认为true
+  + `--dns` : 设置自定义的DNS服务器
+  + `--dns-option` : 设置DNS选项
+  + `--dns-search` : 设置自定义DNS搜索域
+  + `--domainname` : 容器NIS域名
+  + `--entrypoint` : 覆盖镜像的默认ENTRYPOINT
+  + `--env,-e` : 设置环境变量
+  + `--env-file` : 读取环境变量的文件
+  + `--expose` : 暴露一个端口或一系列的端口
+  + `--gpus` : 要添加到容器中的GPU设备（'全部'用于传递所有GPU）。
+  + `--group-add`
+  + `--health-cmd` : 运行命令以检查健康状况
+  + `--health-interval` : 运行检查的间隔时间（ms|s|m|h）（默认为0s）。
+  + `--health-retries`
+  + `--health-start-period`
+  + `--health-timeout`
+  + `--help` : 输出帮助信息
+  + `--hostname,-h` : 容器主机名称
+  + `--init` : 在容器内运行一个init，转发信号并收割进程
+  + `--interactive,-i` : 保持STDIN开放，即使没有连接
+  + `--io-maxbandwidth` : 系统驱动器的最大IO带宽限制（仅Windows）。
+  + `--io-maxiops` : 系统驱动器的最大IOps限制（仅Windows）。
+
 ## 常用命令
 
 ## `docker images, docker image ls`
