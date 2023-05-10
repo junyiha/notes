@@ -1,3 +1,7 @@
+## 查询某个表单有多少条记录
+
++ `select count(*) from table_name;`
+
 ## mysql 5.7
 
 ### 不用密码也能登录的问题
