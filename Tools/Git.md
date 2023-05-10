@@ -20,6 +20,14 @@
     	merge = refs/heads/my_remote_branch_name
   ``` 
 
++ 取消分支上游
+  + `git branch --inset-upstream`
+
++ 查看分支上游
+  + `git status`
+  + `git checkout <分支>`
+  + `git branch -vv`
+
 + 设置完upstream后，就可以直接用 `git push/pull` 来拉取或推送相应的分支了。
 
 ## 直接拉取远程分支
