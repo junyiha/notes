@@ -7,7 +7,11 @@
 
 + 设置upstream的方法有两种：
   + 在push的时候指定：`git push --set-upstream origin my_remote_branch_name`
-  + 在新建分支的时候指定：`git branch --set-upstream my_local_branch_name origin/my_remote_branch_name`
+  + 在新建分支的时候指定：`git branch --set-upstream my_local_branch_name origin/my_remote_branch_name`(错误)
++ 注：
+  + 在运行`git branch --set-upstream`命令时，出现错误(git --version: 2.17.1)
+  + `fatal: the '--set-upstream' option is no longer supported. Please use '--track' or '--set-upstream-to' instead.`
+  + 设置方法：`git branch --set-upstream-to=origin/<远程分支> <本地分支>`
 
 + 实际上，上述命令，就是在修改本地的.git/config文件：
   ```
