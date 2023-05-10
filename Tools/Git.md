@@ -1,5 +1,23 @@
 # Git 常用技巧
 
+## 上游分支 upstream
+
++ upstream意为上游，即本地分支所对应的远程分支。
++ 一般，本地分支如果是从clone或者fetch得到的，都在远程库有一个upstream分支。
+
++ 设置upstream的方法有两种：
+  + 在push的时候指定：`git push --set-upstream origin my_remote_branch_name`
+  + 在新建分支的时候指定：`git branch --set-upstream my_local_branch_name origin/my_remote_branch_name`
+
++ 实际上，上述命令，就是在修改本地的.git/config文件：
+  ```
+    [branch "my_local_branch_name"]
+    	remote = origin
+    	merge = refs/heads/my_remote_branch_name
+  ``` 
+
++ 设置完upstream后，就可以直接用 `git push/pull` 来拉取或推送相应的分支了。
+
 ## 直接拉取远程分支
 
 + 新建分支分支并切换到指定分支
