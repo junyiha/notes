@@ -10,6 +10,9 @@
 + 在`/usr/local/include/opencv4/opencv2`目录下的`opencv_modules.hpp`的文件中，存放OpenCV中与新模块构造相关的说明代码，打开可以发现其定义的是OpenCV所有组件的宏
 + 官方文档：`https://docs.opencv.org/4.x/`
 
++ OpenCV 提供的是C++ API，
++ C API在OpenCV 2.4 版本之后就被弃用了
+
 ### calib3d
 
 + `Calibration（校准）`和`3D`这两个词的组合缩写。
@@ -102,6 +105,12 @@
 ### videoio
 
 + Video I/O, 视频输入和输出
+
++ 用到的对象
+  + cv::VideoCapture
+
++ 需要链接的库文件：
+  + libopencv_videoio.so
 
 ### video
 

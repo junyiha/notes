@@ -1,6 +1,45 @@
 # Git 常用技巧
 
+## 上游分支 upstream
+
++ upstream意为上游，即本地分支所对应的远程分支。
++ 一般，本地分支如果是从clone或者fetch得到的，都在远程库有一个upstream分支。
+
++ 设置upstream的方法有两种：
+  + 在push的时候指定：`git push --set-upstream origin my_remote_branch_name`
+  + 在新建分支的时候指定：`git branch --set-upstream my_local_branch_name origin/my_remote_branch_name`(错误)
++ 注：
+  + 在运行`git branch --set-upstream`命令时，出现错误(git --version: 2.17.1)
+  + `fatal: the '--set-upstream' option is no longer supported. Please use '--track' or '--set-upstream-to' instead.`
+  + 设置方法：`git branch --set-upstream-to=origin/<远程分支> <本地分支>`
+
++ 实际上，上述命令，就是在修改本地的.git/config文件：
+  ```
+    [branch "my_local_branch_name"]
+    	remote = origin
+    	merge = refs/heads/my_remote_branch_name
+  ``` 
+
++ 取消分支上游
+  + `git branch --inset-upstream`
+
++ 查看分支上游
+  + `git status`
+  + `git checkout <分支>`
+  + `git branch -vv`
+
++ 设置完upstream后，就可以直接用 `git push/pull` 来拉取或推送相应的分支了。
+
 ## 直接拉取远程分支
+
++ 新建分支分支并切换到指定分支
+  + `git checkout -b dev origin/dev`
+  + `git checkout -b 本地分支名 origin/远程分支名`
++ 该命令可以将远程Git仓库里的指定分支拉取到本地，这样就在本地新建了一个dev分支，并和指定的远程分支`origin/dev`关联起来了。
++ 示例：
+  + `git checkout -b dev notes/dev` : 切换指定远程分支
+
+## 在本地使用指定提交id创建分支
 
 + 查看远程分支最新的commitSHA，例如：`aa4339fbe90f68bc82901d976a7c11fe92179ef3`
   
@@ -153,7 +192,7 @@
 + `git tag` : 列出所有本地标签
 + `git tag <tagname>` : 基于最新提交的创建标签
 + `git tag -d <tagname>` : 删除标签
-+ `git branch -b dev notes/dev` : 切换指定远程分支
++ `git checkout -b dev notes/dev` : 切换指定远程分支
 
 ### 合并和衍合
 

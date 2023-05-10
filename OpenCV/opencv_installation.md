@@ -1,3 +1,12 @@
+## cmake 编译安装
+
++ `cmake -DCMAKE_INSTALL_PREFIX=/home/user/zjy-190/Documents/OpenCV/4.5.2/install -DCMAKE_TYPE=RELEASE -DWITH_FFMPEG=OFF -DOPENCV_EXTRA_MODULES_PATH=/mnt/remote/190-mnt/zhangjunyi/Documents/OpenCV/4.5.2/opencv-4.5.2/modules ..`
++ 参数：
+  + `CMAKE_INSTALL_PREFIX` : 设置安装路径
+  + `CMAKE_TYPE` : 设置编译类型
+  + `WITH_FFMPEG` : 设置是否带有ffmpeg，因为ffmpeg版本不对应，安装会失败，所以关掉了
+  + `OPENCV_EXTRA_MODULES_PATH` : 设置OpenCV扩展模块路径 opencv_contrib
+
 ## 安装opencv
 
 + 安装依赖环境

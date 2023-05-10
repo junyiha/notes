@@ -1,5 +1,13 @@
 ## cmake基础
 
+### cmake 指定C++版本
+
++ 在 CmakeLists.txt 中增加对 C++ 版本的定义。方法如下：
+  + `SET(CMAKE_CXX_STANDARD 11)`
+
++ 生成 Makefile 的时候指定,方法如下:
+  + `cmake -DCMAKE_CXX_STANDARD=11 ..`
+
 ### for循环
 
 + foreach:

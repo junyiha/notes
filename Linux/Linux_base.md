@@ -1,3 +1,115 @@
+## apt 家族
+
+### apt
+
++ update
+  - 从所有配置的源中下载包信息。其他的命令对这些数据进行操作
+
++ upgrade
+  - upgrade 用于安装当前安装在系统上的所有软件包的可用升级，这些软件包来自于 sources.list(5) 配置的源的升级
+  - 如果有需要满足的依赖关系，新的安装包将会被安装。但是现有的安装包永远都不会被删除。如果一个软件包的升级需要删除一个已安装的软件包，那么这个软件包的升级将不会被执行
+
++ full-upgrade
+  - full-upgrade执行升级的功能，但如果需要升级系统，它将删除当前安装的软件包，如果需要这样做来升级整个系统的话。 
+
++ install, remove, purge
+  - install, 安装软件包
+  - remove, 仅删除软件包数据，会留下用户配置信息
+  - purge, 会既删除软件包数据，也会删除用户配置信息 
+
++ autoremove
+  - autoremove是用来删除那些自动安装的软件包，以满足依赖的软件包，但现在不再需要了，因为依赖关系改变了或需要它们的软件包在这期间被删除，因此不再需要。 
+
++ search
+  - 搜索可以用来在可用的软件包列表中搜索给定包的列表中搜索，并显示匹配结果。 
+
++ show
+  - 显示有关给定软件包的信息，包括它的依赖性、安装和下载大小、软件包的可用来源以及对它的描述和下载大小，软件包的可用来源，软件包内容的描述等等。包的内容描述等等。 
+
++ list
+  - list与dpkg-query --list有点类似，它可以显示满足特定条件的满足特定条件的软件包列表。 
+
++ edit-sources
+  - edit-sources 可以让你在你喜欢的文本编辑器中编辑 sources.list(5) 文件。同时也提供基本的智能检查。 
+
+### apt-get 
+
++ update
++ upgrade
+
++ dist-upgrade
+  - dist-upgrade除了执行升级的功能外，还能智能地处理新版本软件包的依赖关系变化；apt-get有一个 "智能 "的冲突解决系统，它将尝试升级最重要的软件包如果有必要的话，它会尝试升级最重要的软件包，而牺牲掉不那么重要的软件包。 
+
++ dselect-upgrade
+  - dselect-upgrade与传统的Debian packaging前端，即 dselect(1)。 
+
++ install
++ remove
++ purge
+
++ source 
+  - 获取源码包
+
++ build-dep
+  - build-dep 导致 apt-get 安装/移除软件包，以满足一个源代码软件包的构建的依赖性。 
+
++ check
+  - 检查是一个诊断工具；它更新软件包缓存并检查损坏的依赖关系。 
+
++ download
+  - download将下载给定的二进制包到当前目录。
+
++ clean
+  - 清理本地存储库中检索到的软件包文件。它删除了除锁文件外的所有文件都从 /var/cache/apt/archives/ 和/var/cache/apt/archives/partial/。 
+
++ autoclean
+  - 和clean一样，autoclean也会清除本地仓库中检索到的软件包文件。不同的是不同的是，它只删除那些不能再被下载的软件包文件，并且基本上是无用的。 
+
++ changelog
+  - changelog试图下载一个软件包的更新日志并通过sensible-pager。
+
++ indextargets
+  - 默认情况下，显示一个deb822格式的所有数据文件的信息列表(又称索引目标) apt-get update 会下载。 
+
+### apt-cache 
+
+### apt-file
+
++ 查找包文件
+  + `apt-file find libopenssh.so`
+
+### apt-mark
+
+### apt-sortpkgs
+
+## aptitude 
+
+## free
+
++ Linux free命令用于显示内存状态。
++ free指令会显示内存的使用情况，包括实体内存，虚拟的交换文件内存，共享内存区段，以及系统核心使用的缓冲区等。
+
++ 语法：
+  + `free [-bkmotV][-s <间隔秒数>]`
++ 参数说明：
+    + -b 　以Byte为单位显示内存使用情况。
+    + -k 　以KB为单位显示内存使用情况。
+    + -m 　以MB为单位显示内存使用情况。
+    + -h 　以合适的单位显示内存使用情况，最大为三位数，自动计算对应的单位值。单位有：
+        + B = bytes
+        + K = kilos
+        + M = megas
+        + G = gigas
+        + T = teras
+    + -o 　不显示缓冲区调节列。
+    + -s<间隔秒数> 　持续观察内存使用状况。
+    + -t 　显示内存总和列。
+    + -V 　显示版本信息。
+
++ 实例：
+  + 以总和的形式显示内存的使用信息 : `free -t //以总和的形式查询内存的使用信息`
+  + 周期性的查询内存使用信息 : `free -s 10 //每10s 执行一次命令`
+
 ## SSH
 
 ### 修改SSH配置文件
@@ -242,10 +354,6 @@
 + du(disk usage),命令用于显示目录或文件的大小
 + du会显示指定的目录或文件所占用的磁盘空间
 
-## apt-file
-
-+ 查找包文件
-  + `apt-file find libopenssh.so`
 
 ## useradd 
 

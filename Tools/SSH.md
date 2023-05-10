@@ -1,3 +1,8 @@
+## 允许root登录
+
++ 文件：/etc/ssh/sshd_config
+  + `PermitRootLogin yes`
+
 ## ssh 安装与配置
 
 + 一般ubuntu都会默认安装openssh-client,但是没有安装openssh-server
