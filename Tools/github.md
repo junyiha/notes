@@ -13,7 +13,7 @@
 
 + 设置用户名和邮箱
   + `git config --global user.name "elliot53"`
-  + `git config --global user.email "1604244855@qq.com"
+  + `git config --global user.email "1604244855@qq.com"`
 
 + 查看配置的用户名和邮箱
   + `git config user.name`

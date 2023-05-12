@@ -1,3 +1,33 @@
+## 从指定时间截取指定长度视频
+
++ 命令：
+  + `ffmpeg -ss 00:00:00 -t 00:00:14 -i zhuoer_face.mkv -vcodec copy -acodec copy aaa.mp4`
+
++ 参数
+  + `-ss` : 开始截取的时间点
+  + `-t`  : 要截取视频的时间长度
+  + `-i`  : 输入的视频文件
+  + `-vcodec copy` : 拷贝原视频，不更改格式
+  + `-acodec copy` : 拷贝原音频，不更改格式
+  + `aaa.mp4` : 输出视频文件
+
+## 合并视频文件
+
++ 命令：
+  + `ffmpeg -f concat -i list.txt -c copy zhuoer_face_new.mp4`
++ list.txt
+  ```
+    file aaa.mp4
+    file bbb.mp4
+    file ccc.mp4
+  ``` 
+
++ 参数：
+  + `-f concat` : 
+  + `-i list.txt` : 输入配置文件
+  + `-c copy` : 拷贝原视频，不更改格式
+  + `zhuoer_face_new.mp4` : 输出视频文件
+
 ## ffmpeg保存摄像头视频到本地
 
 + `ffmpeg -rtsp_transport tcp -i rtsp://admin:a1234567@192.167.0.56:554 -c copy -f mp4 -t 00:10:00 /data/output.mp4`
