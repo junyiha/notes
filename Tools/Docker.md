@@ -1,3 +1,40 @@
+## 查看容器日志
+
++ `docker logs <container-id>`，查看日志
++ 示例：
+  ```
+    user@computer:test-docker$ docker logs 172
+    root@1722c360945f:/# ls
+    bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  src  srv  sys  tmp  usr  var
+    root@1722c360945f:/# cd src
+    root@1722c360945f:/src# ks
+    bash: ks: command not found
+    root@1722c360945f:/src# ls
+    one.txt
+    root@1722c360945f:/src# ls
+    one.txt  two.txt
+    root@1722c360945f:/src# cat two.txt
+    root@1722c360945f:/src# ls
+    two.txt
+    root@1722c360945f:/src# ls
+    two.txt
+    root@1722c360945f:/src# pwd
+    /src
+    user@computer:test-docker$ 
+  ``` 
+
+## mount
+
++ `docker run -it --mount type=bind,src="$(pwd)"，target=/src ubuntu:18.04 bash` 
+
+## docker 语言支持
+
++ node.js
++ python
++ java
++ go
++ c#
+
 ## docker中的overlay2
 
 + 在安装的docker系统中，删除了容器和镜像，但是docker/overlay2还是占用很大的磁盘空间
@@ -153,7 +190,6 @@
   - `--no-trunc` : 不截断输出。(Don't truncate output)
   - `--quiet, -q` : 仅显示容器ID。(Only display container IDs)
   - `--size, -s` : 显示总文件大小。(Display total file sizes)
-+
   
 ## `docker start id`
 
