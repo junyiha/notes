@@ -1,3 +1,59 @@
+## eog
+
++ 简介：
+  + 使用命令行查看图片
+
++ 示例：
+  + `eog picturepath`
+
+## watch
+
++ 简介：
+  + watch命令是在Linux环境下，以固定时间间隔观察用户自定义命令运行情况的工具
+  + 它暂时清除所有终端内容，并显示所附命令的输出，以及当前系统的日期和时间。
+  + 它默认为每2秒更新一次所附命令的输出，`ctrl+c`用于退出
+  + 当你需要监控一个命令输出随时间的变化时，watch命令很有用。这包括磁盘使用率、系统正常运行时间或跟踪错误。
+
++ 语法：
+  + `watch [option] [command]`
+
++ 参数：
+  + `[option]`  添加一个选项可以改变观察命令的行为方式
+    + -n, --interval  允许你指定输出更新的时间间隔。
+    + -d, --differences  突出了输出更新之间的差异。
+    + -g, --chgexit  当用户定义的命令的输出发生变化时，退出监视命令
+    + -t, --no-title  移除显示时间间隔、命令和当前时间及日期的标题。
+    + -b, --beep  如果命令退出时出现错误，则播放声音警报（哔哔声）
+    + -p, --precise  试图在-interval选项定义的确切秒数之后运行命令。
+    + -e, --errexit  出错时停止输出更新，在按下一个键后退出命令。
+    + -c, --color  解释ANSI颜色和样式序列。
+    + -x, --exec  将用户定义的命令传递给exec，减少对额外引号的需要。
+    + -w, --no-linewrap  关掉换行，截断长行。
+    + -h, --help  显示帮助文本并退出
+    + -v, --version  显示版本信息并退出
+
++ 示例
+  + `watch -n 5 date`
+
+## 查看linux服务器开机自启动服务
+
++ 命令：
+  + `systemctl list-unit-files`
+
++ 参数：
+  + 其中STATE显示为enable字样的服务，即可开机自启动的服务 
+
++ 查处的内容过多，可通过grep 命令进行筛选
+  + `systemctl list-unit-files | grep firewalld`
+
+## 开启或关闭开机自启动
+
++ 关闭开机自启动：
+  + `systemctl disable  服务name`
+
++ 开启开机自启动：
+  + `systemctl enable  服务name`
+
 ## unset
 
 + 简介：

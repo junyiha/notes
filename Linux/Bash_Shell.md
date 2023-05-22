@@ -1,4 +1,6 @@
-## Shell 编程参考
+# Shell 编程参考
+
+## 循环数组
 
 ## exit作用
 
@@ -394,6 +396,45 @@
 + 获取数组的长度:
   - `length=${#array_name[@]} or length=${#array_name[*]} # 取得数组元素的个数` 
   - `lengthn=${#array_name[n]}  # 取得数组单个元素的长度`
+
+### 循环数组
+
++ 标准的for循环
+  ```
+    for(( i=0;i<${#array[@]};i++)) do
+    #${#array[@]}获取数组长度用于循环
+    echo ${array[i]};
+    done;
+  ``` 
+
++ for...in(遍历，不带数组下标)
+  ```
+    for element in ${array[@]}
+    #也可以写成for element in ${array[*]}
+    do
+    echo $element
+    done
+  ``` 
+
++ for...in(遍历，带数组下标)
+  ```
+    for i in "${!arr[@]}";   
+    do   
+        printf "%s\t%s\n" "$i" "${arr[$i]}"  
+    done  
+  ``` 
+
++ while循环
+  ```
+    i=0  
+    while [ $i -lt ${#array[@]} ]  
+    #当变量（下标）小于数组长度时进入循环体
+    do  
+        echo ${ array[$i] }  
+        #按下标打印数组元素
+        let i++  
+    done  
+  ``` 
 
 ## Shell注释
 
