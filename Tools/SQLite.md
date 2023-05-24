@@ -1,0 +1,129 @@
+## 命令
+
++ `.help` : 显示各种重要的 SQLite 点命令的列表
+
++ `.tables`
+
+## 简介
+
+SQLite 是一种嵌入式关系型数据库管理系统 (RDBMS)，它是一个轻量级、高效、自包含的数据库引擎。与传统的客户端-服务器模式的数据库不同，SQLite 是以库的形式嵌入到应用程序中，应用程序可以直接与数据库文件进行交互，而无需独立的数据库服务器。
+
+以下是 SQLite 的一些特点和用途：
+
+1. 轻量级：SQLite 是一个轻量级的数据库引擎，它的核心库非常小巧，不依赖于外部服务器或配置。这使得 SQLite 在嵌入式系统、移动设备和资源受限的环境中非常适用。
+
+2. 自包含：SQLite 数据库以单个文件的形式存储，并且包含了完整的数据库结构和数据。这意味着应用程序可以直接操作一个 SQLite 数据库文件，而无需额外的数据库管理系统。
+
+3. 事务支持：SQLite 支持 ACID（原子性、一致性、隔离性和持久性）事务特性，它可以确保数据库的完整性和一致性。
+
+4. SQL 兼容：SQLite 支持 SQL 查询语言，可以使用标准的 SQL 语句进行数据库操作，包括数据的查询、插入、更新和删除等。
+
+5. 广泛应用：由于其轻量级和自包含的特性，SQLite 在各种应用场景中得到广泛应用，包括嵌入式系统、移动应用程序、桌面应用程序、Web 浏览器、数据分析和开发测试等。
+
+在使用 SQLite 时，你可以通过编写 SQL 语句或使用相应的 SQLite API 来创建数据库、定义表结构、插入和查询数据等操作。同时，有许多编程语言和框架提供了对 SQLite 的支持和封装，使得在不同的开发环境中使用 SQLite 更加便捷。
+
+SQLite 是C语言接口的
+
+## 安装
+
+以下是在 Linux 系统上编译和安装 SQLite 的基本步骤：
+
+1. 下载源代码：访问 SQLite 的官方网站（https://www.sqlite.org/index.html）并下载最新版本的源代码压缩包。
+
+2. 解压源代码：使用命令行解压下载的源代码压缩包。例如，可以使用以下命令解压名为 "sqlite.tar.gz" 的压缩包：
+   ```
+   tar xzf sqlite.tar.gz
+   ```
+
+3. 进入源代码目录：切换到解压后的源代码目录。例如，如果解压后的目录名为 "sqlite-x.x.x"，可以使用以下命令进入该目录：
+   ```
+   cd sqlite-x.x.x
+   ```
+
+4. 配置编译选项：运行以下命令来配置编译选项，其中 `prefix` 是指定安装目录的路径：
+   ```
+   ./configure --prefix=/path/to/installation
+   ```
+
+   你可以根据需要指定其他选项，如启用或禁用特定功能。可以运行 `./configure --help` 命令查看可用的配置选项。
+
+5. 编译源代码：运行以下命令来编译源代码：
+   ```
+   make
+   ```
+
+6. 安装 SQLite：运行以下命令以将 SQLite 安装到指定的安装目录：
+   ```
+   make install
+   ```
+
+   注意确保你有足够的权限来将文件安装到指定目录。
+
+7. 完成安装：安装完成后，你可以在指定的安装目录中找到 SQLite 的可执行文件和相关库文件。
+
+完成上述步骤后，你已成功编译和安装了 SQLite。你可以使用 SQLite 的命令行工具或在你的应用程序中使用 SQLite 库进行数据库操作。记得参考 SQLite 的文档和相关资源，以了解如何使用 SQLite 进行数据库管理和操作。
+
+## 查看数据库表
+
+要查看 SQLite 数据库中的表，你可以使用 SQLite 提供的命令行工具 `sqlite3` 或编写一个简单的 C++ 程序来执行查询。
+
+使用命令行工具 `sqlite3`，按照以下步骤进行操作：
+
+1. 打开终端或命令提示符。
+2. 运行以下命令来连接到 SQLite 数据库文件：
+   ```
+   sqlite3 your_database.db
+   ```
+   将 `your_database.db` 替换为实际的数据库文件名。
+
+3. 连接成功后，你将进入 SQLite 的命令行界面。运行以下命令来查看数据库中的表：
+   ```
+   .tables
+   ```
+   这将显示数据库中所有的表的列表。
+
+4. 若要查看特定表的详细结构，可以使用以下命令：
+   ```
+   .schema table_name
+   ```
+   将 `table_name` 替换为实际的表名。
+
+使用 C++ 程序来查看数据库表，你可以编写类似以下的代码：
+
+```cpp
+#include <iostream>
+#include <sqlite3.h>
+
+int main() {
+    sqlite3* db;
+    int rc;
+
+    // 打开数据库连接
+    rc = sqlite3_open("your_database.db", &db);
+    if (rc) {
+        std::cerr << "无法打开数据库: " << sqlite3_errmsg(db) << std::endl;
+        return rc;
+    }
+
+    // 查询表名
+    const char* selectTablesSQL = "SELECT name FROM sqlite_master WHERE type='table';";
+    rc = sqlite3_exec(db, selectTablesSQL, [](void* data, int argc, char** argv, char** /*azColName*/) -> int {
+        for (int i = 0; i < argc; i++) {
+            std::cout << argv[i] << " ";
+        }
+        std::cout << std::endl;
+        return 0;
+    }, nullptr, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "无法查询表: " << sqlite3_errmsg(db) << std::endl;
+        return rc;
+    }
+
+    // 关闭数据库连接
+    sqlite3_close(db);
+
+    return 0;
+}
+```
+
+将代码中的 `"your_database.db"` 替换为实际的数据库文件名，然后编译和运行程序。它将连接到数据库文件并执行查询来获取表名列表，并将其打印到控制台。

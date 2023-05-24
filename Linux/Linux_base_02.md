@@ -1,3 +1,100 @@
+## linux下，常用的查看动态库的符号链接工具
+
+1. nm：nm 命令用于列出目标文件或共享库中的符号信息。可以使用 nm 命令来查看动态库中的符号链接。例如，要查看一个动态库文件（如libexample.so）中的符号链接，可以运行以下命令：
+   ```
+   nm -D libexample.so
+   ```
+   这将显示动态库中的所有符号及其链接信息。
+
+2. objdump：objdump 命令用于显示目标文件或可执行文件的信息，包括符号表。可以使用 objdump 命令来查看动态库中的符号链接。例如，要查看一个动态库文件中的符号链接，可以运行以下命令：
+   ```
+   objdump -T libexample.so
+   ```
+   这将显示动态库中的符号链接表。
+
+3. readelf：readelf 命令用于显示 ELF（Executable and Linkable Format）格式文件的信息，包括符号表。可以使用 readelf 命令来查看动态库中的符号链接。例如，要查看一个动态库文件中的符号链接，可以运行以下命令：
+   ```
+   readelf -s libexample.so
+   ```
+   这将显示动态库中的符号表，其中包含符号链接信息。
+
+## readelf
+
++ readelf 是一个命令行工具，用于显示 ELF（Executable and Linkable Format）格式的文件的信息。ELF 是一种常用的二进制文件格式，用于可执行文件、共享库和目标文件。
+
++ 使用 readelf 命令可以查看和分析 ELF 文件的各种属性和部分内容，包括符号表、节表、段表、动态链接、重定位信息等。它提供了对 ELF 文件结构的详细解析和显示。
+
++ 以下是一些常用的 readelf 命令示例：
+
+1. 查看 ELF 文件的头部信息：
+   ```
+   readelf -h executable
+   ```
+
+2. 查看 ELF 文件的节表信息：
+   ```
+   readelf -S executable
+   ```
+
+3. 查看 ELF 文件的符号表信息：
+   ```
+   readelf -s executable
+   ```
+
+4. 查看 ELF 文件的动态链接信息：
+   ```
+   readelf -d executable
+   ```
+
+5. 查看 ELF 文件的重定位信息：
+   ```
+   readelf -r executable
+   ```
+
+## 安装readelf
+
++ readelf 是 binutils 软件包的一部分，它通常预装在大多数 Linux 发行版中。如果你无法使用 readelf 命令，你可以尝试安装 binutils 软件包，以确保 readelf 工具可用。
+
++ 对于基于 Debian/Ubuntu 的系统，可以使用以下命令安装 binutils：
+  ```
+  sudo apt-get install binutils
+  ```
+
++ 对于基于 Red Hat/CentOS 的系统，可以使用以下命令安装 binutils：
+  ```
+  sudo yum install binutils
+  ```
+
++ 安装完成后，你就可以使用 readelf 命令来查看和分析 ELF 文件的信息了。请注意，安装软件包可能需要管理员权限，因此在安装时可能需要使用 sudo 或 root 用户身份运行命令。
+
++ 如果你的系统已经安装了 binutils 软件包，但仍然无法使用 readelf 命令，可能是因为它不在系统的 PATH 环境变量中。在这种情况下，你可以尝试使用绝对路径来运行 readelf，例如：
+  ```
+  /usr/bin/readelf -h executable
+  ```
+
+根据你的系统配置和安装方式，实际的 readelf 路径可能会有所不同。你可以使用 `which readelf` 命令来查找正确的路径。
+
+这些命令示例只是 readelf 命令的一小部分功能演示，readelf 还提供了其他选项和功能，可以根据需要进行查看和分析 ELF 文件的更多细节。使用 `readelf --help` 命令可以查看 readelf 的完整选项列表和用法说明。
+
+## Linux 常用命令全拼
+
++ 参考网站：`https://www.runoob.com/w3cnote/linux-command-full-fight.html`
+
+## ldd（list dynamic dependencies）
+
++ 简介：
+  + ldd命令用于打印程序或者库文件所依赖的共享库列表。
+
++ 语法
+  + `ldd [参数] [文件]`
+
++ 参数
+  + -v 详细信息模式，打印所有相关信息 
+  + -u 打印未使用的直接依赖 
+  + -d 执行重定位和报告任何丢失的对象 
+  + -r 执行数据对象和函数的重定位，并且报告任何丢失的对象和函数 
+  + --help 显示帮助信息
+
 ## eog
 
 + 简介：
