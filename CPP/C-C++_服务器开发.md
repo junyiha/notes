@@ -8,7 +8,7 @@
   + 使用CMake管理项目，以Linux开源系统为标准，如果在windows上缺少的库，就模仿Linux造一个，实现一份代码跑全部平台
   + 采用utf8字符编码，调用win32接口，需要把unicode转utf8。
   + 采用骆驼峰形式代码风格
-    ```
+    ```c
       class DemoClass //类名首字母大写，骆驼峰
       {
         int parramArg_;           // 变量名末尾有_，非静态变量首字母小写

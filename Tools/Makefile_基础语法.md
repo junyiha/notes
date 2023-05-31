@@ -1,3 +1,101 @@
+## Makefile 常用的内置变量
+
+在 Makefile 中，有一些内置的变量可以用于表示常见的目录路径。以下是一些常用的 Makefile 内置变量相关的目录：
+
+1. **`$(CURDIR)`**: 当前工作目录的绝对路径。
+2. **`$(SRCDIR)`**: 源代码目录的路径。
+3. **`$(INCDIR)`**: 头文件目录的路径。
+4. **`$(BINDIR)`**: 可执行文件目录的路径。
+5. **`$(LIBDIR)`**: 库文件目录的路径。
+
+这些内置变量可以用于指定源代码、头文件、可执行文件和库文件的目录路径。你可以根据需要在 Makefile 中使用这些变量，例如：
+
+```makefile
+# 当前工作目录
+CURRENT_DIR := $(CURDIR)
+
+# 源代码目录
+SRC_DIR := $(CURRENT_DIR)/src
+
+# 头文件目录
+INC_DIR := $(CURRENT_DIR)/include
+
+# 可执行文件目录
+BIN_DIR := $(CURRENT_DIR)/bin
+
+# 库文件目录
+LIB_DIR := $(CURRENT_DIR)/lib
+
+# 编译选项
+CXXFLAGS := -std=c++11 -Wall -I$(INC_DIR)
+
+# 目标文件和可执行文件名
+TARGET := $(BIN_DIR)/myapp
+OBJS := $(SRC_DIR)/main.o $(SRC_DIR)/foo.o $(SRC_DIR)/bar.o
+
+# 默认目标
+all: $(TARGET)
+
+# 生成可执行文件
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+
+# 编译每个源文件
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# 清理生成的文件
+clean:
+	rm -f $(OBJS) $(TARGET)
+```
+
+在上述示例中，我们使用了 `$(CURDIR)` 变量获取当前工作目录的路径，并根据它构建了其他目录的路径。然后，我们使用这些路径变量来设置源代码、头文件、可执行文件和库文件的路径。
+
+## 示例
+
+编写 Makefile 是一种常用的方式来管理和构建 C++ 项目。下面是一个简单的示例 Makefile，展示了如何编写一个基本的 C++ 项目的 Makefile。
+
+```makefile
+# 编译器设置
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
+
+# 目标文件和可执行文件名
+TARGET = myapp
+OBJS = main.o foo.o bar.o
+
+# 默认目标
+all: $(TARGET)
+
+# 生成可执行文件
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+
+# 编译每个源文件
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# 清理生成的文件
+clean:
+	rm -f $(OBJS) $(TARGET)
+```
+
+在上述示例中，我们定义了以下内容：
+
+- `CXX` 和 `CXXFLAGS` 变量用于设置编译器和编译选项。
+- `TARGET` 变量用于指定最终生成的可执行文件名。
+- `OBJS` 变量用于指定目标文件（即编译后的中间文件）。
+- `all` 是默认目标，用于构建整个项目。它依赖于 `$(TARGET)`。
+- `$(TARGET)` 目标用于生成最终的可执行文件。它依赖于 `$(OBJS)`。
+- `%.o` 是一个模式规则，用于编译每个源文件。它依赖于对应的 `.cpp` 文件，并使用 `$<` 和 `$@` 分别表示依赖和目标文件。
+- `clean` 目标用于清理生成的目标文件和可执行文件。
+
+你可以根据实际项目的需要进行修改和扩展。例如，你可以添加更多的源文件、头文件目录、链接库等。
+
+要使用上述 Makefile，只需在项目根目录下创建一个名为 `Makefile`（注意大小写），并将上述内容粘贴到文件中。然后，在项目根目录下执行 `make` 命令即可构建项目。执行 `make clean` 可以清理生成的文件。
+
+请注意，Makefile 的编写可能会因具体的项目需求和构建环境而有所差异。上述示例仅为一个简单的起点，你可以根据自己的需要进行进一步的定制和优化。同时，还可以考虑使用更高级的构建工具和自动化构建系统（如 CMake、Autotools 等）来管理更复杂的项目。
+
 ## 书写规则：
 
 + 依赖关系：生成目标的方法

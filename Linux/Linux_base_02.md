@@ -1,3 +1,169 @@
+## linux下，常用的查看动态库的符号链接工具
+
+1. nm：nm 命令用于列出目标文件或共享库中的符号信息。可以使用 nm 命令来查看动态库中的符号链接。例如，要查看一个动态库文件（如libexample.so）中的符号链接，可以运行以下命令：
+   ```
+   nm -D libexample.so
+   ```
+   这将显示动态库中的所有符号及其链接信息。
+
+2. objdump：objdump 命令用于显示目标文件或可执行文件的信息，包括符号表。可以使用 objdump 命令来查看动态库中的符号链接。例如，要查看一个动态库文件中的符号链接，可以运行以下命令：
+   ```
+   objdump -T libexample.so
+   ```
+   这将显示动态库中的符号链接表。
+
+3. readelf：readelf 命令用于显示 ELF（Executable and Linkable Format）格式文件的信息，包括符号表。可以使用 readelf 命令来查看动态库中的符号链接。例如，要查看一个动态库文件中的符号链接，可以运行以下命令：
+   ```
+   readelf -s libexample.so
+   ```
+   这将显示动态库中的符号表，其中包含符号链接信息。
+
+## readelf
+
++ readelf 是一个命令行工具，用于显示 ELF（Executable and Linkable Format）格式的文件的信息。ELF 是一种常用的二进制文件格式，用于可执行文件、共享库和目标文件。
+
++ 使用 readelf 命令可以查看和分析 ELF 文件的各种属性和部分内容，包括符号表、节表、段表、动态链接、重定位信息等。它提供了对 ELF 文件结构的详细解析和显示。
+
++ 以下是一些常用的 readelf 命令示例：
+
+1. 查看 ELF 文件的头部信息：
+   ```
+   readelf -h executable
+   ```
+
+2. 查看 ELF 文件的节表信息：
+   ```
+   readelf -S executable
+   ```
+
+3. 查看 ELF 文件的符号表信息：
+   ```
+   readelf -s executable
+   ```
+
+4. 查看 ELF 文件的动态链接信息：
+   ```
+   readelf -d executable
+   ```
+
+5. 查看 ELF 文件的重定位信息：
+   ```
+   readelf -r executable
+   ```
+
+## 安装readelf
+
++ readelf 是 binutils 软件包的一部分，它通常预装在大多数 Linux 发行版中。如果你无法使用 readelf 命令，你可以尝试安装 binutils 软件包，以确保 readelf 工具可用。
+
++ 对于基于 Debian/Ubuntu 的系统，可以使用以下命令安装 binutils：
+  ```
+  sudo apt-get install binutils
+  ```
+
++ 对于基于 Red Hat/CentOS 的系统，可以使用以下命令安装 binutils：
+  ```
+  sudo yum install binutils
+  ```
+
++ 安装完成后，你就可以使用 readelf 命令来查看和分析 ELF 文件的信息了。请注意，安装软件包可能需要管理员权限，因此在安装时可能需要使用 sudo 或 root 用户身份运行命令。
+
++ 如果你的系统已经安装了 binutils 软件包，但仍然无法使用 readelf 命令，可能是因为它不在系统的 PATH 环境变量中。在这种情况下，你可以尝试使用绝对路径来运行 readelf，例如：
+  ```
+  /usr/bin/readelf -h executable
+  ```
+
+根据你的系统配置和安装方式，实际的 readelf 路径可能会有所不同。你可以使用 `which readelf` 命令来查找正确的路径。
+
+这些命令示例只是 readelf 命令的一小部分功能演示，readelf 还提供了其他选项和功能，可以根据需要进行查看和分析 ELF 文件的更多细节。使用 `readelf --help` 命令可以查看 readelf 的完整选项列表和用法说明。
+
+## Linux 常用命令全拼
+
++ 参考网站：`https://www.runoob.com/w3cnote/linux-command-full-fight.html`
+
+## ldd（list dynamic dependencies）
+
++ 简介：
+  + ldd命令用于打印程序或者库文件所依赖的共享库列表。
+
++ 语法
+  + `ldd [参数] [文件]`
+
++ 参数
+  + -v 详细信息模式，打印所有相关信息 
+  + -u 打印未使用的直接依赖 
+  + -d 执行重定位和报告任何丢失的对象 
+  + -r 执行数据对象和函数的重定位，并且报告任何丢失的对象和函数 
+  + --help 显示帮助信息
+
+## eog
+
++ 简介：
+  + 使用命令行查看图片
+
++ 示例：
+  + `eog picturepath`
+
+## watch
+
++ 简介：
+  + watch命令是在Linux环境下，以固定时间间隔观察用户自定义命令运行情况的工具
+  + 它暂时清除所有终端内容，并显示所附命令的输出，以及当前系统的日期和时间。
+  + 它默认为每2秒更新一次所附命令的输出，`ctrl+c`用于退出
+  + 当你需要监控一个命令输出随时间的变化时，watch命令很有用。这包括磁盘使用率、系统正常运行时间或跟踪错误。
+
++ 语法：
+  + `watch [option] [command]`
+
++ 参数：
+  + `[option]`  添加一个选项可以改变观察命令的行为方式
+    + -n, --interval  允许你指定输出更新的时间间隔。
+    + -d, --differences  突出了输出更新之间的差异。
+    + -g, --chgexit  当用户定义的命令的输出发生变化时，退出监视命令
+    + -t, --no-title  移除显示时间间隔、命令和当前时间及日期的标题。
+    + -b, --beep  如果命令退出时出现错误，则播放声音警报（哔哔声）
+    + -p, --precise  试图在-interval选项定义的确切秒数之后运行命令。
+    + -e, --errexit  出错时停止输出更新，在按下一个键后退出命令。
+    + -c, --color  解释ANSI颜色和样式序列。
+    + -x, --exec  将用户定义的命令传递给exec，减少对额外引号的需要。
+    + -w, --no-linewrap  关掉换行，截断长行。
+    + -h, --help  显示帮助文本并退出
+    + -v, --version  显示版本信息并退出
+
++ 示例
+  + `watch -n 5 date`
+
+## 查看linux服务器开机自启动服务
+
++ 命令：
+  + `systemctl list-unit-files`
+
++ 参数：
+  + 其中STATE显示为enable字样的服务，即可开机自启动的服务 
+
++ 查处的内容过多，可通过grep 命令进行筛选
+  + `systemctl list-unit-files | grep firewalld`
+
+## 开启或关闭开机自启动
+
++ 关闭开机自启动：
+  + `systemctl disable  服务name`
+
++ 开启开机自启动：
+  + `systemctl enable  服务name`
+
+## unset
+
++ 简介：
+  - Linux unset命令用于删除变量或函数
+  - unset为shell内建指令，可删除变量或函数
+
++ 语法：
+  -  `unset [-fv][变量或函数名称]`
+
++ 参数：
+  - `-f`  仅删除函数
+  - `-v`  仅删除变量 
+
 ## ln
 
 + 简介：

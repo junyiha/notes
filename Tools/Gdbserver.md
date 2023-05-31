@@ -1,0 +1,27 @@
+## 快速使用
+
+### `gdbserver`使用方法，与PC机xxx-gdb搭配使用
+
++ 开发板：`gdbserver <ip address> <listening port> <program>`
+  + 例如：`gdbserver 192.167.66.112:9999 demo_02.exe`
+  + 需要注意的一点是：需要调试的程序在编译时记得加上`-g`参数
+
++ PC机:在终端中输入`aarch64-linux-gnu-gdb`之后进入gdb调试模式，然后输入`target remote ip-address:port`即可连接远程目标
+
++ 交叉编译，程序的参数是从gdbserver 传进来的，其原理就是将调试信息通过端口发送到远程
+
+## 比特大陆智能盒子远程调试
+
++ 工具
+  + vca里面的交叉编译工具链
+  + gdbserver
+  + VSCode
+
++ 大致流程
+  + 通过使用vca中的交叉编译工具，在x86主机上编译带有调试符号的可执行程序
+  + 将可执行程序拷贝到比特大陆盒子上，通过gdbserver启动程序，监听端口，例如：`gdbserver 0.0.0.0:19999  /data/dagger/VideoProcess/bin/ice.exe --multi-task-zmq-listen tcp://*:9100`
+  + 在x86主机上，配置launch.json文件：
+    + `"program": "${workspaceFolder}/build/ice.exe",`
+    + `"miDebuggerPath": "${workspaceFolder}/toolchains/aarch64-linux-gnu-6.3.1/bin/aarch64-linux-gnu-gdb",`
+    + `"miDebuggerServerAddress": "192.169.5.46:19999"`
+  + 开始调试
