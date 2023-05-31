@@ -1,3 +1,36 @@
+
+## Update 语句
+
++ 简介
+  + SQLite 的 UPDATE 查询用于修改表中已有的记录。可以使用带有 WHERE 子句的 UPDATE 查询来更新选定行，否则所有的行都会被更新
+
++ 语法：
+  ```sql
+    UPDATE table_name
+    SET column1 = value1, column2 = value2...., columnN = valueN
+    WHERE [condition];
+  ``` 
++ 注 ：
+  + 您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。
+
+## 删除表
+
++ 简介：
+  + SQLite 的 DROP TABLE 语句用来删除表定义及其所有相关数据、索引、触发器、约束和该表的权限规范
+  + 使用此命令时要特别注意，因为一旦一个表被删除，表中所有信息也将永远丢失。
+
++ 语法：
+  + `DROP TABLE database_name.table_name;`
+
++ 示例：
+  + 让我们先确认 COMPANY 表已经存在，然后我们将其从数据库中删除。
+   + `sqlite>.tables`
+   + `COMPANY       test.COMPANY`
+ + 把它从数据库中删除，如下：
+   + `sqlite>DROP TABLE COMPANY;`
+ + 现在，如果尝试 .TABLES 命令，那么将无法找到 COMPANY 表了：
+   + `sqlite>.tables`
+
 ## 命令
 
 + `.help` : 显示各种重要的 SQLite 点命令的列表
