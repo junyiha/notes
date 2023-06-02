@@ -1,6 +1,84 @@
 # Shell 编程参考
 
-## 循环数组
+## 数组
+
+在Linux Shell中，数组是一种用于存储多个值的数据结构。Shell支持一维数组和关联数组两种类型。
+
+**一维数组：**
+在Shell中，可以使用以下语法定义和访问一维数组：
+
+```bash
+# 定义数组
+array_name=(value1 value2 value3 ...)
+
+# 访问数组元素
+${array_name[index]}
+```
+
+示例：
+```bash
+# 定义数组
+fruits=("apple" "banana" "orange" "grape")
+
+# 访问数组元素
+echo ${fruits[0]}   # 输出：apple
+echo ${fruits[2]}   # 输出：orange
+```
+
+**关联数组：**
+关联数组是一种将键与值相关联的数组类型，在Shell中也称为哈希表或字典。可以使用以下语法定义和访问关联数组：
+
+```bash
+# 定义关联数组
+declare -A array_name
+array_name[key1]=value1
+array_name[key2]=value2
+```
+
+示例：
+```bash
+# 定义关联数组
+declare -A fruits
+fruits["apple"]="red"
+fruits["banana"]="yellow"
+fruits["orange"]="orange"
+fruits["grape"]="purple"
+
+# 访问关联数组元素
+echo ${fruits["apple"]}   # 输出：red
+echo ${fruits["orange"]}  # 输出：orange
+```
+
+**遍历数组：**
+可以使用循环结构来遍历数组中的元素。以下是两种常见的遍历数组的方式：
+
+1. 使用`for`循环遍历一维数组：
+```bash
+fruits=("apple" "banana" "orange" "grape")
+
+# 使用 for 循环遍历数组
+for fruit in "${fruits[@]}"
+do
+    echo $fruit
+done
+```
+
+2. 使用`for`循环遍历关联数组：
+```bash
+declare -A fruits
+fruits["apple"]="red"
+fruits["banana"]="yellow"
+fruits["orange"]="orange"
+fruits["grape"]="purple"
+
+# 使用 for 循环遍历关联数组
+for key in "${!fruits[@]}"
+do
+    echo "Key: $key, Value: ${fruits[$key]}"
+done
+```
+
+上述示例代码展示了如何定义、访问和遍历数组。根据你的需求，可以灵活运用数组来存储和操作数据。
 
 ## exit作用
 
