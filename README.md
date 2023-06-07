@@ -27,6 +27,8 @@
   + C-C++04_常用库.md    
   + C-C++05_理论基础.md  
   + C-C++06_编程技巧.md  
+  + C-C++07_常用算法.md
+  + C-C++08_常用类.md
   + C++_std.md
   + C++_内存池.md
   + C++_内存泄露.md
@@ -222,6 +224,10 @@
 
 + 文件：
   + Overview.md
+  + question_问题与解决方案.md
+  + mongoose_core.md
+  + mongoose_file_system.md
+  + mongoose_timer.md
 
 ### Network
 
