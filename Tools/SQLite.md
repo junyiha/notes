@@ -37,6 +37,77 @@
 
 + `.tables`
 
+SQLite是一种轻量级的嵌入式关系型数据库管理系统，具有简单、快速、可靠的特点。以下是一些常用的SQLite命令：
+
+1. 打开或创建数据库：
+   ```
+   sqlite3 database_name.db
+   ```
+
+   该命令将打开名为`database_name.db`的数据库。如果数据库不存在，则会创建一个新的数据库。
+
+2. 显示数据库中的所有表：
+   ```
+   .tables
+   ```
+
+   该命令将列出数据库中的所有表。
+
+3. 显示表结构：
+   ```
+   .schema table_name
+   ```
+
+   该命令将显示名为`table_name`的表的结构，包括列名、数据类型和约束等信息。
+
+4. 执行SQL查询：
+   ```sql
+   SELECT * FROM table_name;
+   ```
+
+   该命令将执行一个SELECT查询，并显示`table_name`表中的所有行。
+
+5. 插入数据：
+   ```sql
+   INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...);
+   ```
+
+   该命令将在`table_name`表中插入一行数据，指定列和对应的值。
+
+6. 更新数据：
+   ```sql
+   UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+   ```
+
+   该命令将更新满足条件`WHERE`的行，设置指定列的新值。
+
+7. 删除数据：
+   ```sql
+   DELETE FROM table_name WHERE condition;
+   ```
+
+   该命令将从`table_name`表中删除满足条件`WHERE`的行。
+
+8. 创建表：
+   ```sql
+   CREATE TABLE table_name (
+       column1 datatype constraint,
+       column2 datatype constraint,
+       ...
+   );
+   ```
+
+   该命令将创建一个新的表，指定列名、数据类型和约束等信息。
+
+9. 删除表：
+   ```sql
+   DROP TABLE table_name;
+   ```
+
+   该命令将删除名为`table_name`的表。
+
+这只是SQLite命令的一小部分，SQLite还提供了许多其他命令和功能，如索引、事务、连接等。您可以参考SQLite官方文档或其他资源来了解更多有关SQLite的命令和功能。
+
 ## 简介
 
 SQLite 是一种嵌入式关系型数据库管理系统 (RDBMS)，它是一个轻量级、高效、自包含的数据库引擎。与传统的客户端-服务器模式的数据库不同，SQLite 是以库的形式嵌入到应用程序中，应用程序可以直接与数据库文件进行交互，而无需独立的数据库服务器。
