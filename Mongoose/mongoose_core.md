@@ -2,6 +2,79 @@
 
 + mongoose核心api笔记
 
+## struct mg_addr
+
++ 简介：
+  + 该结构包含网络地址。它可以被认为`sockaddr`结构在Mongoose中的等价结构体
+
++ 原型：
+```c
+struct mg_addr {
+  uint16_t port;    // TCP or UDP port in network byte order
+  uint32_t ip;      // IP address in network byte order
+  uint8_t ip6[16];  // IPv6 address
+  bool is_ip6;      // True when address is IPv6 address
+};
+```
+
+## struct mg_mgr 
+
++ 简介：
+  + 它是一个事件管理结构体，能够保存一个正在活动的连接列表，以及一些维持管理的信息
+
++ 原型
+```c
+struct mg_mgr {
+  struct mg_connection *conns;  // List of active connections  结构体数组
+  struct mg_dns dns4;           // DNS for IPv4
+  struct mg_dns dns6;           // DNS for IPv6
+  int dnstimeout;               // DNS resolve timeout in milliseconds
+  unsigned long nextid;         // Next connection ID
+  void *userdata;               // Arbitrary user data pointer
+};
+```
+
+## struct mg_connection
+
++ 简介：
+  + 它是一个连接：可能是一个监听连接，或者是一个已接收连接，或者是一个出站连接
+
++ 原型
+```c
+struct mg_connection {
+  struct mg_connection *next;  // Linkage in struct mg_mgr :: connections
+  struct mg_mgr *mgr;          // Our container
+  struct mg_addr loc;          // Local address
+  struct mg_addr rem;          // Remote address
+  void *fd;                    // Connected socket, or LWIP data
+  unsigned long id;            // Auto-incrementing unique connection ID
+  struct mg_iobuf recv;        // Incoming data
+  struct mg_iobuf send;        // Outgoing data
+  mg_event_handler_t fn;       // User-specified event handler function
+  void *fn_data;               // User-specified function parameter
+  mg_event_handler_t pfn;      // Protocol-specific handler function
+  void *pfn_data;              // Protocol-specific function parameter
+  char label[50];              // Arbitrary label
+  void *tls;                   // TLS specific data
+  unsigned is_listening : 1;   // Listening connection
+  unsigned is_client : 1;      // Outbound (client) connection
+  unsigned is_accepted : 1;    // Accepted (server) connection
+  unsigned is_resolving : 1;   // Non-blocking DNS resolve is in progress
+  unsigned is_connecting : 1;  // Non-blocking connect is in progress
+  unsigned is_tls : 1;         // TLS-enabled connection
+  unsigned is_tls_hs : 1;      // TLS handshake is in progress
+  unsigned is_udp : 1;         // UDP connection
+  unsigned is_websocket : 1;   // WebSocket connection
+  unsigned is_hexdumping : 1;  // Hexdump in/out traffic
+  unsigned is_draining : 1;    // Send remaining data, then close and free
+  unsigned is_closing : 1;     // Close and free the connection immediately
+  unsigned is_full : 1;        // Stop reads, until cleared
+  unsigned is_resp : 1;        // Response is still being generated
+  unsigned is_readable : 1;    // Connection is ready to read
+  unsigned is_writable : 1;    // Connection is ready to write
+};
+```
+
 ## mg_mgr_init 
 
 + 简介：
