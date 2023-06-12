@@ -46,7 +46,7 @@
 
 + 作为对 std::auto_ptr 的改进，std::unique_ptr 对其持有的堆内存具有唯一拥有权，也就是 std::unique_ptr 不可以拷贝或赋值给其他对象，其拥有的堆内存仅自己独占，std::unique_ptr 对象销毁时会释放其持有的堆内存
 + 可以使用以下方式初始化一个 std::unique_ptr 对象
-  ```
+  ```cpp
     int main()
     {
         //初始化方式1
@@ -74,7 +74,7 @@
 ---
 
 + 禁止复制语义也存在特例，即可以通过一个函数返回一个 std::unique_ptr：
-  ```
+  ```cpp
     #include <memory>
 
     std::unique_ptr<int> func(int val)
@@ -93,7 +93,7 @@
 + 上述代码从 func 函数中得到一个 std::unique_ptr 对象，然后返回给 up1
 
 + 既然 std::unique_ptr 不能复制，那么如何将一个 std::unique_ptr 对象持有的堆内存转移给另外一个呢？答案是使用移动构造，示例代码如下：
-  ```
+  ```cpp
     int main()
     {
         std::unique_ptr<int> up1(std::make_unique<int>(123));
@@ -113,7 +113,7 @@
 ---
 
 + std::unique_ptr 不仅可以持有一个堆对象，也可以持有一组堆对象，示例如下
-  ```
+  ```cpp
     int main()
     {
         //创建10个int类型的堆对象
@@ -158,7 +158,7 @@
 
 + 自定义智能指针对象持有的资源的释放函数
   + 默认情况下，智能指针对象在析构时只会释放其持有的堆内存（调用 delete 或者 delete[]），但是假设这块堆内存代表的对象还对应一种需要回收的资源（如操作系统的套接字句柄、文件句柄等），我们可以通过自定义智能指针的资源释放函数。假设现在有一个 Socket 类，对应着操作系统的套接字句柄，在回收时需要关闭该对象，我们可以如下自定义智能指针对象的资源析构函数，这里以 std::unique_ptr 为例：
-    ```
+    ```cpp
       class Socket
       {
       public:
@@ -203,7 +203,7 @@
 
 + std::unique_ptr 对其持有的资源具有独占性，而 std::shared_ptr 持有的资源可以在多个 std::shared_ptr 之间共享，每多一个 std::shared_ptr 对资源的引用，资源引用计数将增加 1，每一个指向该资源的 std::shared_ptr 对象析构时，资源引用计数减 1，最后一个 std::shared_ptr 对象析构时，发现资源计数为 0，将释放其持有的资源。多个线程之间，递增和减少资源的引用计数是安全的。（注意：这不意味着多个线程同时操作 std::shared_ptr 引用的对象是安全的）。std::shared_ptr 提供了一个 use_count() 方法来获取当前持有资源的引用计数。除了上面描述的，std::shared_ptr 用法和 std::unique_ptr 基本相同
 + 下面是一个初始化 std::shared_ptr 的示例：
-  ```
+  ```cpp
     int main()
     {
         //初始化方式1
@@ -247,7 +247,7 @@
 
 + `std::enable_shared_from_this`
   + 实际开发中，有时候需要在类中返回包裹当前对象（this）的一个 std::shared_ptr 对象给外部使用，C++ 新标准也为我们考虑到了这一点，有如此需求的类只要继承自 std::enable_shared_from_this 模板对象即可。用法如下
-    ```
+    ```cpp
       #include <iostream>
       #include <memory>
 
@@ -285,7 +285,7 @@
 + std::enable_shared_from_this 用起来比较方便，但是也存在很多不易察觉的陷阱
   + 陷阱一：不应该共享栈对象的 this 给智能指针对象
     + 假设我们将上面代码 main 函数 25 行生成 A 对象的方式改成一个栈变量，即：
-      ```
+      ```cpp
         //其他相同代码省略...
 
         int main()
@@ -303,7 +303,7 @@
     + **切记：** 智能指针最初设计的目的就是为了管理堆对象的（即那些不会自动释放的资源） 
   + 陷阱二：避免 std::enable_shared_from_this 的循环引用问题
     + 再来看另外一段代码：
-      ```
+      ```cpp
         #include <iostream>
         #include <memory>
 
@@ -360,7 +360,7 @@
 + std::weak_ptr 是一个不控制资源生命周期的智能指针，是对对象的一种弱引用，只是提供了对其管理的资源的一个访问手段，引入它的目的为协助 std::shared_ptr 工作
 + std::weak_ptr 可以从一个 std::shared_ptr 或另一个 std::weak_ptr 对象构造，std::shared_ptr 可以直接赋值给 std::weak_ptr ，也可以通过 std::weak_ptr 的 lock() 函数来获得 std::shared_ptr。它的构造和析构不会引起引用计数的增加或减少。std::weak_ptr 可用来解决 std::shared_ptr 相互引用时的死锁问题（即两个std::shared_ptr 相互引用，那么这两个指针的引用计数永远不可能下降为 0， 资源永远不会释放）
 + 示例代码：
-  ```
+  ```cpp
     #include <iostream>
     #include <memory>
 
@@ -397,7 +397,7 @@
 ---
 
 + 既然，std::weak_ptr 不管理对象的生命周期，那么其引用的对象可能在某个时刻被销毁了，如何得知呢？std::weak_ptr 提供了一个 expired() 方法来做这一项检测，返回 true，说明其引用的资源已经不存在了；返回 false，说明该资源仍然存在，这个时候可以使用 std::weak_ptr 的 lock() 方法得到一个 std::shared_ptr 对象然后继续操作资源，以下代码演示了该用法：
-  ```
+  ```cpp
     // tmpConn_ 是一个 std::weak_ptr<TcpConnection> 对象
     // tmpConn_ 引用的TcpConnection已经销毁，直接返回
     if (tmpConn_.expired())
@@ -410,7 +410,7 @@
     }
   ``` 
 + 有读者可能对上述代码产生疑问，既然使用了 std::weak_ptr 的 expired() 方法判断了对象是否存在，为什么不直接使用 std::weak_ptr 对象对引用资源进行操作呢？实际上这是行不通的，std::weak_ptr 类没有重写 operator-> 和 operator* 方法，因此不能像 std::shared_ptr 或 std::unique_ptr 一样直接操作对象，同时 std::weak_ptr 类也没有重写 operator! 操作，因此也不能通过 std::weak_ptr 对象直接判断其引用的资源是否存在：
-  ```
+  ```cpp
     #include <memory>
 
     class A
@@ -464,7 +464,7 @@
 + 因此，std::weak_ptr 的正确使用场景是那些资源如果可能就使用，如果不可使用则不用的场景，它不参与资源的生命周期管理。例如，网络分层结构中，Session 对象（会话对象）利用 Connection 对象（连接对象）提供的服务工作，但是 Session 对象不管理 Connection 对象的生命周期，Session 管理 Connection 的生命周期是不合理的，因为网络底层出错会导致 Connection 对象被销毁，此时 Session 对象如果强行持有 Connection 对象与事实矛盾
 
 + std::weak_ptr 的应用场景，经典的例子是订阅者模式或者观察者模式中。这里以订阅者为例来说明，消息发布器只有在某个订阅者存在的情况下才会向其发布消息，而不能管理订阅者的生命周期
-  ```
+  ```cpp
     class Subscriber
     {
     };
@@ -513,7 +513,7 @@
 
 + 一旦一个对象使用智能指针管理后，就不该再使用原始裸指针去操作
 + 一段代码
-  ```
+  ```cpp
     #include <memory>
 
     class Subscriber
@@ -535,7 +535,7 @@
 + 记住，一旦智能指针对象接管了你的资源，所有对资源的操作都应该通过智能指针对象进行，不建议再通过原始指针进行操作了。
 
 + 当然，除了 std::weak_ptr 之外，std::unique_ptr 和 std::shared_ptr 都提供了获取原始指针的方法——get() 函数。
-  ```
+  ```cpp
     int main()
     {
         Subscriber *pSubscriber = new Subscriber();
@@ -558,7 +558,7 @@
 
 + 认真考虑，避免操作某个引用资源已经释放的智能指针
 + 前面的例子，一定让你觉得非常容易知道一个智能指针的持有的资源是否还有效，但是还是建议在不同场景谨慎一点，有些场景是很容易造成误判。例如下面的代码
-  ```
+  ```cpp
     #include <iostream>
     #include <memory>
 
@@ -589,7 +589,7 @@
   ```
 + 上述代码中，sp2 是 sp1 的引用，sp1 被置空后，sp2 也一同为空。这时候调用 sp2->doSomething()，sp2->（即 operator->）在内部会调用 get() 方法获取原始指针对象，这时会得到一个空指针（地址为 0），继续调用 doSomething() 导致程序崩溃
 + 你一定仍然觉得这个例子也能很明显地看出问题，ok，让我们把这个例子放到实际开发中再来看一下：
-  ```
+  ```cpp
     //连接断开
     void MonitorServer::OnClose(const std::shared_ptr<TcpConnection> &conn)
     {
@@ -615,7 +615,7 @@
 + 作为类成员变量时，应该优先使用前置声明（forward declarations）
 + 我们知道，为了减小编译依赖加快编译速度和生成二进制文件的大小，C/C++ 项目中一般在 *.h 文件对于指针类型尽量使用前置声明，而不是直接包含对应类的头文件
 + 示例
-  ```
+  ```cpp
     //Test.h
     //在这里使用A的前置声明，而不是直接包含A.h文件
     class A;
@@ -631,7 +631,7 @@
     };
   ``` 
 + 同样的道理，在头文件中当使用智能指针对象作为类成员变量时，也应该优先使用前置声明去引用智能指针对象的包裹类，而不是直接包含包含类的头文件
-  ```
+  ```cpp
     //Test.h
     #include <memory>
 
@@ -657,7 +657,7 @@
 + 最后，给出智能指针的简单实现，因为 weak_ptr 作为弱引用指针，其实现依赖于 Counter 计数器类和 shared_ptr 的赋值，所以先进行 Counter 计数器类和 share_ptr 的简单实现
 
 + Counter的简单实现
-  ```
+  ```cpp
     /*
      * 计数器
      * Counter对象就是用来申请一块内存存储引用计数
@@ -686,7 +686,7 @@
   ``` 
 
 + shared_ptr的简单实现
-  ```
+  ```cpp
     /*
      * SharedPtr的简单实现
      */
@@ -788,7 +788,7 @@
   ``` 
 
 + weak_ptr的简单实现
-  ```
+  ```cpp
     template <typename T>
     class WeakPtr
     {
