@@ -192,3 +192,192 @@
   + 建立终端
   + 用户登录系统
 
+
+## Linux下RTC时间：系统时间与RTC实时时钟时间
+
++ Linux系统下包含两个时间：**系统时间** 和 **RTC时间**
+  - 系统时间：是由主芯片的定时器进行维护的时间，一般情况下都会选择芯片上最高精度的定时器作为系统时间的定时基准，以避免在系统运行较长时间后出现大的时间偏移。特点是掉电后不保存
+  - RTC时间：是指系统中包含的RTC芯片内部所维护的时间。RTC芯片都有电池+系统电源的双重供电机制，在系统正常工作时由系统供电，在系统掉电后由电池进行供电。因此系统电源掉电后RTC时间仍然能够正常运行
++ 每次Linux系统启动后在启动过程中会检测和挂在RTC驱动，在挂在后会自动从RTC芯片中读取时间并设置到系统时间中去。此后如果没有显式的通过命令去控制RTC的读写操作，系统将不会再从RTC中获取或者同步设置时间
++ Linux命令中`date`和`time`等命令都是用来设置系统时间的；而`hwclock`命令是用来设置和读写RTC时间的
+
+## 文件系统标识
+
++ 在`/etc/fstab`配置文件中你可以以三种不同的方法表示文件系统：内核名称，UUID或者label。
++ 使用UUID或者是label的好处再与它们与磁盘顺序无关。
++ 如果你在BIOS中改变了你的存储设备顺序，或者是重新拔插了存储设备，或是因为一些BIOS可能会随即地改变存储设备的顺序，那么用UUID或者是label来表示将更有效
+
++ 显示分区的基本信息：`lsblk -f`
++ 内核名称：`fdisk -l` 来获得内核名称，前缀是`dev`
++ `UUID`：所有分区和设备都有唯一的UUID。**它们由文件系统生成工具`(mkfs.*)`在创建文件系统时生成。**
+
++ 路径名有空格，可以使用`\040`转义字符来表示空格（以三位八进制数来进行表示）
+  - `UUID=47FA-4071 /home/username/Camera\040Pictures vfat defaults, noatime 0 2`
+
++ `tmpfs`
+  - `tmpfs`是一个临时文件系统，驻留于你的交换分区或者是内存中（取决于你的使用情况）。使用它可以提高文件访问速度，并能够保证重启时会自动清除这些文件
+  - 经常使用`tmpfs`的目录有`/tmp, /var/lock, /var/run`。不要把tmpfs使用于`/var/tmp`，因为这一个目录中的临时文件在重启过程中需要被保留。
+  - 默认情况下，tmpfs分区被和设置为总的内存的一半，当然可以自由设定
+
+## POSIX API
+
++ POSIX，全称为**可移植性操作系统接口**，是一种关于信息技术的IEEE标准。它包括了系统应用程序的接口（API），以及实时扩展（C语言）
++ 该标准的目的是定义了标准的基于UNIX操作系统的系统接口和环境来支持源代码级的可移植性。现在，标准主要提供了依赖C语言的一系列标准服务，在将来的版本中，标准将致力于提供基于不同语言的规范。
++ 该标准对核心需求部分定义了一系列任何编程语言都通用的服务，这一部分服务主要从其功能需求方面阐述，而非定义依赖于编程语言的接口。
++ 语言规范主要由两部分组成
+  - 一部分包括了访问核心服务的编程语言的标准接口，这些核心服务为标准中基于编程语言的核心需求部分所定义
+  - 另一部分包含了一个特殊语言服务的标准接口。
+
++ 该标准一共被分为四个部分：
+  - 陈述的范围和一系列标准参考
+  - 定义和总概念
+  - 各种接口设备
+  - 头文件
+
+## 挂载
+
++ 挂载目录:
+  + 工具:nfs, sshfs, 
+
++ 挂载(mount):
+  - "挂载"发生在计算机想要使用任何类型的存储设备(如硬盘,CD-ROM,网络设备)之前,操作系统必须讲这个设备纳入自己的文件系统中
+
++ `mount -t type device dir` 
+  - 挂载操作,实际上是把设备(device)中的文件系统附加到dir上,可以通过访问dic来访问这个设备
+  - 其本质就是针对某一设备,分析出其文件系统结构,并根据其文件系统类型调用linux中相应的驱动,处理该设备的元数据,将这些信息附加到linux的目录树上,并呈现出来.
+
+## 内网穿透 
+
++ 内网，就是在公司或者家庭内部，建立的一种局域网络或者是办公网络，从而实现多台电脑之间可以进行资源的共享，包括设备，资料，数据等。而外网则是由一个网关与其他的网络系统连接，相对于内网而言，这种网络称之为外部网络，也就是我们经常说到的互联网。
+
++ 内网穿透，是我们在进行网络连接时的一种术语，也叫做NAT穿透，即在计算机是局域网内的时候，外网与内网的计算机的节点进行连接时所需要的连接通信，有时候就会出现内网穿透不支的情况。
++ 内网穿透的功能就是，当我们在端口映射时设置时，内网穿透起到了地址转换的功能，也就是把公网的地址进行翻译，转成一种私有的地址，然后再采用路由的方式ADSL的宽带路由器，具有一个动态或者是固定的公网IP，最后ADSL直接在交换机上，这样所有的电脑都可以共享上网。内网穿透除了可以实现内网之间机器的网络通信功能之外，还可以解决UDP中出现的数据传输不稳定的问题
+
++ 内网穿透可以通过开放的第三方端口来实现，可以安装一个NAT123端口内网穿透软件，然后再添加映射，并且配置出映射端口的信息，外网的地址是映射之后访问的域名，同时也可以是自己或者默认的域名，通过内网穿透，可以用域名进行对应的内网应用。如果是外网地址使用的是自己的域名，可以把域名的解析只想提示目标地址来使用。
+
++ 简单来说，内网穿透就是在我们没有公网IP的时候，也可以通过内网穿透服务器的转发，在任何互联网（广域网）连接内网的设备。
+
++ 推荐工具：Zero Tier , frp, **socat命令**
+
++ `ngrok`:
+  + `ngrok config add-authtoken 2Fyd9ZRXPYDbBNIZQRXAPd036Un_cCTH2CsrmttkSzKE1ind`
+  + `ngrok tcp 22 `
+  + `ssh user@0.tcp.jp.ngrok.io -p 11111`
+
+## ubuntu18 显卡配置
+
+1. 查看显卡设备和显卡驱动 --> `ubuntu-drivers devices`
+2. 自动安装合适的显卡     --> `sudo ubuntu-drivers autoinstall`
+3. 重启系统
+
+## 开机启动服务/脚本
+
++ 系统启动时需要加载的配置文件
+  + /etc/profile
+  + /root/.bash_profile
+  + /etc/bashrc
+  + /root/.bashrc
+  + /etc/profile.d/*.sh
+  + /etc/sysconfig/
+  + /etc/rc.local
+
++ 自定义服务文件，添加到系统服务，通过`Systemctl`管理
+  + 写服务文件，例如nginx.service, redis.service, supervisord.service
+    ```
+        [Unit]      --  服务说明
+        Description --  描述服务
+        After       --  描述服务类别
+
+        [Service]    -- 服务运行参数的设置
+        Type=forking -- 为后台运行的形式
+        ExecStart    -- 为服务的具体运行命令
+        ExecReload   -- 为服务的重启命令
+        ExecStop     -- 为服务的停止命令
+        PrivateTmp=True  -- 表示给服务分配独立的临时空间
+        注意：启动，重启，停止命令全部要求使用绝对路径
+
+        [Install]    --  服务安装的相关设置，可设置为多用户
+        WantedBy=multi-user.target
+    ``` 
+
++ 文件保存在`/usr/lib/systemd/system/`路径下，权限为`754`
+
++ 设置开机自动启动
+  + `systemctl enable nginx.service`
+
++ 停止开机自启动
+  + `systemctl disable nginx.service`
+
++ 验证是否为开机自启动
+  + `systemctl is-enabled nginx`
+
++ 查看所有已经启动的服务
+  + `systemctl list-units --type=service`
+
+# 什么是socks
+
++ socks是一种网络传输协议，主要用于客户端与外网服务器之间通讯的中间传递。SOCKS是SOCKets的缩写
++ 当防火墙后的客户端要访问外部的服务器时，就跟SOCKS代理服务器连接。这个代理服务器控制客户端访问外网的资格。允许的话，就将客户端的请求发往外部的服务器。这个协议最初由David Koblas开发，而后由NEC的Ying-Da Lee将其扩展到版本4。最新协议是版本5，与前一版相比，增加支持UDP，验证以及IPv6
+
+## 共享目录
+
+### linux之间建立共享目录
+
+如何使A服务器的某个目录挂载到B服务器的某个目录下,使其达到B服务下的目录文件一旦变更,可以实时的在A服务器的目录下体现出来?
+
+Linux的解决方式
++ 将B服务器的该目录,设置为共享文件夹
++ A服务器通过mount的方式,指定对应的远程主机所抛出来的共享文件夹进行连接.
+
+原理:
++ 挂载,并非将远程服务的文件实时拷贝到目标文件夹中
++ A服务器每次对于自身挂载文件的访问,实际上都是发送了一次新的RPC请求,请求目标服务器将其对应的目录数据实时返回到A服务器的文件当中进行展示.
++ Linux中存在一个应用:NFS网络文件系统(Network File System),它是一种适用于分散式文件系统的协定,让应用程序在客户端通过网络访问位于磁盘中的数据,是在类Unix系统间实现对应的磁盘文件共享的一种方法.
+
+NFS和RPC的关系:
++ NFS在文件传送或信息传送过程中依赖于RPC协议.
++ RPC,远程过程调用(Remote Procedure Call)是能使客户端执行其他系统中程序的一种机制.
++ NFS本身是没有提供信息传输的协议和功能,但是NFS却能让我们通过网络进行资料的分享,这是因为NFS使用了一些其他的传输协议.而这些传输协议用到这个RPC功能,可以说NFS本身就是使用RPC的一个程序.只要用到NFS的地方都要启动RPC服务,不论是NFS 服务器还是NFS客户端,因为这样服务器和客户端才能通过RPC来实现程序端口的对应.
++ 可以这么理解:NFS是一个文件系统,而RPC是负责信息的传输
+
+### 安装并配置NFS服务
+
+1. 安装nfs服务器端服务: `apt-get install nfs-kernel-server`        
+2. 编辑`/etc/exports`下的配置文件: 
+      1. `sudo vim /etc/exports`
+      2. 添加配置信息:`/home/zjy/share_folder *(rw, sync, no_root_squash, no_subtree_check)`
+            1. `/home/zjy/share_folder`:共享文件夹的路径
+            2. `*` : 允许所有的网段访问,也可以使用具体的IP
+            3. `rw` : 挂接此目录的客户端对该共享目录的权限:读,写
+            4. `sync`:资料同步写入内存和硬盘
+            5. `no_root_squash`:root用户具有对根目录的完全管理访问权限
+            6. `no_subtree_check` : 不检查父目录的权限
+3. 重启服务,将会自动映射端口:`sudo /etc/init.d/rpcbind restart`
+4. 重启nfs服务:`sudo /etc/init.d/nfs-kernel-server restart`
+5. 创建共享文件夹
+6. 查看ip地址,准备给客户端挂载
+
+客户端配置:
+1. 创建用于存放挂载的目录:`sudo mkdir /opt/share_folder`
+2. 挂载服务器端共享目录:`sudo mount -t nfs 192.167.15.5:/mnt/A311D_share_folder /opt/share_folder`
+3. 取消挂载:`sudo umount /opt/share_folder`
+
+## /etc/apt/source.list
+
+### debian 9 strech arm64
+
++ apt源
+  ```
+    # debian
+    deb http://mirrors.ustc.edu.cn/debian stable main contrib non-free
+    # deb-src http://mirrors.ustc.edu.cn/debian stable main contrib non-free
+    deb http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
+    # deb-src http://mirrors.ustc.edu.cn/debian stable-updates main contrib non-free
+
+    # deb http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free
+    # deb-src http://mirrors.ustc.edu.cn/debian stable-proposed-updates main contrib non-free
+  ``` 
+
+## apt 出现 Certificate verification failed
+
++ `apt install ca-certificates --reinstall`
