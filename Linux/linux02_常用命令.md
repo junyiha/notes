@@ -2,6 +2,131 @@
 
 + linux环境下常用命令 第二部分
 
+## gsettings
+
+`gsettings` 是一个命令行工具，用于在 Ubuntu 中访问和修改 GNOME 桌面环境的设置。它允许你通过命令行方式读取和更改各种系统设置、应用程序设置以及桌面外观和行为等。
+
+下面是一些 `gsettings` 命令的常见用法和解释：
+
+1. `gsettings list-schemas`：列出可用的模式（schemas）。这将显示所有可用的模式名称，你可以使用这些模式名称来查询和修改相关设置。
+
+2. `gsettings list-keys SCHEMA`：列出给定模式（SCHEMA）下的所有键（keys）。使用具体的模式名称替换 `SCHEMA` 部分来查看该模式下的所有可用键。
+
+3. `gsettings get SCHEMA KEY`：获取给定模式（SCHEMA）下给定键（KEY）的值。这可用于查看当前设置的值。
+
+4. `gsettings set SCHEMA KEY VALUE`：将给定模式（SCHEMA）下给定键（KEY）的值设置为指定的值（VALUE）。使用这个命令可以修改设置的值。
+
+5. `gsettings reset SCHEMA KEY`：重置给定模式（SCHEMA）下给定键（KEY）的值为默认值。
+
+6. `gsettings range SCHEMA KEY`：显示给定模式（SCHEMA）下给定键（KEY）的值的允许范围。
+
+需要注意的是，`SCHEMA` 是模式的名称，而 `KEY` 是模式中的键的名称。你可以使用 `list-schemas` 和 `list-keys` 命令来获取可用的模式和键的列表。
+
+举例来说，`org.gnome.desktop.background` 是一个常用的模式，用于控制桌面背景相关的设置。你可以使用类似以下的命令来修改桌面背景图片：
+```
+gsettings set org.gnome.desktop.background picture-uri 'file:///path/to/image.jpg'
+```
+这会将桌面背景设置为指定路径下的图像文件。
+
+`gsettings` 提供了一种方便的方式来从命令行管理和调整 GNOME 桌面环境的各种设置。你可以查阅相关的文档和手册来获取更多关于 `gsettings` 命令的详细信息和示例用法。
+
+---
+
+## find
+
+在Linux中，`find`命令用于在文件系统中查找符合指定条件的文件和目录。它提供了强大的搜索功能，可以根据不同的搜索标准来定位文件和目录。
+
+`find`命令的基本语法如下：
+
+```shell
+find [路径] [表达式]
+```
+
+其中，`路径`指定要搜索的起始目录路径，`表达式`用于指定搜索条件和操作。
+
+以下是一些常见的用法示例：
+
+1. 搜索指定目录下的所有文件：
+```shell
+find /path/to/directory
+```
+
+2. 搜索指定目录下的特定文件类型（例如，所有的文本文件）：
+```shell
+find /path/to/directory -type f -name "*.txt"
+```
+
+3. 搜索指定目录及其子目录下的所有文件：
+```shell
+find /path/to/directory -type f
+```
+
+4. 搜索指定目录下最近修改的文件：
+```shell
+find /path/to/directory -type f -mtime -7
+```
+上述命令将搜索在最近7天内被修改的文件。
+
+5. 搜索指定目录下的文件并执行操作（如打印文件名或删除文件）：
+```shell
+find /path/to/directory -type f -exec echo {} \;
+find /path/to/directory -type f -exec rm {} \;
+```
+
+需要注意以下几点：
+
+- `find`命令默认会递归地搜索指定目录及其子目录下的文件和目录。
+- `-type`选项用于指定要搜索的文件类型，例如`f`表示普通文件，`d`表示目录。
+- `-name`选项用于指定文件名的模式匹配。
+- `-mtime`选项用于指定文件的修改时间，例如`-mtime -7`表示最近7天内修改的文件。
+- `-exec`选项用于在找到的文件上执行特定的命令。
+
+`find`命令还支持许多其他选项和表达式，用于更精确地控制搜索条件和操作。你可以使用`man find`命令查阅`find`命令的详细文档，以了解更多关于其用法和选项的信息。
+
+---
+
+## find -exec选项
+
+在Linux中，`-exec`是`find`命令的一个选项，用于在找到的文件上执行指定的命令。`-exec`选项允许你对找到的文件执行各种自定义操作。
+
+`-exec`选项的语法如下：
+
+```shell
+-exec command {} \;
+```
+
+解释如下：
+
+- `command`：要执行的命令，可以是任何合法的Linux命令。命令必须以空格或分号结尾，并用单引号或双引号括起来。
+- `{}`：是一个占位符，表示`find`命令找到的每个文件。`{}`会被实际的文件名替换。
+- `\;`：表示`-exec`选项的结束，必须使用反斜杠转义字符进行转义。
+
+以下是一些常见的用法示例：
+
+1. 打印找到的文件名：
+```shell
+find /path/to/directory -type f -exec echo {} \;
+```
+
+2. 复制找到的文件到目标目录：
+```shell
+find /path/to/directory -type f -exec cp {} /path/to/destination/ \;
+```
+
+3. 删除所有找到的文件：
+```shell
+find /path/to/directory -type f -exec rm {} \;
+```
+
+需要注意以下几点：
+
+- 如果在`command`中使用`{}`，确保在命令中引用文件名之前进行适当的转义或引号处理，以避免解释错误。
+- 如果要对多个文件执行命令，可以使用`+`代替`\;`作为结束符。这样会将多个文件一次传递给命令，从而提高效率。
+
+总而言之，`-exec`选项使得`find`命令具有强大的功能，可以在找到的文件上执行自定义的命令和操作。这对于批量处理文件或执行复杂的操作非常有用。
+
+---
+
 ## OpenSSH 详解
 
 OpenSSH（Open Secure Shell）是一个用于安全远程登录和文件传输的开源工具套件，提供了加密的网络通信协议和相关的命令行工具。它是SSH协议的实现之一，广泛用于Linux、Unix和其他类Unix系统上。
