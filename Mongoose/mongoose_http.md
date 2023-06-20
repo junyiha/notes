@@ -266,6 +266,11 @@ struct mg_http_serve_opts {
 + 简介：
   + 根据给定选项服务多个静态文件。文件也可以被压缩,包括目录索引。所有压缩文件都必须以.gz结尾，并且不得在没有扩展名的情况下存在具有相同名称的文件，否则将优先考虑
 
++ 原型：
+```c
+void mg_http_serve_dir(struct mg_connection *c, struct mg_http_message *hm, const struct mg_http_serve_opts *opts);
+```
+
 + 参数：
   + c : 使用的连接
   + hm : 应该被服务的HTTP消息
