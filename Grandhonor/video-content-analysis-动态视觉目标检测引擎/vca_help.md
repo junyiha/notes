@@ -1,4 +1,4 @@
-vca.exe 版本 6.1.1
+vca.exe 版本 6.1.2
 
 一般选项：
 
@@ -40,8 +40,9 @@ vca.exe 版本 6.1.1
 		SoftFPN_W
 		SoftFPN_L
 		CenterNet
-		CenterNet_KP
+		CenterNet_MCOD
 		RetinaFace
+		RetinaFace_BITMAINLAND
 		LPRNET_0312
 		LPRNET
 		Feature
@@ -93,21 +94,6 @@ vca.exe 版本 6.1.1
 
 	--input-std < channel-0,channel-1,channel-2 >
 		输入层数据（除）方差。默认：1.0,1.0,1.0
-
-	--fbd-type < TYPE >
-		异物检测，类型。默认：2
-
-		1：万物
-		2：遗留物
-
-	--fbd-bg-uptime < TIME >
-		异物检测，背景更新间隔（秒）。默认：999999999
-
-	--fbd-co-duration < TIME >
-		异物检测，遗留物时长（秒）。默认：10
-
-	--fbd-co-history < NUMBER >
-		异物检测，遗留物学习帧数。默认：100
 
 	--delete-oblique-face
 		删除侧脸。
@@ -231,6 +217,9 @@ vca.exe 版本 6.1.1
 		--trace-cast
 			追踪耗时。
 
+		--mcod-bg-delay < FRAMES >
+			异物检测背景选择延时(帧)。默认：30
+
 	--output-type < TYPE >
 		输出类型。
 
@@ -239,7 +228,7 @@ vca.exe 版本 6.1.1
 		2：视频
 		3：REDIS
 		4：KAFKA
-		5：共离内存(SHM)
+		5：共享内存(SHM)
 
 	--output-screen-name < NAME >
 		输出屏幕名称。默认：VCA Palyer
@@ -262,7 +251,7 @@ vca.exe 版本 6.1.1
 		输出视频编码使用H264。
 
 	--output-video-use-fmp4
-		输出视频格式为FMP4。默认：MPEG4
+		输出视频格式为FMP4。默认：MP4
 
 	--output-redis-addr < IP-ADDRESS | DOMAIN-NAME >
 		输出REDIS地址。默认：127.0.0.1
@@ -313,8 +302,8 @@ vca.exe 版本 6.1.1
 		1：视频
 		2：图片
 
-		--input-trace
-			输入追踪。
+	--input-trace
+		输入追踪。
 
 	--input-video-format < FORMAT >
 		输入视频格式。默认：自动检测
@@ -328,8 +317,6 @@ vca.exe 版本 6.1.1
 		例：rtmp://$IP/abc.mp4
 		例：http://$IP/abc.mp4
 		例：https://$IP/abc.mp4
-		例：hkmvs://$IPv4
-		例：hkisc://$appkey:$secret@$IP[:$PORT]/[$PATH]?$cameraIndexCode
 
 	--input-video-xspeed < RATIO  >
 		输入视频的倍速。默认：1.0
