@@ -2,6 +2,46 @@
 
 + linux环境下常用命令 第二部分
 
+## mkdir 
+
+在Linux系统中，`mkdir`（make directory）命令用于创建目录。下面是`mkdir`命令的详细解释：
+
+命令语法：
+```
+mkdir [选项] 目录名
+```
+
+常用选项：
+- `-p`：递归创建目录，如果父目录不存在则创建。例如，`mkdir -p dir1/dir2/dir3` 将会创建`dir1`、`dir2`和`dir3`三级目录。
+- `-m`：指定目录的权限模式（权限标志）。例如，`mkdir -m 755 new_dir` 将会创建一个权限为 `755` 的 `new_dir` 目录。
+- `-v`：显示创建的每个目录的详细信息。
+- `-p` 和 `-v` 选项可以同时使用。
+
+示例：
+1. 创建一个名为 `my_directory` 的目录：
+```
+mkdir my_directory
+```
+
+2. 递归地创建多级目录 `dir1/dir2/dir3`：
+```
+mkdir -p dir1/dir2/dir3
+```
+
+3. 创建目录并指定权限模式为 `755`：
+```
+mkdir -m 755 my_directory
+```
+
+4. 创建目录并显示详细信息：
+```
+mkdir -v my_directory
+```
+
+以上是一些常见的用法示例。`mkdir`命令还支持其他选项和参数，你可以通过运行 `man mkdir` 命令来查看更多详细的帮助文档。
+
+---
+
 ## rename 
 
 在Linux中，`rename`命令用于批量重命名文件或目录。它可以根据指定的规则来修改文件或目录的名称。下面是`rename`命令的详解：
