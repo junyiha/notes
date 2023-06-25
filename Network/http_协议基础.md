@@ -2,6 +2,52 @@
 
 + HTTP协议理论基础知识
 
+## HTTP 请求报文
+
+HTTP 请求报文由请求行（Request Line）、请求头部（Headers）和请求主体（Body）三部分组成。下面是 HTTP 请求报文的一般格式：
+
+```
+<请求方法> <请求目标> <协议版本>
+<请求头部字段>: <值>
+<请求头部字段>: <值>
+...
+<空行>
+<请求主体>
+```
+
+其中，各部分的含义如下：
+
+1. 请求方法（Request Method）：表示客户端请求的动作类型，常见的方法有 GET、POST、PUT、DELETE 等。
+2. 请求目标（Request Target）：指定请求的目标资源的位置，可以是一个 URL 或绝对路径。
+3. 协议版本（Protocol Version）：指定所使用的 HTTP 协议的版本，通常是 HTTP/1.1 或 HTTP/2。
+4. 请求头部字段（Headers）：包含了关于请求的附加信息，每个字段都以字段名和对应的值组成，每个字段占据一行。
+5. 空行：表示请求头部结束的标志，用于与请求主体进行分隔。
+6. 请求主体（Body）：可选的，包含了实际要发送给服务器的数据，比如表单数据或上传的文件内容。
+
+以下是一个示例 HTTP 请求报文：
+
+```
+POST /api/users HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Content-Length: 48
+
+{"username": "john_doe", "password": "secretpassword"}
+```
+
+在上面的示例中：
+
+- 请求方法为 `POST`，请求目标为 `/api/users`，协议版本为 `HTTP/1.1`。
+- 请求头部包含了 `Host`、`Content-Type` 和 `Content-Length` 等字段，用于指定主机名、请求体的类型和长度等信息。
+- 空行表示请求头部结束。
+- 请求主体为一个 JSON 格式的字符串，包含了用户名和密码的数据。
+
+请注意，请求报文中的每一行都应该以回车符（\r）和换行符（\n）作为行结束符号。请求头部字段和值之间使用冒号和空格进行分隔（例如 `Content-Type: application/json`）。
+
+以上是 HTTP 请求报文的基本结构，实际的请求报文内容和格式会根据具体的请求需求和要求而有所不同。
+
+---
+
 ## HTTP 协议文档
 
 HTTP协议的官方文档是由互联网工程任务组（IETF）发布的一系列文档，主要包括以下两个规范：
