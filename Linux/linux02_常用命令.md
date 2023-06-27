@@ -282,6 +282,67 @@ ssh-add ~/.ssh/id_rsa
 
 ---
 
+## ssh_exchange_identification: read: Connection reset by peer 错误
+
+当你在使用SSH连接时，出现"ssh_exchange_identification: read: Connection reset by peer"错误，通常表示SSH连接被对方终止了。这可能是由于以下几个原因导致的：
+
+1. 网络连接问题：这可能是由于网络中断、丢包或不稳定的连接导致的。请确保你的网络连接正常，并尝试重新连接。
+
+2. SSH服务器配置问题：可能是SSH服务器配置有问题，导致连接被终止。你可以尝试重新启动SSH服务器或检查其配置文件以查找潜在的问题。
+
+3. 防火墙或安全设置：防火墙或其他安全设置可能会阻止SSH连接。确保你的防火墙设置允许SSH流量通过，并且服务器端没有任何限制。
+
+4. SSH版本不匹配：如果你使用的SSH客户端和服务器端之间的SSH协议版本不匹配，可能会导致连接被重置。尝试使用兼容的SSH版本，或者更新SSH客户端和服务器端以确保版本一致。
+
+5. SSH服务器负载过高：如果SSH服务器负载过高，可能无法处理新的连接请求，从而导致连接被重置。尝试在负载较低的时间重新连接。
+
+如果以上方法都无效，你可以尝试使用其他SSH客户端或与SSH服务器管理员联系以获取更多支持和故障排除。
+
+---
+
+## ssh 允许root登录
+
++ 文件：/etc/ssh/sshd_config
+  + `PermitRootLogin yes`
+
+---
+
+## ssh 安装与配置
+
++ 一般ubuntu都会默认安装openssh-client,但是没有安装openssh-server
++ 安装ssh服务器:
+  - `sudo apt-get install openssh-server`
++ 安装ssh客户端:
+  - `sudo apt-get install openssh-client`
++ 查看端口:
+  - `netstat -tunpl | grep 22`
++ 查看ssh状态:
+  - `service sshd status`
++ 重启ssh服务:
+  - `service sshd restart` | `sudo /etc/init.d/ssh restart`   
++ ssh配置文件:
+  - `/etc/ssh/ssh_config` | `/etc/ssh/sshd_config`
+  - `PasswordAuthentication yes`
+  - `PermitRootLogin yes`
+  - `# PermitRootLogin prohibit-password`
+
+## SSH 基础知识
+
++ SSH的全称为`Secure Shell`，即安全外壳协议，是一种加密的网络传输协议。它能够在公开的网络环境中提供安全的数据传输环境，通常用于登陆远程主机和推拉代码。
+
++ 同样一个SSH公钥文件，如果添加至某一个代码仓库，则称为部署公钥，配置后默认拥有读项目的只读权限，支持新增读写权限；
++ 如果添加至团队设置中心，则称为团队部署公钥，仅拥有只读权限；
++ 如果添加至个人账户，称为账户SSH公钥，配置后拥有账户内所有代码仓库的读写权限。
++ 同一个SSH公钥无法即作为部署公钥，又作为个人账户SSH公钥
+
++ 生成公钥 -- 使用`ssh-keygen`工具生成SSH公钥
+  - `ssh-keygen -m PEM -t ed25519 -C "your.email@example.com"  // 创建新的SSH私钥和公钥对
+
++ 添加至部署公钥
+  - 打开生成的密钥对的地址，通常为`~/.ssh 文件夹` , 找到后缀为`pub`的文件
+
+---
+
 ## ssh-keygen
 
 `ssh-keygen`命令是Linux系统中用于生成SSH密钥对的工具。SSH密钥对由一对公钥和私钥组成，用于身份验证和安全通信。
