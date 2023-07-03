@@ -2,6 +2,47 @@
 
 + cmake 语法基础 理论基础
 
+## cmake 变量
+
+在CMake中，变量用于存储和操作数据，可以在CMake脚本中定义、设置和使用。下面是对CMake变量的详细解释：
+
+1. CMake缓存变量（CMake Cache Variables）：这些变量存储在CMake缓存中，并可以通过CMake GUI或命令行进行设置。它们在多次运行CMake时保持持久，并且可以影响项目的配置。常见的CMake缓存变量包括`CMAKE_INSTALL_PREFIX`（安装路径）、`CMAKE_BUILD_TYPE`（构建类型）等。
+
+2. CMake内部变量（CMake Internal Variables）：这些变量由CMake自身设置和使用，用于控制CMake的行为和功能。它们具有特殊的前缀或名称，例如`CMAKE_SOURCE_DIR`（项目根目录路径）、`CMAKE_BINARY_DIR`（构建目录路径）等。
+
+3. 用户定义变量：这些变量由用户在CMake脚本中定义和设置。使用`set()`函数可以创建用户定义变量，并使用`${}`语法引用它们。例如：
+
+   ```cmake
+   set(MY_VARIABLE "Hello, world!")
+   ```
+
+4. 环境变量：CMake可以读取和使用系统环境变量。可以使用`$ENV{VAR_NAME}`语法引用环境变量。例如：
+
+   ```cmake
+   message("Home directory: $ENV{HOME}")
+   ```
+
+5. Cache Entry变量：CMake提供了`set()`函数的高级形式，用于创建带有用户友好描述和其他属性的缓存变量。例如：
+
+   ```cmake
+   set(MY_VARIABLE "Hello, world!" CACHE STRING "A user-friendly description")
+   ```
+
+   这将创建一个名为`MY_VARIABLE`的缓存变量，它具有用户友好的描述和其他属性，可以在CMake GUI中显示和设置。
+
+6. List变量：List变量是一种特殊类型的变量，可以包含多个值。你可以使用`set()`函数将多个值存储到List变量中，并使用`${}`语法访问和操作它们。例如：
+
+   ```cmake
+   set(LIST_VARIABLE "value1" "value2" "value3")
+   message("List variable: ${LIST_VARIABLE}")
+   ```
+
+   输出结果将是`value1;value2;value3`。
+
+这些是CMake中常见的变量类型和用法。在CMake脚本中，你可以根据需要使用这些变量来控制和配置项目。
+
+---
+
 ## cmake 3.10.2 option
 
 在CMake 3.10.2版本中，`option`命令用于定义和处理用户选项。它允许您在CMake配置过程中提供一些可配置的选项，以便用户可以根据需要进行选择。
