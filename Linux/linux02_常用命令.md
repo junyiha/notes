@@ -2,6 +2,48 @@
 
 + linux环境下常用命令 第二部分
 
+## loginctl 
+
+`loginctl` 是一个用于管理登录会话和用户登录状态的命令行工具。它是 systemd 的一部分，用于控制 Linux 系统上的用户登录和会话管理。
+
+以下是一些常用的 `loginctl` 命令及其功能：
+
+- `loginctl list-sessions`：列出当前活动的登录会话。它会显示每个会话的 ID、用户、登录时间等信息。
+- `loginctl show-session <session_id>`：显示指定会话的详细信息，包括会话状态、登录用户、登录时间等。
+- `loginctl list-users`：列出当前活动的用户。它会显示每个用户的 ID、用户名等信息。
+- `loginctl show-user <user_id>`：显示指定用户的详细信息，包括用户状态、默认会话、上次登录时间等。
+- `loginctl session-status`：显示当前登录用户的会话状态和详细信息。
+- `loginctl user-status`：显示当前用户的状态和详细信息。
+- `loginctl lock-session`：锁定当前会话。这会使屏幕进入锁定状态，要解锁屏幕，需要提供用户密码。
+- `loginctl unlock-session`：解锁当前会话。这会解除屏幕锁定状态。
+
+除了上述命令之外，`loginctl` 还提供其他一些管理登录会话和用户的功能，如关闭用户会话、终止登录会话、设置默认会话等。你可以通过 `man loginctl` 命令查看更多详细信息和可用选项。
+
+需要注意的是，`loginctl` 命令需要 root 或具有适当权限的用户才能执行。它在使用 systemd 作为 init 系统的 Linux 发行版中可用。
+
+希望这个解释对你有帮助！如有需要，请随时提问。
+
+---
+
+## gnome-screensaver-command 
+
+`gnome-screensaver-command` 是用于与 GNOME 屏幕保护程序交互的命令行工具。它允许你控制屏幕保护程序的状态、设置和操作。
+
+以下是一些常用的 `gnome-screensaver-command` 命令及其功能：
+
+- `gnome-screensaver-command -a`：激活屏幕保护程序。这会立即启动屏幕保护程序并锁定屏幕，要解锁屏幕，你需要提供用户密码。
+- `gnome-screensaver-command -d`：禁用屏幕保护程序。这会关闭屏幕保护程序的自动启动和锁定屏幕的功能。
+- `gnome-screensaver-command -q`：查询屏幕保护程序的状态。它会返回屏幕保护程序是否激活和屏幕是否锁定的信息。
+- `gnome-screensaver-command -l`：锁定屏幕。这会立即锁定屏幕，要解锁屏幕，你需要提供用户密码。
+
+这些是 `gnome-screensaver-command` 命令的一些示例。通过使用不同的选项，你可以进行更多的配置和操作，如设置屏幕保护程序的超时时间、配置锁定屏幕的效果等。
+
+需要注意的是，`gnome-screensaver-command` 命令仅在使用 GNOME 桌面环境的 Linux 系统中可用。对于其他桌面环境或窗口管理器，可能有不同的命令或工具来控制屏幕保护程序。
+
+希望这个解释对你有帮助！如有需要，请随时提问。
+
+---
+
 ## pulseaudio
 
 PulseAudio 是 Linux 上广泛使用的音频服务器和音频子系统。它提供了许多命令行工具来管理和控制音频设备、音频流和音量等。下面是一些常用的 PulseAudio 命令及其详解：

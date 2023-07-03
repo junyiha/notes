@@ -20,9 +20,11 @@
   + 在远程调试机械臂的时候，需要使用到root权限来运行程序，所以在调试的时候需要使用到root权限
 
 + 方法：
-  + 在`.bashrc`中加入一行代码：
+  + 示例：`code --no-sandbox --disable-gpu-sandbox --user-data-dir=".vscode-root"`
+
+  <!-- + 在`.bashrc`中加入一行代码：
     + `alias code='/usr/share/code/code . --no-sandbox --unity-lanuch'`
-  + 然后，直接在终端使用vscode命令打开vscode : `code`
+  + 然后，直接在终端使用vscode命令打开vscode : `code` -->
 
 ## VSCode 是什么
 
