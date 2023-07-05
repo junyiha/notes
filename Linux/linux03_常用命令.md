@@ -2,6 +2,122 @@
 
 + Linux系统下常用命令笔记
 
+## asan 工具 详解
+
+AddressSanitizer（ASan）是一种用于检测内存错误的工具，它是 LLVM 编译器工具链的一部分。ASan 主要用于检测内存越界访问、使用未初始化的内存、内存泄漏等常见的内存错误。
+
+下面是 ASan 的一些主要特点和工作原理的详细解释：
+
+1. 内存错误检测：ASan 在程序执行期间动态地分配和管理内存，并在每个内存块的边界添加额外的元数据。当程序访问超出分配的内存范围或使用未初始化的内存时，ASan 会检测到这些错误并生成相应的报告。
+
+2. 内存泄漏检测：ASan 跟踪程序中动态分配的内存，并在程序结束时检查是否有未释放的内存。如果存在内存泄漏，ASan 会生成相应的报告指示泄漏的内存块的位置。
+
+3. 元数据重映射：ASan 使用位图技术来存储内存元数据，以减少对内存的额外开销。这种位图会与程序的内存布局进行映射，以便快速定位错误和泄漏。
+
+4. 堆栈跟踪：当发生内存错误时，ASan 会捕获当前的函数调用堆栈信息，以便定位错误发生的位置。这对于调试和定位问题非常有帮助。
+
+5. 崩溃报告：当程序发生内存错误导致崩溃时，ASan 会生成详细的崩溃报告，其中包含了堆栈跟踪、错误类型和发生位置等信息。
+
+使用 ASan 进行内存错误检测时，需要使用支持 ASan 的编译器进行编译，并在链接时启用 ASan 的运行时库。编译和链接选项可以根据具体的编译器和工具链有所差异。
+
+ASan 是一个强大的工具，可以帮助开发者在早期阶段捕获和调试内存错误，提高代码的质量和可靠性。然而，由于 ASan 需要额外的运行时开销和内存使用，对于大型项目或性能敏感的代码，可能需要在测试和生产环境中进行谨慎使用和评估。
+
+---
+
+## asan 工具 使用 示例
+
+以下是一个简单的示例，演示如何使用 AddressSanitizer（ASan）来检测和调试内存错误：
+
+1. 编写代码文件（示例文件名为 `example.c`）：
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int* buffer = (int*)malloc(sizeof(int) * 10);
+    buffer[10] = 42; // 内存越界访问
+
+    free(buffer);
+    return 0;
+}
+```
+
+2. 使用编译器进行编译和链接，启用 ASan：
+
+```shell
+$ clang -fsanitize=address -g example.c -o example
+```
+
+或者使用 gcc 编译器：
+
+```shell
+$ gcc -fsanitize=address -g example.c -o example
+```
+
+在编译过程中，我们通过添加 `-fsanitize=address` 选项来启用 ASan。
+
+3. 运行程序：
+
+```shell
+$ ./example
+```
+
+4. ASan 检测到内存错误后，会生成相应的报告并打印在终端上，类似于以下内容：
+
+```
+=================================================================
+==12345==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000eff0 at pc 0x0000004009b9
+READ of size 4 at 0x60200000eff0 thread T0
+    #0 0x4009b8 in main example.c:6
+    #1 0x7ffff6b4ab96 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21b96)
+    #2 0x4008c9 in _start (/path/to/example+0x4008c9)
+
+Address 0x60200000eff0 is a wild pointer.
+SUMMARY: AddressSanitizer: heap-buffer-overflow example.c:6 in main
+Shadow bytes around the buggy address:
+  0x0c047fffbe70: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbe80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbe90: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbea0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbeb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c047fffbec0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa[04]fa
+  0x0c047fffbed0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbee0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbef0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbf00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fffbf10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8
+
+ application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==12345==ABORTING
+```
+
+报告中会提供详细的错误信息，包括错误类型、错误地址、堆栈跟踪等。在这个示例中，ASan 检测到了堆缓冲区溢出错误。
+
+通过这种方式，ASan 可以帮助开发者捕获和调试内存错误，提供有用的诊断信息，以帮助修复问题和提高代码质量。
+
+---
+
 ## valgrind
 
 Valgrind 是一个开源的内存调试和性能分析工具，常用于 C 和 C++ 程序的调试和性能优化。它提供了一套强大的工具集，可以帮助开发者发现内存泄漏、内存错误、线程问题和性能瓶颈等问题。
