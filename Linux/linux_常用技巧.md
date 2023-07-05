@@ -2,6 +2,215 @@
 
 + linux系统的常用技巧和方法
 
+## valgrind 使用技巧
+
+当使用 Valgrind 进行代码分析时，以下是一些常用的技巧和建议：
+
+1. 针对特定问题使用适当的 Valgrind 工具：Valgrind 工具集包含多个工具，如 Memcheck、Cachegrind、Massif 等，每个工具都有不同的功能和用途。根据你要解决的具体问题，选择适合的工具进行分析。
+
+2. 使用合适的选项和参数：Valgrind 提供了多种选项和参数来控制分析的行为。根据你的需求，设置合适的选项，如内存泄漏检查、调试服务器、堆栈跟踪等。阅读 Valgrind 的文档以了解可用选项和参数，并根据实际情况进行设置。
+
+3. 关注 Valgrind 的警告和报告：Valgrind 会生成警告和报告，指示可能存在的内存错误、泄漏、未初始化变量等问题。仔细阅读和理解这些报告，并根据提示进行代码的修复和优化。
+
+4. 使用 Valgrind 工具的辅助工具：Valgrind 提供了一些辅助工具，如 `ms_print`（用于分析 Massif 输出）、`callgrind_annotate`（用于分析 Callgrind 输出）等。使用这些工具可以更好地可视化和分析 Valgrind 的结果。
+
+5. 分析程序的热点代码：通过查看 Valgrind 的报告和分析结果，识别程序中的热点代码，即执行次数多、内存占用高或性能消耗大的代码段。针对这些热点代码进行优化，可以显著改善程序的性能和资源使用情况。
+
+6. 结合调试器使用：Valgrind 和调试器（如 GDB）可以一起使用，以深入分析程序的问题。你可以在 Valgrind 报告中找到有关内存错误和泄漏的信息，然后使用调试器定位具体的代码位置并进行调试。
+
+7. 针对大型程序进行分析：对于大型程序，Valgrind 的分析可能会耗费较长时间和大量内存。在这种情况下，可以使用 Valgrind 的部分功能，如 `--tool=memcheck --leak-check=no`，只对内存错误进行检查，以加快分析速度。
+
+8. 测试不同的输入数据和场景：Valgrind 的分析结果可能会受到不同的输入数据和场景的影响。尝试使用不同的测试数据和场景来验证程序的内存安全性和性能，以充分覆盖各种情况。
+
+最重要的是，要仔细阅读 Valgrind 的文档，理解各个工具的原理和用法，并根据
+
+实际情况灵活应用。同时，要结合其他调试和性能分析工具，以获取更全面的代码分析和优化结果。
+
+## valgrind 结果输出到文件
+
+要将 Valgrind 的结果输出到文件中，可以使用重定向操作符（`>`）将 Valgrind 的输出重定向到一个文件。下面是一个示例：
+
+```
+valgrind --tool=memcheck ./my_program > valgrind_output.txt
+```
+
+在上述示例中，`valgrind_output.txt` 是要保存 Valgrind 输出的文件名。运行命令后，Valgrind 的输出将会写入该文件中，而不会显示在终端上。
+
+如果你想要将标准错误（stderr）也输出到文件中，可以使用 `2>&1` 重定向标准错误到标准输出，然后再重定向到文件中。示例如下：
+
+```
+valgrind --tool=memcheck ./my_program > valgrind_output.txt 2>&1
+```
+
+在这个示例中，`2>&1` 将标准错误重定向到标准输出，然后将标准输出和标准错误都重定向到 `valgrind_output.txt` 文件中。
+
+通过将 Valgrind 输出到文件中，你可以随时打开文件来查看和分析 Valgrind 的结果，以便更好地理解和解决程序中的内存错误和问题。
+
+## Linux systemctl 删除服务
+
+要从 Systemd 中删除服务条目（service），可以按照以下步骤进行操作：
+
+1. 停止服务：
+在删除服务之前，首先需要停止该服务。使用以下命令停止服务：
+
+```bash
+sudo systemctl stop servicename
+```
+
+请将 `servicename` 替换为你要删除的服务的名称。
+
+2. 禁用服务：
+使用以下命令禁用服务，以确保在系统启动时不会自动启动该服务：
+
+```bash
+sudo systemctl disable servicename
+```
+
+3. 删除服务文件：
+服务文件通常位于 `/etc/systemd/system/` 或 `/usr/lib/systemd/system/` 目录中，具体取决于你的 Linux 发行版和配置。使用以下命令删除服务文件：
+
+```bash
+sudo rm /etc/systemd/system/servicename.service
+```
+
+请确保将 `servicename.service` 替换为你要删除的服务文件的实际名称。
+
+4. 重新加载 Systemd 配置：
+删除服务文件后，需要重新加载 Systemd 配置，以确保系统知道该服务已被删除。使用以下命令重新加载配置：
+
+```bash
+sudo systemctl daemon-reload
+```
+
+完成上述步骤后，服务条目就会从 Systemd 中彻底删除。
+
+请注意，在执行这些操作时要谨慎，确保你要删除的是正确的服务条目，并备份相关文件以防需要恢复。
+
+---
+
+## Linux 自启动脚本 详解
+
+在 Linux 系统中，可以使用不同的方法设置自启动脚本，具体取决于你所使用的 Linux 发行版和 init 系统。
+
+在大多数现代 Linux 发行版中，常见的 init 系统是 Systemd。下面是使用 Systemd 设置自启动脚本的步骤：
+
+1. 编写启动脚本：
+在 Linux 系统上创建你的自启动脚本。脚本可以是 Bash 脚本或其他可执行脚本。确保脚本具有可执行权限。
+
+```bash
+#!/bin/bash
+
+# 你的启动脚本命令
+echo "System is starting. Do something here..."
+```
+
+2. 将脚本放置到适当的位置：
+将脚本复制到一个适当的位置，以便系统可以找到它。通常，可以将自启动脚本放置在 `/etc/init.d/` 或 `/etc/systemd/system/` 目录中。
+
+```bash
+sudo cp my_startup.sh /etc/systemd/system/
+```
+
+3. 创建 Systemd 服务单元文件：
+在 Systemd 的服务单元目录中创建一个文件，并添加以下内容：
+
+```ini
+[Unit]
+Description=My Startup Script
+
+[Service]
+ExecStart=/path/to/my_startup.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+在上面的配置中：
+- `Description`：描述此服务的信息。
+- `ExecStart`：指定要执行的启动脚本的路径。
+
+4. 重新加载 Systemd：
+在创建或修改 Systemd 服务单元文件后，需要重新加载 Systemd 配置。
+
+```bash
+sudo systemctl daemon-reload
+```
+
+5. 启用服务：
+将刚刚创建的服务设置为自启动。
+
+```bash
+sudo systemctl enable my_startup.service
+```
+
+现在，你的启动脚本 `my_startup.sh` 将在系统启动时自动执行。可以通过重启系统来测试自启动脚本是否正常工作。
+
+请注意，不同的 Linux 发行版和 init 系统可能有所不同。如果你使用的是其他 init 系统（如 SysV init），则需要使用不同的方法来设置自启动脚本。建议查阅所使用 Linux 发行版的文档以获取更详细的指导。
+
+---
+
+## ubuntu20 自启动脚本
+
+在 Ubuntu 20.04 中，你可以使用 Systemd 来设置自启动脚本。Systemd 是一个系统和服务管理器，可以用于配置和管理系统上运行的服务、进程和自启动脚本。
+
+以下是在 Ubuntu 20.04 中设置自启动脚本的步骤：
+
+1. 编写启动脚本：
+在 Ubuntu 20.04 上创建你的自启动脚本。比如，你可以在 `/usr/local/bin/` 目录下创建一个名为 `my_startup.sh` 的脚本。
+
+```bash
+#!/bin/bash
+
+# 你的启动脚本命令
+echo "System is starting. Do something here..."
+```
+
+2. 设置脚本权限：
+确保脚本具有可执行权限。
+
+```bash
+chmod +x /usr/local/bin/my_startup.sh
+```
+
+3. 创建 Systemd 服务单元文件：
+在 `/etc/systemd/system/` 目录下，创建一个名为 `my_startup.service` 的文件，并添加以下内容：
+
+```ini
+[Unit]
+Description=My Startup Script
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/my_startup.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+在上面的配置中：
+- `Description`：描述此服务的信息。
+- `ExecStart`：指定要执行的启动脚本的路径。
+
+4. 重新加载 Systemd：
+在创建或修改 Systemd 服务单元文件后，需要重新加载 Systemd 配置。
+
+```bash
+sudo systemctl daemon-reload
+```
+
+5. 启用服务：
+将刚刚创建的服务设置为自启动。
+
+```bash
+sudo systemctl enable my_startup.service
+```
+
+现在，你的启动脚本 `my_startup.sh` 将在系统启动时自动执行。可以通过重启系统来测试自启动脚本是否正常工作。
+
+请确保在编写脚本和配置 Systemd 服务单元文件时，路径和权限设置都是正确的。这样就能够确保你的自启动脚本在系统启动时可靠地执行。
+
+---
+
 ## 重启系统
 
 在 `systemd` 下，可以使用 `systemctl` 命令来执行与重启系统相关的操作。以下是一些常用的 `systemctl` 命令及其说明：

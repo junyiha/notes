@@ -2,6 +2,57 @@
 
 + shell脚本编程的常用方法
 
+## 获取时间
+
+在 Shell 脚本中，可以使用 `date` 命令来获取当前的时间和日期。
+
+要获取当前的完整时间，可以使用以下命令：
+
+```bash
+current_time=$(date +%T)
+echo "当前时间：$current_time"
+```
+
+该命令使用 `%T` 格式化选项来获取当前时间，并将结果保存在 `current_time` 变量中。
+
+如果你只需要获取当前的日期，可以使用以下命令：
+
+```bash
+current_date=$(date +%F)
+echo "当前日期：$current_date"
+```
+
+这里使用 `%F` 格式化选项来获取当前日期，并将结果保存在 `current_date` 变量中。
+
+`date` 命令还有很多其他的格式化选项，你可以根据需求选择适合你的日期和时间格式。使用 `man date` 命令可以查看 `date` 命令的完整文档，其中包含了所有的格式化选项和用法示例。
+
+除了 `date` 命令，还可以使用其他 Shell 内建的变量来获取当前时间和日期。例如：
+
+- 获取当前时间戳：
+
+  ```bash
+  current_timestamp=$(date +%s)
+  echo "当前时间戳：$current_timestamp"
+  ```
+
+- 获取当前年份：
+
+  ```bash
+  current_year=$(date +%Y)
+  echo "当前年份：$current_year"
+  ```
+
+- 获取当前月份：
+
+  ```bash
+  current_month=$(date +%m)
+  echo "当前月份：$current_month"
+  ```
+
+等等，根据具体需求选择适合的日期和时间信息。
+
+---
+
 ## gsettings 常用示例
 
 以下是一些常见的 `gsettings` 命令示例，涵盖了不同的设置类别：

@@ -2,6 +2,42 @@
 
 + linux环境下常用命令 第二部分
 
+## systemctl 
+
+Systemd 是 Linux 系统中广泛使用的 init 系统和服务管理器。`systemctl` 是 Systemd 的主要命令，用于管理系统服务。下面是一些常用的 `systemctl` 命令及其功能：
+
+1. 启动和停止服务：
+   - 启动一个服务：`sudo systemctl start servicename`
+   - 停止一个服务：`sudo systemctl stop servicename`
+   - 重启一个服务：`sudo systemctl restart servicename`
+   - 查看服务的状态：`sudo systemctl status servicename`
+
+2. 禁用和启用服务的自启动：
+   - 禁用一个服务的自启动：`sudo systemctl disable servicename`
+   - 启用一个服务的自启动：`sudo systemctl enable servicename`
+
+3. 查看服务列表：
+   - 列出所有运行中的服务：`sudo systemctl list-units --type=service --state=running`
+   - 列出所有已启用的服务：`sudo systemctl list-unit-files --type=service --state=enabled`
+
+4. 查看日志：
+   - 查看一个服务的日志：`sudo journalctl -u servicename`
+   - 查看系统日志：`sudo journalctl`
+
+5. 查看和切换系统运行级别（target）：
+   - 查看当前运行级别：`sudo systemctl get-default`
+   - 切换运行级别到图形界面：`sudo systemctl set-default graphical.target`
+   - 切换运行级别到多用户文本界面：`sudo systemctl set-default multi-user.target`
+
+6. 重新加载 Systemd 配置：
+   - 重新加载 Systemd 配置：`sudo systemctl daemon-reload`
+
+这些是一些常见的 `systemctl` 命令及其功能。`systemctl` 命令还有其他一些选项和功能，你可以使用 `man systemctl` 命令来查看完整的 `systemctl` 命令手册。
+
+Systemd 提供了强大的服务管理功能，可以帮助你启动、停止、管理和监控系统服务。使用 `systemctl` 命令可以方便地执行这些操作，并管理系统的运行级别和自启动行为。
+
+---
+
 ## loginctl 
 
 `loginctl` 是一个用于管理登录会话和用户登录状态的命令行工具。它是 systemd 的一部分，用于控制 Linux 系统上的用户登录和会话管理。
