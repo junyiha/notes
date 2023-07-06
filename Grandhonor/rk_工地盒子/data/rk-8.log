@@ -1,0 +1,967 @@
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[16:03:44.570100][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[16:03:44.570389][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[16:03:44.570426][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+regis20230706160344.579333 p1963 vca.exe: 启动……
+20230706160344.580350 p1963 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+20230706160405.151189 p1963 vca.exe: Accept: 192.169.4.16
+20230706160405.162621 p1963 vca.exe: REQ: {
+20230706160405.162621 p1963 vca.exe: --cmd
+20230706160405.162621 p1963 vca.exe: 202
+20230706160405.162621 p1963 vca.exe: --licence
+20230706160405.162621 p1963 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230706160405.162621 p1963 vca.exe: }
+20230706160405.165303 p1963 vca.exe: RSP: {"errno":0,"monotonic":73470531,"realtime":1688630645164,"version":"6.1.2"}
+20230706160405.166249 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160408.135256 p1963 vca.exe: REQ: {
+20230706160408.135256 p1963 vca.exe: --cmd
+20230706160408.135256 p1963 vca.exe: 2
+20230706160408.135256 p1963 vca.exe: --detector-conf
+20230706160408.135256 p1963 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706160408.135256 p1963 vca.exe: --detector-conf-inline
+20230706160408.135256 p1963 vca.exe: 1
+20230706160408.135256 p1963 vca.exe: --detector-fps
+20230706160408.135256 p1963 vca.exe: 1
+20230706160408.135256 p1963 vca.exe: --id
+20230706160408.135256 p1963 vca.exe: aaa
+20230706160408.135256 p1963 vca.exe: --input-video-name
+20230706160408.135256 p1963 vca.exe: rtsp://192.169.4.16/test_personcount.mp4
+20230706160408.135256 p1963 vca.exe: --input-video-retry-interval
+20230706160408.135256 p1963 vca.exe: 5
+20230706160408.135256 p1963 vca.exe: --output-type
+20230706160408.135256 p1963 vca.exe: 5
+20230706160408.135256 p1963 vca.exe: }
+20230706160408.139952 p1963 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxx) 失败。
+20230706160408.141289 p1963 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/yyyy) 失败。
+20230706160408.141992 p1963 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxyyyzzz) 失败。
+20230706160408.143922 p1963 vca.exe: RSP: {"errno":0,"monotonic":73473508,"realtime":1688630648141,"version":"6.1.2"}
+20230706160408.145617 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160408.147145 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160408.266623 p1963 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT.conf) 成功。
+20230706160409.331136 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160409.331517 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160409.331825 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706160409.332068 p1963 vca.exe:   Metadata:
+20230706160409.332276 p1963 vca.exe:     title           : 
+20230706160409.332560 p1963 vca.exe: No Title
+20230706160409.332955 p1963 vca.exe:   Duration: 
+20230706160409.333164 p1963 vca.exe: N/A
+20230706160409.333358 p1963 vca.exe: , start: 
+20230706160409.333737 p1963 vca.exe: 0.237000
+20230706160409.334062 p1963 vca.exe: , bitrate: 
+20230706160409.334390 p1963 vca.exe: N/A
+20230706160409.335008 p1963 vca.exe:     Stream #0:0
+20230706160409.335439 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706160409.335775 p1963 vca.exe: , 
+20230706160409.336327 p1963 vca.exe: 25 fps, 
+20230706160409.336650 p1963 vca.exe: 25 tbr, 
+20230706160409.336827 p1963 vca.exe: 90k tbn, 
+20230706160409.337108 p1963 vca.exe: 50 tbc
+20230706160409.337624 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160409.337764 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160409.337874 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160409.338005 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+##RKMEDIA Log level: 2
+[RKMEDIA][SYS][Info]:text is all=2
+[RKMEDIA][SYS][Info]:module is all, log_level is 2
+20230706160409.340183 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160409.340662 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160409.340953 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 1
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+mpp[1963]: mpp_rt: NOT found ion allocator
+mpp[1963]: mpp_rt: found drm allocator
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706160409.347775 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160409.348627 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160409.349002 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160409.436651 p1963 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230706160409.436651 p1963 vca.exe: RGA_api version       : v1.3.0_[11]
+20230706160409.436651 p1963 vca.exe: RGA_built version     : RGA is compiling with meson
+20230706160409.436651 p1963 vca.exe: RGA version           : RGA_2_Enhance
+20230706160409.436651 p1963 vca.exe: Max input             : 8192x8192
+20230706160409.436651 p1963 vca.exe: Max output            : 4096x4096
+20230706160409.436651 p1963 vca.exe: Scale limit           : 0.0625 ~ 16
+20230706160409.436651 p1963 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230706160409.436651 p1963 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230706160409.436651 p1963 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230706160409.436651 p1963 vca.exe: expected performance  : 600M pix/s 
+20230706160409.523993 p1963 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706160429.917991 p1963 vca.exe: REQ: {
+20230706160429.917991 p1963 vca.exe: --cmd
+20230706160429.917991 p1963 vca.exe: 2
+20230706160429.917991 p1963 vca.exe: --detector-conf
+20230706160429.917991 p1963 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706160429.917991 p1963 vca.exe: --detector-conf-inline
+20230706160429.917991 p1963 vca.exe: 1
+20230706160429.917991 p1963 vca.exe: --detector-fps
+20230706160429.917991 p1963 vca.exe: 1
+20230706160429.917991 p1963 vca.exe: --id
+20230706160429.917991 p1963 vca.exe: aaa
+20230706160429.917991 p1963 vca.exe: --input-video-name
+20230706160429.917991 p1963 vca.exe: rtsp://192.169.4.16/test_fire_smoke.mp4
+20230706160429.917991 p1963 vca.exe: --input-video-retry-interval
+20230706160429.917991 p1963 vca.exe: 5
+20230706160429.917991 p1963 vca.exe: --output-type
+20230706160429.917991 p1963 vca.exe: 5
+20230706160429.917991 p1963 vca.exe: }
+20230706160429.919003 p1963 vca.exe: RSP: {"errno":17,"monotonic":73495285,"realtime":1688630669918,"version":"6.1.2"}
+20230706160429.919578 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160439.941118 p1963 vca.exe: REQ: {
+20230706160439.941118 p1963 vca.exe: --cmd
+20230706160439.941118 p1963 vca.exe: 2
+20230706160439.941118 p1963 vca.exe: --detector-conf
+20230706160439.941118 p1963 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706160439.941118 p1963 vca.exe: --detector-conf-inline
+20230706160439.941118 p1963 vca.exe: 1
+20230706160439.941118 p1963 vca.exe: --detector-fps
+20230706160439.941118 p1963 vca.exe: 1
+20230706160439.941118 p1963 vca.exe: --id
+20230706160439.941118 p1963 vca.exe: aaa
+20230706160439.941118 p1963 vca.exe: --input-video-name
+20230706160439.941118 p1963 vca.exe: rtsp://192.169.4.16/test-phone-Helmet.mp4
+20230706160439.941118 p1963 vca.exe: --input-video-retry-interval
+20230706160439.941118 p1963 vca.exe: 5
+20230706160439.941118 p1963 vca.exe: --output-type
+20230706160439.941118 p1963 vca.exe: 5
+20230706160439.941118 p1963 vca.exe: }
+20230706160439.942295 p1963 vca.exe: RSP: {"errno":17,"monotonic":73505309,"realtime":1688630679942,"version":"6.1.2"}
+20230706160439.942925 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160445.031617 p1963 vca.exe: REQ: {
+20230706160445.031617 p1963 vca.exe: --cmd
+20230706160445.031617 p1963 vca.exe: 2
+20230706160445.031617 p1963 vca.exe: --detector-conf
+20230706160445.031617 p1963 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706160445.031617 p1963 vca.exe: --detector-conf-inline
+20230706160445.031617 p1963 vca.exe: 1
+20230706160445.031617 p1963 vca.exe: --detector-fps
+20230706160445.031617 p1963 vca.exe: 1
+20230706160445.031617 p1963 vca.exe: --id
+20230706160445.031617 p1963 vca.exe: bbb
+20230706160445.031617 p1963 vca.exe: --input-video-name
+20230706160445.031617 p1963 vca.exe: rtsp://192.169.4.16/test-phone-Helmet.mp4
+20230706160445.031617 p1963 vca.exe: --input-video-retry-interval
+20230706160445.031617 p1963 vca.exe: 5
+20230706160445.031617 p1963 vca.exe: --output-type
+20230706160445.031617 p1963 vca.exe: 5
+20230706160445.031617 p1963 vca.exe: }
+20230706160445.034370 p1963 vca.exe: RSP: {"errno":0,"monotonic":73510401,"realtime":1688630685034,"version":"6.1.2"}
+20230706160445.035300 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160445.036001 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160446.068425 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160446.068968 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160446.069329 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706160446.069769 p1963 vca.exe:   Metadata:
+20230706160446.070213 p1963 vca.exe:     title           : 
+20230706160446.070565 p1963 vca.exe: No Title
+20230706160446.070811 p1963 vca.exe:   Duration: 
+20230706160446.070948 p1963 vca.exe: N/A
+20230706160446.071221 p1963 vca.exe: , start: 
+20230706160446.071354 p1963 vca.exe: 10.171678
+20230706160446.071438 p1963 vca.exe: , bitrate: 
+20230706160446.071528 p1963 vca.exe: N/A
+20230706160446.071887 p1963 vca.exe:     Stream #0:0
+20230706160446.072073 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706160446.072252 p1963 vca.exe: , 
+20230706160446.072600 p1963 vca.exe: 24.67 fps, 
+20230706160446.072804 p1963 vca.exe: 24.67 tbr, 
+20230706160446.072922 p1963 vca.exe: 90k tbn, 
+20230706160446.073039 p1963 vca.exe: 49.33 tbc
+20230706160446.073218 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160446.073340 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160446.073643 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160446.073817 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160446.074060 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160446.074209 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160446.074352 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 2
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[2] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[2] End!
+20230706160446.078432 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160446.080517 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160446.081024 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160446.248909 p1963 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706160455.313347 p1963 vca.exe: REQ: {
+20230706160455.313347 p1963 vca.exe: --cmd
+20230706160455.313347 p1963 vca.exe: 2
+20230706160455.313347 p1963 vca.exe: --detector-conf
+20230706160455.313347 p1963 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706160455.313347 p1963 vca.exe: --detector-conf-inline
+20230706160455.313347 p1963 vca.exe: 1
+20230706160455.313347 p1963 vca.exe: --detector-fps
+20230706160455.313347 p1963 vca.exe: 1
+20230706160455.313347 p1963 vca.exe: --id
+20230706160455.313347 p1963 vca.exe: ccc
+20230706160455.313347 p1963 vca.exe: --input-video-name
+20230706160455.313347 p1963 vca.exe: rtsp://192.169.4.16/test_fire_smoke.mp4
+20230706160455.313347 p1963 vca.exe: --input-video-retry-interval
+20230706160455.313347 p1963 vca.exe: 5
+20230706160455.313347 p1963 vca.exe: --output-type
+20230706160455.313347 p1963 vca.exe: 5
+20230706160455.313347 p1963 vca.exe: }
+20230706160455.317335 p1963 vca.exe: RSP: {"errno":0,"monotonic":73520684,"realtime":1688630695317,"version":"6.1.2"}
+20230706160455.317894 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160455.345769 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160456.318304 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160456.318600 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160456.318809 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706160456.319024 p1963 vca.exe:   Metadata:
+20230706160456.319572 p1963 vca.exe:     title           : 
+20230706160456.319860 p1963 vca.exe: No Title
+20230706160456.320330 p1963 vca.exe:   Duration: 
+20230706160456.320513 p1963 vca.exe: N/A
+20230706160456.320699 p1963 vca.exe: , start: 
+20230706160456.320916 p1963 vca.exe: -0.006000
+20230706160456.321106 p1963 vca.exe: , bitrate: 
+20230706160456.321285 p1963 vca.exe: N/A
+20230706160456.321777 p1963 vca.exe:     Stream #0:0
+20230706160456.322046 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706160456.322336 p1963 vca.exe: , 
+20230706160456.322682 p1963 vca.exe: 29.97 fps, 
+20230706160456.322908 p1963 vca.exe: 29.97 tbr, 
+20230706160456.323144 p1963 vca.exe: 90k tbn, 
+20230706160456.323329 p1963 vca.exe: 59.94 tbc
+20230706160456.323861 p1963 vca.exe:     Stream #0:1
+20230706160456.324044 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706160456.324290 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160456.324391 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160456.324661 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160456.324810 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160456.325017 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160456.325153 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160456.325337 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 3
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[3] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[3] End!
+20230706160456.328860 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160456.329586 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160456.330301 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706160456.601540 p1963 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706160457.222900 p1963 vca.exe: REQ: {
+20230706160457.222900 p1963 vca.exe: --cmd
+20230706160457.222900 p1963 vca.exe: 1
+20230706160457.222900 p1963 vca.exe: }
+20230706160457.224318 p1963 vca.exe: RSP: {"errno":0,"ids":["aaa","bbb","ccc"],"monotonic":73522590,"realtime":1688630697223,"version":"6.1.2"}
+20230706160457.225311 p1963 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 102 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706160516.427777 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 1 
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706160516.455553 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 1, and return fo : 0 
+20230706160516.456081 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 1 
+20230706160516.456315 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160516.456491 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160516.456643 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160516.457949 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160516.458358 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160516.460496 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160516.460968 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160516.695886 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 2 
+20230706160516.696610 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 2, and return fo : -120 
+20230706160516.697289 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 2 
+20230706160516.697543 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160516.698046 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160516.698243 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160516.700884 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160516.701195 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160516.703564 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160516.704104 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160517.550602 p1963 vca.exe: missing picture in access unit with size 12
+20230706160517.585317 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 3 
+20230706160517.585790 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 3, and return fo : -120 
+20230706160517.586225 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 3 
+20230706160517.586903 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160517.587269 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160517.587535 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160517.587877 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160517.588215 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160517.590826 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160517.591574 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160521.564231 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160521.567080 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160521.567631 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160521.808618 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160521.811998 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160521.812703 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160522.696068 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160522.698517 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160522.699039 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160526.671749 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160526.917835 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160527.803155 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160527.848542 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160527.848895 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160527.849241 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706160527.849624 p1963 vca.exe:   Metadata:
+20230706160527.849855 p1963 vca.exe:     title           : 
+20230706160527.850031 p1963 vca.exe: No Title
+20230706160527.850315 p1963 vca.exe:   Duration: 
+20230706160527.850567 p1963 vca.exe: N/A
+20230706160527.850949 p1963 vca.exe: , start: 
+20230706160527.851337 p1963 vca.exe: 0.235000
+20230706160527.851727 p1963 vca.exe: , bitrate: 
+20230706160527.852004 p1963 vca.exe: N/A
+20230706160527.852717 p1963 vca.exe:     Stream #0:0
+20230706160527.853098 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706160527.853356 p1963 vca.exe: , 
+20230706160527.855313 p1963 vca.exe: 25 fps, 
+20230706160527.855482 p1963 vca.exe: 25 tbr, 
+20230706160527.855803 p1963 vca.exe: 90k tbn, 
+20230706160527.856075 p1963 vca.exe: 50 tbc
+20230706160527.856272 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160527.856403 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160527.856539 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160527.856664 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160527.856933 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160527.857113 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160527.857294 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 4
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[4] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[4] End!
+20230706160527.860660 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160527.860959 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160527.861097 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160527.946701 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160527.947057 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160527.947286 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706160527.948691 p1963 vca.exe:   Metadata:
+20230706160527.949111 p1963 vca.exe:     title           : 
+20230706160527.949642 p1963 vca.exe: No Title
+20230706160527.951790 p1963 vca.exe:   Duration: 
+20230706160527.952360 p1963 vca.exe: N/A
+20230706160527.952590 p1963 vca.exe: , start: 
+20230706160527.952764 p1963 vca.exe: 10.172678
+20230706160527.953330 p1963 vca.exe: , bitrate: 
+20230706160527.954808 p1963 vca.exe: N/A
+20230706160527.956493 p1963 vca.exe:     Stream #0:0
+20230706160527.957301 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706160527.957550 p1963 vca.exe: , 
+20230706160527.957749 p1963 vca.exe: 24.67 fps, 
+20230706160527.958065 p1963 vca.exe: 24.67 tbr, 
+20230706160527.958316 p1963 vca.exe: 90k tbn, 
+20230706160527.958506 p1963 vca.exe: 49.33 tbc
+20230706160527.958855 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160527.959020 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160527.967603 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160527.967987 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160527.969030 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160527.969379 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160527.971288 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 5
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[5] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[5] End!
+20230706160527.992311 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160527.992821 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160527.993097 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160528.235787 p1963 vca.exe: Close: 192.169.4.16
+20230706160528.775778 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160528.776218 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160528.776541 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706160528.776791 p1963 vca.exe:   Metadata:
+20230706160528.776970 p1963 vca.exe:     title           : 
+20230706160528.777208 p1963 vca.exe: No Title
+20230706160528.778267 p1963 vca.exe:   Duration: 
+20230706160528.778712 p1963 vca.exe: N/A
+20230706160528.779121 p1963 vca.exe: , start: 
+20230706160528.779579 p1963 vca.exe: -0.004000
+20230706160528.780163 p1963 vca.exe: , bitrate: 
+20230706160528.780778 p1963 vca.exe: N/A
+20230706160528.781258 p1963 vca.exe:     Stream #0:0
+20230706160528.781916 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706160528.782148 p1963 vca.exe: , 
+20230706160528.782668 p1963 vca.exe: 29.97 fps, 
+20230706160528.782910 p1963 vca.exe: 29.97 tbr, 
+20230706160528.783367 p1963 vca.exe: 90k tbn, 
+20230706160528.783631 p1963 vca.exe: 59.94 tbc
+20230706160528.784087 p1963 vca.exe:     Stream #0:1
+20230706160528.784297 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706160528.784995 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160528.785206 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160528.785585 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160528.785765 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160528.787105 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160528.787430 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160528.787872 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 6
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[6] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[6] End!
+20230706160528.804570 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160528.805916 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160528.806154 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706160538.040764 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 5 
+20230706160538.041174 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 5, and return fo : -120 
+20230706160538.041600 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 5 
+20230706160538.044155 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.044387 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160538.046996 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.057210 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160538.058130 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160538.060665 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160538.062051 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160538.210943 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 4 
+20230706160538.211263 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 4, and return fo : -120 
+20230706160538.211386 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 4 
+20230706160538.211514 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.211634 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160538.211733 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.213486 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160538.214048 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160538.217292 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160538.218008 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160538.698029 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 6 
+20230706160538.698330 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 6, and return fo : -120 
+20230706160538.698612 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 6 
+20230706160538.698803 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.698978 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160538.699139 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160538.699725 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160538.700751 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160538.703044 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160538.703380 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160543.165813 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160543.168898 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160543.169571 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160543.321813 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160543.324975 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160543.325509 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160543.807426 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160543.810552 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160543.811149 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160548.273564 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160548.428899 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160548.920896 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160549.314521 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160549.315073 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160549.315276 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706160549.315472 p1963 vca.exe:   Metadata:
+20230706160549.315785 p1963 vca.exe:     title           : 
+20230706160549.316242 p1963 vca.exe: No Title
+20230706160549.316804 p1963 vca.exe:   Duration: 
+20230706160549.316991 p1963 vca.exe: N/A
+20230706160549.317225 p1963 vca.exe: , start: 
+20230706160549.317611 p1963 vca.exe: 10.169678
+20230706160549.317869 p1963 vca.exe: , bitrate: 
+20230706160549.318052 p1963 vca.exe: N/A
+20230706160549.318802 p1963 vca.exe:     Stream #0:0
+20230706160549.319069 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706160549.319432 p1963 vca.exe: , 
+20230706160549.319685 p1963 vca.exe: 24.67 fps, 
+20230706160549.319895 p1963 vca.exe: 24.67 tbr, 
+20230706160549.320117 p1963 vca.exe: 90k tbn, 
+20230706160549.320338 p1963 vca.exe: 49.33 tbc
+20230706160549.320730 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160549.320934 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160549.321152 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160549.321369 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160549.321782 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160549.322042 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160549.322280 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 7
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[7] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[7] End!
+20230706160549.327361 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160549.327661 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160549.327843 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160549.599225 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160549.599527 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160549.600017 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706160549.600285 p1963 vca.exe:   Metadata:
+20230706160549.600510 p1963 vca.exe:     title           : 
+20230706160549.600651 p1963 vca.exe: No Title
+20230706160549.600862 p1963 vca.exe:   Duration: 
+20230706160549.600972 p1963 vca.exe: N/A
+20230706160549.601084 p1963 vca.exe: , start: 
+20230706160549.601201 p1963 vca.exe: 0.237000
+20230706160549.601315 p1963 vca.exe: , bitrate: 
+20230706160549.601439 p1963 vca.exe: N/A
+20230706160549.601784 p1963 vca.exe:     Stream #0:0
+20230706160549.601968 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706160549.602105 p1963 vca.exe: , 
+20230706160549.602261 p1963 vca.exe: 25 fps, 
+20230706160549.602401 p1963 vca.exe: 25 tbr, 
+20230706160549.602626 p1963 vca.exe: 90k tbn, 
+20230706160549.602784 p1963 vca.exe: 50 tbc
+20230706160549.602989 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160549.603106 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160549.603233 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160549.603405 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160549.603637 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160549.603791 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160549.603922 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 8
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[8] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[8] End!
+20230706160549.607734 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160549.608751 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160549.608998 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160549.907042 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160549.907336 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160549.907440 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706160549.907537 p1963 vca.exe:   Metadata:
+20230706160549.907629 p1963 vca.exe:     title           : 
+20230706160549.907724 p1963 vca.exe: No Title
+20230706160549.907872 p1963 vca.exe:   Duration: 
+20230706160549.908010 p1963 vca.exe: N/A
+20230706160549.908201 p1963 vca.exe: , start: 
+20230706160549.908379 p1963 vca.exe: -0.003000
+20230706160549.908546 p1963 vca.exe: , bitrate: 
+20230706160549.908800 p1963 vca.exe: N/A
+20230706160549.909254 p1963 vca.exe:     Stream #0:0
+20230706160549.909628 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706160549.910122 p1963 vca.exe: , 
+20230706160549.910358 p1963 vca.exe: 29.97 fps, 
+20230706160549.910613 p1963 vca.exe: 29.97 tbr, 
+20230706160549.910895 p1963 vca.exe: 90k tbn, 
+20230706160549.911117 p1963 vca.exe: 59.94 tbc
+20230706160549.911471 p1963 vca.exe:     Stream #0:1
+20230706160549.911751 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706160549.912011 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160549.912129 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160549.912354 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160549.912629 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160549.912863 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160549.913007 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160549.913188 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 9
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[9] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[9] End!
+20230706160549.917661 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160549.918372 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160549.918616 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706160603.386671 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 7 
+20230706160603.388725 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 7, and return fo : -120 
+20230706160603.393895 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 7 
+20230706160603.397912 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.398783 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160603.399739 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.401142 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160603.401613 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160603.403514 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160603.403981 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160603.412956 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 9 
+20230706160603.413210 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 9, and return fo : -120 
+20230706160603.413396 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 9 
+20230706160603.413625 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.413761 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160603.413890 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.414052 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160603.414234 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160603.415745 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160603.416145 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160603.849653 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 8 
+20230706160603.850169 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 8, and return fo : -120 
+20230706160603.850723 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 8 
+20230706160603.851285 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.851754 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160603.852617 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160603.855953 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160603.856617 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160603.858981 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160603.859455 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160608.507545 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160608.509121 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160608.509599 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160608.519279 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160608.521418 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160608.521759 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160608.962648 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160608.966022 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160608.966548 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160613.612753 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160613.616865 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160613.617691 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706160613.626257 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160613.628984 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160613.629520 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706160614.070809 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160614.075290 p1963 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706160614.075776 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706160618.721746 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160618.733275 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160619.180196 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160619.743103 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160619.743688 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160619.743910 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706160619.744238 p1963 vca.exe:   Metadata:
+20230706160619.744686 p1963 vca.exe:     title           : 
+20230706160619.745094 p1963 vca.exe: No Title
+20230706160619.745548 p1963 vca.exe:   Duration: 
+20230706160619.745775 p1963 vca.exe: N/A
+20230706160619.746204 p1963 vca.exe: , start: 
+20230706160619.746588 p1963 vca.exe: -0.006000
+20230706160619.746888 p1963 vca.exe: , bitrate: 
+20230706160619.747164 p1963 vca.exe: N/A
+20230706160619.747819 p1963 vca.exe:     Stream #0:0
+20230706160619.748167 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706160619.748475 p1963 vca.exe: , 
+20230706160619.748771 p1963 vca.exe: 29.97 fps, 
+20230706160619.749054 p1963 vca.exe: 29.97 tbr, 
+20230706160619.749437 p1963 vca.exe: 90k tbn, 
+20230706160619.749731 p1963 vca.exe: 59.94 tbc
+20230706160619.750523 p1963 vca.exe:     Stream #0:1
+20230706160619.750848 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706160619.751187 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160619.751390 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160619.751678 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160619.751932 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160619.752162 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160619.752390 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160619.752644 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 10
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[10] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+20230706160619.754928 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160619.755489 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160619.755961 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706160619.756205 p1963 vca.exe:   Metadata:
+20230706160619.756408 p1963 vca.exe:     title           : 
+20230706160619.756578 p1963 vca.exe: No Title
+20230706160619.756821 p1963 vca.exe:   Duration: 
+20230706160619.756986 p1963 vca.exe: N/A
+20230706160619.757151 p1963 vca.exe: , start: 
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+20230706160619.757343 p1963 vca.exe: 10.170678
+20230706160619.757685 p1963 vca.exe: , bitrate: 
+20230706160619.757895 p1963 vca.exe: N/A
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[10] End!
+20230706160619.758348 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160619.758832 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160619.759217 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+20230706160619.760169 p1963 vca.exe:     Stream #0:0
+20230706160619.760501 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706160619.760730 p1963 vca.exe: , 
+20230706160619.760897 p1963 vca.exe: 24.67 fps, 
+20230706160619.761032 p1963 vca.exe: 24.67 tbr, 
+20230706160619.761164 p1963 vca.exe: 90k tbn, 
+20230706160619.761296 p1963 vca.exe: 49.33 tbc
+20230706160619.761509 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160619.761625 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160619.761721 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160619.761814 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160619.762055 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160619.762171 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160619.762297 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 11
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[11] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[11] End!
+20230706160619.772291 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160619.772745 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160619.773126 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160620.356645 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160620.356966 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160620.357298 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706160620.357667 p1963 vca.exe:   Metadata:
+20230706160620.358345 p1963 vca.exe:     title           : 
+20230706160620.358819 p1963 vca.exe: No Title
+20230706160620.359439 p1963 vca.exe:   Duration: 
+20230706160620.359774 p1963 vca.exe: N/A
+20230706160620.360114 p1963 vca.exe: , start: 
+20230706160620.360439 p1963 vca.exe: 0.235000
+20230706160620.360764 p1963 vca.exe: , bitrate: 
+20230706160620.361031 p1963 vca.exe: N/A
+20230706160620.361681 p1963 vca.exe:     Stream #0:0
+20230706160620.362069 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706160620.362332 p1963 vca.exe: , 
+20230706160620.362659 p1963 vca.exe: 25 fps, 
+20230706160620.362922 p1963 vca.exe: 25 tbr, 
+20230706160620.363192 p1963 vca.exe: 90k tbn, 
+20230706160620.363386 p1963 vca.exe: 50 tbc
+20230706160620.363677 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160620.363944 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160620.364186 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160620.364532 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160620.364990 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160620.365884 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160620.366694 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 12
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[12] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[12] End!
+20230706160620.377617 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160620.377927 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160620.378522 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706160832.411154 p1963 vca.exe: CSeq 9 expected, 6 received.
+20230706160832.412510 p1963 vca.exe: CSeq 9 expected, 7 received.
+20230706160832.413808 p1963 vca.exe: CSeq 9 expected, 8 received.
+20230706160849.607501 p1963 vca.exe: CSeq 9 expected, 5 received.
+20230706160849.608826 p1963 vca.exe: CSeq 9 expected, 6 received.
+20230706160849.610619 p1963 vca.exe: CSeq 9 expected, 7 received.
+20230706160849.612427 p1963 vca.exe: CSeq 9 expected, 8 received.
+20230706160901.719843 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 10 
+20230706160901.720916 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 10, and return fo : -120 
+20230706160901.721259 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 10 
+20230706160901.721336 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160901.721415 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160901.721490 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160901.721606 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160901.721691 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160902.688352 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160902.688715 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160902.689029 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706160902.689441 p1963 vca.exe:   Metadata:
+20230706160902.689565 p1963 vca.exe:     title           : 
+20230706160902.689662 p1963 vca.exe: No Title
+20230706160902.689794 p1963 vca.exe:   Duration: 
+20230706160902.689874 p1963 vca.exe: N/A
+20230706160902.689951 p1963 vca.exe: , start: 
+20230706160902.690037 p1963 vca.exe: -0.002000
+20230706160902.690122 p1963 vca.exe: , bitrate: 
+20230706160902.690200 p1963 vca.exe: N/A
+20230706160902.690464 p1963 vca.exe:     Stream #0:0
+20230706160902.690575 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706160902.690665 p1963 vca.exe: , 
+20230706160902.690759 p1963 vca.exe: 29.97 fps, 
+20230706160902.690845 p1963 vca.exe: 29.97 tbr, 
+20230706160902.690979 p1963 vca.exe: 90k tbn, 
+20230706160902.691072 p1963 vca.exe: 59.94 tbc
+20230706160902.691307 p1963 vca.exe:     Stream #0:1
+20230706160902.691415 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706160902.691593 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160902.691676 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160902.691757 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160902.691843 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160902.692015 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160902.692110 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160902.692204 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 13
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[13] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[13] End!
+20230706160902.696305 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160902.699282 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160902.700024 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706160918.716800 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 11 
+20230706160918.717281 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 11, and return fo : -120 
+20230706160918.717420 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 11 
+20230706160918.717521 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160918.717648 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706160918.717912 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706160918.719840 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706160918.720614 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706160919.752410 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706160919.752987 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706160919.753267 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706160919.753355 p1963 vca.exe:   Metadata:
+20230706160919.753435 p1963 vca.exe:     title           : 
+20230706160919.753515 p1963 vca.exe: No Title
+20230706160919.753637 p1963 vca.exe:   Duration: 
+20230706160919.753709 p1963 vca.exe: N/A
+20230706160919.753780 p1963 vca.exe: , start: 
+20230706160919.753857 p1963 vca.exe: 10.172678
+20230706160919.753926 p1963 vca.exe: , bitrate: 
+20230706160919.753995 p1963 vca.exe: N/A
+20230706160919.754237 p1963 vca.exe:     Stream #0:0
+20230706160919.754411 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706160919.754501 p1963 vca.exe: , 
+20230706160919.754597 p1963 vca.exe: 24.67 fps, 
+20230706160919.754709 p1963 vca.exe: 24.67 tbr, 
+20230706160919.754801 p1963 vca.exe: 90k tbn, 
+20230706160919.754885 p1963 vca.exe: 49.33 tbc
+20230706160919.755010 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706160919.755085 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706160919.755162 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706160919.755242 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706160919.755408 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706160919.755503 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706160919.755597 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 14
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[14] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[14] End!
+20230706160919.774109 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706160919.774391 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706160919.774589 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161113.352280 p1963 vca.exe: CSeq 9 expected, 7 received.
+20230706161113.353926 p1963 vca.exe: CSeq 9 expected, 8 received.
+20230706161142.675160 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 13 
+20230706161142.675462 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 13, and return fo : -120 
+20230706161142.675680 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 13 
+20230706161142.675872 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161142.675998 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706161142.676097 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161142.676249 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706161142.676584 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161143.660759 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161143.661611 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161143.661940 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706161143.662111 p1963 vca.exe:   Metadata:
+20230706161143.662224 p1963 vca.exe:     title           : 
+20230706161143.662332 p1963 vca.exe: No Title
+20230706161143.662568 p1963 vca.exe:   Duration: 
+20230706161143.662678 p1963 vca.exe: N/A
+20230706161143.662785 p1963 vca.exe: , start: 
+20230706161143.662897 p1963 vca.exe: -0.004000
+20230706161143.663001 p1963 vca.exe: , bitrate: 
+20230706161143.663105 p1963 vca.exe: N/A
+20230706161143.663440 p1963 vca.exe:     Stream #0:0
+20230706161143.663567 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706161143.663683 p1963 vca.exe: , 
+20230706161143.663877 p1963 vca.exe: 29.97 fps, 
+20230706161143.663997 p1963 vca.exe: 29.97 tbr, 
+20230706161143.664114 p1963 vca.exe: 90k tbn, 
+20230706161143.664228 p1963 vca.exe: 59.94 tbc
+20230706161143.664515 p1963 vca.exe:     Stream #0:1
+20230706161143.664640 p1963 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706161143.664821 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161143.665044 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161143.665192 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161143.665327 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161143.665581 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161143.665741 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161143.665967 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 15
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[15] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[15] End!
+20230706161143.671125 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161143.671441 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161143.671587 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706161145.281714 p1963 vca.exe: CSeq 8 expected, 5 received.
+20230706161145.282979 p1963 vca.exe: CSeq 8 expected, 6 received.
+20230706161145.284187 p1963 vca.exe: CSeq 8 expected, 7 received.
+20230706161150.722017 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 12 
+20230706161150.722273 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 12, and return fo : -120 
+20230706161150.722367 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 12 
+20230706161150.722446 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161150.723015 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706161150.723118 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161150.724021 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706161150.724133 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161151.893188 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161151.893498 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161151.893606 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706161151.893704 p1963 vca.exe:   Metadata:
+20230706161151.893797 p1963 vca.exe:     title           : 
+20230706161151.893892 p1963 vca.exe: No Title
+20230706161151.894039 p1963 vca.exe:   Duration: 
+20230706161151.894127 p1963 vca.exe: N/A
+20230706161151.894219 p1963 vca.exe: , start: 
+20230706161151.894316 p1963 vca.exe: 0.237000
+20230706161151.894456 p1963 vca.exe: , bitrate: 
+20230706161151.894567 p1963 vca.exe: N/A
+20230706161151.894853 p1963 vca.exe:     Stream #0:0
+20230706161151.894962 p1963 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706161151.895057 p1963 vca.exe: , 
+20230706161151.895162 p1963 vca.exe: 25 fps, 
+20230706161151.895264 p1963 vca.exe: 25 tbr, 
+20230706161151.895361 p1963 vca.exe: 90k tbn, 
+20230706161151.895457 p1963 vca.exe: 50 tbc
+20230706161151.895605 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161151.895696 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161151.895843 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161151.896089 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161151.896471 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161151.896632 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161151.896824 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 0
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] End!
+20230706161151.901922 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161151.902165 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161151.902268 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161214.675391 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 14 
+20230706161214.676273 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 14, and return fo : -120 
+20230706161214.676558 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 14 
+20230706161214.676640 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161214.676716 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706161214.676791 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161214.677717 p1963 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706161214.677858 p1963 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161215.711190 p1963 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161215.711584 p1963 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161215.711698 p1963 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706161215.711860 p1963 vca.exe:   Metadata:
+20230706161215.711961 p1963 vca.exe:     title           : 
+20230706161215.712046 p1963 vca.exe: No Title
+20230706161215.712171 p1963 vca.exe:   Duration: 
+20230706161215.712242 p1963 vca.exe: N/A
+20230706161215.712323 p1963 vca.exe: , start: 
+20230706161215.712405 p1963 vca.exe: 10.172678
+20230706161215.712539 p1963 vca.exe: , bitrate: 
+20230706161215.712624 p1963 vca.exe: N/A
+20230706161215.712927 p1963 vca.exe:     Stream #0:0
+20230706161215.713963 p1963 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706161215.714529 p1963 vca.exe: , 
+20230706161215.714696 p1963 vca.exe: 24.67 fps, 
+20230706161215.714802 p1963 vca.exe: 24.67 tbr, 
+20230706161215.714921 p1963 vca.exe: 90k tbn, 
+20230706161215.715024 p1963 vca.exe: 49.33 tbc
+20230706161215.715194 p1963 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161215.715305 p1963 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161215.715426 p1963 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161215.715544 p1963 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161215.716094 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161215.716746 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161215.716906 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 1
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[1963]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706161215.720401 p1963 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161215.720600 p1963 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161215.720775 p1963 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161356.413398 p1963 vca.exe: CSeq 9 expected, 7 received.
+20230706161356.415024 p1963 vca.exe: CSeq 9 expected, 8 received.

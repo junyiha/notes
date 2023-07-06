@@ -1,0 +1,195 @@
+6141827.828534 p1542 vca.exe: video_cpp: 205 [vcodec_open] success to open ctx->codec
+20230706141827.828823 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+[Thread 0x8ef0db10 (LWP 1574) exited]
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[Thread 0x8f70eb10 (LWP 1573) exited]
+[Thread 0x8ff0fb10 (LWP 1572) exited]
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706141844.017600 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141844.019656 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141844.020160 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141844.255067 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141844.259061 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141844.259675 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141849.124498 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141849.129456 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141849.130337 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141849.364180 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141849.368071 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141849.368760 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141854.234605 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141854.237923 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141854.238515 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141854.473049 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141854.476679 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141854.477237 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141859.343229 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141859.346641 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141859.347317 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141859.580769 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141859.583971 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141859.584692 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141904.451835 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141904.455223 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141904.455774 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141904.688653 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141904.690714 p1542 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706141904.691125 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141909.561076 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141909.796115 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141910.534428 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141910.534877 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141910.535132 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706141910.535362 p1542 vca.exe:   Metadata:
+20230706141910.535611 p1542 vca.exe:     title           : 
+20230706141910.535849 p1542 vca.exe: No Title
+20230706141910.536206 p1542 vca.exe:   Duration: 
+20230706141910.536589 p1542 vca.exe: N/A
+20230706141910.536973 p1542 vca.exe: , start: 
+20230706141910.537432 p1542 vca.exe: -0.004000
+20230706141910.537793 p1542 vca.exe: , bitrate: 
+20230706141910.538146 p1542 vca.exe: N/A
+20230706141910.538697 p1542 vca.exe:     Stream #0:0
+20230706141910.538946 p1542 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706141910.539145 p1542 vca.exe: , 
+20230706141910.539360 p1542 vca.exe: 29.97 fps, 
+20230706141910.539571 p1542 vca.exe: 29.97 tbr, 
+20230706141910.539831 p1542 vca.exe: 90k tbn, 
+20230706141910.540078 p1542 vca.exe: 59.94 tbc
+20230706141910.540602 p1542 vca.exe:     Stream #0:1
+20230706141910.540865 p1542 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706141910.541183 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141910.541371 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141910.541548 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141910.541722 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141910.542205 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141910.832209 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141910.832659 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141910.833014 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706141910.833878 p1542 vca.exe:   Metadata:
+20230706141910.834268 p1542 vca.exe:     title           : 
+20230706141910.834691 p1542 vca.exe: No Title
+20230706141910.835303 p1542 vca.exe:   Duration: 
+20230706141910.835718 p1542 vca.exe: N/A
+20230706141910.835939 p1542 vca.exe: , start: 
+20230706141910.836089 p1542 vca.exe: 10.170678
+20230706141910.836227 p1542 vca.exe: , bitrate: 
+20230706141910.836385 p1542 vca.exe: N/A
+20230706141910.836874 p1542 vca.exe:     Stream #0:0
+20230706141910.837084 p1542 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706141910.837271 p1542 vca.exe: , 
+20230706141910.837535 p1542 vca.exe: 24.67 fps, 
+20230706141910.837739 p1542 vca.exe: 24.67 tbr, 
+20230706141910.837928 p1542 vca.exe: 90k tbn, 
+20230706141910.838115 p1542 vca.exe: 49.33 tbc
+20230706141910.838393 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141910.838556 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141910.838764 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141910.839080 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141910.839576 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141915.646227 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141915.942924 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141916.616743 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141916.617286 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141916.617744 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706141916.618294 p1542 vca.exe:   Metadata:
+20230706141916.618606 p1542 vca.exe:     title           : 
+20230706141916.618811 p1542 vca.exe: No Title
+20230706141916.619256 p1542 vca.exe:   Duration: 
+20230706141916.619576 p1542 vca.exe: N/A
+20230706141916.619889 p1542 vca.exe: , start: 
+20230706141916.620177 p1542 vca.exe: -0.002000
+20230706141916.620417 p1542 vca.exe: , bitrate: 
+20230706141916.620664 p1542 vca.exe: N/A
+20230706141916.621338 p1542 vca.exe:     Stream #0:0
+20230706141916.621769 p1542 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706141916.622168 p1542 vca.exe: , 
+20230706141916.622428 p1542 vca.exe: 29.97 fps, 
+20230706141916.622691 p1542 vca.exe: 29.97 tbr, 
+20230706141916.622971 p1542 vca.exe: 90k tbn, 
+20230706141916.623316 p1542 vca.exe: 59.94 tbc
+20230706141916.624087 p1542 vca.exe:     Stream #0:1
+20230706141916.624502 p1542 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706141916.625208 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141916.625477 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141916.625710 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141916.625974 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141916.626407 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141916.973731 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141916.973988 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141916.974112 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706141916.974232 p1542 vca.exe:   Metadata:
+20230706141916.974344 p1542 vca.exe:     title           : 
+20230706141916.974461 p1542 vca.exe: No Title
+20230706141916.974658 p1542 vca.exe:   Duration: 
+20230706141916.974779 p1542 vca.exe: N/A
+20230706141916.974921 p1542 vca.exe: , start: 
+20230706141916.975136 p1542 vca.exe: 10.169678
+20230706141916.975292 p1542 vca.exe: , bitrate: 
+20230706141916.975429 p1542 vca.exe: N/A
+20230706141916.975794 p1542 vca.exe:     Stream #0:0
+20230706141916.975997 p1542 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706141916.976254 p1542 vca.exe: , 
+20230706141916.976444 p1542 vca.exe: 24.67 fps, 
+20230706141916.976661 p1542 vca.exe: 24.67 tbr, 
+20230706141916.976831 p1542 vca.exe: 90k tbn, 
+20230706141916.976971 p1542 vca.exe: 49.33 tbc
+20230706141916.977200 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141916.977333 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141916.977461 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141916.977583 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141916.977895 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.
+20230706141921.729746 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141922.081580 p1542 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706141922.708283 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141922.708804 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141922.709116 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706141922.709342 p1542 vca.exe:   Metadata:
+20230706141922.709574 p1542 vca.exe:     title           : 
+20230706141922.709868 p1542 vca.exe: No Title
+20230706141922.710289 p1542 vca.exe:   Duration: 
+20230706141922.710665 p1542 vca.exe: N/A
+20230706141922.711101 p1542 vca.exe: , start: 
+20230706141922.711509 p1542 vca.exe: -0.004000
+20230706141922.711806 p1542 vca.exe: , bitrate: 
+20230706141922.712225 p1542 vca.exe: N/A
+20230706141922.712942 p1542 vca.exe:     Stream #0:0
+20230706141922.713366 p1542 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706141922.713979 p1542 vca.exe: , 
+20230706141922.714512 p1542 vca.exe: 29.97 fps, 
+20230706141922.714917 p1542 vca.exe: 29.97 tbr, 
+20230706141922.715163 p1542 vca.exe: 90k tbn, 
+20230706141922.715406 p1542 vca.exe: 59.94 tbc
+20230706141922.716004 p1542 vca.exe:     Stream #0:1
+20230706141922.716277 p1542 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706141922.716565 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141922.716720 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141922.716868 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141922.717023 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141922.717376 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706141923.119005 p1542 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706141923.119442 p1542 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706141923.119888 p1542 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test-phone-Helmet.mp4':
+20230706141923.120367 p1542 vca.exe:   Metadata:
+20230706141923.120611 p1542 vca.exe:     title           : 
+20230706141923.121342 p1542 vca.exe: No Title
+20230706141923.122274 p1542 vca.exe:   Duration: 
+20230706141923.122559 p1542 vca.exe: N/A
+20230706141923.123219 p1542 vca.exe: , start: 
+20230706141923.123604 p1542 vca.exe: 10.169678
+20230706141923.124003 p1542 vca.exe: , bitrate: 
+20230706141923.124233 p1542 vca.exe: N/A
+20230706141923.124848 p1542 vca.exe:     Stream #0:0
+20230706141923.125172 p1542 vca.exe: : Video: h264 (High), yuvj420p(pc, progressive), 1920x1080
+20230706141923.125456 p1542 vca.exe: , 
+20230706141923.125685 p1542 vca.exe: 24.67 fps, 
+20230706141923.125828 p1542 vca.exe: 24.67 tbr, 
+20230706141923.125976 p1542 vca.exe: 90k tbn, 
+20230706141923.126119 p1542 vca.exe: 49.33 tbc
+20230706141923.126303 p1542 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706141923.126425 p1542 vca.exe: video.cpp: 177 [abcdk_avstream_find] avstream_p is valid
+20230706141923.126660 p1542 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706141923.126816 p1542 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706141923.127149 p1542 vca.exe: OpenCapture('rtsp://192.169.4.16/test-phone-Helmet.mp4') faild.

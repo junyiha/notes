@@ -1,0 +1,1651 @@
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[16:15:00.563868][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[16:15:00.564133][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[16:15:00.564203][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+regis20230706161500.573536 p2046 vca.exe: 启动……
+20230706161500.574622 p2046 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+20230706161511.320546 p2046 vca.exe: Accept: 192.169.4.16
+20230706161511.334719 p2046 vca.exe: REQ: {
+20230706161511.334719 p2046 vca.exe: --cmd
+20230706161511.334719 p2046 vca.exe: 202
+20230706161511.334719 p2046 vca.exe: --licence
+20230706161511.334719 p2046 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230706161511.334719 p2046 vca.exe: }
+20230706161511.337399 p2046 vca.exe: RSP: {"errno":0,"monotonic":74136703,"realtime":1688631311336,"version":"6.1.2"}
+20230706161511.338268 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161514.447499 p2046 vca.exe: REQ: {
+20230706161514.447499 p2046 vca.exe: --cmd
+20230706161514.447499 p2046 vca.exe: 1
+20230706161514.447499 p2046 vca.exe: }
+20230706161514.448139 p2046 vca.exe: RSP: {"errno":3,"monotonic":74139814,"realtime":1688631314447,"version":"6.1.2"}
+20230706161514.449024 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161535.095141 p2046 vca.exe: REQ: {
+20230706161535.095141 p2046 vca.exe: --cmd
+20230706161535.095141 p2046 vca.exe: 2
+20230706161535.095141 p2046 vca.exe: --detector-conf
+20230706161535.095141 p2046 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706161535.095141 p2046 vca.exe: --detector-conf-inline
+20230706161535.095141 p2046 vca.exe: 1
+20230706161535.095141 p2046 vca.exe: --detector-fps
+20230706161535.095141 p2046 vca.exe: 1
+20230706161535.095141 p2046 vca.exe: --id
+20230706161535.095141 p2046 vca.exe: ccc
+20230706161535.095141 p2046 vca.exe: --input-video-name
+20230706161535.095141 p2046 vca.exe: rtsp://admin:a1234567@192.169.7.123:554
+20230706161535.095141 p2046 vca.exe: --input-video-retry-interval
+20230706161535.095141 p2046 vca.exe: 5
+20230706161535.095141 p2046 vca.exe: --output-type
+20230706161535.095141 p2046 vca.exe: 5
+20230706161535.095141 p2046 vca.exe: }
+20230706161535.099324 p2046 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxx) 失败。
+20230706161535.101656 p2046 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/yyyy) 失败。
+20230706161535.102540 p2046 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxyyyzzz) 失败。
+20230706161535.103646 p2046 vca.exe: RSP: {"errno":0,"monotonic":74160470,"realtime":1688631335103,"version":"6.1.2"}
+20230706161535.104469 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161535.117309 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161535.223774 p2046 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT.conf) 成功。
+20230706161536.379877 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161536.380286 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161536.380921 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230706161536.381384 p2046 vca.exe:   Metadata:
+20230706161536.381665 p2046 vca.exe:     title           : 
+20230706161536.381893 p2046 vca.exe: Media Presentation
+20230706161536.382247 p2046 vca.exe:   Duration: 
+20230706161536.382493 p2046 vca.exe: N/A
+20230706161536.382733 p2046 vca.exe: , start: 
+20230706161536.382972 p2046 vca.exe: 0.240000
+20230706161536.383190 p2046 vca.exe: , bitrate: 
+20230706161536.383388 p2046 vca.exe: N/A
+20230706161536.384137 p2046 vca.exe:     Stream #0:0
+20230706161536.384455 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706161536.384747 p2046 vca.exe: , 
+20230706161536.385183 p2046 vca.exe: 25 fps, 
+20230706161536.385436 p2046 vca.exe: 25 tbr, 
+20230706161536.385614 p2046 vca.exe: 90k tbn, 
+20230706161536.385860 p2046 vca.exe: 50 tbc
+20230706161536.386208 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161536.386499 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161536.386735 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161536.386966 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+##RKMEDIA Log level: 2
+[RKMEDIA][SYS][Info]:text is all=2
+[RKMEDIA][SYS][Info]:module is all, log_level is 2
+20230706161536.389014 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161536.389482 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161536.389703 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 1
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+mpp[2046]: mpp_rt: NOT found ion allocator
+mpp[2046]: mpp_rt: found drm allocator
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706161536.396688 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161536.397556 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161536.397904 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161536.487018 p2046 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230706161536.487018 p2046 vca.exe: RGA_api version       : v1.3.0_[11]
+20230706161536.487018 p2046 vca.exe: RGA_built version     : RGA is compiling with meson
+20230706161536.487018 p2046 vca.exe: RGA version           : RGA_2_Enhance
+20230706161536.487018 p2046 vca.exe: Max input             : 8192x8192
+20230706161536.487018 p2046 vca.exe: Max output            : 4096x4096
+20230706161536.487018 p2046 vca.exe: Scale limit           : 0.0625 ~ 16
+20230706161536.487018 p2046 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230706161536.487018 p2046 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230706161536.487018 p2046 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230706161536.487018 p2046 vca.exe: expected performance  : 600M pix/s 
+20230706161536.624726 p2046 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706161557.153932 p2046 vca.exe: REQ: {
+20230706161557.153932 p2046 vca.exe: --cmd
+20230706161557.153932 p2046 vca.exe: 2
+20230706161557.153932 p2046 vca.exe: --detector-conf
+20230706161557.153932 p2046 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706161557.153932 p2046 vca.exe: --detector-conf-inline
+20230706161557.153932 p2046 vca.exe: 1
+20230706161557.153932 p2046 vca.exe: --detector-fps
+20230706161557.153932 p2046 vca.exe: 1
+20230706161557.153932 p2046 vca.exe: --id
+20230706161557.153932 p2046 vca.exe: ddd
+20230706161557.153932 p2046 vca.exe: --input-video-name
+20230706161557.153932 p2046 vca.exe: rtsp://admin:a1234567@192.169.7.125:554
+20230706161557.153932 p2046 vca.exe: --input-video-retry-interval
+20230706161557.153932 p2046 vca.exe: 5
+20230706161557.153932 p2046 vca.exe: --output-type
+20230706161557.153932 p2046 vca.exe: 5
+20230706161557.153932 p2046 vca.exe: }
+20230706161557.157390 p2046 vca.exe: RSP: {"errno":0,"monotonic":74182524,"realtime":1688631357157,"version":"6.1.2"}
+20230706161557.158733 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161557.160353 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161558.147811 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161558.148148 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161558.148266 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230706161558.148428 p2046 vca.exe:   Metadata:
+20230706161558.148566 p2046 vca.exe:     title           : 
+20230706161558.148697 p2046 vca.exe: Media Presentation
+20230706161558.148901 p2046 vca.exe:   Duration: 
+20230706161558.149023 p2046 vca.exe: N/A
+20230706161558.149206 p2046 vca.exe: , start: 
+20230706161558.149345 p2046 vca.exe: 0.199667
+20230706161558.149454 p2046 vca.exe: , bitrate: 
+20230706161558.149596 p2046 vca.exe: N/A
+20230706161558.149947 p2046 vca.exe:     Stream #0:0
+20230706161558.150145 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706161558.150299 p2046 vca.exe: , 
+20230706161558.150454 p2046 vca.exe: 30 fps, 
+20230706161558.150582 p2046 vca.exe: 30 tbr, 
+20230706161558.150731 p2046 vca.exe: 90k tbn, 
+20230706161558.151005 p2046 vca.exe: 60 tbc
+20230706161558.151288 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161558.151440 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161558.151705 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161558.151966 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161558.152161 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161558.152283 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161558.152405 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 2
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[2] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[2] End!
+20230706161558.156077 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161558.156390 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161558.156715 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161558.361975 p2046 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706161605.705386 p2046 vca.exe: REQ: {
+20230706161605.705386 p2046 vca.exe: --cmd
+20230706161605.705386 p2046 vca.exe: 2
+20230706161605.705386 p2046 vca.exe: --detector-conf
+20230706161605.705386 p2046 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706161605.705386 p2046 vca.exe: --detector-conf-inline
+20230706161605.705386 p2046 vca.exe: 1
+20230706161605.705386 p2046 vca.exe: --detector-fps
+20230706161605.705386 p2046 vca.exe: 1
+20230706161605.705386 p2046 vca.exe: --id
+20230706161605.705386 p2046 vca.exe: aaa
+20230706161605.705386 p2046 vca.exe: --input-video-name
+20230706161605.705386 p2046 vca.exe: rtsp://admin:a1234567@192.169.7.126:554
+20230706161605.705386 p2046 vca.exe: --input-video-retry-interval
+20230706161605.705386 p2046 vca.exe: 5
+20230706161605.705386 p2046 vca.exe: --output-type
+20230706161605.705386 p2046 vca.exe: 5
+20230706161605.705386 p2046 vca.exe: }
+20230706161605.707672 p2046 vca.exe: RSP: {"errno":0,"monotonic":74191074,"realtime":1688631365707,"version":"6.1.2"}
+20230706161605.708260 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161605.718057 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161607.025573 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161607.026011 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161607.026280 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.126:554':
+20230706161607.026637 p2046 vca.exe:   Metadata:
+20230706161607.026859 p2046 vca.exe:     title           : 
+20230706161607.027064 p2046 vca.exe: Media Server
+20230706161607.027396 p2046 vca.exe:   Duration: 
+20230706161607.027572 p2046 vca.exe: N/A
+20230706161607.027782 p2046 vca.exe: , start: 
+20230706161607.027979 p2046 vca.exe: 0.280000
+20230706161607.028167 p2046 vca.exe: , bitrate: 
+20230706161607.028355 p2046 vca.exe: N/A
+20230706161607.028877 p2046 vca.exe:     Stream #0:0
+20230706161607.029181 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706161607.029434 p2046 vca.exe: , 
+20230706161607.029752 p2046 vca.exe: 25 fps, 
+20230706161607.030011 p2046 vca.exe: 100 tbr, 
+20230706161607.030217 p2046 vca.exe: 90k tbn, 
+20230706161607.030452 p2046 vca.exe: 50 tbc
+20230706161607.030755 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161607.030941 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161607.031097 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161607.031316 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161607.031557 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161607.031851 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161607.032059 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 3
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[3] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[3] End!
+20230706161607.038747 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161607.039164 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161607.039442 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.126:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161607.338422 p2046 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230706161627.736343 p2046 vca.exe: REQ: {
+20230706161627.736343 p2046 vca.exe: --cmd
+20230706161627.736343 p2046 vca.exe: 2
+20230706161627.736343 p2046 vca.exe: --detector-conf
+20230706161627.736343 p2046 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230706161627.736343 p2046 vca.exe: --detector-conf-inline
+20230706161627.736343 p2046 vca.exe: 1
+20230706161627.736343 p2046 vca.exe: --detector-fps
+20230706161627.736343 p2046 vca.exe: 1
+20230706161627.736343 p2046 vca.exe: --id
+20230706161627.736343 p2046 vca.exe: bbb
+20230706161627.736343 p2046 vca.exe: --input-video-name
+20230706161627.736343 p2046 vca.exe: rtsp://admin:a1234567@192.169.7.105:554
+20230706161627.736343 p2046 vca.exe: --input-video-retry-interval
+20230706161627.736343 p2046 vca.exe: 5
+20230706161627.736343 p2046 vca.exe: --output-type
+20230706161627.736343 p2046 vca.exe: 5
+20230706161627.736343 p2046 vca.exe: }
+20230706161627.741198 p2046 vca.exe: RSP: {"errno":0,"monotonic":74213107,"realtime":1688631387740,"version":"6.1.2"}
+20230706161627.742325 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161627.751283 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161628.983194 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161628.983525 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161628.984207 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.105:554':
+20230706161628.984681 p2046 vca.exe:   Metadata:
+20230706161628.985199 p2046 vca.exe:     title           : 
+20230706161628.985586 p2046 vca.exe: Media Presentation
+20230706161628.986804 p2046 vca.exe:   Duration: 
+20230706161628.987359 p2046 vca.exe: N/A
+20230706161628.987781 p2046 vca.exe: , start: 
+20230706161628.987935 p2046 vca.exe: 0.240000
+20230706161628.988656 p2046 vca.exe: , bitrate: 
+20230706161628.988850 p2046 vca.exe: N/A
+20230706161628.989738 p2046 vca.exe:     Stream #0:0
+20230706161628.990151 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706161628.990818 p2046 vca.exe: , 
+20230706161628.991023 p2046 vca.exe: 25 fps, 
+20230706161628.991782 p2046 vca.exe: 25 tbr, 
+20230706161628.992110 p2046 vca.exe: 90k tbn, 
+20230706161628.992307 p2046 vca.exe: 50 tbc
+20230706161628.993180 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161628.993332 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161628.993682 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161628.994086 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161628.994591 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161628.995130 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161628.995646 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 4
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[4] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[4] End!
+20230706161629.009222 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161629.009887 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161629.010177 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.105:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706161629.381326 p2046 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161640.064615 p2046 vca.exe: RTP H.264 NAL unit type 25
+20230706161640.064873 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161647.114417 p2046 vca.exe: REQ: {
+20230706161647.114417 p2046 vca.exe: --cmd
+20230706161647.114417 p2046 vca.exe: 4
+20230706161647.114417 p2046 vca.exe: --id
+20230706161647.114417 p2046 vca.exe: bbb
+20230706161647.114417 p2046 vca.exe: }
+20230706161647.152752 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 4 
+20230706161647.153144 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 4, and return fo : -120 
+20230706161647.153435 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 4 
+20230706161647.153707 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161647.154453 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706161647.155033 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161647.159637 p2046 vca.exe: Destory Infer(/userdata/static/models/HELMET/DETECT.conf). 
+20230706161647.179477 p2046 vca.exe: RSP: {"errno":0,"monotonic":74232546,"realtime":1688631407179,"version":"6.1.2"}
+20230706161647.180608 p2046 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 76 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230706161647.975283 p2046 vca.exe: missing picture in access unit with size 4296
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161655.808273 p2046 vca.exe: RTP H.264 NAL unit type 29
+20230706161655.808824 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230706161655.810791 p2046 vca.exe: non-existing SPS 3 referenced in buffering period
+20230706161655.811326 p2046 vca.exe: SEI type 64 size 1752 truncated at 208
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[2046]: h264d_sei: seq_parameter_set_id 3 may be invalid
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161704.021995 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 2 
+20230706161704.024729 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 2, and return fo : -120 
+20230706161704.025225 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 2 
+20230706161704.025564 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161704.025891 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706161704.026149 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706161704.028170 p2046 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706161704.028438 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706161705.039604 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706161705.040123 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706161705.040306 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230706161705.040497 p2046 vca.exe:   Metadata:
+20230706161705.041106 p2046 vca.exe:     title           : 
+20230706161705.041797 p2046 vca.exe: Media Presentation
+20230706161705.042223 p2046 vca.exe:   Duration: 
+20230706161705.042737 p2046 vca.exe: N/A
+20230706161705.043019 p2046 vca.exe: , start: 
+20230706161705.043506 p2046 vca.exe: 0.199667
+20230706161705.043786 p2046 vca.exe: , bitrate: 
+20230706161705.044216 p2046 vca.exe: N/A
+20230706161705.044722 p2046 vca.exe:     Stream #0:0
+20230706161705.045280 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706161705.046990 p2046 vca.exe: , 
+20230706161705.048527 p2046 vca.exe: 30 fps, 
+20230706161705.050098 p2046 vca.exe: 30 tbr, 
+20230706161705.050926 p2046 vca.exe: 90k tbn, 
+20230706161705.051853 p2046 vca.exe: 60 tbc
+20230706161705.053606 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706161705.054270 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706161705.055158 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706161705.056022 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706161705.056960 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706161705.058064 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706161705.058559 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 5
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[5] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[5] End!
+20230706161705.068635 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706161705.068982 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706161705.069152 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161717.192269 p2046 vca.exe: Close: 192.169.4.16
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161743.153318 p2046 vca.exe: CSeq 9 expected, 8 received.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161819.467759 p2046 vca.exe: CSeq 10 expected, 9 received.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161834.353273 p2046 vca.exe: non-existing PPS 3 referenced
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161844.097513 p2046 vca.exe: nal size exceeds length: 45862 1425
+20230706161844.099322 p2046 vca.exe: SEI type 224 size 2024 truncated at 96
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161858.647928 p2046 vca.exe: CSeq 11 expected, 10 received.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161916.517924 p2046 vca.exe: missing picture in access unit with size 2864
+20230706161916.563565 p2046 vca.exe: RTP H.264 NAL unit type 26
+20230706161916.563941 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230706161916.565614 p2046 vca.exe: FMO not supported
+20230706161916.566250 p2046 vca.exe: missing picture in access unit with size 2864
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161916.609532 p2046 vca.exe: illegal memory management control operation 14
+20230706161916.643499 p2046 vca.exe: illegal memory management control operation 14
+20230706161916.650220 p2046 vca.exe: illegal memory management control operation 14
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161916.692612 p2046 vca.exe: illegal memory management control operation 11
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161917.041534 p2046 vca.exe: illegal memory management control operation 14
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161917.073232 p2046 vca.exe: illegal memory management control operation 14
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161917.077377 p2046 vca.exe: illegal memory management control operation 14
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161917.226757 p2046 vca.exe: illegal memory management control operation 32
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161919.061724 p2046 vca.exe: CSeq 12 expected, 11 received.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161949.513949 p2046 vca.exe: Undefined type (30)
+20230706161949.565679 p2046 vca.exe: FMO not supported
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706161957.202619 p2046 vca.exe: CSeq 13 expected, 12 received.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706162012.383455 p2046 vca.exe: Undefined type (30)
+20230706162012.384104 p2046 vca.exe: Undefined type (31)
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706162024.772992 p2046 vca.exe: CSeq 14 expected, 13 received.
+20230706162029.479688 p2046 vca.exe: RTP H.264 NAL unit type 29
+20230706162029.481280 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230706162029.513235 p2046 vca.exe: FMO not supported
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a discard frame.
+20230706162058.350310 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 5 
+20230706162058.351264 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 5, and return fo : -120 
+20230706162058.351538 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 5 
+20230706162058.351712 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706162058.352130 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706162058.352293 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706162058.354535 p2046 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706162058.354927 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706162059.385314 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706162059.386269 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706162059.387298 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230706162059.387596 p2046 vca.exe:   Metadata:
+20230706162059.387756 p2046 vca.exe:     title           : 
+20230706162059.387900 p2046 vca.exe: Media Presentation
+20230706162059.388141 p2046 vca.exe:   Duration: 
+20230706162059.388276 p2046 vca.exe: N/A
+20230706162059.388528 p2046 vca.exe: , start: 
+20230706162059.388791 p2046 vca.exe: 0.199667
+20230706162059.389025 p2046 vca.exe: , bitrate: 
+20230706162059.389340 p2046 vca.exe: N/A
+20230706162059.389850 p2046 vca.exe:     Stream #0:0
+20230706162059.390243 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706162059.390609 p2046 vca.exe: , 
+20230706162059.392697 p2046 vca.exe: 30 fps, 
+20230706162059.393821 p2046 vca.exe: 30 tbr, 
+20230706162059.395669 p2046 vca.exe: 90k tbn, 
+20230706162059.400376 p2046 vca.exe: 60 tbc
+20230706162059.401505 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706162059.401789 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706162059.402148 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706162059.402652 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706162059.406218 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706162059.406938 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706162059.408001 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 6
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[6] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[6] End!
+20230706162059.426964 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706162059.432259 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706162059.432819 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706162104.645424 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 1 
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706162104.698277 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(30):close,RK_MPI_VDEC_DestroyChn() input m_chn is : 1, and return fo : 0 
+20230706162104.702719 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(34):close,vdec_chn_free() input m_chn is : 1 
+20230706162104.709241 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706162104.713224 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(26):close, m_chn is : 16 
+20230706162104.713511 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(37):close, m_chn is : 16 
+20230706162104.717458 p2046 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230706162104.717930 p2046 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706162105.985851 p2046 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706162105.986628 p2046 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706162105.986925 p2046 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230706162105.988233 p2046 vca.exe:   Metadata:
+20230706162105.988818 p2046 vca.exe:     title           : 
+20230706162105.989285 p2046 vca.exe: Media Presentation
+20230706162105.989708 p2046 vca.exe:   Duration: 
+20230706162105.990122 p2046 vca.exe: N/A
+20230706162105.990584 p2046 vca.exe: , start: 
+20230706162105.990792 p2046 vca.exe: 0.240000
+20230706162105.990983 p2046 vca.exe: , bitrate: 
+20230706162105.991176 p2046 vca.exe: N/A
+20230706162105.992530 p2046 vca.exe:     Stream #0:0
+20230706162105.993172 p2046 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706162105.993533 p2046 vca.exe: , 
+20230706162105.993674 p2046 vca.exe: 25 fps, 
+20230706162105.993801 p2046 vca.exe: 25 tbr, 
+20230706162105.993945 p2046 vca.exe: 90k tbn, 
+20230706162105.994095 p2046 vca.exe: 50 tbc
+20230706162105.994352 p2046 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706162105.994482 p2046 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706162105.994612 p2046 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706162105.994862 p2046 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706162105.995541 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open
+20230706162105.996133 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(63):open, RkCodecID_from_AVCodecID() return for :5
+20230706162105.996727 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(72):open, vdec_chn_alloc() return for : 7
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[7] Start...
+mpp[2046]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[7] End!
+20230706162106.005917 p2046 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(74):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706162106.006273 p2046 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706162106.011603 p2046 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706162139.918917 p2046 vca.exe: RTP H.264 NAL unit type 26
+20230706162139.919547 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230706162145.330939 p2046 vca.exe: RTP H.264 NAL unit type 26
+20230706162145.331229 p2046 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230706162145.331682 p2046 vca.exe: Undefined type (30)
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.

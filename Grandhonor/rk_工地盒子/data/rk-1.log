@@ -1,0 +1,247 @@
+20230705201426.290499 p172 vca.exe: , bitrate: 
+20230705201426.290741 p172 vca.exe: N/A
+20230705201426.291427 p172 vca.exe:     Stream #0:0
+20230705201426.291686 p172 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230705201426.291855 p172 vca.exe: , 
+20230705201426.292122 p172 vca.exe: 25 fps, 
+20230705201426.292472 p172 vca.exe: 25 tbr, 
+20230705201426.292741 p172 vca.exe: 90k tbn, 
+20230705201426.292906 p172 vca.exe: 50 tbc
+20230705201426.293460 p172 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.104:554') faild.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230705201426.475534 p172 vca.exe: RTP: PT=60: bad cseq 95e9 expected=8a14
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+20230705201431.430935 p172 vca.exe: method SETUP failed: 500 Internal Server Error
+20230705201431.431443 p172 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.104:554') faild.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+20230705201435.445950 p172 vca.exe: RTP H.264 NAL unit type 27
+20230705201435.446481 p172 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230705201441.901683 p172 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.104:554':
+20230705201441.902258 p172 vca.exe:   Metadata:
+20230705201441.902468 p172 vca.exe:     title           : 
+20230705201441.902657 p172 vca.exe: Media Presentation
+20230705201441.902932 p172 vca.exe:   Duration: 
+20230705201441.903295 p172 vca.exe: N/A
+20230705201441.903499 p172 vca.exe: , start: 
+20230705201441.903677 p172 vca.exe: 0.240000
+20230705201441.903879 p172 vca.exe: , bitrate: 
+20230705201441.904208 p172 vca.exe: N/A
+20230705201441.904799 p172 vca.exe:     Stream #0:0
+20230705201441.905152 p172 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230705201441.905392 p172 vca.exe: , 
+20230705201441.905560 p172 vca.exe: 25 fps, 
+20230705201441.905719 p172 vca.exe: 25 tbr, 
+20230705201441.905896 p172 vca.exe: 90k tbn, 
+20230705201441.906760 p172 vca.exe: 50 tbc
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+20230705201441.909768 p172 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.104:554') faild.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+mpp[172]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[172]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+Segmentation fault
+root@3f19585b5f05:/userdata/edge/package/VideoProcess/bin# 

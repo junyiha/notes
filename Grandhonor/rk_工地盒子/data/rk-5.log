@@ -1,0 +1,674 @@
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x6714eb10 (LWP 1705)]
+[New Thread 0x6694db10 (LWP 1706)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x6614cb10 (LWP 1707)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[14] End!
+20230706151308.243101 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151308.246217 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151308.248625 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706151312.074685 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151312.077232 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151312.077587 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706151312.134626 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151312.137423 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151312.137990 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151317.181199 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151317.185684 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151317.186575 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706151317.241852 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151317.244507 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151317.245098 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151322.290250 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151322.349714 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151323.261937 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151323.262254 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151323.262395 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706151323.262507 p1645 vca.exe:   Metadata:
+20230706151323.262617 p1645 vca.exe:     title           : 
+20230706151323.262710 p1645 vca.exe: No Title
+20230706151323.262932 p1645 vca.exe:   Duration: 
+20230706151323.263089 p1645 vca.exe: N/A
+20230706151323.263225 p1645 vca.exe: , start: 
+20230706151323.263440 p1645 vca.exe: -0.003000
+20230706151323.263624 p1645 vca.exe: , bitrate: 
+20230706151323.263760 p1645 vca.exe: N/A
+20230706151323.264226 p1645 vca.exe:     Stream #0:0
+20230706151323.264452 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706151323.264635 p1645 vca.exe: , 
+20230706151323.264854 p1645 vca.exe: 29.97 fps, 
+20230706151323.265050 p1645 vca.exe: 29.97 tbr, 
+20230706151323.265236 p1645 vca.exe: 90k tbn, 
+20230706151323.265406 p1645 vca.exe: 59.94 tbc
+20230706151323.265834 p1645 vca.exe:     Stream #0:1
+20230706151323.266049 p1645 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706151323.266352 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151323.266481 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151323.266626 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151323.266782 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151323.267176 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151323.267387 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151323.267699 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 15
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[15] Start...
+mpp[1645]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x63d6bb10 (LWP 1708)]
+[New Thread 0x6356ab10 (LWP 1709)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x62d69b10 (LWP 1710)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[15] End!
+20230706151323.276179 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151323.276546 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151323.276895 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706151323.518906 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151323.519218 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151323.519379 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151323.519827 p1645 vca.exe:   Metadata:
+20230706151323.519991 p1645 vca.exe:     title           : 
+20230706151323.520194 p1645 vca.exe: No Title
+20230706151323.520509 p1645 vca.exe:   Duration: 
+20230706151323.520620 p1645 vca.exe: N/A
+20230706151323.520720 p1645 vca.exe: , start: 
+20230706151323.520834 p1645 vca.exe: 0.236000
+20230706151323.520952 p1645 vca.exe: , bitrate: 
+20230706151323.521062 p1645 vca.exe: N/A
+20230706151323.521383 p1645 vca.exe:     Stream #0:0
+20230706151323.521562 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151323.521690 p1645 vca.exe: , 
+20230706151323.521871 p1645 vca.exe: 25 fps, 
+20230706151323.522066 p1645 vca.exe: 25 tbr, 
+20230706151323.522263 p1645 vca.exe: 90k tbn, 
+20230706151323.522480 p1645 vca.exe: 50 tbc
+20230706151323.522858 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151323.523123 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151323.523323 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151323.523509 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151323.523856 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151323.524376 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151323.524648 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 0
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] Start...
+mpp[1645]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x619eab10 (LWP 1711)]
+[New Thread 0x611e9b10 (LWP 1712)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x609e8b10 (LWP 1713)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] End!
+20230706151323.531919 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151323.532180 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151323.532337 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+20230706151349.978986 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151349.980906 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151349.981201 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[Thread 0x609e8b10 (LWP 1713) exited]
+[Thread 0x611e9b10 (LWP 1712) exited]
+[Thread 0x619eab10 (LWP 1711) exited]
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706151350.004734 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151350.006200 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151350.006507 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151355.084252 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151355.088433 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151355.089048 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') faild.
+20230706151355.110385 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151355.113698 p1645 vca.exe: Connection to tcp://192.169.4.16:554?timeout=0 failed: Connection refused
+20230706151355.114266 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151400.193154 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151400.217352 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151401.167131 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151401.167593 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151401.167932 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706151401.168337 p1645 vca.exe:   Metadata:
+20230706151401.168725 p1645 vca.exe:     title           : 
+20230706151401.168999 p1645 vca.exe: No Title
+20230706151401.169280 p1645 vca.exe:   Duration: 
+20230706151401.169445 p1645 vca.exe: N/A
+20230706151401.169715 p1645 vca.exe: , start: 
+20230706151401.170095 p1645 vca.exe: -0.006000
+20230706151401.170388 p1645 vca.exe: , bitrate: 
+20230706151401.170710 p1645 vca.exe: N/A
+20230706151401.171460 p1645 vca.exe:     Stream #0:0
+20230706151401.171713 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706151401.171938 p1645 vca.exe: , 
+20230706151401.172171 p1645 vca.exe: 29.97 fps, 
+20230706151401.172403 p1645 vca.exe: 29.97 tbr, 
+20230706151401.172713 p1645 vca.exe: 90k tbn, 
+20230706151401.173020 p1645 vca.exe: 59.94 tbc
+20230706151401.173555 p1645 vca.exe:     Stream #0:1
+20230706151401.173822 p1645 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706151401.174338 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151401.174493 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151401.174659 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151401.174840 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151401.175193 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151401.175440 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151401.175676 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 1
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[1645]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x611e9b10 (LWP 1714)]
+[New Thread 0x619eab10 (LWP 1715)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x609e8b10 (LWP 1716)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706151401.184162 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151401.184591 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151401.184925 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+20230706151401.391733 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151401.392031 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151401.392189 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151401.392634 p1645 vca.exe:   Metadata:
+20230706151401.393165 p1645 vca.exe:     title           : 
+20230706151401.393342 p1645 vca.exe: No Title
+20230706151401.393917 p1645 vca.exe:   Duration: 
+20230706151401.394157 p1645 vca.exe: N/A
+20230706151401.394268 p1645 vca.exe: , start: 
+20230706151401.394364 p1645 vca.exe: 0.233000
+20230706151401.394461 p1645 vca.exe: , bitrate: 
+20230706151401.394619 p1645 vca.exe: N/A
+20230706151401.395008 p1645 vca.exe:     Stream #0:0
+20230706151401.395239 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151401.395496 p1645 vca.exe: , 
+20230706151401.395671 p1645 vca.exe: 25 fps, 
+20230706151401.395812 p1645 vca.exe: 25 tbr, 
+20230706151401.395956 p1645 vca.exe: 90k tbn, 
+20230706151401.396077 p1645 vca.exe: 50 tbc
+20230706151401.396315 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151401.396443 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151401.396577 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151401.396705 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151401.396935 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151401.397081 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151401.397220 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 2
+20230706151401.397444 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151401.397812 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151406.500466 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151407.669989 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151407.671014 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151407.671254 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151407.671447 p1645 vca.exe:   Metadata:
+20230706151407.671582 p1645 vca.exe:     title           : 
+20230706151407.671696 p1645 vca.exe: No Title
+20230706151407.671856 p1645 vca.exe:   Duration: 
+20230706151407.671950 p1645 vca.exe: N/A
+20230706151407.672041 p1645 vca.exe: , start: 
+20230706151407.672147 p1645 vca.exe: 0.236000
+20230706151407.672247 p1645 vca.exe: , bitrate: 
+20230706151407.672343 p1645 vca.exe: N/A
+20230706151407.672680 p1645 vca.exe:     Stream #0:0
+20230706151407.672922 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151407.673085 p1645 vca.exe: , 
+20230706151407.673217 p1645 vca.exe: 25 fps, 
+20230706151407.673348 p1645 vca.exe: 25 tbr, 
+20230706151407.673517 p1645 vca.exe: 90k tbn, 
+20230706151407.673650 p1645 vca.exe: 50 tbc
+20230706151407.673955 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151407.674891 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151407.675110 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151407.675254 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151407.675492 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151407.675709 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151407.675913 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 3
+20230706151407.676208 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151407.676485 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151412.778726 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151413.957494 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151413.957950 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151413.958333 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151413.959039 p1645 vca.exe:   Metadata:
+20230706151413.959435 p1645 vca.exe:     title           : 
+20230706151413.959730 p1645 vca.exe: No Title
+20230706151413.960033 p1645 vca.exe:   Duration: 
+20230706151413.960229 p1645 vca.exe: N/A
+20230706151413.960448 p1645 vca.exe: , start: 
+20230706151413.960672 p1645 vca.exe: 0.237000
+20230706151413.960897 p1645 vca.exe: , bitrate: 
+20230706151413.961112 p1645 vca.exe: N/A
+20230706151413.961753 p1645 vca.exe:     Stream #0:0
+20230706151413.962031 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151413.962275 p1645 vca.exe: , 
+20230706151413.962500 p1645 vca.exe: 25 fps, 
+20230706151413.962718 p1645 vca.exe: 25 tbr, 
+20230706151413.962983 p1645 vca.exe: 90k tbn, 
+20230706151413.963209 p1645 vca.exe: 50 tbc
+20230706151413.963512 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151413.963709 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151413.963873 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151413.964149 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151413.964603 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151413.964874 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151413.965143 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 4
+20230706151413.965496 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151413.965866 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151419.069540 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151420.237470 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151420.237773 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151420.238108 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151420.238295 p1645 vca.exe:   Metadata:
+20230706151420.238390 p1645 vca.exe:     title           : 
+20230706151420.238485 p1645 vca.exe: No Title
+20230706151420.238642 p1645 vca.exe:   Duration: 
+20230706151420.238745 p1645 vca.exe: N/A
+20230706151420.238865 p1645 vca.exe: , start: 
+20230706151420.238996 p1645 vca.exe: 0.236000
+20230706151420.239174 p1645 vca.exe: , bitrate: 
+20230706151420.239303 p1645 vca.exe: N/A
+20230706151420.239760 p1645 vca.exe:     Stream #0:0
+20230706151420.239950 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151420.240106 p1645 vca.exe: , 
+20230706151420.240256 p1645 vca.exe: 25 fps, 
+20230706151420.240397 p1645 vca.exe: 25 tbr, 
+20230706151420.240541 p1645 vca.exe: 90k tbn, 
+20230706151420.240671 p1645 vca.exe: 50 tbc
+20230706151420.240868 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151420.240992 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151420.241115 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151420.241231 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151420.241446 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151420.241660 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151420.241941 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 5
+20230706151420.242209 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151420.242456 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+
+
+/****************************************************************************************************/
+20230706151420.239950 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151420.240106 p1645 vca.exe: , 
+20230706151420.240256 p1645 vca.exe: 25 fps, 
+20230706151420.240397 p1645 vca.exe: 25 tbr, 
+20230706151420.240541 p1645 vca.exe: 90k tbn, 
+20230706151420.240671 p1645 vca.exe: 50 tbc
+20230706151420.240868 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151420.240992 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151420.241115 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151420.241231 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151420.241446 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151420.241660 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151420.241941 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 5
+20230706151420.242209 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151420.242456 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151425.344624 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151426.515205 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151426.515497 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151426.515671 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151426.515804 p1645 vca.exe:   Metadata:
+20230706151426.515925 p1645 vca.exe:     title           : 
+20230706151426.516052 p1645 vca.exe: No Title
+20230706151426.516334 p1645 vca.exe:   Duration: 
+20230706151426.516465 p1645 vca.exe: N/A
+20230706151426.516595 p1645 vca.exe: , start: 
+20230706151426.516807 p1645 vca.exe: 0.237000
+20230706151426.516961 p1645 vca.exe: , bitrate: 
+20230706151426.517109 p1645 vca.exe: N/A
+20230706151426.517465 p1645 vca.exe:     Stream #0:0
+20230706151426.517659 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151426.517820 p1645 vca.exe: , 
+20230706151426.517982 p1645 vca.exe: 25 fps, 
+20230706151426.518188 p1645 vca.exe: 25 tbr, 
+20230706151426.518392 p1645 vca.exe: 90k tbn, 
+20230706151426.518550 p1645 vca.exe: 50 tbc
+20230706151426.518776 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151426.518914 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151426.519055 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151426.519188 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151426.519522 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151426.519777 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151426.520052 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 6
+20230706151426.520325 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151426.520593 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151431.623282 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151432.804870 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151432.805292 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151432.805451 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151432.805637 p1645 vca.exe:   Metadata:
+20230706151432.806397 p1645 vca.exe:     title           : 
+20230706151432.806695 p1645 vca.exe: No Title
+20230706151432.806915 p1645 vca.exe:   Duration: 
+20230706151432.807076 p1645 vca.exe: N/A
+20230706151432.807336 p1645 vca.exe: , start: 
+20230706151432.807559 p1645 vca.exe: 0.237000
+20230706151432.807763 p1645 vca.exe: , bitrate: 
+20230706151432.807963 p1645 vca.exe: N/A
+20230706151432.808471 p1645 vca.exe:     Stream #0:0
+20230706151432.808736 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151432.808937 p1645 vca.exe: , 
+20230706151432.809160 p1645 vca.exe: 25 fps, 
+20230706151432.809397 p1645 vca.exe: 25 tbr, 
+20230706151432.809666 p1645 vca.exe: 90k tbn, 
+20230706151432.809871 p1645 vca.exe: 50 tbc
+20230706151432.810334 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151432.810659 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151432.810917 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151432.811142 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151432.811665 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151432.812098 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151432.812445 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 7
+20230706151432.812685 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151432.813048 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151437.915223 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151439.089205 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151439.090178 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151439.090739 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151439.090930 p1645 vca.exe:   Metadata:
+20230706151439.091242 p1645 vca.exe:     title           : 
+20230706151439.091631 p1645 vca.exe: No Title
+20230706151439.092023 p1645 vca.exe:   Duration: 
+20230706151439.092241 p1645 vca.exe: N/A
+20230706151439.092424 p1645 vca.exe: , start: 
+20230706151439.092658 p1645 vca.exe: 0.236000
+20230706151439.093005 p1645 vca.exe: , bitrate: 
+20230706151439.093237 p1645 vca.exe: N/A
+20230706151439.093681 p1645 vca.exe:     Stream #0:0
+20230706151439.093862 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151439.094328 p1645 vca.exe: , 
+20230706151439.094557 p1645 vca.exe: 25 fps, 
+20230706151439.094741 p1645 vca.exe: 25 tbr, 
+20230706151439.094897 p1645 vca.exe: 90k tbn, 
+20230706151439.095032 p1645 vca.exe: 50 tbc
+20230706151439.095232 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151439.095343 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151439.095457 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151439.095567 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151439.095813 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151439.096048 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151439.096255 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 8
+20230706151439.096416 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151439.096589 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151444.199734 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151445.378069 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151445.378362 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151445.378496 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151445.378603 p1645 vca.exe:   Metadata:
+20230706151445.378845 p1645 vca.exe:     title           : 
+20230706151445.379254 p1645 vca.exe: No Title
+20230706151445.379445 p1645 vca.exe:   Duration: 
+20230706151445.380034 p1645 vca.exe: N/A
+20230706151445.380387 p1645 vca.exe: , start: 
+20230706151445.380626 p1645 vca.exe: 0.235000
+20230706151445.380891 p1645 vca.exe: , bitrate: 
+20230706151445.381017 p1645 vca.exe: N/A
+20230706151445.381306 p1645 vca.exe:     Stream #0:0
+20230706151445.381453 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151445.381584 p1645 vca.exe: , 
+20230706151445.381725 p1645 vca.exe: 25 fps, 
+20230706151445.381849 p1645 vca.exe: 25 tbr, 
+20230706151445.382009 p1645 vca.exe: 90k tbn, 
+20230706151445.382146 p1645 vca.exe: 50 tbc
+20230706151445.382347 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151445.382452 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151445.382616 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151445.383030 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151445.383461 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151445.383870 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151445.384229 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 9
+20230706151445.384574 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151445.384984 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+
+20230706151450.487632 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151451.663756 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151451.664357 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151451.664605 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151451.664798 p1645 vca.exe:   Metadata:
+20230706151451.664993 p1645 vca.exe:     title           : 
+20230706151451.665190 p1645 vca.exe: No Title
+20230706151451.665459 p1645 vca.exe:   Duration: 
+20230706151451.665632 p1645 vca.exe: N/A
+20230706151451.665815 p1645 vca.exe: , start: 
+20230706151451.665987 p1645 vca.exe: 0.237000
+20230706151451.666194 p1645 vca.exe: , bitrate: 
+20230706151451.666669 p1645 vca.exe: N/A
+20230706151451.667146 p1645 vca.exe:     Stream #0:0
+20230706151451.668534 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151451.669228 p1645 vca.exe: , 
+20230706151451.670677 p1645 vca.exe: 25 fps, 
+20230706151451.671128 p1645 vca.exe: 25 tbr, 
+20230706151451.672113 p1645 vca.exe: 90k tbn, 
+20230706151451.672931 p1645 vca.exe: 50 tbc
+20230706151451.674287 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151451.674470 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151451.675179 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151451.675461 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151451.676103 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151451.676750 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151451.678224 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 10
+20230706151451.678475 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151451.678853 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151456.783599 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151457.972243 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151457.972712 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151457.973623 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151457.974106 p1645 vca.exe:   Metadata:
+20230706151457.974476 p1645 vca.exe:     title           : 
+20230706151457.974866 p1645 vca.exe: No Title
+20230706151457.975156 p1645 vca.exe:   Duration: 
+20230706151457.975306 p1645 vca.exe: N/A
+20230706151457.975482 p1645 vca.exe: , start: 
+20230706151457.975664 p1645 vca.exe: 0.234000
+20230706151457.975840 p1645 vca.exe: , bitrate: 
+20230706151457.976015 p1645 vca.exe: N/A
+20230706151457.976654 p1645 vca.exe:     Stream #0:0
+20230706151457.977232 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151457.977540 p1645 vca.exe: , 
+20230706151457.977766 p1645 vca.exe: 25 fps, 
+20230706151457.977971 p1645 vca.exe: 25 tbr, 
+20230706151457.978160 p1645 vca.exe: 90k tbn, 
+20230706151457.978331 p1645 vca.exe: 50 tbc
+20230706151457.978582 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151457.978721 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151457.978877 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151457.979103 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151457.979403 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151457.979766 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151457.980163 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 11
+20230706151457.980879 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151457.981281 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151503.083635 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151504.256330 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151504.256698 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151504.256954 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151504.257246 p1645 vca.exe:   Metadata:
+20230706151504.257358 p1645 vca.exe:     title           : 
+20230706151504.257495 p1645 vca.exe: No Title
+20230706151504.257679 p1645 vca.exe:   Duration: 
+20230706151504.257791 p1645 vca.exe: N/A
+20230706151504.257900 p1645 vca.exe: , start: 
+20230706151504.258006 p1645 vca.exe: 0.233000
+20230706151504.258110 p1645 vca.exe: , bitrate: 
+20230706151504.258220 p1645 vca.exe: N/A
+20230706151504.258541 p1645 vca.exe:     Stream #0:0
+20230706151504.258723 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151504.258869 p1645 vca.exe: , 
+20230706151504.259012 p1645 vca.exe: 25 fps, 
+20230706151504.259156 p1645 vca.exe: 25 tbr, 
+20230706151504.259347 p1645 vca.exe: 90k tbn, 
+20230706151504.259597 p1645 vca.exe: 50 tbc
+20230706151504.259879 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151504.260043 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151504.260331 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151504.260543 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151504.260863 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151504.261075 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151504.261467 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 12
+20230706151504.261671 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151504.262120 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151509.365131 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151510.538809 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151510.539115 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151510.539310 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151510.539849 p1645 vca.exe:   Metadata:
+20230706151510.540031 p1645 vca.exe:     title           : 
+20230706151510.540126 p1645 vca.exe: No Title
+20230706151510.540288 p1645 vca.exe:   Duration: 
+20230706151510.540401 p1645 vca.exe: N/A
+20230706151510.540562 p1645 vca.exe: , start: 
+20230706151510.540724 p1645 vca.exe: 0.237000
+20230706151510.540887 p1645 vca.exe: , bitrate: 
+20230706151510.541070 p1645 vca.exe: N/A
+20230706151510.541439 p1645 vca.exe:     Stream #0:0
+20230706151510.541618 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151510.541823 p1645 vca.exe: , 
+20230706151510.542045 p1645 vca.exe: 25 fps, 
+20230706151510.542245 p1645 vca.exe: 25 tbr, 
+20230706151510.542432 p1645 vca.exe: 90k tbn, 
+20230706151510.542575 p1645 vca.exe: 50 tbc
+20230706151510.542766 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151510.542998 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151510.543188 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151510.543328 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151510.543559 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151510.543705 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151510.544015 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 13
+20230706151510.544280 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151510.544550 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151515.646977 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151516.824887 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151516.825269 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151516.825690 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151516.825854 p1645 vca.exe:   Metadata:
+20230706151516.825989 p1645 vca.exe:     title           : 
+20230706151516.826152 p1645 vca.exe: No Title
+20230706151516.826445 p1645 vca.exe:   Duration: 
+20230706151516.826703 p1645 vca.exe: N/A
+20230706151516.826916 p1645 vca.exe: , start: 
+20230706151516.827037 p1645 vca.exe: 0.237000
+20230706151516.827254 p1645 vca.exe: , bitrate: 
+20230706151516.827576 p1645 vca.exe: N/A
+20230706151516.827994 p1645 vca.exe:     Stream #0:0
+20230706151516.828329 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151516.828499 p1645 vca.exe: , 
+20230706151516.828639 p1645 vca.exe: 25 fps, 
+20230706151516.828775 p1645 vca.exe: 25 tbr, 
+20230706151516.829093 p1645 vca.exe: 90k tbn, 
+20230706151516.829402 p1645 vca.exe: 50 tbc
+20230706151516.829640 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151516.829915 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151516.830165 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151516.830486 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151516.830872 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151516.831120 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151516.831238 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 14
+20230706151516.831392 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151516.831610 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151521.935473 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151523.119572 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151523.120445 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151523.121112 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151523.121353 p1645 vca.exe:   Metadata:
+20230706151523.121526 p1645 vca.exe:     title           : 
+20230706151523.121863 p1645 vca.exe: No Title
+20230706151523.122217 p1645 vca.exe:   Duration: 
+20230706151523.122342 p1645 vca.exe: N/A
+20230706151523.122489 p1645 vca.exe: , start: 
+20230706151523.122655 p1645 vca.exe: 0.235000
+20230706151523.122852 p1645 vca.exe: , bitrate: 
+20230706151523.123017 p1645 vca.exe: N/A
+20230706151523.123393 p1645 vca.exe:     Stream #0:0
+20230706151523.123567 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151523.123712 p1645 vca.exe: , 
+20230706151523.123866 p1645 vca.exe: 25 fps, 
+20230706151523.124017 p1645 vca.exe: 25 tbr, 
+20230706151523.124356 p1645 vca.exe: 90k tbn, 
+20230706151523.125083 p1645 vca.exe: 50 tbc
+20230706151523.125464 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151523.125602 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151523.125745 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151523.125887 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151523.126312 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151523.126706 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151523.127061 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 15
+20230706151523.127251 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : -122
+20230706151523.127650 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') faild.
+20230706151528.231442 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151529.407540 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151529.407872 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151529.408036 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_personcount.mp4':
+20230706151529.408192 p1645 vca.exe:   Metadata:
+20230706151529.408312 p1645 vca.exe:     title           : 
+20230706151529.408443 p1645 vca.exe: No Title
+20230706151529.408746 p1645 vca.exe:   Duration: 
+20230706151529.408942 p1645 vca.exe: N/A
+20230706151529.409177 p1645 vca.exe: , start: 
+20230706151529.409406 p1645 vca.exe: 0.233000
+20230706151529.409885 p1645 vca.exe: , bitrate: 
+20230706151529.410181 p1645 vca.exe: N/A
+20230706151529.411152 p1645 vca.exe:     Stream #0:0
+20230706151529.411461 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9]
+20230706151529.411899 p1645 vca.exe: , 
+20230706151529.412147 p1645 vca.exe: 25 fps, 
+20230706151529.413698 p1645 vca.exe: 25 tbr, 
+20230706151529.414092 p1645 vca.exe: 90k tbn, 
+20230706151529.414420 p1645 vca.exe: 50 tbc
+20230706151529.414736 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151529.414905 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151529.415077 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151529.415258 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151529.415561 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151529.415732 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151529.415912 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 0
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] Start...
+mpp[1645]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x5e4eab10 (LWP 1717)]
+[New Thread 0x5dce9b10 (LWP 1718)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x5d4e8b10 (LWP 1719)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[0] End!
+20230706151529.435527 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151529.435960 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151529.436406 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_personcount.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[Thread 0x609e8b10 (LWP 1716) exited]
+[Thread 0x619eab10 (LWP 1715) exited]
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[Thread 0x611e9b10 (LWP 1714) exited]
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706151630.657459 p1645 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230706151631.627644 p1645 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230706151631.627947 p1645 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230706151631.628252 p1645 vca.exe: Input #0, rtsp, from 'rtsp://192.169.4.16/test_fire_smoke.mp4':
+20230706151631.628483 p1645 vca.exe:   Metadata:
+20230706151631.628576 p1645 vca.exe:     title           : 
+20230706151631.628670 p1645 vca.exe: No Title
+20230706151631.628814 p1645 vca.exe:   Duration: 
+20230706151631.628915 p1645 vca.exe: N/A
+20230706151631.629021 p1645 vca.exe: , start: 
+20230706151631.629140 p1645 vca.exe: -0.002000
+20230706151631.629251 p1645 vca.exe: , bitrate: 
+20230706151631.629354 p1645 vca.exe: N/A
+20230706151631.629778 p1645 vca.exe:     Stream #0:0
+20230706151631.629957 p1645 vca.exe: : Video: h264 (Main), yuv420p(progressive), 854x480 [SAR 1:1 DAR 427:240]
+20230706151631.630183 p1645 vca.exe: , 
+20230706151631.630337 p1645 vca.exe: 29.97 fps, 
+20230706151631.630483 p1645 vca.exe: 29.97 tbr, 
+20230706151631.630620 p1645 vca.exe: 90k tbn, 
+20230706151631.630795 p1645 vca.exe: 59.94 tbc
+20230706151631.632115 p1645 vca.exe:     Stream #0:1
+20230706151631.632304 p1645 vca.exe: : Audio: aac (LC), 48000 Hz, stereo, fltp
+20230706151631.632502 p1645 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230706151631.632608 p1645 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230706151631.632725 p1645 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230706151631.632931 p1645 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+20230706151631.633261 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(55):open
+20230706151631.633462 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(59):open, RkCodecID_from_AVCodecID() return for :5
+20230706151631.633665 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(68):open, vdec_chn_alloc() return for : 1
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[1645]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x619eab10 (LWP 1720)]
+[New Thread 0x611e9b10 (LWP 1721)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x609e8b10 (LWP 1722)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706151631.644195 p1645 vca.exe: lib/contrib/rockchip/rk_video_decoder.cpp(70):open, RK_MPI_VDEC_CreateChn() return for : 0
+20230706151631.644701 p1645 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230706151631.644895 p1645 vca.exe: OpenCapture('rtsp://192.169.4.16/test_fire_smoke.mp4') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 854x480 in (864x480)
+^C--Type <RET> for more, q to quit, c to continue without paging--q
+Quit

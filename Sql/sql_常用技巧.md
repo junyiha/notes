@@ -1,0 +1,29 @@
+## 简介
+
++ sql语法常用技巧
+
+## 批量删除
+
+在SQL中，您可以使用`DELETE`语句来删除数据。要实现批量删除，您可以使用`DELETE`语句结合适当的条件或子查询来删除符合特定条件的多个记录。以下是一些示例：
+
+1. 删除符合条件的记录：
+   ```sql
+   DELETE FROM table_name WHERE condition;
+   ```
+   将`table_name`替换为要删除记录的表名，`condition`替换为符合删除条件的条件表达式。
+
+2. 删除来自另一个查询的记录：
+   ```sql
+   DELETE FROM table_name WHERE column_name IN (SELECT column_name FROM another_table WHERE condition);
+   ```
+   这将删除从另一个查询结果中选择的记录。将`table_name`替换为要删除记录的表名，`column_name`替换为要匹配的列名，`another_table`替换为另一个查询的表名，`condition`替换为适当的条件。
+
+3. 删除所有记录：
+   ```sql
+   DELETE FROM table_name;
+   ```
+   这将删除指定表中的所有记录。将`table_name`替换为要删除记录的表名。
+
+请注意，在执行批量删除操作时要谨慎。确保您理解删除操作的影响，并在执行之前备份重要数据。
+
+希望这些示例能帮助您理解如何在SQL中进行批量删除。如有其他问题，请随时提问。

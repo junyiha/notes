@@ -1,0 +1,49 @@
+mpp[898]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[898]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[898]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[898]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[898]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[898]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[898]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[898]: mpp_meta: mpp_meta_set_s32 found NULL input
+[RKMEDIA][SYS][Info]:VideoDecoderFlow quit
+[Thread 0x880e9b10 (LWP 924) exited]
+[Thread 0x8b1f0b10 (LWP 922) exited]
+[Thread 0x888eab10 (LWP 923) exited]
+[RKMEDIA][SYS][Info]:mpp destroy ctx done
+[RKMEDIA][SYS][Info]:mpp buffer group free done
+20230706095739.530648 p898 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230706095739.531182 p898 vca.exe:   Metadata:
+20230706095739.531458 p898 vca.exe:     title           : 
+20230706095739.531593 p898 vca.exe: Media Presentation
+20230706095739.531795 p898 vca.exe:   Duration: 
+20230706095739.531906 p898 vca.exe: N/A
+20230706095739.532024 p898 vca.exe: , start: 
+20230706095739.532157 p898 vca.exe: 0.199667
+20230706095739.532343 p898 vca.exe: , bitrate: 
+20230706095739.532547 p898 vca.exe: N/A
+20230706095739.533303 p898 vca.exe:     Stream #0:0
+20230706095739.533791 p898 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230706095739.534317 p898 vca.exe: , 
+20230706095739.534986 p898 vca.exe: 30 fps, 
+20230706095739.535626 p898 vca.exe: 30 tbr, 
+20230706095739.536360 p898 vca.exe: 90k tbn, 
+20230706095739.537955 p898 vca.exe: 60 tbc
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] Start...
+mpp[898]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+[RKMEDIA][VDEC][Info]:mpi control MPP_DEC_SET_PARSER_SPLIT_MODE ret = 0
+[New Thread 0x888eab10 (LWP 931)]
+[New Thread 0x8b1f0b10 (LWP 932)]
+[RKMEDIA][VDEC][Info]:mpi set group limit = 32
+[New Thread 0x880e9b10 (LWP 933)]
+[RKMEDIA][SYS][Info]:RK_MPI_VDEC_CreateChn: Enable VDEC[1] End!
+20230706095739.553785 p898 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[RKMEDIA][VDEC][Info]:MppDec Info change get, 1920x1080 in (1920x1088)
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
+[RKMEDIA][VDEC][Info]:Received a errinfo frame.
