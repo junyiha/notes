@@ -1,0 +1,2219 @@
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[09:59:59.819221][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[09:59:59.819495][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[09:59:59.819563][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+regis20230707095959.828221 p3888 vca.exe: 启动……
+20230707095959.829236 p3888 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+20230707100002.463007 p3888 vca.exe: Accept: 192.169.4.16
+20230707100002.474858 p3888 vca.exe: REQ: {
+20230707100002.474858 p3888 vca.exe: --cmd
+20230707100002.474858 p3888 vca.exe: 202
+20230707100002.474858 p3888 vca.exe: --licence
+20230707100002.474858 p3888 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230707100002.474858 p3888 vca.exe: }
+20230707100002.476028 p3888 vca.exe: RSP: {"errno":0,"monotonic":138027842,"realtime":1688695202475,"version":"6.1.2"}
+20230707100002.476782 p3888 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707100010.471754 p3888 vca.exe: REQ: {
+20230707100010.471754 p3888 vca.exe: --cmd
+20230707100010.471754 p3888 vca.exe: 2
+20230707100010.471754 p3888 vca.exe: --detector-conf
+20230707100010.471754 p3888 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230707100010.471754 p3888 vca.exe: --detector-conf-inline
+20230707100010.471754 p3888 vca.exe: 1
+20230707100010.471754 p3888 vca.exe: --detector-fps
+20230707100010.471754 p3888 vca.exe: 1
+20230707100010.471754 p3888 vca.exe: --id
+20230707100010.471754 p3888 vca.exe: aaa
+20230707100010.471754 p3888 vca.exe: --input-video-name
+20230707100010.471754 p3888 vca.exe: rtsp://admin:a1234567@192.169.7.126:554
+20230707100010.471754 p3888 vca.exe: --input-video-retry-interval
+20230707100010.471754 p3888 vca.exe: 5
+20230707100010.471754 p3888 vca.exe: --output-type
+20230707100010.471754 p3888 vca.exe: 5
+20230707100010.471754 p3888 vca.exe: }
+20230707100010.474978 p3888 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxx) 失败。
+20230707100010.475592 p3888 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/yyyy) 失败。
+20230707100010.475895 p3888 vca.exe: Engine Conf Load(/userdata/edge/package-2/VideoProcess/bin/xxxyyyzzz) 失败。
+20230707100010.476816 p3888 vca.exe: RSP: {"errno":0,"monotonic":138035843,"realtime":1688695210476,"version":"6.1.2"}
+20230707100010.477612 p3888 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707100010.489781 p3888 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707100010.654768 p3888 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT.conf) 成功。
+20230707100011.757605 p3888 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707100011.758040 p3888 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707100011.758366 p3888 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.126:554':
+20230707100011.758574 p3888 vca.exe:   Metadata:
+20230707100011.758756 p3888 vca.exe:     title           : 
+20230707100011.758951 p3888 vca.exe: Media Server
+20230707100011.759240 p3888 vca.exe:   Duration: 
+20230707100011.759474 p3888 vca.exe: N/A
+20230707100011.759755 p3888 vca.exe: , start: 
+20230707100011.760314 p3888 vca.exe: 0.280000
+20230707100011.760594 p3888 vca.exe: , bitrate: 
+20230707100011.760766 p3888 vca.exe: N/A
+20230707100011.761265 p3888 vca.exe:     Stream #0:0
+20230707100011.761416 p3888 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707100011.761501 p3888 vca.exe: , 
+20230707100011.761642 p3888 vca.exe: 25 fps, 
+20230707100011.761730 p3888 vca.exe: 25 tbr, 
+20230707100011.761814 p3888 vca.exe: 90k tbn, 
+20230707100011.761897 p3888 vca.exe: 50 tbc
+20230707100011.762022 p3888 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707100011.762104 p3888 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707100011.762183 p3888 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707100011.762272 p3888 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[3888]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+mpp[3888]: mpp_rt: NOT found ion allocator
+mpp[3888]: mpp_rt: found drm allocator
+20230707100011.767923 p3888 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707100011.768138 p3888 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.126:554') ok.
+20230707100011.857366 p3888 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230707100011.857366 p3888 vca.exe: RGA_api version       : v1.3.0_[11]
+20230707100011.857366 p3888 vca.exe: RGA_built version     : RGA is compiling with meson
+20230707100011.857366 p3888 vca.exe: RGA version           : RGA_2_Enhance
+20230707100011.857366 p3888 vca.exe: Max input             : 8192x8192
+20230707100011.857366 p3888 vca.exe: Max output            : 4096x4096
+20230707100011.857366 p3888 vca.exe: Scale limit           : 0.0625 ~ 16
+20230707100011.857366 p3888 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230707100011.857366 p3888 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230707100011.857366 p3888 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230707100011.857366 p3888 vca.exe: expected performance  : 600M pix/s 
+20230707100011.967039 p3888 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230707100040.483221 p3888 vca.exe: Close: 192.169.4.16
+20230707100047.429322 p3888 vca.exe: Accept: 192.169.4.16
+20230707100047.437255 p3888 vca.exe: REQ: {
+20230707100047.437255 p3888 vca.exe: --cmd
+20230707100047.437255 p3888 vca.exe: 2
+20230707100047.437255 p3888 vca.exe: --detector-conf
+20230707100047.437255 p3888 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230707100047.437255 p3888 vca.exe: --detector-conf-inline
+20230707100047.437255 p3888 vca.exe: 1
+20230707100047.437255 p3888 vca.exe: --detector-fps
+20230707100047.437255 p3888 vca.exe: 1
+20230707100047.437255 p3888 vca.exe: --id
+20230707100047.437255 p3888 vca.exe: bbb
+20230707100047.437255 p3888 vca.exe: --input-video-name
+20230707100047.437255 p3888 vca.exe: rtsp://admin:a1234567@192.169.7.125:554
+20230707100047.437255 p3888 vca.exe: --input-video-retry-interval
+20230707100047.437255 p3888 vca.exe: 5
+20230707100047.437255 p3888 vca.exe: --output-type
+20230707100047.437255 p3888 vca.exe: 5
+20230707100047.437255 p3888 vca.exe: }
+20230707100047.439687 p3888 vca.exe: RSP: {"errno":0,"monotonic":138072806,"realtime":1688695247439,"version":"6.1.2"}
+20230707100047.440330 p3888 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707100047.441360 p3888 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707100048.444862 p3888 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707100048.445236 p3888 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707100048.445436 p3888 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707100048.445778 p3888 vca.exe:   Metadata:
+20230707100048.445992 p3888 vca.exe:     title           : 
+20230707100048.446294 p3888 vca.exe: Media Presentation
+20230707100048.446843 p3888 vca.exe:   Duration: 
+20230707100048.447071 p3888 vca.exe: N/A
+20230707100048.447426 p3888 vca.exe: , start: 
+20230707100048.447701 p3888 vca.exe: 0.199667
+20230707100048.448117 p3888 vca.exe: , bitrate: 
+20230707100048.448463 p3888 vca.exe: N/A
+20230707100048.449088 p3888 vca.exe:     Stream #0:0
+20230707100048.449295 p3888 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707100048.449598 p3888 vca.exe: , 
+20230707100048.449998 p3888 vca.exe: 30 fps, 
+20230707100048.450332 p3888 vca.exe: 30 tbr, 
+20230707100048.450707 p3888 vca.exe: 90k tbn, 
+20230707100048.450945 p3888 vca.exe: 60 tbc
+20230707100048.451512 p3888 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707100048.451723 p3888 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707100048.451908 p3888 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707100048.452217 p3888 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[3888]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707100048.469533 p3888 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707100048.469934 p3888 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707100048.632550 p3888 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230707100114.354778 p3888 vca.exe: nal size exceeds length: 20578 1425
+20230707100118.453194 p3888 vca.exe: Close: 192.169.4.16
+20230707100125.482034 p3888 vca.exe: Accept: 192.169.4.16
+20230707100125.495246 p3888 vca.exe: REQ: {
+20230707100125.495246 p3888 vca.exe: --cmd
+20230707100125.495246 p3888 vca.exe: 2
+20230707100125.495246 p3888 vca.exe: --detector-conf
+20230707100125.495246 p3888 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT.conf@xxxx@yyyy@
+20230707100125.495246 p3888 vca.exe: --detector-conf-inline
+20230707100125.495246 p3888 vca.exe: 1
+20230707100125.495246 p3888 vca.exe: --detector-fps
+20230707100125.495246 p3888 vca.exe: 1
+20230707100125.495246 p3888 vca.exe: --id
+20230707100125.495246 p3888 vca.exe: ccc
+20230707100125.495246 p3888 vca.exe: --input-video-name
+20230707100125.495246 p3888 vca.exe: rtsp://admin:a1234567@192.169.7.123:554
+20230707100125.495246 p3888 vca.exe: --input-video-retry-interval
+20230707100125.495246 p3888 vca.exe: 5
+20230707100125.495246 p3888 vca.exe: --output-type
+20230707100125.495246 p3888 vca.exe: 5
+20230707100125.495246 p3888 vca.exe: }
+20230707100125.497923 p3888 vca.exe: RSP: {"errno":0,"monotonic":138110864,"realtime":1688695285497,"version":"6.1.2"}
+20230707100125.500811 p3888 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707100125.518411 p3888 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707100126.792119 p3888 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707100126.792494 p3888 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707100126.792653 p3888 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230707100126.792835 p3888 vca.exe:   Metadata:
+20230707100126.792953 p3888 vca.exe:     title           : 
+20230707100126.793060 p3888 vca.exe: Media Presentation
+20230707100126.793224 p3888 vca.exe:   Duration: 
+20230707100126.793319 p3888 vca.exe: N/A
+20230707100126.793472 p3888 vca.exe: , start: 
+20230707100126.793597 p3888 vca.exe: 0.240000
+20230707100126.793706 p3888 vca.exe: , bitrate: 
+20230707100126.793810 p3888 vca.exe: N/A
+20230707100126.794157 p3888 vca.exe:     Stream #0:0
+20230707100126.794318 p3888 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707100126.794432 p3888 vca.exe: , 
+20230707100126.794552 p3888 vca.exe: 25 fps, 
+20230707100126.794660 p3888 vca.exe: 25 tbr, 
+20230707100126.794765 p3888 vca.exe: 90k tbn, 
+20230707100126.795009 p3888 vca.exe: 50 tbc
+20230707100126.795211 p3888 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707100126.795310 p3888 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707100126.795413 p3888 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707100126.795523 p3888 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[3888]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707100126.798191 p3888 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707100126.798487 p3888 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+20230707100127.123395 p3888 vca.exe: Create Infer('/userdata/static/models/HELMET/DETECT.conf','YOLOv5') 成功. 
+20230707100137.843459 p3888 vca.exe: RTP H.264 NAL unit type 26
+20230707100137.844500 p3888 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707100153.250343 p3888 vca.exe: nal size exceeds length: 39024 1425
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+20230707100156.510046 p3888 vca.exe: Close: 192.169.4.16
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+20230707100228.625363 p3888 vca.exe: RTP H.264 NAL unit type 25
+20230707100228.627789 p3888 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707100228.633523 p3888 vca.exe: sps_id 1 out of range
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+20230707100255.133843 p3888 vca.exe: RTP H.264 NAL unit type 29
+20230707100255.134143 p3888 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707100255.135861 p3888 vca.exe: RTP H.264 NAL unit type 27
+20230707100255.136215 p3888 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[3888]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[3888]: mpp_meta: mpp_meta_set_s32 found NULL input

@@ -1,0 +1,513 @@
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[11:16:41.336621][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[11:16:41.336824][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[11:16:41.336860][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+regis20230707111641.346182 p460 vca.exe: 启动……
+20230707111641.347244 p460 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+20230707111653.879789 p460 vca.exe: Accept: 192.169.4.16
+20230707111653.886511 p460 vca.exe: REQ: {
+20230707111653.886511 p460 vca.exe: --cmd
+20230707111653.886511 p460 vca.exe: 202
+20230707111653.886511 p460 vca.exe: --licence
+20230707111653.886511 p460 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230707111653.886511 p460 vca.exe: }
+20230707111653.887721 p460 vca.exe: RSP: {"errno":0,"monotonic":142639253,"realtime":1688699813887,"version":"6.1.2"}
+20230707111653.888811 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707111657.169924 p460 vca.exe: REQ: {
+20230707111657.169924 p460 vca.exe: --cmd
+20230707111657.169924 p460 vca.exe: 2
+20230707111657.169924 p460 vca.exe: --detector-conf
+20230707111657.169924 p460 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230707111657.169924 p460 vca.exe: --detector-conf-inline
+20230707111657.169924 p460 vca.exe: 1
+20230707111657.169924 p460 vca.exe: --detector-fps
+20230707111657.169924 p460 vca.exe: 1
+20230707111657.169924 p460 vca.exe: --id
+20230707111657.169924 p460 vca.exe: aaa
+20230707111657.169924 p460 vca.exe: --input-video-name
+20230707111657.169924 p460 vca.exe: rtsp://admin:a1234567@192.169.7.126:554
+20230707111657.169924 p460 vca.exe: --input-video-retry-interval
+20230707111657.169924 p460 vca.exe: 5
+20230707111657.169924 p460 vca.exe: --output-type
+20230707111657.169924 p460 vca.exe: 5
+20230707111657.169924 p460 vca.exe: }
+20230707111657.174306 p460 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT1.conf) 失败。
+20230707111657.175035 p460 vca.exe: Engine Conf Load(/userdata/edge/VideoProcess/bin/xxxx) 失败。
+20230707111657.176693 p460 vca.exe: Engine Conf Load(/userdata/edge/VideoProcess/bin/yyyy) 失败。
+20230707111657.177293 p460 vca.exe: Engine Conf Load(/userdata/edge/VideoProcess/bin/xxxyyyzzz) 失败。
+20230707111657.178155 p460 vca.exe: RSP: {"errno":0,"monotonic":142642544,"realtime":1688699817178,"version":"6.1.2"}
+20230707111657.178969 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707111657.181881 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707111658.597936 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707111658.598523 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707111658.599239 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.126:554':
+20230707111658.599838 p460 vca.exe:   Metadata:
+20230707111658.600095 p460 vca.exe:     title           : 
+20230707111658.600293 p460 vca.exe: Media Server
+20230707111658.600739 p460 vca.exe:   Duration: 
+20230707111658.600855 p460 vca.exe: N/A
+20230707111658.601004 p460 vca.exe: , start: 
+20230707111658.601275 p460 vca.exe: 0.280000
+20230707111658.601697 p460 vca.exe: , bitrate: 
+20230707111658.601910 p460 vca.exe: N/A
+20230707111658.602730 p460 vca.exe:     Stream #0:0
+20230707111658.603061 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707111658.603229 p460 vca.exe: , 
+20230707111658.603463 p460 vca.exe: 25 fps, 
+20230707111658.603769 p460 vca.exe: 25 tbr, 
+20230707111658.604091 p460 vca.exe: 90k tbn, 
+20230707111658.604300 p460 vca.exe: 50 tbc
+20230707111658.604469 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707111658.604592 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707111658.604752 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707111658.605049 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+mpp[460]: mpp_rt: NOT found ion allocator
+mpp[460]: mpp_rt: found drm allocator
+20230707111658.610761 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707111658.611044 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.126:554') ok.
+20230707111658.696569 p460 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230707111658.696569 p460 vca.exe: RGA_api version       : v1.3.0_[11]
+20230707111658.696569 p460 vca.exe: RGA_built version     : RGA is compiling with meson
+20230707111658.696569 p460 vca.exe: RGA version           : RGA_2_Enhance
+20230707111658.696569 p460 vca.exe: Max input             : 8192x8192
+20230707111658.696569 p460 vca.exe: Max output            : 4096x4096
+20230707111658.696569 p460 vca.exe: Scale limit           : 0.0625 ~ 16
+20230707111658.696569 p460 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230707111658.696569 p460 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230707111658.696569 p460 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230707111658.696569 p460 vca.exe: expected performance  : 600M pix/s 
+20230707111704.767114 p460 vca.exe: REQ: {
+20230707111704.767114 p460 vca.exe: --cmd
+20230707111704.767114 p460 vca.exe: 2
+20230707111704.767114 p460 vca.exe: --detector-conf
+20230707111704.767114 p460 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230707111704.767114 p460 vca.exe: --detector-conf-inline
+20230707111704.767114 p460 vca.exe: 1
+20230707111704.767114 p460 vca.exe: --detector-fps
+20230707111704.767114 p460 vca.exe: 1
+20230707111704.767114 p460 vca.exe: --id
+20230707111704.767114 p460 vca.exe: bbb
+20230707111704.767114 p460 vca.exe: --input-video-name
+20230707111704.767114 p460 vca.exe: rtsp://admin:a1234567@192.169.7.125:554
+20230707111704.767114 p460 vca.exe: --input-video-retry-interval
+20230707111704.767114 p460 vca.exe: 5
+20230707111704.767114 p460 vca.exe: --output-type
+20230707111704.767114 p460 vca.exe: 5
+20230707111704.767114 p460 vca.exe: }
+20230707111704.770052 p460 vca.exe: RSP: {"errno":0,"monotonic":142650136,"realtime":1688699824769,"version":"6.1.2"}
+20230707111704.770998 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 77 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707111704.772142 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707111705.770318 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707111705.770638 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707111705.770767 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707111705.770893 p460 vca.exe:   Metadata:
+20230707111705.771024 p460 vca.exe:     title           : 
+20230707111705.771167 p460 vca.exe: Media Presentation
+20230707111705.771402 p460 vca.exe:   Duration: 
+20230707111705.771564 p460 vca.exe: N/A
+20230707111705.771752 p460 vca.exe: , start: 
+20230707111705.772038 p460 vca.exe: 0.199667
+20230707111705.772596 p460 vca.exe: , bitrate: 
+20230707111705.772975 p460 vca.exe: N/A
+20230707111705.773692 p460 vca.exe:     Stream #0:0
+20230707111705.774205 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707111705.774734 p460 vca.exe: , 
+20230707111705.775207 p460 vca.exe: 30 fps, 
+20230707111705.775816 p460 vca.exe: 30 tbr, 
+20230707111705.776364 p460 vca.exe: 90k tbn, 
+20230707111705.776853 p460 vca.exe: 60 tbc
+20230707111705.777256 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707111705.777487 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707111705.777704 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707111705.777932 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707111705.783527 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707111705.783946 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707111734.782588 p460 vca.exe: Close: 192.169.4.16
+20230707111838.507849 p460 vca.exe: illegal reordering_of_pic_nums_idc 32
+20230707111838.625349 p460 vca.exe: reference overflow 4809 > 15 or 0 > 15
+20230707111838.715874 p460 vca.exe: reference overflow 2788 > 31 or 0 > 31
+20230707111838.753636 p460 vca.exe: reference overflow 3044 > 31 or 0 > 31
+20230707111839.114503 p460 vca.exe: illegal reordering_of_pic_nums_idc 32
+20230707111839.171809 p460 vca.exe: reference overflow 6858 > 15 or 0 > 15
+20230707111839.423249 p460 vca.exe: reference overflow 3812 > 31 or 0 > 31
+20230707111839.525248 p460 vca.exe: reference overflow 4068 > 31 or 0 > 31
+20230707111839.629130 p460 vca.exe: illegal reordering_of_pic_nums_idc 32
+20230707111839.718401 p460 vca.exe: reference overflow 2225 > 15 or 0 > 15
+20230707111839.845485 p460 vca.exe: reference overflow 1208 > 31 or 0 > 31
+20230707111840.001232 p460 vca.exe: reference overflow 1272 > 31 or 0 > 31
+20230707111840.171559 p460 vca.exe: illegal reordering_of_pic_nums_idc 32
+20230707111840.197922 p460 vca.exe: reference overflow 2737 > 15 or 0 > 15
+20230707111840.405679 p460 vca.exe: reference overflow 1464 > 31 or 0 > 31
+20230707111840.506516 p460 vca.exe: reference overflow 1528 > 31 or 0 > 31
+20230707111840.662884 p460 vca.exe: illegal reordering_of_pic_nums_idc 32
+20230707111928.966858 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707111928.967194 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707111928.967665 p460 vca.exe: SEI type 74 size 1512 truncated at 1336
+20230707111928.967873 p460 vca.exe: non-existing PPS 1 referenced
+20230707111958.731866 p460 vca.exe: sps_id 3 out of range
+20230707111958.732142 p460 vca.exe: non-existing PPS 6 referenced
+20230707112033.483467 p460 vca.exe: Undefined type (30)
+20230707112114.093893 p460 vca.exe: Accept: 192.169.4.16
+20230707112114.113991 p460 vca.exe: REQ: {
+20230707112114.113991 p460 vca.exe: --cmd
+20230707112114.113991 p460 vca.exe: 1
+20230707112114.113991 p460 vca.exe: }
+20230707112114.114681 p460 vca.exe: RSP: {"errno":0,"ids":["aaa","bbb"],"monotonic":142899481,"realtime":1688700074114,"version":"6.1.2"}
+20230707112114.118344 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 97 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707112119.293164 p460 vca.exe: REQ: {
+20230707112119.293164 p460 vca.exe: --cmd
+20230707112119.293164 p460 vca.exe: 6
+20230707112119.293164 p460 vca.exe: --id
+20230707112119.293164 p460 vca.exe: bbb
+20230707112119.293164 p460 vca.exe: }
+20230707112119.294171 p460 vca.exe: RSP: {"errno":0,"monotonic":142904660,"realtime":1688700079293,"task":{"detector":[{"id":"2","status":[{"/userdata/static/models/HELMET/DETECT1.conf":"Failed"},{"/userdata/edge/VideoProcess/bin/xxxx":"Failed"},{"/userdata/edge/VideoProcess/bin/yyyy":"Failed"},{"/userdata/edge/VideoProcess/bin/xxxyyyzzz":"Failed"}]}],"input":{"status":"Ok","type":1},"output":{"status":"Unknown","type":5}},"version":"6.1.2"}
+20230707112119.297080 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 405 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707112120.033472 p460 vca.exe: SEI type 72 size 1048 truncated at 840
+20230707112126.278346 p460 vca.exe: nal size exceeds length: 8613 1425
+20230707112126.279330 p460 vca.exe: SEI type 138 size 1936 truncated at 1104
+20230707112126.279616 p460 vca.exe: non-existing PPS 3 referenced
+20230707112127.393095 p460 vca.exe: REQ: {
+20230707112127.393095 p460 vca.exe: --cmd
+20230707112127.393095 p460 vca.exe: 6
+20230707112127.393095 p460 vca.exe: --id
+20230707112127.393095 p460 vca.exe: aaa
+20230707112127.393095 p460 vca.exe: }
+20230707112127.394015 p460 vca.exe: RSP: {"errno":0,"monotonic":142912760,"realtime":1688700087393,"task":{"detector":[{"id":"1","status":[{"/userdata/static/models/HELMET/DETECT1.conf":"Failed"},{"/userdata/edge/VideoProcess/bin/xxxx":"Failed"},{"/userdata/edge/VideoProcess/bin/yyyy":"Failed"},{"/userdata/edge/VideoProcess/bin/xxxyyyzzz":"Failed"}]}],"input":{"status":"Ok","type":1},"output":{"status":"Unknown","type":5}},"version":"6.1.2"}
+20230707112127.398686 p460 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 405 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+20230707112133.493781 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112133.494066 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112139.590944 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112139.591225 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112157.410328 p460 vca.exe: Close: 192.169.4.16
+20230707112157.951744 p460 vca.exe: non-existing PPS 16 referenced
+20230707112158.105491 p460 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230707112158.105998 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707112159.090535 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707112159.090858 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707112159.091155 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707112159.091402 p460 vca.exe:   Metadata:
+20230707112159.092496 p460 vca.exe:     title           : 
+20230707112159.092933 p460 vca.exe: Media Presentation
+20230707112159.093329 p460 vca.exe:   Duration: 
+20230707112159.093528 p460 vca.exe: N/A
+20230707112159.093730 p460 vca.exe: , start: 
+20230707112159.093927 p460 vca.exe: 0.199667
+20230707112159.094125 p460 vca.exe: , bitrate: 
+20230707112159.094318 p460 vca.exe: N/A
+20230707112159.094847 p460 vca.exe:     Stream #0:0
+20230707112159.095134 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707112159.095350 p460 vca.exe: , 
+20230707112159.095859 p460 vca.exe: 30 fps, 
+20230707112159.096103 p460 vca.exe: 30 tbr, 
+20230707112159.096305 p460 vca.exe: 90k tbn, 
+20230707112159.096501 p460 vca.exe: 60 tbc
+20230707112159.096802 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707112159.096975 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707112159.097265 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707112159.097477 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707112159.100356 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707112159.100636 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707112242.695854 p460 vca.exe: illegal POC type 32
+20230707112242.697247 p460 vca.exe: FMO not supported
+20230707112258.870317 p460 vca.exe: nal size exceeds length: 53389 1425
+20230707112258.870774 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707112258.871197 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112303.376092 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112303.376787 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112303.378277 p460 vca.exe: crop values invalid 0 0 24 15 / 16 16
+20230707112313.439692 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707112313.440138 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112327.668195 p460 vca.exe: non-existing SPS 3 referenced in buffering period
+20230707112327.668499 p460 vca.exe: SEI type 17 size 1064 truncated at 344
+mpp[460]: h264d_sei: seq_parameter_set_id 3 may be invalid
+20230707112343.777654 p460 vca.exe: nal size exceeds length: 43468 1425
+20230707112343.991633 p460 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230707112343.992042 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707112344.997039 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707112344.997630 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707112344.997968 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707112344.998111 p460 vca.exe:   Metadata:
+20230707112344.998253 p460 vca.exe:     title           : 
+20230707112344.998389 p460 vca.exe: Media Presentation
+20230707112344.998950 p460 vca.exe:   Duration: 
+20230707112344.999093 p460 vca.exe: N/A
+20230707112344.999295 p460 vca.exe: , start: 
+20230707112344.999589 p460 vca.exe: 0.199667
+20230707112344.999871 p460 vca.exe: , bitrate: 
+20230707112345.000092 p460 vca.exe: N/A
+20230707112345.000668 p460 vca.exe:     Stream #0:0
+20230707112345.000970 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707112345.001329 p460 vca.exe: , 
+20230707112345.001610 p460 vca.exe: 30 fps, 
+20230707112345.001870 p460 vca.exe: 30 tbr, 
+20230707112345.002114 p460 vca.exe: 90k tbn, 
+20230707112345.002438 p460 vca.exe: 60 tbc
+20230707112345.002822 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707112345.003053 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707112345.003375 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707112345.003661 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707112345.008738 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707112345.009027 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707112403.880090 p460 vca.exe: sps_id 2 out of range
+20230707112434.452305 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707112434.453354 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112514.515986 p460 vca.exe: SEI type 4 size 1584 truncated at 928
+20230707112633.412403 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112633.412732 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112633.413336 p460 vca.exe: nal size exceeds length: 19606 1425
+20230707112633.413726 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112633.413986 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112640.179614 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112640.179985 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112646.350306 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112646.350585 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112646.351876 p460 vca.exe: SEI type 189 size 1352 truncated at 952
+20230707112654.048208 p460 vca.exe: RTP: PT=60: bad cseq f3fc expected=06bc
+20230707112746.486995 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112746.487326 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112817.225443 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112817.225845 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112829.705190 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112829.705458 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112836.154754 p460 vca.exe: non-existing PPS 2 referenced
+20230707112843.432892 p460 vca.exe: sps_id 32 out of range
+20230707112849.217697 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112849.218016 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112849.218374 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112849.218727 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112939.468905 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707112939.469385 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112939.470388 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707112939.470757 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707112959.967768 p460 vca.exe: Undefined type (31)
+20230707112959.968634 p460 vca.exe: Undefined type (30)
+20230707113017.554318 p460 vca.exe: nal size exceeds length: 8675 1425
+20230707113017.554946 p460 vca.exe: SEI type 247 size 1752 truncated at 992
+20230707113017.555399 p460 vca.exe: SEI type 237 size 1152 truncated at 80
+20230707113119.510281 p460 vca.exe: Undefined type (30)
+20230707113125.266321 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707113125.266577 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113125.266884 p460 vca.exe: Undefined type (30)
+20230707113133.885104 p460 vca.exe: nal size exceeds length: 11111 1425
+20230707113134.054454 p460 vca.exe: sps_id 1 out of range
+20230707113149.996959 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707113149.997252 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113150.154788 p460 vca.exe: reference count 1 overflow
+20230707113155.998332 p460 vca.exe: Undefined type (30)
+20230707113209.907272 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707113209.907633 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113226.016301 p460 vca.exe: Undefined type (31)
+20230707113226.018564 p460 vca.exe: SEI type 187 size 800 truncated at 680
+20230707113233.210796 p460 vca.exe: SEI type 26 size 1488 truncated at 544
+20230707113239.924908 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707113239.926288 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113239.927993 p460 vca.exe: crop values invalid 4 6 6 2 / 16 16
+20230707113251.173992 p460 vca.exe: log2_max_poc_lsb (29) is out of range
+20230707113251.174501 p460 vca.exe: SEI type 137 size 1904 truncated at 896
+20230707113257.555544 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707113257.555976 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113257.556409 p460 vca.exe: Undefined type (30)
+20230707113257.556632 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707113257.556792 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113310.892314 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707113310.892721 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113310.893980 p460 vca.exe: SEI type 214 size 1944 truncated at 1520
+20230707113317.320241 p460 vca.exe: Undefined type (31)
+20230707113317.320703 p460 vca.exe: non-existing PPS 1 referenced
+20230707113324.801175 p460 vca.exe: non-existing PPS 6 referenced
+20230707113342.609244 p460 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230707113342.622319 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707113343.640999 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707113343.641344 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707113343.641538 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707113343.641693 p460 vca.exe:   Metadata:
+20230707113343.641900 p460 vca.exe:     title           : 
+20230707113343.642303 p460 vca.exe: Media Presentation
+20230707113343.642687 p460 vca.exe:   Duration: 
+20230707113343.642903 p460 vca.exe: N/A
+20230707113343.643218 p460 vca.exe: , start: 
+20230707113343.643529 p460 vca.exe: 0.199667
+20230707113343.643767 p460 vca.exe: , bitrate: 
+20230707113343.644016 p460 vca.exe: N/A
+20230707113343.644571 p460 vca.exe:     Stream #0:0
+20230707113343.644911 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707113343.645234 p460 vca.exe: , 
+20230707113343.645675 p460 vca.exe: 30 fps, 
+20230707113343.646015 p460 vca.exe: 30 tbr, 
+20230707113343.646375 p460 vca.exe: 90k tbn, 
+20230707113343.646754 p460 vca.exe: 60 tbc
+20230707113343.647160 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707113343.647538 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707113343.647970 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707113343.648403 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707113343.652262 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707113343.652707 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707113401.919429 p460 vca.exe: Undefined type (30)
+20230707113429.347531 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707113429.348029 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113429.349511 p460 vca.exe: SEI type 113 size 1432 truncated at 1080
+20230707113455.645934 p460 vca.exe: nal size exceeds length: 39247 1425
+20230707113455.849393 p460 vca.exe: non-existing PPS 2 referenced
+20230707113505.847569 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707113505.847882 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113505.848922 p460 vca.exe: FMO not supported
+20230707113505.849225 p460 vca.exe: illegal reordering_of_pic_nums_idc 5
+20230707113505.855314 p460 vca.exe: reference count 7 overflow
+20230707113505.910760 p460 vca.exe: reference count 7 overflow
+20230707113505.938702 p460 vca.exe: illegal reordering_of_pic_nums_idc 5
+20230707113506.005072 p460 vca.exe: luma_log2_weight_denom 13 is out of range
+20230707113506.040793 p460 vca.exe: reference count 7 overflow
+20230707113506.104282 p460 vca.exe: illegal reordering_of_pic_nums_idc 5
+20230707113506.164231 p460 vca.exe: reference count 7 overflow
+20230707113506.230207 p460 vca.exe: illegal reordering_of_pic_nums_idc 7
+20230707113555.396770 p460 vca.exe: nal size exceeds length: 9337 1425
+20230707113555.397858 p460 vca.exe: non-existing PPS 1 referenced
+20230707113610.681438 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707113610.681811 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113619.861887 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707113619.862290 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113715.976754 p460 vca.exe: Undefined type (31)
+20230707113811.354927 p460 vca.exe: non-existing PPS 4 referenced
+20230707113826.265700 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707113826.266060 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113826.266441 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707113826.266754 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113826.267159 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707113826.267621 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707113826.270414 p460 vca.exe: illegal POC type 7
+20230707113830.750039 p460 vca.exe: SEI type 165 size 936 truncated at 64
+20230707113908.938823 p460 vca.exe: crop values invalid 10 0 1 0 / 16 16
+20230707114032.203090 p460 vca.exe: sps_id 6 out of range
+20230707114100.803306 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707114100.803584 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114201.205215 p460 vca.exe: SEI type 217 size 1872 truncated at 1064
+20230707114236.549246 p460 vca.exe: RTP H.264 NAL unit type 29
+20230707114236.549567 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114317.032842 p460 vca.exe: FMO not supported
+20230707114421.888301 p460 vca.exe: non-existing PPS 1 referenced
+20230707114421.929369 p460 vca.exe: SEI type 213 size 1104 truncated at 1072
+20230707114435.839145 p460 vca.exe: nal size exceeds length: 24866 1425
+20230707114435.839633 p460 vca.exe: Different chroma and luma bit depth
+20230707114435.840323 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114435.840670 p460 vca.exe: If you want to help, upload a sample of this file to ftp://upload.ffmpeg.org/incoming/ and contact the ffmpeg-devel mailing list. (ffmpeg-devel@ffmpeg.org)
+20230707114505.350255 p460 vca.exe: Undefined type (30)
+20230707114518.382575 p460 vca.exe: nal size exceeds length: 7252 1425
+20230707114532.281974 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707114532.282305 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114532.320728 p460 vca.exe: too many reference frames 32
+20230707114532.321052 p460 vca.exe: non-existing PPS 10 referenced
+20230707114551.506161 p460 vca.exe: Undefined type (31)
+20230707114551.644875 p460 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230707114551.645173 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707114552.626186 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707114552.631279 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707114552.631706 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707114552.633481 p460 vca.exe:   Metadata:
+20230707114552.633855 p460 vca.exe:     title           : 
+20230707114552.634120 p460 vca.exe: Media Presentation
+20230707114552.634335 p460 vca.exe:   Duration: 
+20230707114552.634502 p460 vca.exe: N/A
+20230707114552.634614 p460 vca.exe: , start: 
+20230707114552.634726 p460 vca.exe: 0.199667
+20230707114552.634825 p460 vca.exe: , bitrate: 
+20230707114552.634921 p460 vca.exe: N/A
+20230707114552.636246 p460 vca.exe:     Stream #0:0
+20230707114552.638434 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707114552.639376 p460 vca.exe: , 
+20230707114552.639690 p460 vca.exe: 30 fps, 
+20230707114552.640675 p460 vca.exe: 30 tbr, 
+20230707114552.640981 p460 vca.exe: 90k tbn, 
+20230707114552.641331 p460 vca.exe: 60 tbc
+20230707114552.642119 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707114552.643373 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707114552.644824 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707114552.646114 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707114552.649016 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707114552.649261 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707114601.274782 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707114601.275120 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114601.508006 p460 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230707114601.508287 p460 vca.exe: video.cpp: 167 [abckd_ffmpeg_open_capture] url : 
+20230707114602.520619 p460 vca.exe: video.cpp: 171 [abcdk_ffmpeg_ctxptr] ctx->ffmpeg is valid
+20230707114602.520966 p460 vca.exe: video.cpp: 175 [abcdk_avformat_dump] avctx_p is valid
+20230707114602.521124 p460 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230707114602.521292 p460 vca.exe:   Metadata:
+20230707114602.521458 p460 vca.exe:     title           : 
+20230707114602.521743 p460 vca.exe: Media Presentation
+20230707114602.522177 p460 vca.exe:   Duration: 
+20230707114602.522611 p460 vca.exe: N/A
+20230707114602.522975 p460 vca.exe: , start: 
+20230707114602.525569 p460 vca.exe: 0.200667
+20230707114602.525804 p460 vca.exe: , bitrate: 
+20230707114602.526000 p460 vca.exe: N/A
+20230707114602.527529 p460 vca.exe:     Stream #0:0
+20230707114602.527900 p460 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230707114602.528358 p460 vca.exe: , 
+20230707114602.528658 p460 vca.exe: 30 fps, 
+20230707114602.528925 p460 vca.exe: 30 tbr, 
+20230707114602.529162 p460 vca.exe: 90k tbn, 
+20230707114602.529396 p460 vca.exe: 60 tbc
+20230707114602.529760 p460 vca.exe: video.cpp: 177 going to [abcdk_avstream_find] 
+20230707114602.530051 p460 vca.exe: video.cpp: 181 [abcdk_avstream_find] avstream_p is valid
+20230707114602.530370 p460 vca.exe: video_cpp: 184 going to [abcdk_avstream_fps]
+20230707114602.530737 p460 vca.exe: video_cpp: 193 [vcodec_alloc] ctx->codec is valid
+mpp[460]: mpp_info: mpp version: 57ff4c6b author: Herman Chen   2021-09-13 [cmake]: Enable HAVE_DRM by default
+20230707114602.545166 p460 vca.exe: lib/advance/video.cpp(205):video_open_capture
+20230707114602.546516 p460 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230707114633.507170 p460 vca.exe: RTP H.264 NAL unit type 27
+20230707114633.507551 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114633.508845 p460 vca.exe: SEI type 101 size 1752 truncated at 456
+20230707114700.439286 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707114700.439621 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114713.332987 p460 vca.exe: Undefined type (31)
+20230707114713.333334 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707114713.333434 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114726.899719 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707114726.900572 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114726.901989 p460 vca.exe: Undefined type (31)
+20230707114726.904877 p460 vca.exe: sps_id 3 out of range
+20230707114811.035376 p460 vca.exe: Undefined type (30)
+20230707114839.151897 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707114839.152237 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114839.152540 p460 vca.exe: Undefined type (31)
+20230707114839.152871 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707114839.153184 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707114844.147737 p460 vca.exe: sps_id 32 out of range
+20230707114848.509050 p460 vca.exe: nal size exceeds length: 43680 1425
+20230707114929.641161 p460 vca.exe: nal size exceeds length: 46797 1425
+20230707114947.239668 p460 vca.exe: illegal aspect ratio
+20230707115042.238934 p460 vca.exe: RTP H.264 NAL unit type 26
+20230707115042.239302 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230707115052.392480 p460 vca.exe: missing picture in access unit with size 268
+20230707115132.042228 p460 vca.exe: RTP H.264 NAL unit type 25
+20230707115132.042617 p460 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+
+# command output info
+root@3f19585b5f05:/userdata/edge/VideoProcess/bin# ./vca.exe --getway-listen 0.0.0.0:10010 >> vca-4.log 2>&1
+Segmentation fault
+root@3f19585b5f05:/userdata/edge/VideoProcess/bin# 
