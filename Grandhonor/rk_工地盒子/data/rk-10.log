@@ -1,0 +1,763 @@
+## 第一次段错误： h264d_slice.c:389
+
+日志：
+
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[241]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[241]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[241]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[241]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+mpp[241]: h264d_init: Assertion svcExt->valid failed at dpb_mark_malloc:477
+mpp[241]: mpp_meta: mpp_meta_set_s32 found NULL input
+[Thread 0x91722b10 (LWP 273) exited]
+mpp[241]: mpp_mem_pool: put_pool found 2 used buffer size 204
+[Thread 0x8eeeab10 (LWP 272) exited]
+20230710163240.850839 p241 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230710163241.889342 p241 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230710163241.890762 p241 vca.exe:   Metadata:
+20230710163241.891834 p241 vca.exe:     title           : 
+20230710163241.893351 p241 vca.exe: Media Presentation
+20230710163241.895088 p241 vca.exe:   Duration: 
+20230710163241.896966 p241 vca.exe: N/A
+20230710163241.898786 p241 vca.exe: , start: 
+20230710163241.899936 p241 vca.exe: 0.200667
+20230710163241.900729 p241 vca.exe: , bitrate: 
+20230710163241.901637 p241 vca.exe: N/A
+20230710163241.902822 p241 vca.exe:     Stream #0:0
+20230710163241.904058 p241 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710163241.907280 p241 vca.exe: , 
+20230710163241.908156 p241 vca.exe: 30 fps, 
+20230710163241.908914 p241 vca.exe: 30 tbr, 
+20230710163241.909758 p241 vca.exe: 90k tbn, 
+20230710163241.914323 p241 vca.exe: 60 tbc
+mpp[241]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x91722b10 (LWP 276)]
+[New Thread 0x8eeeab10 (LWP 277)]
+20230710163241.966396 p241 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230710163242.592527 p241 vca.exe: missing picture in access unit with size 326
+20230710163248.618332 p241 vca.exe: SEI type 181 size 1744 truncated at 992
+20230710163303.260281 p241 vca.exe: illegal memory management control operation 12
+20230710163322.794471 p241 vca.exe: Undefined type (31)
+20230710163322.795069 p241 vca.exe: Undefined type (31)
+20230710163322.795329 p241 vca.exe: Undefined type (31)
+20230710163335.094175 p241 vca.exe: FMO not supported
+20230710163345.045109 p241 vca.exe: RTP H.264 NAL unit type 29
+20230710163345.054272 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163348.111364 p241 vca.exe: RTP H.264 NAL unit type 29
+20230710163348.111900 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163348.112228 p241 vca.exe: Undefined type (30)
+20230710163348.112698 p241 vca.exe: RTP H.264 NAL unit type 26
+20230710163348.112925 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163353.205503 p241 vca.exe: non-existing PPS 2 referenced
+20230710163357.468690 p241 vca.exe: RTP H.264 NAL unit type 26
+20230710163357.468995 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163411.705858 p241 vca.exe: RTP H.264 NAL unit type 27
+20230710163411.706699 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163411.707514 p241 vca.exe: RTP H.264 NAL unit type 26
+20230710163411.707774 p241 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710163411.710458 p241 vca.exe: CSeq 8 expected, 7 received.
+20230710163413.777020 p241 vca.exe: nal size exceeds length: 27564 1092
+
+Thread 16 "ddd-Input" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x985ecb10 (LWP 258)]
+0xa3b7d688 in set_slice_user_parmeters (currSlice=0x98739664)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+389	/home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c: No such file or directory.
+(gdb) 
+(gdb) info threads
+  Id   Target Id                                 Frame 
+  1    Thread 0xa128d010 (LWP 241) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  2    Thread 0xa1277b10 (LWP 244) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  3    Thread 0xa0a76b10 (LWP 245) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  4    Thread 0x9c275b10 (LWP 246) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  5    Thread 0x99973b10 (LWP 247) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:47
+  6    Thread 0x99172b10 (LWP 248) "vca.exe"     __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:47
+  14   Thread 0x95ae9b10 (LWP 256) "ddd-Process" __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  15   Thread 0x952e8b10 (LWP 257) "ddd-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+* 16   Thread 0x985ecb10 (LWP 258) "ddd-Input"   0xa3b7d688 in set_slice_user_parmeters (
+    currSlice=0x98739664)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+  17   Thread 0x941ebb10 (LWP 259) "ddd-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  19   Thread 0x90e20b10 (LWP 261) "ccc-Process" __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:47
+  20   Thread 0x9061fb10 (LWP 262) "ccc-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  24   Thread 0x8ba33b10 (LWP 266) "bbb-Process" __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  25   Thread 0x8b232b10 (LWP 267) "bbb-Input"   0xa62cb1f8 in ioctl ()
+    at ../sysdeps/unix/syscall-template.S:78
+  26   Thread 0x8c234b10 (LWP 268) "bbb-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  27   Thread 0x8a2ebb10 (LWP 269) "bbb-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  30   Thread 0x91722b10 (LWP 276) "ccc-Input"   __libc_do_syscall ()
+    at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  31   Thread 0x8eeeab10 (LWP 277) "ccc-Input"   0xa62cb1f8 in ioctl ()
+    at ../sysdeps/unix/syscall-template.S:78
+(gdb) bt
+#0  0xa3b7d688 in set_slice_user_parmeters (currSlice=0x98739664)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+#1  0xa3b7da00 in process_slice (currSlice=0x98739664)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:461
+#2  0xa3b78620 in parser_one_nalu (currSlice=0x98739664)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:233
+#3  0xa3b7b420 in parse_loop (p_Dec=0x9871cb00)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:909
+#4  0xa3b770e4 in h264d_parse (decoder=0x9871cb00, in_task=0x985ec494)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_api.c:595
+#5  0xa3b2eae4 in mpp_parser_parse (prs=0x9871caa0, task=0x985ec494)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_parser.cpp:158
+#6  0xa3b2aaac in try_proc_dec_task (mpp=0x9879c7a0, task=0x985ec474)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:932
+#7  0xa3b2b54c in mpp_dec_parser_thread (data=0x9879c7a0)
+    at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:1140
+#8  0xa61e99d8 in start_thread (arg=0xa54e57a7 <dtrsm_LTUU+626>) at pthread_create.c:477
+#9  0xa62d084c in ?? () at ../sysdeps/unix/sysv/linux/arm/clone.S:73
+   from /lib/arm-linux-gnueabihf/libc.so.6
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) print active_subsps->Valid
+Cannot access memory at address 0x1078
+(gdb) print active_subsps
+$1 = (struct h264_subsps_t *) 0x0
+(gdb) print cur_pps->seq_parameter_set_id
+$2 = 0
+(gdb) p p_Vid
+$3 = (H264dVideoCtx_t *) 0x9871ed80
+(gdb) p p_Vid->subspsSet
+$4 = {0x0 <repeats 32 times>}
+(gdb) p p_Vid->subspsSet[0]
+$5 = (struct h264_subsps_t *) 0x0
+(gdb) p p_Vid->subspsSet[1]
+$6 = (struct h264_subsps_t *) 0x0
+(gdb) p p_Vid->subspsSet[2]
+$7 = (struct h264_subsps_t *) 0x0
+(gdb) p active_subsps      
+$8 = (struct h264_subsps_t *) 0x0
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+
+## 第二次出现段错误： h264d_slice:289 
+
+日志信息：
+
+Start it from the beginning? (y or n) yy
+Starting program: /userdata/edge/package/VideoProcess/bin/vca.exe --getway-listen 0.0.0.0:10010
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/arm-linux-gnueabihf/libthread_db.so.1".
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[16:50:19.149093][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[16:50:19.149469][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[16:50:19.149618][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+register factory : output_stream
+register factory : move_detec
+register factory : occlusion_detec
+register factory : file_write_stream
+register factory : file_read_stream
+register factory : alsa_playback_stream
+register factory : alsa_capture_stream
+register factory : v4l2_capture_stream
+register factory : v4l2_output_stream
+register factory : drm_output_stream
+rga_api version 1.3.0_[11] (RGA is compiling with meson base: $PRODUCT_BASE)
+register factory : rkrga
+register factory : through_guard
+register factory : ANR
+register factory : AEC
+[New Thread 0xa1277b10 (LWP 299)]
+[New Thread 0xa0a76b10 (LWP 300)]
+[New Thread 0x9e275b10 (LWP 301)]
+20230710165019.163970 p298 vca.exe: 启动……
+[New Thread 0x99973b10 (LWP 302)]
+20230710165019.168313 p298 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+[New Thread 0x99172b10 (LWP 303)]
+20230710165025.345184 p298 vca.exe: Accept: 192.169.4.16
+[New Thread 0x985ecb10 (LWP 304)]
+20230710165025.357947 p298 vca.exe: REQ: {
+20230710165025.357947 p298 vca.exe: --cmd
+20230710165025.357947 p298 vca.exe: 202
+20230710165025.357947 p298 vca.exe: --licence
+20230710165025.357947 p298 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230710165025.357947 p298 vca.exe: }
+20230710165025.359898 p298 vca.exe: RSP: {"errno":0,"monotonic":4459264,"realtime":1688979025359,"version":"6.1.2"}
+20230710165025.361479 p298 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[Thread 0x985ecb10 (LWP 304) exited]
+[New Thread 0x985ecb10 (LWP 305)]
+20230710165032.574544 p298 vca.exe: REQ: {
+20230710165032.574544 p298 vca.exe: --cmd
+20230710165032.574544 p298 vca.exe: 2
+20230710165032.574544 p298 vca.exe: --detector-conf
+20230710165032.574544 p298 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165032.574544 p298 vca.exe: --detector-conf-inline
+20230710165032.574544 p298 vca.exe: 1
+20230710165032.574544 p298 vca.exe: --detector-fps
+20230710165032.574544 p298 vca.exe: 1
+20230710165032.574544 p298 vca.exe: --id
+20230710165032.574544 p298 vca.exe: aaa
+20230710165032.574544 p298 vca.exe: --input-video-name
+20230710165032.574544 p298 vca.exe: rtsp://admin:a1234567@192.169.7.126:554
+20230710165032.574544 p298 vca.exe: --input-video-retry-interval
+20230710165032.574544 p298 vca.exe: 5
+20230710165032.574544 p298 vca.exe: --output-type
+20230710165032.574544 p298 vca.exe: 5
+20230710165032.574544 p298 vca.exe: }
+[New Thread 0x97ceab10 (LWP 306)]
+20230710165032.579664 p298 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT1.conf) 失败。
+[Thread 0x97ceab10 (LWP 306) exited]
+[New Thread 0x972ecb10 (LWP 307)]
+20230710165032.582053 p298 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/xxxx) 失败。
+[New Thread 0x96aebb10 (LWP 308)]
+[Thread 0x972ecb10 (LWP 307) exited]
+20230710165032.584026 p298 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/yyyy) 失败。
+[Thread 0x96aebb10 (LWP 308) exited]
+[New Thread 0x962eab10 (LWP 309)]
+20230710165032.586881 p298 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/xxxyyyzzz) 失败。
+[Thread 0x962eab10 (LWP 309) exited]
+[New Thread 0x95ae9b10 (LWP 310)]
+20230710165032.590444 p298 vca.exe: RSP: {"errno":0,"monotonic":4466495,"realtime":1688979032590,"version":"6.1.2"}
+[New Thread 0x952e8b10 (LWP 311)]
+20230710165032.593152 p298 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[Thread 0x985ecb10 (LWP 305) exited]
+20230710165034.212853 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.126:554':
+20230710165034.213190 p298 vca.exe:   Metadata:
+20230710165034.213360 p298 vca.exe:     title           : 
+20230710165034.213530 p298 vca.exe: Media Server
+20230710165034.214113 p298 vca.exe:   Duration: 
+20230710165034.214388 p298 vca.exe: N/A
+20230710165034.214527 p298 vca.exe: , start: 
+20230710165034.214688 p298 vca.exe: 0.320000
+20230710165034.214845 p298 vca.exe: , bitrate: 
+20230710165034.214998 p298 vca.exe: N/A
+20230710165034.215766 p298 vca.exe:     Stream #0:0
+20230710165034.216087 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165034.216273 p298 vca.exe: , 
+20230710165034.216456 p298 vca.exe: 25 fps, 
+20230710165034.216601 p298 vca.exe: 25 tbr, 
+20230710165034.216739 p298 vca.exe: 90k tbn, 
+20230710165034.216869 p298 vca.exe: 50 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+mpp[298]: mpp_rt: NOT found ion allocator
+mpp[298]: mpp_rt: found drm allocator
+[New Thread 0x985ecb10 (LWP 312)]
+[New Thread 0x940ecb10 (LWP 313)]
+20230710165034.224088 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.126:554') ok.
+20230710165034.315004 p298 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230710165034.315004 p298 vca.exe: RGA_api version       : v1.3.0_[11]
+20230710165034.315004 p298 vca.exe: RGA_built version     : RGA is compiling with meson
+20230710165034.315004 p298 vca.exe: RGA version           : RGA_2_Enhance
+20230710165034.315004 p298 vca.exe: Max input             : 8192x8192
+20230710165034.315004 p298 vca.exe: Max output            : 4096x4096
+20230710165034.315004 p298 vca.exe: Scale limit           : 0.0625 ~ 16
+20230710165034.315004 p298 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230710165034.315004 p298 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230710165034.315004 p298 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230710165034.315004 p298 vca.exe: expected performance  : 600M pix/s 
+Had init the rga dev ctx = 0x1346f8
+rga_api version 1.3.0_[11] (RGA is compiling with meson base: $PRODUCT_BASE)
+[New Thread 0x91226b10 (LWP 314)]
+20230710165045.589927 p298 vca.exe: REQ: {
+20230710165045.589927 p298 vca.exe: --cmd
+20230710165045.589927 p298 vca.exe: 2
+20230710165045.589927 p298 vca.exe: --detector-conf
+20230710165045.589927 p298 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165045.589927 p298 vca.exe: --detector-conf-inline
+20230710165045.589927 p298 vca.exe: 1
+20230710165045.589927 p298 vca.exe: --detector-fps
+20230710165045.589927 p298 vca.exe: 1
+20230710165045.589927 p298 vca.exe: --id
+20230710165045.589927 p298 vca.exe: bbb
+20230710165045.589927 p298 vca.exe: --input-video-name
+20230710165045.589927 p298 vca.exe: rtsp://admin:a1234567@192.169.7.125:554
+20230710165045.589927 p298 vca.exe: --input-video-retry-interval
+20230710165045.589927 p298 vca.exe: 5
+20230710165045.589927 p298 vca.exe: --output-type
+20230710165045.589927 p298 vca.exe: 5
+20230710165045.589927 p298 vca.exe: }
+[New Thread 0x90a25b10 (LWP 315)]
+20230710165045.596390 p298 vca.exe: RSP: {"errno":0,"monotonic":4479501,"realtime":1688979045596,"version":"6.1.2"}
+20230710165045.597089 p298 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[New Thread 0x90224b10 (LWP 316)]
+[Thread 0x91226b10 (LWP 314) exited]
+20230710165046.591522 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230710165046.592515 p298 vca.exe:   Metadata:
+20230710165046.592928 p298 vca.exe:     title           : 
+20230710165046.593097 p298 vca.exe: Media Presentation
+20230710165046.593251 p298 vca.exe:   Duration: 
+20230710165046.593337 p298 vca.exe: N/A
+20230710165046.593424 p298 vca.exe: , start: 
+20230710165046.593580 p298 vca.exe: 0.200667
+20230710165046.593682 p298 vca.exe: , bitrate: 
+20230710165046.593787 p298 vca.exe: N/A
+20230710165046.594161 p298 vca.exe:     Stream #0:0
+20230710165046.594384 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165046.594614 p298 vca.exe: , 
+20230710165046.594955 p298 vca.exe: 30 fps, 
+20230710165046.595165 p298 vca.exe: 30 tbr, 
+20230710165046.595309 p298 vca.exe: 90k tbn, 
+20230710165046.595527 p298 vca.exe: 60 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x91226b10 (LWP 317)]
+[New Thread 0x8eaeab10 (LWP 318)]
+20230710165046.602201 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[New Thread 0x8be27b10 (LWP 319)]
+20230710165054.421596 p298 vca.exe: REQ: {
+20230710165054.421596 p298 vca.exe: --cmd
+20230710165054.421596 p298 vca.exe: 2
+20230710165054.421596 p298 vca.exe: --detector-conf
+20230710165054.421596 p298 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165054.421596 p298 vca.exe: --detector-conf-inline
+20230710165054.421596 p298 vca.exe: 1
+20230710165054.421596 p298 vca.exe: --detector-fps
+20230710165054.421596 p298 vca.exe: 1
+20230710165054.421596 p298 vca.exe: --id
+20230710165054.421596 p298 vca.exe: ccc
+20230710165054.421596 p298 vca.exe: --input-video-name
+20230710165054.421596 p298 vca.exe: rtsp://admin:a1234567@192.169.7.123:554
+20230710165054.421596 p298 vca.exe: --input-video-retry-interval
+20230710165054.421596 p298 vca.exe: 5
+20230710165054.421596 p298 vca.exe: --output-type
+20230710165054.421596 p298 vca.exe: 5
+20230710165054.421596 p298 vca.exe: }
+[New Thread 0x8b525b10 (LWP 320)]
+20230710165054.431907 p298 vca.exe: RSP: {"errno":0,"monotonic":4488337,"realtime":1688979054431,"version":"6.1.2"}
+20230710165054.438474 p298 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[New Thread 0x8ad24b10 (LWP 321)]
+[Thread 0x8be27b10 (LWP 319) exited]
+20230710165056.004496 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230710165056.005016 p298 vca.exe:   Metadata:
+20230710165056.005502 p298 vca.exe:     title           : 
+20230710165056.005752 p298 vca.exe: Media Presentation
+20230710165056.005926 p298 vca.exe:   Duration: 
+20230710165056.006084 p298 vca.exe: N/A
+20230710165056.006207 p298 vca.exe: , start: 
+20230710165056.009574 p298 vca.exe: 0.240000
+20230710165056.010951 p298 vca.exe: , bitrate: 
+20230710165056.011518 p298 vca.exe: N/A
+20230710165056.012238 p298 vca.exe:     Stream #0:0
+20230710165056.012408 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165056.012552 p298 vca.exe: , 
+20230710165056.012684 p298 vca.exe: 25 fps, 
+20230710165056.012823 p298 vca.exe: 25 tbr, 
+20230710165056.012961 p298 vca.exe: 90k tbn, 
+20230710165056.013159 p298 vca.exe: 50 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x8be27b10 (LWP 322)]
+[New Thread 0x893ebb10 (LWP 323)]
+20230710165056.020191 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+mpp[298]: mpp_dec: reset at info change status
+mpp[298]: mpp_dec: task no send to hal que must clr current frame hal status
+[Thread 0x893ebb10 (LWP 323) exited]
+[Thread 0x8be27b10 (LWP 322) exited]
+20230710165057.173995 p298 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230710165058.445997 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230710165058.446357 p298 vca.exe:   Metadata:
+20230710165058.446477 p298 vca.exe:     title           : 
+20230710165058.446637 p298 vca.exe: Media Presentation
+20230710165058.446846 p298 vca.exe:   Duration: 
+20230710165058.446964 p298 vca.exe: N/A
+20230710165058.447109 p298 vca.exe: , start: 
+20230710165058.447273 p298 vca.exe: 0.240000
+20230710165058.447530 p298 vca.exe: , bitrate: 
+20230710165058.447854 p298 vca.exe: N/A
+20230710165058.448535 p298 vca.exe:     Stream #0:0
+20230710165058.448828 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165058.448980 p298 vca.exe: , 
+20230710165058.449284 p298 vca.exe: 25 fps, 
+20230710165058.449628 p298 vca.exe: 25 tbr, 
+20230710165058.449947 p298 vca.exe: 90k tbn, 
+20230710165058.450081 p298 vca.exe: 50 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x893ebb10 (LWP 324)]
+[New Thread 0x8be27b10 (LWP 325)]
+20230710165058.460269 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+20230710165125.454332 p298 vca.exe: Close: 192.169.4.16
+20230710165147.224478 p298 vca.exe: CSeq 7 expected, 6 received.
+20230710165234.922161 p298 vca.exe: CSeq 7 expected, 0 received.
+[Thread 0x8eaeab10 (LWP 318) exited]
+[Thread 0x91226b10 (LWP 317) exited]
+20230710165241.132951 p298 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230710165242.201235 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230710165242.204139 p298 vca.exe:   Metadata:
+20230710165242.204520 p298 vca.exe:     title           : 
+20230710165242.205132 p298 vca.exe: Media Presentation
+20230710165242.205516 p298 vca.exe:   Duration: 
+20230710165242.205662 p298 vca.exe: N/A
+20230710165242.205786 p298 vca.exe: , start: 
+20230710165242.206862 p298 vca.exe: 0.199667
+20230710165242.207659 p298 vca.exe: , bitrate: 
+20230710165242.208780 p298 vca.exe: N/A
+20230710165242.210121 p298 vca.exe:     Stream #0:0
+20230710165242.210539 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165242.212374 p298 vca.exe: , 
+20230710165242.212632 p298 vca.exe: 30 fps, 
+20230710165242.212788 p298 vca.exe: 30 tbr, 
+20230710165242.212976 p298 vca.exe: 90k tbn, 
+20230710165242.213408 p298 vca.exe: 60 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x8eaeab10 (LWP 328)]
+[New Thread 0x91226b10 (LWP 329)]
+20230710165242.232778 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+20230710165244.574964 p298 vca.exe: sps_id 1 out of range
+20230710165301.716387 p298 vca.exe: Undefined type (31)
+20230710165301.718046 p298 vca.exe: RTP H.264 NAL unit type 25
+20230710165301.718443 p298 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710165321.873653 p298 vca.exe: nal size exceeds length: 35101 1425
+20230710165327.530224 p298 vca.exe: SEI type 179 size 1552 truncated at 272
+20230710165353.596518 p298 vca.exe: RTP H.264 NAL unit type 29
+20230710165353.596997 p298 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+[Thread 0x8be27b10 (LWP 325) exited]
+[Thread 0x893ebb10 (LWP 324) exited]
+20230710165412.320678 p298 vca.exe: vca/vca_task.cpp(382):InputVideo, m_input_video.Close()
+20230710165413.619033 p298 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230710165413.620702 p298 vca.exe:   Metadata:
+20230710165413.621299 p298 vca.exe:     title           : 
+20230710165413.621633 p298 vca.exe: Media Presentation
+20230710165413.621979 p298 vca.exe:   Duration: 
+20230710165413.622128 p298 vca.exe: N/A
+20230710165413.622283 p298 vca.exe: , start: 
+20230710165413.622576 p298 vca.exe: 0.240000
+20230710165413.622907 p298 vca.exe: , bitrate: 
+20230710165413.623055 p298 vca.exe: N/A
+20230710165413.623528 p298 vca.exe:     Stream #0:0
+20230710165413.623872 p298 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165413.624383 p298 vca.exe: , 
+20230710165413.624776 p298 vca.exe: 25 fps, 
+20230710165413.625081 p298 vca.exe: 25 tbr, 
+20230710165413.625432 p298 vca.exe: 90k tbn, 
+20230710165413.625632 p298 vca.exe: 50 tbc
+mpp[298]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x8be27b10 (LWP 352)]
+[New Thread 0x893ebb10 (LWP 353)]
+20230710165413.636619 p298 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+20230710165413.739437 p298 vca.exe: RTP H.264 NAL unit type 26
+20230710165413.739764 p298 vca.exe:  is not implemented. Update your FFmpeg version to the newest one from Git. If the problem still occurs, it means that your file has a feature which has not been implemented.
+20230710165413.741021 p298 vca.exe: Undefined type (30)
+20230710165418.983428 p298 vca.exe: nal size exceeds length: 58275 375
+
+Thread 31 "ccc-Input" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x8be27b10 (LWP 352)]
+0xa3b7d688 in set_slice_user_parmeters (currSlice=0x949d0e04) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+389	/home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c: No such file or directory.
+(gdb) info threads
+  Id   Target Id                                 Frame 
+  1    Thread 0xa128d010 (LWP 298) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  2    Thread 0xa1277b10 (LWP 299) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  3    Thread 0xa0a76b10 (LWP 300) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  4    Thread 0x9e275b10 (LWP 301) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  5    Thread 0x99973b10 (LWP 302) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:47
+  6    Thread 0x99172b10 (LWP 303) "vca.exe"     __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:47
+  13   Thread 0x95ae9b10 (LWP 310) "aaa-Process" __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  14   Thread 0x952e8b10 (LWP 311) "aaa-Input"   0xa62cb1f8 in ioctl () at ../sysdeps/unix/syscall-template.S:78
+  15   Thread 0x985ecb10 (LWP 312) "aaa-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  16   Thread 0x940ecb10 (LWP 313) "aaa-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  18   Thread 0x90a25b10 (LWP 315) "bbb-Process" 0xa62cb1f8 in ioctl () at ../sysdeps/unix/syscall-template.S:78
+  19   Thread 0x90224b10 (LWP 316) "bbb-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  23   Thread 0x8b525b10 (LWP 320) "ccc-Process" __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  24   Thread 0x8ad24b10 (LWP 321) "ccc-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  29   Thread 0x8eaeab10 (LWP 328) "bbb-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+  30   Thread 0x91226b10 (LWP 329) "bbb-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+* 31   Thread 0x8be27b10 (LWP 352) "ccc-Input"   0xa3b7d688 in set_slice_user_parmeters (currSlice=0x949d0e04) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+  32   Thread 0x893ebb10 (LWP 353) "ccc-Input"   __libc_do_syscall () at ../sysdeps/unix/sysv/linux/arm/libc-do-syscall.S:46
+(gdb) bt
+#0  0xa3b7d688 in set_slice_user_parmeters (currSlice=0x949d0e04) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+#1  0xa3b7da00 in process_slice (currSlice=0x949d0e04) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:461
+#2  0xa3b78620 in parser_one_nalu (currSlice=0x949d0e04) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:233
+#3  0xa3b7b420 in parse_loop (p_Dec=0x949ff080) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:909
+#4  0xa3b770e4 in h264d_parse (decoder=0x949ff080, in_task=0x8be27494) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_api.c:595
+#5  0xa3b2eae4 in mpp_parser_parse (prs=0x949ff020, task=0x8be27494) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_parser.cpp:158
+#6  0xa3b2aaac in try_proc_dec_task (mpp=0x949b47f0, task=0x8be27474) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:932
+#7  0xa3b2b54c in mpp_dec_parser_thread (data=0x949b47f0) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:1140
+#8  0xa61e99d8 in start_thread (arg=0xbef5b884) at pthread_create.c:477
+#9  0xa62d084c in ?? () at ../sysdeps/unix/sysv/linux/arm/clone.S:73 from /lib/arm-linux-gnueabihf/libc.so.6
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) print p_Vid->subspsSet
+$9 = {0x0 <repeats 32 times>}
+(gdb) print cur_pps->seq_parameter_set_id
+$10 = 0
+(gdb) print cur_pps                      
+$11 = (H264_PPS_t *) 0x97304200
+(gdb) print active_subsps
+$12 = (struct h264_subsps_t *) 0x0
+(gdb) print active_subsps->Valid
+Cannot access memory at address 0x1078
+(gdb) 
+
+## 第三次出现段错误： h264d_slice:389
+
+日志信息：
+
+Using host libthread_db library "/lib/arm-linux-gnueabihf/libthread_db.so.1".
+media get entity by name: stream_cif_dvp_id0 is null
+media get entity by name: stream_cif_dvp_id1 is null
+media get entity by name: stream_cif_dvp_id2 is null
+media get entity by name: stream_cif_dvp_id3 is null
+media get entity by name: rkcif-lvds-subdev is null
+media get entity by name: rkcif-lite-lvds-subdev is null
+media get entity by name: stream_cif is null
+media get entity by name: rkcif-dvp-sof is null
+[16:57:49.152385][CAMHW]:XCAM ERROR CamHwIsp20.cpp:1022: No free isp&ispp needed by fake camera!
+[16:57:49.152796][XCORE]:XCAM ERROR v4l2_device.cpp:196: open device() failed
+[16:57:49.152999][CAMHW]:XCAM ERROR CamHwIsp20.cpp:71: failed to open dev ()
+register factory : rkmpp
+register factory : rkmpp
+register factory : video_enc
+register factory : audio_enc
+register factory : video_dec
+register factory : file_read_flow
+register factory : file_write_flow
+register factory : filter
+register factory : link_flow
+register factory : source_stream
+register factory : muxer_flow
+register factory : audio_dec
+register factory : output_stream
+register factory : move_detec
+register factory : occlusion_detec
+register factory : file_write_stream
+register factory : file_read_stream
+register factory : alsa_playback_stream
+register factory : alsa_capture_stream
+register factory : v4l2_capture_stream
+register factory : v4l2_output_stream
+register factory : drm_output_stream
+rga_api version 1.3.0_[11] (RGA is compiling with meson base: $PRODUCT_BASE)
+register factory : rkrga
+register factory : through_guard
+register factory : ANR
+register factory : AEC
+[New Thread 0xa1277b10 (LWP 383)]
+[New Thread 0xa0a76b10 (LWP 384)]
+[New Thread 0x9e275b10 (LWP 385)]
+20230710165749.168341 p382 vca.exe: 启动……
+[New Thread 0x99973b10 (LWP 386)]
+20230710165749.172669 p382 vca.exe: 设置工作语言(en_US.UTF-8)环境错误，使用系统语言环境。
+[New Thread 0x98fecb10 (LWP 387)]
+20230710165751.565633 p382 vca.exe: Accept: 192.169.4.16
+[New Thread 0x985ecb10 (LWP 388)]
+20230710165751.578507 p382 vca.exe: REQ: {
+20230710165751.578507 p382 vca.exe: --cmd
+20230710165751.578507 p382 vca.exe: 202
+20230710165751.578507 p382 vca.exe: --licence
+20230710165751.578507 p382 vca.exe: HFWYU4MP-NEW6GQLD-HFWYU4MK-PFWYU4MK-6PWQUJEB-MDWWU4MK-PFXUSS53-7F8WU4QK-PFWYU4MK-PFXZ24K6-2FXYUMGK
+20230710165751.578507 p382 vca.exe: }
+20230710165751.579914 p382 vca.exe: RSP: {"errno":0,"monotonic":4905484,"realtime":1688979471579,"version":"6.1.2"}
+20230710165751.580824 p382 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[Thread 0x985ecb10 (LWP 388) exited]
+[New Thread 0x985ecb10 (LWP 389)]
+20230710165756.764493 p382 vca.exe: REQ: {
+20230710165756.764493 p382 vca.exe: --cmd
+20230710165756.764493 p382 vca.exe: 2
+20230710165756.764493 p382 vca.exe: --detector-conf
+20230710165756.764493 p382 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165756.764493 p382 vca.exe: --detector-conf-inline
+20230710165756.764493 p382 vca.exe: 1
+20230710165756.764493 p382 vca.exe: --detector-fps
+20230710165756.764493 p382 vca.exe: 1
+20230710165756.764493 p382 vca.exe: --id
+20230710165756.764493 p382 vca.exe: ccc
+20230710165756.764493 p382 vca.exe: --input-video-name
+20230710165756.764493 p382 vca.exe: rtsp://admin:a1234567@192.169.7.123:554
+20230710165756.764493 p382 vca.exe: --input-video-retry-interval
+20230710165756.764493 p382 vca.exe: 5
+20230710165756.764493 p382 vca.exe: --output-type
+20230710165756.764493 p382 vca.exe: 5
+20230710165756.764493 p382 vca.exe: }
+[New Thread 0x97aebb10 (LWP 390)]
+20230710165756.768172 p382 vca.exe: Engine Conf Load(/userdata/static/models/HELMET/DETECT1.conf) 失败。
+[Thread 0x97aebb10 (LWP 390) exited]
+[New Thread 0x970ecb10 (LWP 391)]
+20230710165756.772338 p382 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/xxxx) 失败。
+[Thread 0x970ecb10 (LWP 391) exited]
+[New Thread 0x968ebb10 (LWP 392)]
+20230710165756.774633 p382 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/yyyy) 失败。
+[Thread 0x968ebb10 (LWP 392) exited]
+[New Thread 0x960eab10 (LWP 393)]
+20230710165756.777241 p382 vca.exe: Engine Conf Load(/userdata/edge/package/VideoProcess/bin/xxxyyyzzz) 失败。
+[Thread 0x960eab10 (LWP 393) exited]
+[New Thread 0x958e9b10 (LWP 394)]
+20230710165756.779493 p382 vca.exe: RSP: {"errno":0,"monotonic":4910684,"realtime":1688979476779,"version":"6.1.2"}
+20230710165756.780527 p382 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[Thread 0x985ecb10 (LWP 389) exited]
+[New Thread 0x985ecb10 (LWP 395)]
+20230710165758.057183 p382 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.123:554':
+20230710165758.057631 p382 vca.exe:   Metadata:
+20230710165758.057964 p382 vca.exe:     title           : 
+20230710165758.058308 p382 vca.exe: Media Presentation
+20230710165758.058695 p382 vca.exe:   Duration: 
+20230710165758.058948 p382 vca.exe: N/A
+20230710165758.059131 p382 vca.exe: , start: 
+20230710165758.059278 p382 vca.exe: 0.240000
+20230710165758.059515 p382 vca.exe: , bitrate: 
+20230710165758.059698 p382 vca.exe: N/A
+20230710165758.060243 p382 vca.exe:     Stream #0:0
+20230710165758.060476 p382 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165758.060666 p382 vca.exe: , 
+20230710165758.060936 p382 vca.exe: 25 fps, 
+20230710165758.061289 p382 vca.exe: 25 tbr, 
+20230710165758.061564 p382 vca.exe: 90k tbn, 
+20230710165758.061896 p382 vca.exe: 50 tbc
+mpp[382]: mpp_info: mpp version: unknown mpp version for missing VCS info
+mpp[382]: mpp_rt: NOT found ion allocator
+mpp[382]: mpp_rt: found drm allocator
+[New Thread 0x941ebb10 (LWP 396)]
+[New Thread 0x939eab10 (LWP 397)]
+20230710165758.069543 p382 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.123:554') ok.
+20230710165758.247078 p382 vca.exe: RGA vendor            : Rockchip Electronics Co.,Ltd.
+20230710165758.247078 p382 vca.exe: RGA_api version       : v1.3.0_[11]
+20230710165758.247078 p382 vca.exe: RGA_built version     : RGA is compiling with meson
+20230710165758.247078 p382 vca.exe: RGA version           : RGA_2_Enhance
+20230710165758.247078 p382 vca.exe: Max input             : 8192x8192
+20230710165758.247078 p382 vca.exe: Max output            : 4096x4096
+20230710165758.247078 p382 vca.exe: Scale limit           : 0.0625 ~ 16
+20230710165758.247078 p382 vca.exe: Input support format  : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV422 YUV400/Y4 
+20230710165758.247078 p382 vca.exe: output support format : RGBA_8888 RGB_888 RGB_565 RGBA_4444 RGBA_5551 YUV420/YUV422 YUV420_10bit/YUV422_10bit YUYV420 YUYV422 YUV400/Y4 
+20230710165758.247078 p382 vca.exe: RGA feature           : color_fill color_palette quantize src1_r2y_csc dst_full_csc 
+20230710165758.247078 p382 vca.exe: expected performance  : 600M pix/s 
+Had init the rga dev ctx = 0x1346f8
+rga_api version 1.3.0_[11] (RGA is compiling with meson base: $PRODUCT_BASE)
+[New Thread 0x91123b10 (LWP 402)]
+20230710165804.962448 p382 vca.exe: REQ: {
+20230710165804.962448 p382 vca.exe: --cmd
+20230710165804.962448 p382 vca.exe: 2
+20230710165804.962448 p382 vca.exe: --detector-conf
+20230710165804.962448 p382 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165804.962448 p382 vca.exe: --detector-conf-inline
+20230710165804.962448 p382 vca.exe: 1
+20230710165804.962448 p382 vca.exe: --detector-fps
+20230710165804.962448 p382 vca.exe: 1
+20230710165804.962448 p382 vca.exe: --id
+20230710165804.962448 p382 vca.exe: bbb
+20230710165804.962448 p382 vca.exe: --input-video-name
+20230710165804.962448 p382 vca.exe: rtsp://admin:a1234567@192.169.7.125:554
+20230710165804.962448 p382 vca.exe: --input-video-retry-interval
+20230710165804.962448 p382 vca.exe: 5
+20230710165804.962448 p382 vca.exe: --output-type
+20230710165804.962448 p382 vca.exe: 5
+20230710165804.962448 p382 vca.exe: }
+[New Thread 0x907ecb10 (LWP 403)]
+20230710165804.970305 p382 vca.exe: RSP: {"errno":0,"monotonic":4918875,"realtime":1688979484970,"version":"6.1.2"}
+20230710165804.973722 p382 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[New Thread 0x8ffebb10 (LWP 404)]
+[Thread 0x91123b10 (LWP 402) exited]
+20230710165805.978892 p382 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.125:554':
+20230710165805.979762 p382 vca.exe:   Metadata:
+20230710165805.980020 p382 vca.exe:     title           : 
+20230710165805.980256 p382 vca.exe: Media Presentation
+20230710165805.980730 p382 vca.exe:   Duration: 
+20230710165805.981192 p382 vca.exe: N/A
+20230710165805.981559 p382 vca.exe: , start: 
+20230710165805.981908 p382 vca.exe: 0.199667
+20230710165805.982254 p382 vca.exe: , bitrate: 
+20230710165805.982421 p382 vca.exe: N/A
+20230710165805.983129 p382 vca.exe:     Stream #0:0
+20230710165805.986281 p382 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165805.986533 p382 vca.exe: , 
+20230710165805.986703 p382 vca.exe: 30 fps, 
+20230710165805.986884 p382 vca.exe: 30 tbr, 
+20230710165805.987045 p382 vca.exe: 90k tbn, 
+20230710165805.987197 p382 vca.exe: 60 tbc
+mpp[382]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x91123b10 (LWP 405)]
+[New Thread 0x8e7eab10 (LWP 406)]
+20230710165806.004968 p382 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.125:554') ok.
+[New Thread 0x8bd27b10 (LWP 407)]
+20230710165811.681890 p382 vca.exe: REQ: {
+20230710165811.681890 p382 vca.exe: --cmd
+20230710165811.681890 p382 vca.exe: 2
+20230710165811.681890 p382 vca.exe: --detector-conf
+20230710165811.681890 p382 vca.exe: @--detector-models@/userdata/static/models/HELMET/DETECT1.conf@xxxx@yyyy@
+20230710165811.681890 p382 vca.exe: --detector-conf-inline
+20230710165811.681890 p382 vca.exe: 1
+20230710165811.681890 p382 vca.exe: --detector-fps
+20230710165811.681890 p382 vca.exe: 1
+20230710165811.681890 p382 vca.exe: --id
+20230710165811.681890 p382 vca.exe: aaa
+20230710165811.681890 p382 vca.exe: --input-video-name
+20230710165811.681890 p382 vca.exe: rtsp://admin:a1234567@192.169.7.126:554
+20230710165811.681890 p382 vca.exe: --input-video-retry-interval
+20230710165811.681890 p382 vca.exe: 5
+20230710165811.681890 p382 vca.exe: --output-type
+20230710165811.681890 p382 vca.exe: 5
+20230710165811.681890 p382 vca.exe: }
+[New Thread 0x8b425b10 (LWP 408)]
+20230710165811.693732 p382 vca.exe: RSP: {"errno":0,"monotonic":4925599,"realtime":1688979491693,"version":"6.1.2"}
+20230710165811.694552 p382 vca.exe: "192.169.4.16" "POST /api HTTP/1.1" 200 75 "-" "Apifox/1.0.0 (https://www.apifox.cn)" 
+[New Thread 0x8bd27b10 (LWP 409)]
+[Thread 0x8bd27b10 (LWP 407) exited]
+20230710165813.024655 p382 vca.exe: Input #0, rtsp, from 'rtsp://admin:a1234567@192.169.7.126:554':
+20230710165813.024959 p382 vca.exe:   Metadata:
+20230710165813.025100 p382 vca.exe:     title           : 
+20230710165813.025289 p382 vca.exe: Media Server
+20230710165813.025492 p382 vca.exe:   Duration: 
+20230710165813.025600 p382 vca.exe: N/A
+20230710165813.025708 p382 vca.exe: , start: 
+20230710165813.025821 p382 vca.exe: 0.280000
+20230710165813.025945 p382 vca.exe: , bitrate: 
+20230710165813.026071 p382 vca.exe: N/A
+20230710165813.026429 p382 vca.exe:     Stream #0:0
+20230710165813.026626 p382 vca.exe: : Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080
+20230710165813.026835 p382 vca.exe: , 
+20230710165813.027089 p382 vca.exe: 25 fps, 
+20230710165813.027377 p382 vca.exe: 25 tbr, 
+20230710165813.027754 p382 vca.exe: 90k tbn, 
+20230710165813.028070 p382 vca.exe: 50 tbc
+mpp[382]: mpp_info: mpp version: unknown mpp version for missing VCS info
+[New Thread 0x89ceab10 (LWP 410)]
+[New Thread 0x894e9b10 (LWP 411)]
+20230710165813.046473 p382 vca.exe: OpenCapture('rtsp://admin:a1234567@192.169.7.126:554') ok.
+
+Thread 20 "bbb-Input" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x91123b10 (LWP 405)]
+0xa3b7d688 in set_slice_user_parmeters (currSlice=0x9088cae4) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+389	/home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c: No such file or directory.
+(gdb) bt
+#0  0xa3b7d688 in set_slice_user_parmeters (currSlice=0x9088cae4) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:389
+#1  0xa3b7da00 in process_slice (currSlice=0x9088cae4) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_slice.c:461
+#2  0xa3b78620 in parser_one_nalu (currSlice=0x9088cae4) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:233
+#3  0xa3b7b420 in parse_loop (p_Dec=0x9081e600) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_parse.c:909
+#4  0xa3b770e4 in h264d_parse (decoder=0x9081e600, in_task=0x91123494) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/dec/h264/h264d_api.c:595
+#5  0xa3b2eae4 in mpp_parser_parse (prs=0x8f1ffce0, task=0x91123494) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_parser.cpp:158
+#6  0xa3b2aaac in try_proc_dec_task (mpp=0x9088e0d0, task=0x91123474) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:932
+#7  0xa3b2b54c in mpp_dec_parser_thread (data=0x9088e0d0) at /home/devel/job/tmp/ivp06a2_sdk/external/mpp/mpp/codec/mpp_dec.cpp:1140
+#8  0xa61e99d8 in start_thread (arg=0x600aeaa3) at pthread_create.c:477
+#9  0xa62d084c in ?? () at ../sysdeps/unix/sysv/linux/arm/clone.S:73 from /lib/arm-linux-gnueabihf/libc.so.6
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) print cur_pps
+$13 = (H264_PPS_t *) 0x94b01c60
+(gdb) print active_subsps->Valid
+Cannot access memory at address 0x1078
+(gdb) print active_subsps
+$14 = (struct h264_subsps_t *) 0x0
+(gdb) 
