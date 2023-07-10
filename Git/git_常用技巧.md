@@ -73,11 +73,11 @@
   + `git branch [branch-name] [commit-id]`
   + `git branch v1.x aa4339fbe90f68bc82901d976a7c11fe92179ef3`
 
-### 使用标签的方式
+## 使用标签的方式
 
 + `git clone [--branch tag-name/branch-name] <git-url> [dir]` 下载并绑定指定分支或下载指定标签
 
-### 使用流程
+## 使用流程
 
 + 在本地仓库创建标签，并推送到远程：
   + `git tag -a v1.0 -m "create tag"`
@@ -120,7 +120,7 @@
   + （1）仅仅删除远程分支文件，不删除本地的文件；
   + （2）删除远程分支文件的同时，删除本地的文件。
 
-### 仅仅删除远程分支文件，不删除本地文件
+## 仅仅删除远程分支文件，不删除本地文件
 
 + 删除远程文件filename
   ```
@@ -136,7 +136,7 @@
     git push -u origin master(此处是当前分支的名字)
   ``` 
 
-### 删除本地文件与远程分支文件
+## 删除本地文件与远程分支文件
 
 + 删除文件filename
   ```
@@ -154,19 +154,19 @@
 
 ## git常见错误
 
-### `fatal:refusing to merge unrelated histories`
+## `fatal:refusing to merge unrelated histories`
 
 + 在使用`git pull`命令拉取代码时出现这个错误
 + 原因：本地仓库和远程仓库实际上时独立的两个仓库
 + 解决方法：添加选项`--allow-unrelated-histories`解决问题
   + `git pull zhuoer dev --allow-unrelated-histories`
 
-### 创建版本库
+## 创建版本库
 
 + `git clone <url>` : 克隆远程版本库
 + `git init` : 初始化本地版本库
 
-### 修改和提交
+## 修改和提交
 
 + `git status` : 查看状态
 + `git diff` : 查看变更内容
@@ -177,13 +177,13 @@
 + `git commit -m "commit message"` : 提交所有更新过的文件
 + `git commit --amend` : 修改最后一次提交
 
-### 查看提交历史
+## 查看提交历史
 
 + `git log` : 查看提交历史
 + `git log -p <file>` : 查看指定文件的提交历史
 + `git blame <file>` : 以列表方式查看指定文件的提交历史
 
-### 撤销
+## 撤销
 
 + `git reset --     0  1.9G   0% /sys/fs/cgroup
 /dev/mmcblk0p7   16G   12G  3.1G  79% /data
@@ -191,7 +191,7 @@
 + `git checkout HEAD <file>` : 撤销指定的未提交的修改内容
 + `git revert <commit>` : 取消指定的提交
 
-### 分支与标签
+## 分支与标签
 
 + `git branch` : 显示所有本地分支
 + `git checkout <branch/tag>` : 切换到指定分支或标签
@@ -202,12 +202,12 @@
 + `git tag -d <tagname>` : 删除标签
 + `git checkout -b dev notes/dev` : 切换指定远程分支
 
-### 合并和衍合
+## 合并和衍合
 
 + `git merge <branch>` : 合并指定分支到当前分支
 + `git rebase <branch>` : 衍合指定分支到当前分支
 
-### 远程操作
+## 远程操作
 
 + `git remote -v` : 查看远程版本库信息
 + `git remote show <remote>` : 查看指定远程版本库信息
@@ -265,7 +265,7 @@
   + 它同样会列出远程仓库的URL与跟踪分支的信息。它告诉你正在处于`master`分支，并且如果运行`git pull`，就会抓取所有的远程引用，然后将远程`master`分支合并到本地`master`分支，
   + 它也会列出拉取到的所有远程引用。
 
-### 远程仓库的重命名与移除
+## 远程仓库的重命名与移除
 
 + `git remote rename`
   + 修改一个远程仓库的简写名
@@ -336,7 +336,7 @@
 
 + 由于Git的分支实质上仅是包含所指对象校验和（长度为40的SHA-1值字符串）的文件，所以它的创建和销毁都异常高效
 
-### 远程分支
+## 远程分支
 
 + 远程引用是对远程仓库的引用（指针），包括分支，标签等。
 + 可以通过 `git ls-remote <remote>`来显示地获得远程引用的完整列表
