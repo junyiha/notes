@@ -2,6 +2,158 @@
 
 + linux系统的常用技巧和方法
 
+## nmcli 修改指定连接名
+
+要使用 `nmcli` 命令修改指定连接的名称，可以按照以下步骤进行操作：
+
+1. 确定要修改的连接名称：首先，确定你要修改的网络连接的当前名称。你可以使用 `nmcli connection show` 命令查看所有连接的列表和详细信息。
+
+2. 使用 `nmcli connection modify` 命令修改连接名称：运行以下命令来修改指定连接的名称：
+
+   ```bash
+   sudo nmcli connection modify <current-connection-name> connection.id <new-connection-name>
+   ```
+
+   将 `<current-connection-name>` 替换为当前连接的名称，`<new-connection-name>` 替换为新的连接名称。
+
+   例如，要将名称为 "old-name" 的连接名称修改为 "new-name"，可以使用以下命令：
+
+   ```bash
+   sudo nmcli connection modify old-name connection.id new-name
+   ```
+
+3. 重新激活连接以使更改生效：运行以下命令以激活已修改的连接：
+
+   ```bash
+   sudo nmcli connection up <new-connection-name>
+   ```
+
+   将 `<new-connection-name>` 替换为你修改后的新连接名称。
+
+完成上述步骤后，指定的连接将使用新的名称。你可以使用 `nmcli connection show` 命令来验证连接的状态和详细信息。
+
+请注意，这些步骤中的修改仅针对连接的名称。如果你还需要修改其他连接配置（如 IP 地址、子网掩码、默认网关等），请参考先前提供的相关说明。
+
+希望这些步骤对你有帮助！如有更多问题，请随时提问。
+
+## nmcli 修改指定连接的ip
+
+要使用 `nmcli` 命令修改指定连接的 IP 地址，可以按照以下步骤进行操作：
+
+1. 确定要修改的连接名称：首先，确定你要修改的网络连接的名称。你可以使用 `nmcli connection show` 命令查看所有连接的列表和详细信息。
+
+2. 使用 `nmcli connection modify` 命令修改连接配置：运行以下命令来修改指定连接的 IP 地址配置：
+
+   ```bash
+   sudo nmcli connection modify <connection-name> ipv4.method manual ipv4.addresses <ip-address>/<subnet-mask> ipv4.gateway <gateway-address> ipv4.dns <dns-server>
+   ```
+
+   在上述命令中，将 `<connection-name>` 替换为要修改的连接名称，`<ip-address>` 替换为新的 IP 地址，`<subnet-mask>` 替换为新的子网掩码，`<gateway-address>` 替换为新的默认网关的 IP 地址，`<dns-server>` 替换为新的 DNS 服务器的 IP 地址。
+
+   例如，要将连接名称为 "eth0" 的连接配置为使用静态 IP 地址 "192.168.1.100/24"，默认网关为 "192.168.1.1"，DNS 服务器为 "8.8.8.8"，可以使用以下命令：
+
+   ```bash
+   sudo nmcli connection modify eth0 ipv4.method manual ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   ```
+
+3. 激活连接以使更改生效：运行以下命令以激活已修改的连接：
+
+   ```bash
+   sudo nmcli connection up <connection-name>
+   ```
+
+   将 `<connection-name>` 替换为你修改的连接的名称。
+
+完成上述步骤后，指定的连接将使用新的 IP 地址、子网掩码、默认网关和 DNS 服务器进行配置。你可以使用 `nmcli connection show` 命令来验证连接的状态和详细信息。
+
+请注意，这些步骤假定你已经知道要使用的新的 IP 地址、子网掩码、默认网关和 DNS 服务器的正确值。确保将这些值替换为你实际使用的网络配置。
+
+希望这些步骤对你有帮助！如有更多问题，请随时提问。
+
+## NetworkManager 配置静态IP
+
+在 Debian 系统中使用 NetworkManager 配置静态 IP 地址，可以通过以下步骤进行操作：
+
+1. 确保 NetworkManager 安装和运行：首先，确保你的系统已安装 NetworkManager，并且 NetworkManager 服务正在运行。如果没有安装，你可以使用以下命令安装 NetworkManager：
+
+   ```bash
+   sudo apt update
+   sudo apt install network-manager
+   ```
+
+2. 打开 NetworkManager 配置文件：使用文本编辑器打开 NetworkManager 的主要配置文件 `/etc/NetworkManager/NetworkManager.conf`：
+
+   ```bash
+   sudo nano /etc/NetworkManager/NetworkManager.conf
+   ```
+
+3. 确认 `managed` 选项的值：在配置文件中找到 `managed` 选项，并确保其值为 `true`。这将告诉 NetworkManager 管理所有网络接口的配置。
+
+   ```ini
+   [main]
+   plugins=ifupdown,keyfile
+
+   [ifupdown]
+   managed=true
+   ```
+
+4. 创建一个新的网络连接：使用 `nmcli` 命令创建一个新的网络连接，并指定连接的类型、名称和设备。
+
+   ```bash
+   sudo nmcli connection add type ethernet con-name <connection-name> ifname <interface-name> ipv4.method manual ipv4.addresses <ip-address>/<subnet-mask> ipv4.gateway <gateway-address> ipv4.dns <dns-server>
+   ```
+
+   在上述命令中，将 `<connection-name>` 替换为连接的名称，`<interface-name>` 替换为网络接口的名称（如 eth0、enp0s3 等），`<ip-address>` 替换为静态 IP 地址，`<subnet-mask>` 替换为子网掩码，`<gateway-address>` 替换为默认网关的 IP 地址，`<dns-server>` 替换为 DNS 服务器的 IP 地址。
+
+   例如，创建名为 "static-eth0" 的静态以太网连接，IP 地址为 "192.168.1.100/24"，默认网关为 "192.168.1.1"，DNS 服务器为 "8.8.8.8"，可以使用以下命令：
+
+   ```bash
+   sudo nmcli connection add type ethernet con-name static-eth0 ifname eth0 ipv4.method manual ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   ```
+
+5. 激活静态连接：使用 `nmcli` 命令激活刚创建的静态连接。
+
+   ```bash
+   sudo nmcli connection up <connection-name>
+   ```
+
+   将 `<connection-name>` 替换为之前创建的静态连接的名称。
+
+完成上述步骤后，NetworkManager 将使用你指定的静态 IP 地址、子网掩码、默认网关和 DNS 服务器配置网络接口。你可以使用 `nmcli connection show` 命令来查看连接状态和详细信息。
+
+请注意，这些步骤假定你已经知道要使用的静态 IP 地址、子网掩码、默认网关和 DNS 服务器的正确值。确保将这些值替换为你实际使用的网络配置。
+
+希望这些步骤能帮助你成功配置静态 IP 地址！如有更多问题，请随时提问。
+
+## openRTSP 录制视频
+
+在 Linux 上使用 OpenRTSP 工具录制视频，你可以使用以下命令：
+
+```bash
+openRTSP -4 -D <duration> -F <output_file> <RTSP_URL>
+
+openRTSP  -b 5000000 -D 0 -F ./0715.mp4 rtsp://admin:a1234567@192.169.7.125:554
+```
+
+解释一下这些参数的含义：
+- `-b`: 设置文件输出缓冲区
+- `-4`: 强制使用 IPv4 进行通信。
+- `-D <duration>`: 指定录制的时长（以秒为单位）。你可以设置具体的录制时间，或使用 `-D 0` 来录制直到手动停止。
+- `-F <output_file>`: 指定输出文件的路径和文件名。例如，`/path/to/output.mp4`。
+- `<RTSP_URL>`: RTSP 服务器的 URL，指定要录制的流的位置。
+
+示例命令如下：
+
+```bash
+openRTSP -4 -D 60 -F /path/to/output.mp4 rtsp://example.com/live/stream
+```
+
+这将从指定的 RTSP URL 开始录制视频，并将其保存到指定的输出文件中。录制时长为 60 秒。
+
+请注意，OpenRTSP 工具会尝试从 RTSP 服务器获取媒体流并将其保存为文件。确保你具有从服务器获取流的权限，并且服务器正确配置以提供流媒体数据。如果录制的媒体流有加密或其他保护机制，你可能需要提供相应的凭证或密钥。
+
+另外，OpenRTSP 生成的视频文件可能采用 MPEG4 格式进行编码，你可以使用适当的视频播放器或转码工具来播放或转换录制的视频文件。
+
 ## linux 资源监控 第三方工具
 
 在Linux系统上，有许多第三方工具可以用于资源监控。以下是一些常用的推荐工具：

@@ -2,6 +2,126 @@
 
 + Linux系统下常用命令笔记
 
+## nmcli 常用选项
+
+在 Linux 系统中，`nmcli` 是 NetworkManager 的命令行工具，用于配置和管理网络连接。下面是一些常用的 `nmcli` 命令选项：
+
+1. `nmcli general status`：显示 NetworkManager 的状态信息，包括运行状态、活动连接等。
+
+2. `nmcli connection show`：显示当前系统上的所有网络连接的状态和详细信息。
+
+3. `nmcli connection up <connection-name>`：连接到指定名称的网络连接。
+
+4. `nmcli connection down <connection-name>`：断开指定名称的网络连接。
+
+5. `nmcli connection add type <connection-type> con-name <connection-name>`：添加一个新的网络连接。
+
+6. `nmcli connection modify <connection-name>`：修改现有的网络连接的配置。
+
+7. `nmcli connection delete <connection-name>`：删除指定名称的网络连接。
+
+8. `nmcli device status`：显示所有网络设备的状态信息，包括设备名称、连接状态等。
+
+9. `nmcli device wifi list`：显示可用的 Wi-Fi 网络列表。
+
+10. `nmcli device wifi connect <SSID> password <password>`：连接到指定的 Wi-Fi 网络，需要提供 SSID 和密码。
+
+11. `nmcli device show <device-name>`：显示指定网络设备的详细信息。
+
+12. `nmcli device disconnect <device-name>`：断开指定网络设备的连接。
+
+13. `nmcli radio wifi on`：打开 Wi-Fi 无线功能。
+
+14. `nmcli radio wifi off`：关闭 Wi-Fi 无线功能。
+
+15. `nmcli monitor`：启动 NetworkManager 的监视模式，实时显示网络连接状态的变化。
+
+这些是常用的 `nmcli` 命令选项，用于在 Linux 系统中配置和管理网络连接。`nmcli` 还有其他选项和命令，可以通过运行 `man nmcli` 命令在终端中查看完整的 `nmcli` 手册以获取更详细的命令说明和选项信息。
+
+请注意，使用 `nmcli` 需要管理员权限（使用 `sudo`），以便对网络连接进行配置和管理。
+
+希望这些信息对你有帮助！如果你有更多问题，请随时提问。
+
+## nmcli 详解
+
+在 Debian 系统中，`nmcli` 是 NetworkManager 的命令行工具，用于配置和管理网络连接。下面是一些常用的 `nmcli` 命令及其详细说明：
+
+1. 显示网络连接状态和信息：
+
+   ```bash
+   nmcli connection show
+   ```
+
+   这个命令将显示当前系统上的所有网络连接的状态和详细信息，包括连接名称、类型、设备、IP 地址等。
+
+2. 添加一个新的网络连接：
+
+   ```bash
+   nmcli connection add type <connection-type> con-name <connection-name> ifname <interface-name>
+   ```
+
+   在上述命令中，将 `<connection-type>` 替换为要添加的连接类型（如 ethernet、wifi、vpn 等），`<connection-name>` 替换为连接的名称，`<interface-name>` 替换为连接使用的网络接口名称。
+
+3. 编辑现有的网络连接：
+
+   ```bash
+   nmcli connection edit <connection-name>
+   ```
+
+   该命令将进入一个交互式编辑模式，允许你编辑指定名称的网络连接的详细配置。你可以更改连接的属性，如 IP 设置、DNS 设置、认证方法等。
+
+4. 删除一个网络连接：
+
+   ```bash
+   nmcli connection delete <connection-name>
+   ```
+
+   这个命令将删除指定名称的网络连接。
+
+5. 连接到一个网络：
+
+   ```bash
+   nmcli connection up <connection-name>
+   ```
+
+   这个命令将连接到指定名称的网络连接。
+
+6. 断开一个网络连接：
+
+   ```bash
+   nmcli connection down <connection-name>
+   ```
+
+   这个命令将断开指定名称的网络连接。
+
+以上是一些常用的 `nmcli` 命令，用于在 Debian 系统中配置和管理网络连接。`nmcli` 还有许多其他选项和命令，可以进一步探索和适应特定的网络管理需求。
+
+你可以通过运行 `man nmcli` 命令在终端中查看 `nmcli` 的完整文档，以获取更详细的命令说明和选项信息。
+
+请注意，使用 `nmcli` 需要管理员权限（使用 `sudo`），以便对网络连接进行配置和管理。
+
+希望这些信息对你有帮助！如果你有更多问题，请随时提问。
+
+## livemedia-utils
+
+livemedia-utils 是一个Linux上的开源工具集，用于处理实时流媒体数据。它是由 LIVE555 Streaming Media 开发的，LIVE555 是一个用于流媒体的开源 C++ 库。
+
+以下是关于 livemedia-utils 的一些详解：
+
+1. **功能**：livemedia-utils 提供了一系列命令行工具，用于处理实时流媒体数据。这些工具包括流媒体服务器、流媒体客户端和其他相关实用程序。它们可用于流媒体的播放、录制、转码、传输和调试等。
+
+2. **命令行工具**：livemedia-utils 提供了多个命令行工具，其中一些重要的工具包括：
+   - **live555MediaServer**：一个简单的流媒体服务器，可以提供实时流媒体的播放和转发功能。
+   - **openRTSP**：与上一个问题中提到的 OpenRTSP 工具类似，用于从 RTSP 服务器获取实时流媒体数据。
+   - **testOnDemandRTSPServer**：一个测试用的 RTSP 服务器，可以模拟实时流媒体的播放和控制。
+   - **MPEG2TransportStreamIndexer**：用于索引和检查 MPEG2 Transport Stream（M2TS）文件的工具。
+
+3. **跨平台支持**：livemedia-utils 可以在多个操作系统上运行，包括 Linux、Windows、macOS 等。这使得它成为一个方便且广泛可用的工具，用于处理实时流媒体数据。
+
+4. **开源和可定制性**：livemedia-utils 是开源的，你可以查看其源代码、理解其实现细节，并对其进行定制和扩展，以满足特定需求。
+
+需要注意的是，livemedia-utils 是一个命令行工具集，适用于开发和调试实时流媒体应用程序，以及自动化脚本和批处理任务。如果你需要一个更完整的流媒体服务器或客户端，可能需要考虑其他更专业的流媒体解决方案或框架。
+
 ## gprof
 
 gprof 是一款用于分析和优化 C/C++ 程序性能的工具。它可以在 Linux 系统上使用，并提供了丰富的统计信息来帮助开发人员识别程序中的性能瓶颈。

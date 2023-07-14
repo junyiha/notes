@@ -4,6 +4,11 @@
 
 + `word wrap`
 
+## VScode extensions xhr:failure
+
++ setting->details->Data&Time->Automatic Time Zone 
+  + open
+
 ## 下载
 
 + 首先，在官网找到需要下载的文件，点击下载，并将下载连接复制下来，例如：
