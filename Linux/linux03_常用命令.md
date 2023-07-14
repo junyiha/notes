@@ -2,6 +2,187 @@
 
 + Linux系统下常用命令笔记
 
+## wscat 详解
+
+wscat 是一个命令行工具，用于测试和调试 WebSocket 连接。它提供了一种简单的方式来建立 WebSocket 连接并进行数据交换。以下是 wscat 命令的常用选项和用法的详解：
+
+**语法**：
+```
+wscat [options] [url]
+```
+
+**选项**：
+- `-l, --listen`: 以服务器模式监听指定的地址和端口。
+- `-c, --connect`: 建立 WebSocket 连接到指定的 URL。
+- `-s, --ssl`: 使用 SSL 加密连接。
+- `-k, --insecure`: 忽略 SSL 证书验证。
+- `-H, --header`: 添加自定义的请求头。
+- `-n, --no-check`: 禁用 WebSocket 协议验证。
+- `-P, --pipe`: 将标准输入的数据发送到 WebSocket 连接。
+- `-t, --timestamp`: 在控制台输出消息的时间戳。
+- `--host`: 指定自定义的 Host 头部。
+
+**用法示例**：
+1. 连接到 WebSocket 服务器：
+   ```
+   wscat -c ws://example.com
+   ```
+
+2. 连接到使用 SSL 的 WebSocket 服务器：
+   ```
+   wscat -c wss://example.com
+   ```
+
+3. 监听并建立 WebSocket 服务器：
+   ```
+   wscat -l 8080
+   ```
+
+4. 监听并使用 SSL 加密的 WebSocket 服务器：
+   ```
+   wscat -l --ssl --ssl-key key.pem --ssl-cert cert.pem
+   ```
+
+5. 发送消息到 WebSocket 服务器：
+   ```
+   wscat -c ws://example.com -P
+   ```
+
+6. 添加自定义的请求头：
+   ```
+   wscat -c ws://example.com -H "Authorization: Bearer token"
+   ```
+
+这些是 wscat 命令的一些常用选项和用法示例。使用这个工具，您可以方便地测试和调试 WebSocket 服务器，发送和接收消息。
+
+请注意，为了使用 wscat 工具，您需要先安装 Node.js 和 npm，然后使用以下命令安装 wscat：
+```
+npm install -g wscat
+apt install node-ws
+```
+
+希望这些详解对您有所帮助！如果您有更多问题，请随时提问。
+
+## wget 常用选项
+
+wget 命令具有许多选项，可以用于控制下载过程、处理重定向、设置代理等。以下是一些常用的 wget 命令选项：
+
+1. **-O, --output-document**: 指定保存下载文件的名称或路径。例如：`wget -O output.txt http://example.com/file.txt`
+
+2. **-c, --continue**: 断点续传，继续下载中断的文件。例如：`wget -c http://example.com/file.txt`
+
+3. **-r, --recursive**: 递归下载，下载整个网站的内容。例如：`wget -r http://example.com`
+
+4. **-N, --timestamping**: 仅下载比本地文件新的文件。例如：`wget -N http://example.com/file.txt`
+
+5. **-P, --directory-prefix**: 指定保存下载文件的目录。例如：`wget -P /path/to/directory http://example.com/file.txt`
+
+6. **-np, --no-parent**: 仅下载指定 URL 中的文件，不递归下载上级目录的内容。
+
+7. **-l, --level**: 指定递归下载的深度级别。例如：`wget -r -l 2 http://example.com`
+
+8. **-t, --tries**: 设置下载失败时的重试次数。例如：`wget -t 3 http://example.com/file.txt`
+
+9. **-q, --quiet**: 静默模式，减少输出信息的显示。
+
+10. **--user, --password**: 设置用户名和密码进行 HTTP 基本认证。例如：`wget --user=username --password=password http://example.com`
+
+11. **--limit-rate**: 限制下载速度。可以指定速度单位，如 K、M，例如：`wget --limit-rate=100k http://example.com/file.txt`
+
+12. **-e, --execute**: 执行指定的命令作为 Wget 的一部分。例如：`wget -e robots=off http://example.com/file.txt`
+
+这只是一小部分常用选项，wget 还提供了许多其他选项，如代理配置、SSL 选项、重定向处理等。可以通过 `wget --help` 命令或查阅 wget 的文档来获取更详细的选项说明和示例。
+
+希望这些常用选项对您有所帮助！如果您有更多问题，请随时提问。
+
+## wget 详解
+
+wget 是一个用于下载文件的命令行工具，它支持从各种网络协议（如 HTTP、HTTPS、FTP）下载文件。wget 在多种操作系统上都可用，并且具有许多功能和选项，以下是关于 wget 的详解：
+
+1. **简单易用**：wget 的使用非常简单，只需要提供要下载的文件的 URL，它会自动处理下载和保存文件的过程。
+
+2. **支持多种协议**：wget 可以处理 HTTP、HTTPS 和 FTP 等协议，可以下载来自这些协议的文件。
+
+3. **递归下载**：wget 支持递归下载，可以下载整个网站的内容。它会解析 HTML 页面并查找其中的链接，递归下载页面上的所有链接。
+
+4. **断点续传**：如果下载过程中出现网络中断或其他故障，wget 具有断点续传的功能，可以恢复下载过程而无需重新下载整个文件。
+
+5. **后台下载**：wget 可以在后台运行，这意味着您可以在终端窗口关闭后继续下载过程。
+
+6. **限速下载**：wget 允许您限制下载速度，这对于共享网络连接或需要节省带宽的情况非常有用。
+
+7. **递归遍历目录**：wget 可以递归遍历服务器上的目录结构，并下载整个目录中的文件。
+
+8. **用户认证**：如果需要身份验证才能下载文件，wget 支持使用用户名和密码进行认证。
+
+9. **代理支持**：wget 支持使用代理服务器下载文件，可以通过指定代理服务器的地址和端口进行配置。
+
+10. **日志记录**：wget 可以生成下载过程的日志文件，记录下载的详细信息，方便后续查看和分析。
+
+wget 是一个功能强大的命令行工具，广泛用于下载文件、备份网站内容和自动化脚本等场景。它提供了许多选项和功能，使得文件下载和管理变得简单和灵活。
+
+如果您想了解更多关于 wget 的选项和用法，可以使用 `wget --help` 命令或查阅 wget 的官方文档。
+
+希望这些详解对 wget 有所帮助！如果您有更多问题，请随时提问。
+
+## curl 常用选项
+
+curl 命令具有许多选项，可用于定制和控制请求的各个方面。以下是一些常用的 curl 命令选项：
+
+1. **-X, --request**: 指定 HTTP 请求方法，如 GET、POST、PUT、DELETE 等。例如：`curl -X POST`.
+
+2. **-H, --header**: 添加请求头。可以使用多个 `-H` 选项添加多个请求头。例如：`curl -H "Content-Type: application/json" -H "Authorization: Bearer token"`
+
+3. **-d, --data**: 指定请求的数据体（请求体）。用于发送 POST 或 PUT 请求的数据。例如：`curl -X POST -d "username=admin&password=123"`
+
+4. **-F, --form**: 以 multipart/form-data 格式发送表单数据。用于文件上传等场景。例如：`curl -F "file=@path/to/file"`
+
+5. **-o, --output**: 将响应保存到文件。可以指定文件名或路径。例如：`curl -o output.txt`
+
+6. **-i, --include**: 在输出中包含响应头信息。例如：`curl -i`
+
+7. **-s, --silent**: 静默模式，禁止显示进度信息或错误消息。例如：`curl -s`
+
+8. **-u, --user**: 指定用户名和密码进行基本认证。例如：`curl -u username:password`
+
+9. **-k, --insecure**: 忽略 SSL 证书验证，用于处理自签名证书等不受信任的情况。例如：`curl -k`
+
+10. **-x, --proxy**: 指定代理服务器。例如：`curl -x http://proxy.example.com:8080`
+
+11. **-L, --location**: 自动跟随重定向。当服务器返回重定向响应时，自动跳转到新的 URL。例如：`curl -L`
+
+12. **-c, --cookie**: 指定 Cookie。发送请求时携带指定的 Cookie。例如：`curl -c cookies.txt`
+
+这只是一小部分常用选项，curl 还提供了许多其他选项，如超时设置、身份验证方式、自定义请求头、代理配置等。可以通过 `curl --help` 命令或查阅 curl 的文档来获取更详细的选项说明和示例。
+
+希望这些常用选项对您有所帮助！如果您有更多问题，请随时提问。
+
+## curl 详解
+
+curl 是一个命令行工具和库，用于在各种操作系统上进行网络数据传输。它支持多种协议，包括 HTTP、HTTPS、FTP、SMTP、POP3 等，可以执行各种网络操作，如发送请求、下载文件、上传文件等。以下是有关 curl 的详解：
+
+1. **发送请求**：curl 可以用于发送 HTTP 请求到指定的 URL，并接收服务器的响应。它支持 GET、POST、PUT、DELETE 等常用的 HTTP 方法。
+
+2. **参数定制**：curl 提供了丰富的命令行参数，可以定制请求的各种参数，如请求头、请求体、超时时间、代理等。
+
+3. **输出控制**：curl 可以控制响应输出的格式和内容。默认情况下，它将响应输出到标准输出，但也可以将响应保存到文件或进行其他处理。
+
+4. **文件传输**：curl 可以用于上传和下载文件。通过指定适当的选项，它可以实现文件的上传和下载，支持断点续传等功能。
+
+5. **HTTPS 支持**：curl 支持通过 SSL/TLS 加密协议进行安全的 HTTPS 请求。它能够验证服务器的证书，并支持使用客户端证书进行身份验证。
+
+6. **认证**：curl 提供了多种认证方式，如基本认证、摘要认证、Bearer Token 认证等，可以与需要身份验证的服务器进行交互。
+
+7. **代理支持**：curl 可以通过指定代理服务器来转发请求和接收响应。它支持 HTTP、HTTPS、SOCKS4 和 SOCKS5 代理。
+
+8. **扩展性**：curl 是一个功能强大且灵活的工具，还提供了丰富的 API，可以在各种编程语言中使用 curl 库进行网络操作。
+
+curl 是一个跨平台的工具，可在各种操作系统上使用，包括 Linux、macOS、Windows 等。它在命令行环境下使用简单，是开发人员进行网络调试、测试和自动化脚本编写的常用工具之一。
+
+需要注意的是，curl 是一个命令行工具，它的使用方式和具体参数取决于具体的需求和场景。可以通过查阅 curl 的文档和使用示例来深入了解其更多功能和用法。
+
+希望这些详解对 curl 有所帮助！如果您有更多问题，请随时提问。
+
 ## nmcli 常用选项
 
 在 Linux 系统中，`nmcli` 是 NetworkManager 的命令行工具，用于配置和管理网络连接。下面是一些常用的 `nmcli` 命令选项：

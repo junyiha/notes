@@ -2,6 +2,97 @@
 
 + linux系统的常用技巧和方法
 
+## curl 发送body数据
+
+在 Linux 中，可以使用 curl 命令发送包含请求体（body）数据的 HTTP 请求。以下是几种常见的方式来发送 body 数据：
+
+1. **通过命令行参数指定数据**：
+
+```bash
+curl -X POST -d 'body_data' http://example.com
+```
+
+在上述示例中，使用 `-d` 参数指定了请求体数据为 'body_data'，并使用 `-X POST` 指定了请求方法为 POST。您可以根据需要修改请求方法和请求体数据。
+
+2. **通过文件指定数据**：
+
+```bash
+curl -X POST --data-binary @file.txt http://example.com
+```
+
+在上述示例中，使用 `--data-binary` 参数指定了要发送的文件为 file.txt，文件中的内容将作为请求体数据发送给服务器。
+
+3. **通过标准输入（stdin）指定数据**：
+
+```bash
+echo 'body_data' | curl -X POST -d @- http://example.com
+```
+
+在上述示例中，使用 `echo` 命令将数据发送到 curl 的标准输入，并通过 `-d @-` 参数告诉 curl 从标准输入中读取数据作为请求体。
+
+这些是使用 curl 命令在 Linux 发送带有请求体数据的 HTTP 请求的常见方式。根据您的需求和使用场景，选择适合的方式来发送请求体数据。
+
+希望这些示例对您有所帮助！如果您有更多问题，请随时提问。
+
+## curl 建立websocket连接
+
+curl 是一个命令行工具，它主要用于发送 HTTP 请求，并不直接支持建立 WebSocket 连接。然而，您可以使用 curl 的 `--header` 选项自定义请求头来模拟 WebSocket 握手过程，从而与服务器建立一个简单的 WebSocket 连接。请注意，这种方式只适用于简单的 WebSocket 连接，不支持完整的 WebSocket 协议。
+
+以下是一个示例，展示如何使用 curl 建立一个简单的 WebSocket 连接：
+
+```bash
+curl -i -N \
+  -H "Connection: Upgrade" \
+  -H "Upgrade: websocket" \
+  -H "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \
+  -H "Sec-WebSocket-Version: 13" \
+  http://example.com/websocket
+```
+
+在上述示例中，`-i` 选项用于输出响应头信息，`-N` 选项用于禁用数据缓冲。通过 `-H` 选项，我们自定义了多个请求头，包括 `Connection`、`Upgrade`、`Sec-WebSocket-Key` 和 `Sec-WebSocket-Version`。其中，`Sec-WebSocket-Key` 的值为 "SGVsbG8sIHdvcmxkIQ=="，`Sec-WebSocket-Version` 的值为 "13"。这些请求头是模拟 WebSocket 握手过程所需的头信息。
+
+需要注意的是，上述方式只是模拟了 WebSocket 握手过程，它并不能处理 WebSocket 协议的数据交换。要实现完整的 WebSocket 功能，通常需要使用专门的 WebSocket 客户端库或编程语言的 WebSocket 库来建立和处理 WebSocket 连接。
+
+如果您需要使用 WebSocket 连接进行数据交换，建议使用专门的 WebSocket 客户端库，如 WebSocket++、Boost.Beast、libwebsockets 等，或使用支持 WebSocket 的编程语言库，如 JavaScript 的 WebSocket API、Python 的 websocket 模块等。
+
+希望这些信息对您有所帮助！如果您有更多问题，请随时提问。
+
+## linux 建立websocket连接的工具
+
+在 Linux 环境下，可以使用一些特定的工具来建立 WebSocket 连接。以下是几个常用的工具：
+
+1. **wscat**: wscat 是一个用于 WebSocket 测试和调试的命令行工具，它提供了建立 WebSocket 连接、发送和接收消息的功能。您可以使用 npm（Node Package Manager）安装 wscat：
+
+   ```bash
+   npm install -g wscat
+   ```
+
+   安装完成后，可以使用以下命令建立 WebSocket 连接：
+
+   ```bash
+   wscat -c ws://example.com
+   ```
+
+2. **websocat**: websocat 是一个功能强大的命令行工具，可以用于建立 WebSocket 连接并进行数据交换。它支持 WebSocket 客户端和服务器模式，并提供了各种选项和功能。您可以从其官方网站下载并安装 websocat：https://github.com/vi/websocat
+
+   安装完成后，可以使用以下命令建立 WebSocket 连接：
+
+   ```bash
+   websocat ws://example.com
+   ```
+
+3. **wsc**: wsc 是另一个用于 WebSocket 测试和调试的命令行工具，类似于 wscat。您可以从其官方网站下载并安装 wsc：https://github.com/danielstjules/wsc
+
+   安装完成后，可以使用以下命令建立 WebSocket 连接：
+
+   ```bash
+   wsc -c ws://example.com
+   ```
+
+这些工具都提供了在命令行中建立 WebSocket 连接并进行数据交换的功能。您可以根据自己的需求选择适合的工具来建立 WebSocket 连接和测试您的 WebSocket 服务器。
+
+希望这些信息对您有所帮助！如果您有更多问题，请随时提问。
+
 ## nmcli 修改指定连接名
 
 要使用 `nmcli` 命令修改指定连接的名称，可以按照以下步骤进行操作：
