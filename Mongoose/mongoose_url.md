@@ -134,5 +134,5 @@ const char *mg_url_uri(const char *url);
 
 + 示例：
 ```cpp
-
+const char *uri = mg_url_uri("https://example.org/subdir/subsubdir"); // `uri` is now pointer to "subdir/subsubdir"
 ```
