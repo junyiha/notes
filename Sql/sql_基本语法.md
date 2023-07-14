@@ -2,6 +2,210 @@
 
 + sql编程语言的基本语法
 
+## 1.3 SQL SELECT语句
+
++ SELECT 语句用于从数据库中选取数据。结果被存储在一个结果表中，称为结果集。
+
++ SQL SELECT 语法
+  ```sql
+    SELECT column1, column2, ...
+    FROM table_name;
+  ```
+  + `SELECT * FROM table_name;`
++ 参数说明：
+  + column1, column2, ...：要选择的字段名称，可以为多个字段。如果不指定字段名称，则会选择所有字段。
+  + table_name：要查询的表名称。
+
++ 大多数数据库软件系统都允许使用编程函数在结果集中进行导航，比如：Move-To-First-Record、Get-Record-Content、Move-To-Next-Record 等等。
++ 类似这些编程函数不在本教程讲解之列。如需学习通过函数调用访问数据的知识，请访问我们的 ADO 教程 或者 PHP 教程。
+
+## 1.3 SQL SELECT DISTINCT 语句
+
++ SELECT DISTINCT 语句用于返回唯一不同的值。
++ 在表中，一个列可能会包含多个重复值，有时您也许希望仅仅列出不同（distinct）的值。DISTINCT 关键词用于返回唯一不同的值。
+
++ SQL SELECT DISTINCT 语法
+  ```sql
+    SELECT DISTINCT column1, column2, ...
+    FROM table_name;
+  ``` 
++ 参数说明：
+  + column1, column2, ...：要选择的字段名称，可以为多个字段。如果不指定字段名称，则会选择所有字段。
+  + table_name：要查询的表名称。
+
++ SELECT DISTINCT 实例
+  + 下面的 SQL 语句仅从 "Websites" 表的 "country" 列中选取唯一不同的值，也就是去掉 "country" 列重复值：
+  + `SELECT DISTINCT country FROM Websites;`
+
+## 1.3 SQL WHERE 子句
+
++ WHERE 子句用于过滤记录。
++ WHERE 子句用于提取那些满足指定条件的记录。
+
++ SQL WHERE 语法
+  ```sql
+    SELECT column1, column2, ...
+    FROM table_name
+    WHERE condition;
+  ``` 
++ 参数说明：
+  + column1, column2, ...：要选择的字段名称，可以为多个字段。如果不指定字段名称，则会选择所有字段。
+  + table_name：要查询的表名称。
+
++ WHERE 子句实例
+  + 下面的 SQL 语句从 "Websites" 表中选取国家为 "CN" 的所有网站：
+  + `SELECT * FROM Websites WHERE country='CN';`
+
+## 1.4 SQL AND & OR 运算符
+
++ AND & OR 运算符用于基于一个以上的条件对记录进行过滤。
++ 如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。
++ 如果第一个条件和第二个条件中只要有一个成立，则 OR 运算符显示一条记录。
+
++ AND 运算符实例
+  + 下面的 SQL 语句从 "Websites" 表中选取国家为 "CN" 且alexa排名大于 "50" 的所有网站：
+    ```sql
+      SELECT * FROM Websites
+      WHERE country='CN'
+      AND alexa > 50;
+    ``` 
++ OR 运算符实例
+  + 下面的 SQL 语句从 "Websites" 表中选取国家为 "USA" 或者 "CN" 的所有客户：
+    ```sql
+      SELECT * FROM Websites
+      WHERE country='USA'
+      OR country='CN';
+    ``` 
++ 结合 AND & OR
+  + 您也可以把 AND 和 OR 结合起来（使用圆括号来组成复杂的表达式）。
+  + 下面的 SQL 语句从 "Websites" 表中选取 alexa 排名大于 "15" 且国家为 "CN" 或 "USA" 的所有网站：
+    ```sql
+      SELECT * FROM Websites
+      WHERE alexa > 15
+      AND (country='CN' OR country='USA');
+    ``` 
+
+## 1.5 SQL ORDER BY 关键字
+
++ ORDER BY 关键字用于对结果集进行排序。
++ ORDER BY 关键字用于对结果集按照一个列或者多个列进行排序。
++ ORDER BY 关键字默认按照升序对记录进行排序。如果需要按照降序对记录进行排序，您可以使用 DESC 关键字。
+
++ SQL ORDER BY 语法
+  ```sql
+    SELECT column1, column2, ...
+    FROM table_name
+    ORDER BY column1, column2, ... ASC|DESC;
+  ``` 
++ 参数解析：
+  + column1, column2, ...：要排序的字段名称，可以为多个字段。
+  + ASC：表示按升序排序。
+  + DESC：表示按降序排序。
+
++ ORDER BY 实例
+  + 下面的 SQL 语句从 "Websites" 表中选取所有网站，并按照 "alexa" 列排序：
+    ```sql
+      SELECT * FROM Websites
+      ORDER BY alexa;
+    ``` 
++ ORDER BY DESC 实例
+  + 下面的 SQL 语句从 "Websites" 表中选取所有网站，并按照 "alexa" 列降序排序：
+    ```sql
+      SELECT * FROM Websites
+      ORDER BY alexa DESC;
+    ``` 
++ ORDER BY 多列
+  + 下面的 SQL 语句从 "Websites" 表中选取所有网站，并按照 "country" 和 "alexa" 列排序：
+    ```sql
+      SELECT * FROM Websites
+      ORDER BY country,alexa;
+    ``` 
+
+## 1.5 SQL INSERT INTO 语句
+
++ INSERT INTO 语句用于向表中插入新记录。
++ INSERT INTO 语句可以有两种编写形式。
+  + 第一种形式无需指定要插入数据的列名，只需提供被插入的值即可：
+    ```sql
+      INSERT INTO table_name
+      VALUES (value1,value2,value3,...);
+    ```
+  + 第二种形式需要指定列名及被插入的值：
+    ```sql
+      INSERT INTO table_name (column1,column2,column3,...)
+      VALUES (value1,value2,value3,...);
+    ``` 
++ 参数说明：
+  + table_name：需要插入新记录的表名。
+  + column1, column2, ...：需要插入的字段名。
+  + value1, value2, ...：需要插入的字段值。
+
++ INSERT INTO 实例
+  + 假设我们要向 "Websites" 表中插入一个新行。
+    ```sql
+      INSERT INTO Websites (name, url, alexa, country)
+      VALUES ('百度','https://www.baidu.com/','4','CN');
+    ```
+  + 在指定的列插入数据
+  + 下面的 SQL 语句将插入一个新行，但是只在 "name"、"url" 和 "country" 列插入数据（id 字段会自动更新）：
+    ```sql
+      INSERT INTO Websites (name, url, country)
+      VALUES ('stackoverflow', 'http://stackoverflow.com/', 'IND');
+    ``` 
+
+## 1.6 SQL UPDATE 语句
+
++ UPDATE 语句用于更新表中的记录。
++ UPDATE 语句用于更新表中已存在的记录。
+
++ SQL UPDATE 语法
+  ```sqlsql
+    UPDATE table_name
+    SET column1 = value1, column2 = value2, ...
+    WHERE condition;
+  ``` 
++ 参数说明：
+  + table_name：要修改的表名称。
+  + column1, column2, ...：要修改的字段名称，可以为多个字段。
+  + value1, value2, ...：要修改的值，可以为多个值。
+  + condition：修改条件，用于指定哪些数据要修改
+
++ 请注意 SQL UPDATE 语句中的 WHERE 子句！
++ WHERE 子句规定哪条记录或者哪些记录需要更新。如果您省略了 WHERE 子句，所有的记录都将被更新！
+
++ SQL UPDATE 实例
+  + 假设我们要把 "菜鸟教程" 的 alexa 排名更新为 5000，country 改为 USA。
+    ```sql
+      UPDATE Websites 
+      SET alexa='5000', country='USA' 
+      WHERE name='菜鸟教程';
+    ``` 
+
+## 1.7 SQL DELETE 语句
+
++ DELETE 语句用于删除表中的记录。
++ DELETE 语句用于删除表中的行。
+
++ SQL DELETE 语法
+  ```sql
+    DELETE FROM table_name
+    WHERE condition;
+  ``` 
++ 参数说明：
+  + table_name：要删除的表名称。
+  + condition：删除条件，用于指定哪些数据要删除
+
++ SQL DELETE 实例
+  + 假设我们要从 "Websites" 表中删除网站名为 "Facebook" 且国家为 USA 的网站。
+    ```sql
+      DELETE FROM Websites
+      WHERE name='Facebook' AND country='USA';
+    ``` 
+
++ 删除所有数据
+  + 您可以在不删除表的情况下，删除表中所有的行。这意味着表结构、属性、索引将保持不变：
+  + `DELETE FROM table_name;`
+
 ## sql 常用语句
 
 SQL（Structured Query Language）是一种用于管理关系型数据库的编程语言。下面是一些SQL编程语言中常用的语句：

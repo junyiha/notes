@@ -132,3 +132,24 @@ void mg_timer_poll(struct mg_timer **head, uint64_t uptime_ms);
 ```c
 mg_timer_poll(mg_millis());
 ```
+
+## mg_millis 
+
++ 简介：
+  + 以毫秒为单位返回当前运行时间。
+
++ 原型：
+```cpp
+int64_t mg_millis(void);
+```
+
++ 参数：
+  + 无
+
++ 返回值：
+  + 当前时间
+
++ 示例：
+```cpp
+int64_t uptime = mg_millis();
+```

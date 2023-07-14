@@ -27,3 +27,22 @@
 请注意，在执行批量删除操作时要谨慎。确保您理解删除操作的影响，并在执行之前备份重要数据。
 
 希望这些示例能帮助您理解如何在SQL中进行批量删除。如有其他问题，请随时提问。
+
+## 查询某个表单有多少条记录
+
++ `select count(*) from table_name;`
+
+### mysql 5.7 不用密码也能登录的问题
+
++ 在ubuntu下载mysql后，用mysql命令就可以直接登录数据库了，这是因为在mysql.user表里有个plugin的字段，root这个用户的值是auth_socket, 需要把它改成mysql_native_password。
++ 具体步骤如下：
+  + `use mysql;`
+  + `update user set authentication_string=PASSWORD("密码") where user=‘root‘;`
+  + `update user set plugin="mysql_native_password"; `
+  + `flush privileges;`
+  + `quit;`
+
+## SQL 脚本
+
++ 像编写shell脚本一样，只不过语句换成了SQL语句
++ 编写完成之后，通过mysql -u root -p password 进入到sql命令窗口，执行指令`source /sql.sh`执行sql脚本
