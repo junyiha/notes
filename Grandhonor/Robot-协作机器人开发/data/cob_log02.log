@@ -1,0 +1,14 @@
+ drag mode exit
+
+369e-05 0
+planner move joint function success
+Taike_POS: 0 , Taike_STATE: Operation Enabled
+Taike_POS: 1 , Taike_STATE: Operation Enabled
+Taike_POS: 2 , Taike_STATE: Operation Enabled
+Taike_POS: 3 , Taike_STATE: Operation Enabled
+Taike_POS: 4 , Taike_STATE: Operation Enabled
+Taike_POS: 5 , Taike_STATE: Operation Enabled
+F20230718 10:21:57.701498 15245 joint_vector.cpp:31] Check failed: index < static_cast<size_t>(data.size()) (0 vs. 0) 
+*** Check failure stack trace: ***
+./tool.sh: line 133: 15245 Aborted                 (core dumped) ./demo_server_r
+root@cor01:/home/user/zjy/web_backend-change-to-arwen-new# 

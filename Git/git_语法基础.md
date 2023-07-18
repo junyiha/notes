@@ -2,9 +2,74 @@
 
 + Git常见的语法知识
 
+## git config 详解
+
+`git config` 是 Git 版本控制系统中用于配置和管理 Git 仓库的命令。通过 `git config` 命令，你可以设置和获取 Git 仓库的各种配置选项，包括全局配置和仓库级配置。
+
+`git config` 命令有三个不同的级别：全局、仓库和本地。这些级别决定了配置选项的作用范围。
+
+以下是 `git config` 命令的一些常用选项和使用方法：
+
+1. **获取配置值**：使用 `git config <key>` 命令获取特定配置选项的值。例如，要获取用户的姓名配置，可以使用 `git config user.name`。
+   
+2. **设置配置值**：使用 `git config <key> <value>` 命令设置特定配置选项的值。例如，要设置用户的姓名配置，可以使用 `git config user.name "Your Name"`。
+
+3. **全局配置**：使用 `git config --global` 命令来设置全局配置选项。全局配置选项将应用于当前用户的所有 Git 仓库。例如，使用 `git config --global user.name "Your Name"` 来设置全局用户姓名。
+
+4. **仓库配置**：在 Git 仓库的根目录下，使用 `git config` 命令来设置仓库配置选项。这些配置选项将仅应用于当前仓库。例如，使用 `git config user.email "your@example.com"` 来设置仓库的用户邮箱。
+
+5. **本地配置**：对于某个特定的 Git 命令，你可以通过在命令后添加 `--local` 参数，将配置选项设置为本地级别。例如，使用 `git config --local core.ignorecase true` 来设置当前仓库的忽略文件大小写的配置。
+
+6. **列出配置**：使用 `git config --list` 命令列出当前仓库的所有配置选项及其对应的值。添加 `--global` 参数可以列出全局配置选项。
+
+7. **编辑配置文件**：使用 `git config --edit` 命令打开 Git 配置文件进行手动编辑。对于全局配置，会打开用户主目录下的 `.gitconfig` 文件，对于仓库配置，会打开仓库目录下的 `.git/config` 文件。
+
+这些是 `git config` 命令的一些常见用法和选项。通过适当配置 Git，你可以定制化和优化你的版本控制工作流程。
+
+---
+
+## git config 常用选项
+
+下面是一些常用的 `git config` 命令选项：
+
+1. **用户信息**：
+   - `user.name`：设置用户的姓名。
+   - `user.email`：设置用户的电子邮件地址。
+   - 例如：`git config --global user.name "Your Name"`
+   
+2. **文本编辑器**：
+   - `core.editor`：设置用于 Git 提交消息的文本编辑器。
+   - 例如：`git config --global core.editor "vim"`
+   
+3. **自动换行**：
+   - `core.autocrlf`：控制换行符的处理方式。
+     - `true`：在提交时自动将换行符转换为 CRLF，检出时转换为 LF（适用于 Windows 系统）。
+     - `input`：在提交时将换行符转换为 LF，检出时不做转换（适用于 macOS 和 Linux 系统）。
+     - `false`：保持换行符不变。
+   - 例如：`git config --global core.autocrlf true`
+
+4. **忽略文件**：
+   - `core.excludesfile`：指定一个全局的忽略文件，用于列出不应受版本控制的文件和目录。
+   - 例如：`git config --global core.excludesfile ~/.gitignore_global`
+
+5. **分支合并策略**：
+   - `merge.tool`：设置用于解决合并冲突的工具。
+   - 例如：`git config --global merge.tool kdiff3`
+
+6. **查看提交历史**：
+   - `alias.log`：设置自定义的 `git log` 命令别名。
+   - 例如：`git config --global alias.log "log --oneline --decorate"`
+
+7. **远程仓库**：
+   - `remote.origin.url`：设置远程仓库的 URL。
+   - `branch.<branchname>.remote`：设置分支与远程仓库的关联。
+   - 例如：`git config remote.origin.url "https://github.com/username/repo.git"`
+   
+这些是一些常用的 `git config` 命令选项，你可以根据自己的需求进行配置。使用 `--global` 参数将选项设置为全局级别，省略该参数则为当前仓库级别的配置。
+
 ## git tag 标签的使用
 
-### 标签(tag)相关的常用命令
+## 标签(tag)相关的常用命令
 
 + `git tag` 查看标签
 + `git tag <tag-name>` 创建命名标签
