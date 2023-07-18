@@ -1,0 +1,95 @@
+planner.StopNow() abort bug
+
+7 slave(s).
+Master AL states: 0x02.
+Link is up.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x02.
+Slave 0:   online.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 3.
+Domain: State 1.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 6.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 9.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 12.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 15.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Slave 0:   State 0x01.
+Slave 0:   State 0x02.
+Domain: WC 18.
+Domain: State 2.
+Slave 0:   State 0x04.
+Slave 0:   State 0x08.
+Slave 0:   Operational.
+Taike_POS: 0 , Taike_STATE: Switch on Disabled
+Taike_POS: 1 , Taike_STATE: Switch on Disabled
+Taike_POS: 2 , Taike_STATE: Switch on Disabled
+Taike_POS: 3 , Taike_STATE: Switch on Disabled
+Taike_POS: 4 , Taike_STATE: Switch on Disabled
+Taike_POS: 5 , Taike_STATE: Switch on Disabled
+Taike_POS: 0 , Taike_STATE: Ready to Switch On
+Taike_POS: 1 , Taike_STATE: Ready to Switch On
+Taike_POS: 2 , Taike_STATE: Ready to Switch On
+Taike_POS: 3 , Taike_STATE: Ready to Switch On
+Taike_POS: 4 , Taike_STATE: Ready to Switch On
+Taike_POS: 5 , Taike_STATE: Ready to Switch On
+Taike_POS: 0 , Taike_STATE: Switch On
+Taike_POS: 1 , Taike_STATE: Switch On
+Taike_POS: 2 , Taike_STATE: Switch On
+Taike_POS: 3 , Taike_STATE: Switch On
+Taike_POS: 4 , Taike_STATE: Switch On
+Taike_POS: 5 , Taike_STATE: Switch On
+Taike_POS: 0 , Taike_STATE: Operation Enabled
+Taike_POS: 1 , Taike_STATE: Operation Enabled
+Taike_POS: 2 , Taike_STATE: Operation Enabled
+Taike_POS: 3 , Taike_STATE: Operation Enabled
+Taike_POS: 4 , Taike_STATE: Operation Enabled
+Taike_POS: 5 , Taike_STATE: Operation Enabled
+Taike_POS: 2 , Taike_STATE: Operation Enabled
+Taike_POS: 3 , Taike_STATE: Operation Enabled
+Taike_POS: 4 , Taike_STATE: Operation Enabled
+Taike_POS: 5 , Taike_STATE: Operation Enabled
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I20230717 18:59:58.797895  3804 cob_planning.cc:155] -0.000143811	-0.032645	0.00882039	0	-4.79369e-05	-9.58738e-05
+I20230717 18:59:58.798063  3804 cob_planning.cc:163] -0.000143811	-0.032645	0.00882039	0	-4.79369e-05	-9.58738e-05
+I20230717 18:59:58.798085  3804 cob_planning.cc:171] -0.000143811	-0.032645	0.00882039	0	-4.79369e-05	-9.58738e-05
+I20230717 18:59:58.798137  3804 planning.h:333] -0.000143811	-0.032645	0.00882039	0	-4.79369e-05	-9.58738e-05
+I20230717 18:59:58.798158  3804 planning.h:339] -0.000143811	-0.032645	0.00882039	0	-4.79369e-05	-9.58738e-05
+Domain: WC 0.
+Domain: State 0.
+Master AL states: 0x0A.
+demo_server_d: /home/user/zjy/web_backend-change-to-arwen-new/third_party/include/eigen3/Eigen/src/Core/CwiseBinaryOp.h:116: Eigen::CwiseBinaryOp<BinaryOp, Lhs, Rhs>::CwiseBinaryOp(const Lhs&, const Rhs&, const BinaryOp&) [with BinaryOp = Eigen::internal::scalar_difference_op<double, double>; LhsType = const Eigen::Matrix<double, -1, 1>; RhsType = const Eigen::Matrix<double, -1, 1>; Eigen::CwiseBinaryOp<BinaryOp, Lhs, Rhs>::Lhs = Eigen::Matrix<double, -1, 1>; Eigen::CwiseBinaryOp<BinaryOp, Lhs, Rhs>::Rhs = Eigen::Matrix<double, -1, 1>]: Assertion `aLhs.rows() == aRhs.rows() && aLhs.cols() == aRhs.cols()' failed.
+./tool.sh: line 133:  3801 Aborted                 (core dumped) ./demo_server_d
+root@cor01:/home/user/zjy/web_backend-change-to-arwen-new# 

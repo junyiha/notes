@@ -9,7 +9,7 @@ cmd_map[1]="-h"
 cmd_map[2]="--move-to"
 cmd_map[3]="--test-move-line"
 cmd_map[4]="--ws-sync"
-cmd_map[5]="--open-drag"
+cmd_map[5]="--drag-control"
 
 ########################################################################################
 
@@ -21,7 +21,7 @@ function Help()
     echo "${cmd_map[2]}  [json file]  move to joint space position | cart space position"
     echo "${cmd_map[3]}  move line demo"
     echo "${cmd_map[4]}  websocket connection to get robot status information"
-    echo "${cmd_map[5]}  open drag mode"
+    echo "${cmd_map[5]}  [json file] control drag mode"
 }
 
 function MoveTo()
@@ -46,8 +46,7 @@ function WebSocketSync()
     wscat -c ${url}
 }
 
-
-function OpenDrag()
+function DragControl()
 {
     uri="/api/teach/drag"
     
@@ -71,7 +70,7 @@ function main()
     elif [[ $1 == "${cmd_map[4]}" ]]; then 
         WebSocketSync
     elif [[ $1 == "${cmd_map[5]}" ]]; then 
-        OpenDrag $2
+        DragControl $2
     else
         Help
     fi
