@@ -1,0 +1,17 @@
+{
+    "enableNotifyEvent":false,
+    "autoDeleteEventThreshold":3999,
+    "enableGddRecycleData":false,
+    "reportEventDrawImageWithROI":false,
+    "eventSubscribers":[
+        {
+            "address":"http://192.169.4.15",
+            "appKeyId":"aaassbbb",
+            "appKeySecret":"123",
+            "enable":true,
+            "health":true,
+            "name":"aaa",
+            "uploadType":7
+        }
+    ]
+}
