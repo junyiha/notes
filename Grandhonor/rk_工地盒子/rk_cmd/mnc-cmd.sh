@@ -48,7 +48,7 @@ function DeviceUpdateSystemConfig()
 {
     uri="device/system_config"
 
-    curl -X POST --data-binary @$1 ${url}${uri}
+    curl -X PUT --data-binary @$1 ${url}${uri}
 }
 
 function main()

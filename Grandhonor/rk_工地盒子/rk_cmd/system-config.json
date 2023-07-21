@@ -6,7 +6,7 @@
     "eventSubscribers":[
         {
             "address":"http://192.169.4.15",
-            "appKeyId":"aaassbbb",
+            "appKeyId":"sf",
             "appKeySecret":"123",
             "enable":true,
             "health":true,
