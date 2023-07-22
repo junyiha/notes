@@ -3,15 +3,14 @@
     "autoDeleteEventThreshold":3999,
     "enableGddRecycleData":false,
     "reportEventDrawImageWithROI":false,
+    "enableAutoDelete":false,
+    "modifyFlag":false,
     "eventSubscribers":[
         {
-            "address":"http://192.169.4.15",
-            "appKeyId":"sf",
-            "appKeySecret":"123",
-            "enable":true,
-            "health":true,
-            "name":"aaa",
-            "uploadType":7
+            "name": "dgsad",
+            "address": "http://192.169.4.15",
+            "appKeyId": "bbb",
+            "appKeySecret": "123"
         }
     ]
 }

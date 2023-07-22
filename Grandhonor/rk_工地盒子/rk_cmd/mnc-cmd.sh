@@ -1,7 +1,7 @@
 #! /bin/bash 
 
 file_name="mnc-cmd.sh"
-url="http://127.0.0.1:8000/api/"
+url="http://127.0.0.1:8001/api/"
 
 declare -A cmd_map
 cmd_map[1]="-h"
@@ -9,6 +9,8 @@ cmd_map[2]="--device-info"
 cmd_map[3]="--device-system-config"
 cmd_map[4]="--device-update"
 cmd_map[5]="--device-update-system-config"
+cmd_map[6]="--device-network"
+cmd_map[7]="--device-systime"
 
 ########################################################################################
 
@@ -21,6 +23,8 @@ function Help()
     echo "${cmd_map[3]}  get device system config information"
     echo "${cmd_map[4]}  update device name"
     echo "${cmd_map[5]}  [json file] update device system config "
+    echo "${cmd_map[6]}  get device network information"
+    echo "${cmd_map[7]}  get device system time"
 }
 
 function DeviceInfo()
@@ -51,6 +55,20 @@ function DeviceUpdateSystemConfig()
     curl -X PUT --data-binary @$1 ${url}${uri}
 }
 
+function DeviceNetwork()
+{
+    uri="device/network"
+
+    curl -X GET ${url}${uri}
+}
+
+function DeviceSystime()
+{
+    uri="device/systime"
+
+    curl -X GET ${url}${uri}
+}
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -63,6 +81,10 @@ function main()
         DeviceUpdate $2
     elif [[ $1 == "${cmd_map[5]}" ]]; then 
         DeviceUpdateSystemConfig $2
+    elif [[ $1 == "${cmd_map[6]}" ]]; then 
+        DeviceNetwork
+    elif [[ $1 == "${cmd_map[7]}" ]]; then 
+        DeviceSystime
     else 
         Help
     fi 
