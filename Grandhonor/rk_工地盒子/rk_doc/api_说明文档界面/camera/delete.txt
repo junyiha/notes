@@ -1,0 +1,27 @@
+method: POST
+uri: /api/setting/camera/delete
+
+parameters:
+```json
+{
+    "ids": [
+        1,
+        2,
+        3
+    ]
+}
+```
+
+success:
+```json
+{
+  "code": 0,
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

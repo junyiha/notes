@@ -1,0 +1,29 @@
+method: GET
+uri: /api/setting/camera/list
+
+parameters: null
+
+success:
+```json
+{
+    "code": 0,
+    "curr_page": 1,
+    "list": [
+        {
+            "id": 1,
+            "name": "company",
+            "updatedtime": "2023-7-24 17:42:31",
+            "url": "rtsp://admin:a1234567@192.169.7.123:554"
+        }
+    ],
+    "total_count": 1,
+    "total_page": 1
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

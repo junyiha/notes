@@ -1,0 +1,35 @@
+
+method: POST
+uri: /api/setting/warning_record/count
+
+
+parameters:
+```json
+{
+    "count":7,
+    "cur_time":"2023-07-24"
+}
+```
+
+success:
+```json
+{
+    "code": 0,
+    "list": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        248
+    ]
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

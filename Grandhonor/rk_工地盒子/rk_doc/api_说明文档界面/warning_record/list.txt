@@ -1,0 +1,70 @@
+
+method: GET
+uri: /api/setting/warning_record/list
+
+
+parameters:
+```json
+{
+    "page_size": 10,
+    "page": 1,
+    "event_id": 0,
+    "start_time":null,
+    "end_time":null
+}
+```
+
+success:
+```json
+{
+    "code": 0,
+    "curr_page": 1,
+    "list": [
+        {
+            "boxes": "{'label':10003,'score':82,'x1':590,'x2':658,'y1':242,'y2':303}",
+            "camera": "person",
+            "event_id": 41777,
+            "id": 41777,
+            "manualLabel": 0,
+            "name": "未戴安全帽",
+            "task": "aaa",
+            "time": "2023-7-20 18:53:7",
+            "unix_timestamp": 1689850387,
+            "url": "/userdata/static/warning_pictures/Im7s1-frame-159.jpg"
+        },
+        {
+            "boxes": "{'label':10001,'score':78,'x1':579,'x2':657,'y1':204,'y2':428}",
+            "camera": "person",
+            "event_id": 41776,
+            "id": 41776,
+            "manualLabel": 0,
+            "name": "区域入侵",
+            "task": "aaa",
+            "time": "2023-7-20 18:53:6",
+            "unix_timestamp": 1689850386,
+            "url": "/userdata/static/warning_pictures/Im7s1-frame-151.jpg"
+        },
+        {
+            "boxes": "{'label':10003,'score':88,'x1':606,'x2':670,'y1':232,'y2':293}",
+            "camera": "person",
+            "event_id": 41775,
+            "id": 41775,
+            "manualLabel": 0,
+            "name": "未戴安全帽",
+            "task": "aaa",
+            "time": "2023-7-18 9:22:57",
+            "unix_timestamp": 1689643377,
+            "url": "/userdata/static/warning_pictures/Im7s1-frame-255701.jpg"
+        }
+    ],
+    "total_count": 4000,
+    "total_page": 1334
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

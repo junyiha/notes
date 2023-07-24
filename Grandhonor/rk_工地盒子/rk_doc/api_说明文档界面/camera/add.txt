@@ -1,0 +1,26 @@
+
+method: POST
+uri: /api/setting/camera/add
+
+parameters:
+```json
+{
+  "name": "company",
+  "url": "rtsp://admin:a1234567@192.169.7.123:554"
+}
+```
+
+success:
+```json
+{
+  "code": 0,
+  "id": 1
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

@@ -1,0 +1,27 @@
+
+method: POST
+uri: /api/setting/warning_record/batch_delete
+
+
+parameters:
+```json
+{
+    "ids": [
+        3594
+    ]
+}
+```
+
+success:
+```json
+{
+  "code": 0,
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

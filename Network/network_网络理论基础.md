@@ -2,6 +2,100 @@
 
 + 网络基础知识和基础理论
 
+## uri 详解
+
+URI（Uniform Resource Identifier）是一种用于标识和定位资源的字符串表示形式。它是互联网上广泛使用的标准，用于唯一地标识资源，包括网页、图片、视频、文件等。URI 是由 RFC 3986（通用资源标识符：通用语法）定义的。
+
+URI 的一般格式为：`scheme:[//authority]path[?query][#fragment]`
+
+其中各部分的含义如下：
+
+1. Scheme（协议）：表示资源的访问协议，如 `http`、`https`、`ftp` 等。它通常用于指定资源的访问方式。例如：`http://www.example.com`
+
+2. Authority（权限）：表示资源的权限部分，包括主机名和可选的端口号。它通常用于指定资源所在的服务器或主机。例如：`www.example.com:8080`
+
+3. Path（路径）：表示资源在服务器上的路径。它通常用于指定资源在服务器文件系统中的位置。例如：`/path/to/resource`
+
+4. Query（查询）：表示资源的查询部分，用于传递参数给资源。它通常用于向服务器传递额外的信息。例如：`?id=123&name=example`
+
+5. Fragment（片段）：表示资源的片段标识符，用于指定资源的某个特定片段。它通常用于定位 HTML 页面中的某个锚点。例如：`#section1`
+
+### 示例：
+下面是几个 URI 的示例：
+
+1. `https://www.example.com/index.html`
+   - Scheme: `https`
+   - Authority: `www.example.com`
+   - Path: `/index.html`
+
+2. `ftp://ftp.example.com/files/data.zip`
+   - Scheme: `ftp`
+   - Authority: `ftp.example.com`
+   - Path: `/files/data.zip`
+
+3. `https://www.example.com/search?q=uri+explanation`
+   - Scheme: `https`
+   - Authority: `www.example.com`
+   - Path: `/search`
+   - Query: `q=uri+explanation`
+
+4. `https://www.example.com/index.html#section2`
+   - Scheme: `https`
+   - Authority: `www.example.com`
+   - Path: `/index.html`
+   - Fragment: `#section2`
+
+URI 的重要性在于它提供了一种标准的方式来标识和定位互联网上的资源，使得用户可以通过统一的格式来访问和处理各种不同类型的资源。
+
+---
+
+## url 详解
+
+URL（Uniform Resource Locator）是一种具体的 URI（Uniform Resource Identifier），用于定位和标识互联网上的资源。URL 是由 RFC 3986（通用资源标识符：通用语法）定义的，它是 URI 的一种常见形式。
+
+URL 的一般格式为：`scheme://username:password@host:port/path?query#fragment`
+
+其中各部分的含义如下：
+
+1. Scheme（协议）：表示资源的访问协议，如 `http`、`https`、`ftp` 等。它通常用于指定资源的访问方式。例如：`https://www.example.com`
+
+2. Username 和 Password（用户名和密码）：表示资源的认证信息，用于访问受限资源时进行身份验证。它们是可选的，并用于提供访问资源所需的用户名和密码。例如：`ftp://user:password@example.com`
+
+3. Host 和 Port（主机名和端口号）：表示资源所在的主机名和可选的端口号。它通常用于指定资源所在的服务器或主机。例如：`https://www.example.com:8080`
+
+4. Path（路径）：表示资源在服务器上的路径。它通常用于指定资源在服务器文件系统中的位置。例如：`/path/to/resource`
+
+5. Query（查询）：表示资源的查询部分，用于传递参数给资源。它通常用于向服务器传递额外的信息。例如：`?id=123&name=example`
+
+6. Fragment（片段）：表示资源的片段标识符，用于指定资源的某个特定片段。它通常用于定位 HTML 页面中的某个锚点。例如：`#section1`
+
+### 示例：
+下面是几个 URL 的示例：
+
+1. `https://www.example.com/index.html`
+   - Scheme: `https`
+   - Host: `www.example.com`
+   - Path: `/index.html`
+
+2. `ftp://ftp.example.com/files/data.zip`
+   - Scheme: `ftp`
+   - Host: `ftp.example.com`
+   - Path: `/files/data.zip`
+
+3. `https://www.example.com/search?q=url+explanation`
+   - Scheme: `https`
+   - Host: `www.example.com`
+   - Path: `/search`
+   - Query: `q=url+explanation`
+
+4. `https://www.example.com/index.html#section2`
+   - Scheme: `https`
+   - Host: `www.example.com`
+   - Path: `/index.html`
+   - Fragment: `#section2`
+
+URL 是互联网上资源的标准定位方式，它允许用户通过特定的地址来访问和处理不同类型的资源，如网页、图片、视频、文件等。
+
 ## RPC 工作方式 详解
 
 RPC（Remote Procedure Call，远程过程调用）的工作方式如下：

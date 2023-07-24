@@ -1,0 +1,11 @@
+
+method: GET
+uri: /api/setting/warning_record/view
+
+parameters:
+/api/setting/warning_record/view?id=3144
+
+success:
+warning record picture
+
+fail: null

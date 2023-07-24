@@ -1,0 +1,62 @@
+{
+    "camera_module": {
+        "name": "camera",
+        "interfaces": [
+            {
+                "brief": "获取相机列表",
+                "method": "GET",
+                "example": "/api/docs/file/camera/list"
+            },
+            {
+                "brief": "添加相机",
+                "method": "POST",
+                "example": "/api/docs/file/camera/add"
+            },
+            {
+                "brief": "更新相机",
+                "method": "POST",
+                "example": "/api/docs/file/camera/update"
+            },
+            {
+                "brief": "删除相机",
+                "method": "POST",
+                "example": "/api/docs/file/camera/delete"
+            }
+        ]
+    },
+    "warning_record_module": {
+        "name": "warning record",
+        "interfaces": [
+            {
+                "brief": "获取告警事件列表",
+                "method": "GET",
+                "example": "/api/docs/file/warning_record/list"
+            },
+            {
+                "brief": "查看告警图片",
+                "method": "GET",
+                "example": "/api/docs/file/warning_record/view"
+            },
+            {
+                "brief": "删除告警事件",
+                "method": "POST",
+                "example": "/api/docs/file/warning_record/delete"
+            },
+            {
+                "brief": "标记告警事件",
+                "method": "POST",
+                "example": "/api/docs/file/warning_record/remark"
+            },
+            {
+                "brief": "获取大屏折线图",
+                "method": "POST",
+                "example": "/api/docs/file/warning_record/count"
+            },
+            {
+                "brief": "事件推送",
+                "method": "POST",
+                "example": "/api/docs/file/warning_record/upload_alarm"
+            }
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+
+method: POST
+uri: /api/setting/warning_record/remark
+
+
+parameters:
+```json
+{
+    "id": 1,
+    "manualLabel": 1
+}
+```
+
+success:
+```json
+{
+  "code": 0,
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```

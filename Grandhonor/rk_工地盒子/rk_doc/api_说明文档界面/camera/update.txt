@@ -1,0 +1,26 @@
+
+method: POST
+uri: /api/setting/camera/update
+
+parameters:
+```json
+{
+    "id": 1,
+    "name":"person",
+    "url":"rtsp://192.169.4.16/test-presoncount.mp4"
+}
+```
+
+success:
+```json
+{
+  "code": 0,
+}
+```
+
+fail:
+```json
+{
+    "code": -1
+}
+```
