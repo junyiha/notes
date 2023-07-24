@@ -1,6 +1,6 @@
-{
-    "camera_module": {
-        "name": "camera",
+[
+    {
+        "module": "camera",
         "interfaces": [
             {
                 "brief": "获取相机列表",
@@ -24,8 +24,8 @@
             }
         ]
     },
-    "warning_record_module": {
-        "name": "warning record",
+    {
+        "module": "warning record",
         "interfaces": [
             {
                 "brief": "获取告警事件列表",
@@ -59,4 +59,4 @@
             }
         ]
     }
-}
+]
