@@ -5,12 +5,5 @@
     "reportEventDrawImageWithROI":false,
     "enableAutoDelete":false,
     "modifyFlag":false,
-    "eventSubscribers":[
-        {
-            "name": "dgsad",
-            "address": "http://192.169.4.15",
-            "appKeyId": "bbb",
-            "appKeySecret": "123"
-        }
-    ]
+    "eventSubscribers":null
 }
