@@ -10,6 +10,7 @@ cmd_map[2]="--move-to"
 cmd_map[3]="--test-move-line"
 cmd_map[4]="--ws-sync"
 cmd_map[5]="--drag-control"
+cmd_map[6]="--save-status"
 
 ########################################################################################
 
@@ -22,6 +23,7 @@ function Help()
     echo "${cmd_map[3]}  move line demo"
     echo "${cmd_map[4]}  websocket connection to get robot status information"
     echo "${cmd_map[5]}  [json file] control drag mode"
+    echo "${cmd_map[6]}  save robot status"
 }
 
 function MoveTo()
@@ -57,6 +59,13 @@ function DragControl()
     fi
 }
 
+function SaveStatus()
+{
+    uri="/api/test/save_status"
+
+    curl -X GET ${url}${uri}
+}
+
 ########################################################################################
 
 function main()
@@ -71,6 +80,8 @@ function main()
         WebSocketSync
     elif [[ $1 == "${cmd_map[5]}" ]]; then 
         DragControl $2
+    elif [[ $1 == "${cmd_map[6]}" ]]; then 
+        SaveStatus
     else
         Help
     fi
