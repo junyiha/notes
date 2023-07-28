@@ -2,6 +2,75 @@
 
 + linux系统的相关理论知识
 
+## ubuntu ftp 服务器 详解
+
+在 Ubuntu 上设置 FTP 服务器通常可以使用 vsftpd（Very Secure FTP Daemon）。vsftpd 是一个非常流行的 FTP 服务器软件，它被设计为简单、安全且高效。以下是在 Ubuntu 上搭建 vsftpd FTP 服务器的详细步骤：
+
+1. 安装 vsftpd：
+打开终端，使用以下命令安装 vsftpd：
+
+```bash
+sudo apt update
+sudo apt install vsftpd
+```
+
+2. 配置 vsftpd：
+安装完成后，您需要进行一些配置来设置 FTP 服务器的参数。主要的配置文件是 `/etc/vsftpd.conf`，您可以使用文本编辑器（如 nano 或 vim）来编辑该文件：
+
+```bash
+sudo nano /etc/vsftpd.conf
+```
+
+在该文件中，您可以根据需要调整一些设置，例如：
+
+- 启用或禁用匿名访问：
+```bash
+anonymous_enable=YES   # 允许匿名访问
+```
+```bash
+anonymous_enable=NO    # 禁止匿名访问
+```
+
+- 设置本地用户访问：
+```bash
+local_enable=YES       # 允许本地用户登录
+```
+
+- 设置写权限：
+```bash
+write_enable=YES       # 允许用户上传文件
+```
+
+- 指定用户根目录：
+```bash
+local_root=/home/ftp   # 指定FTP用户的根目录
+```
+
+3. 重新启动 vsftpd：
+编辑配置文件后，保存并退出文本编辑器。然后，重新启动 vsftpd 以应用新的配置：
+
+```bash
+sudo systemctl restart vsftpd
+```
+
+4. 防火墙设置：
+如果您的系统上启用了防火墙（如 ufw），需要允许 FTP 的数据传输端口（默认为 20 和 21 端口）：
+
+```bash
+sudo ufw allow 20/tcp
+sudo ufw allow 21/tcp
+```
+
+5. 添加 FTP 用户（可选）：
+如果您希望用户可以访问 FTP 服务器并上传文件，您需要在系统上创建相应的本地用户。您可以使用以下命令创建新用户并设置密码：
+
+```bash
+sudo adduser ftpuser  # 创建名为 "ftpuser" 的用户
+sudo passwd ftpuser   # 设置 "ftpuser" 用户的密码
+```
+
+现在，您的 Ubuntu 系统上已经成功安装和配置了 vsftpd FTP 服务器。用户可以使用 FTP 客户端连接到您的服务器，上传和下载文件。请注意，为了保障数据传输的安全，建议使用 SFTP（SSH File Transfer Protocol）或 FTPS（FTP Secure，基于 TLS/SSL 加密）等加密的方式进行传输。
+
 ## linux 可用交换内存 与实际空闲内存 区别 详解
 
 在Linux系统中，有两种类型的内存可用性，分别是可用交换内存（Swap）和实际空闲内存（Free Memory）。这两者的区别如下：
