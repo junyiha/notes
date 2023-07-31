@@ -1,5 +1,59 @@
 # VSCode 基础
 
+## 调试模式 设置环境变量
+
+在Visual Studio Code (VSCode) 中，`launch.json` 文件用于配置调试器的启动选项。当您在VSCode中使用C++进行调试时，可以使用 `launch.json` 文件设置环境变量以定制调试过程。
+
+以下是如何在 `launch.json` 文件中设置环境变量的步骤：
+
+1. 打开 VSCode，并在您的 C++ 项目文件夹中找到或创建 `launch.json` 文件。通常，该文件位于 `.vscode` 文件夹中。
+
+2. 在 `configurations` 字段中添加一个调试配置。如果该字段为空，请复制以下 JSON 代码并粘贴到 `launch.json` 文件中：
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C++ Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/<your_executable>",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": true
+    }
+  ]
+}
+```
+
+3. 在上面的代码中，`environment` 字段用于设置环境变量。您可以将需要的环境变量添加到该字段中。每个环境变量都以键值对的形式表示，键和值之间使用冒号分隔。例如，如果要设置名为 `MY_ENV_VAR` 的环境变量，可以添加如下配置：
+
+```json
+"environment": [
+  {
+    "name": "MY_ENV_VAR",
+    "value": "your_value"
+  }
+]
+```
+
+4. 保存 `launch.json` 文件。
+
+5. 在 VSCode 中打开您的 C++ 源代码文件，并在需要调试的行上设置断点。
+
+6. 单击 VSCode 左侧的调试图标（虫子图标），然后点击绿色的“启动调试”按钮。调试器将启动，并在设置的断点处停止。
+
+7. 如果有设置环境变量，它们将在调试过程中生效，您可以在调试过程中使用它们。
+
+请注意：
+- 有些调试器可能不支持在 `launch.json` 文件中设置环境变量。确保您使用的调试器支持此功能。
+- 在 `launch.json` 文件中设置的环境变量仅对该特定的调试配置生效。如果您有多个调试配置，每个配置可能需要不同的环境变量设置。
+
+以上步骤是为了在 VSCode 中通过 `launch.json` 文件设置 C++ 调试的环境变量。如果您在调试过程中遇到问题，请确保配置正确，并查看调试器的文档以获取更多帮助。
+
 ## 自动换行
 
 + `word wrap`
