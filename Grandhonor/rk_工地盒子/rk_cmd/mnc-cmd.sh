@@ -1,7 +1,8 @@
 #! /bin/bash 
 
 file_name="mnc-cmd.sh"
-url="http://127.0.0.1:8001/api/"
+# url="http://127.0.0.1:8001/api/"
+url="http://192.169.5.51:8000/api/"
 
 declare -A cmd_map
 cmd_map[1]="-h"
@@ -22,6 +23,7 @@ cmd_map[15]="--docs-warning-record-view"
 cmd_map[16]="--docs-warning-record-delete"
 cmd_map[17]="--docs-warning-record-remark"
 cmd_map[18]="--docs-warning-record-count"
+cmd_map[19]="--warning-clear"
 
 ########################################################################################
 
@@ -50,6 +52,9 @@ function Help()
     echo "${cmd_map[16]}  get document of warning record delete file"
     echo "${cmd_map[17]}  get document of warning record remark file"
     echo "${cmd_map[18]}  get document of warning record count file"
+    echo -e 
+    echo "${cmd_map[19]}  clear warning record data"
+    echo -e 
 }
 
 ########################################################################################
@@ -194,6 +199,16 @@ function DocsWarningRecordCount()
 
 ########################################################################################
 
+function WarningRecordClear()
+{
+    uri="setting/warning_record/clear"
+    
+    curl -X GET ${url}${uri}
+    echo -e
+}
+
+########################################################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -232,6 +247,8 @@ function main()
         DocsWarningRecordRemark
     elif [[ $1 == "${cmd_map[18]}" ]]; then 
         DocsWarningRecordCount
+    elif [[ $1 == "${cmd_map[19]}" ]]; then 
+        WarningRecordClear
     else 
         Help
     fi 
