@@ -5,7 +5,7 @@
 + 回调函数
 
 + 笛卡尔空间位置数据类型
-  ```
+  ```c
     typedef struct {
         double x;  // x轴坐标, 单位mm
         double y;  // y轴坐标, 单位mm
@@ -13,7 +13,7 @@
     }CartesianTran;
   ```
 + 欧拉角姿态数据类型
-  ```
+  ```c
     typedef struct {
         double rx;  // 绕固定 轴X 旋转角度，单位: rad
         double ry;  // 绕固定 轴Y 旋转角度，单位: rad
@@ -21,7 +21,7 @@
     }Rpy;
   ``` 
 + 笛卡尔空间位姿类型
-  ```
+  ```c
     typedef struct {
         CartesianTran tran;  // 笛卡尔空间位置
         Rpy rpy;             // 笛卡尔空间姿态
@@ -34,23 +34,23 @@
   + 因此某个牛人找到了四元数，既紧凑又没有奇异性。
 
 + 关节位置数据类型
-  ```
+  ```c
     typedef struct {
         double jVal[6];  // 6关节位置值，单位:rad
     }JointValue;
   ``` 
 
 + 机器人状态数据类型
-  ```
+  ```c
     typedef struct {
-        bool estoped;      // 是否急停
+        bool estoped;       // 是否急停
         bool poweredOn;     // 是否打开电源
         bool servoEnabled;  // 是否使能
     }RobotState;
   ``` 
 
 + 机器人力矩数据类型
-  ```
+  ```c
     typedef struct {
         double jTorque[6];  // 各关节力矩值，单位:N
     }TorqueValue;
