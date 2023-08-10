@@ -11,6 +11,8 @@ cmd_map[3]="--test-move-line"
 cmd_map[4]="--ws-sync"
 cmd_map[5]="--drag-control"
 cmd_map[6]="--save-status"
+cmd_map[7]="--login"
+cmd_map[8]="--get-point"
 
 ########################################################################################
 
@@ -24,6 +26,8 @@ function Help()
     echo "${cmd_map[4]}  websocket connection to get robot status information"
     echo "${cmd_map[5]}  [json file] control drag mode"
     echo "${cmd_map[6]}  save robot status"
+    echo "${cmd_map[7]}  login server"
+    echo "${cmd_map[8]}  get point info"
 }
 
 function MoveTo()
@@ -34,18 +38,21 @@ function MoveTo()
     else 
         curl -X POST --data-binary @$1 ${url}${uri}
     fi
+    echo -e
 }
 
 function TestMoveLine()
 {
     uri="/api/control/manual/tcpPosition/testMovL"
     curl -X POST -d "{"hello":"world"}" ${url}${uri}
+    echo -e
 }
 
 function WebSocketSync()
 {
     url="ws://192.169.7.32:9999/ws_sync"
     wscat -c ${url}
+    echo -e
 }
 
 function DragControl()
@@ -57,6 +64,7 @@ function DragControl()
     else 
         curl -X POST --data-binary @$1 ${url}${uri}
     fi
+    echo -e
 }
 
 function SaveStatus()
@@ -64,6 +72,27 @@ function SaveStatus()
     uri="/api/test/save_status"
 
     curl -X GET ${url}${uri}
+    echo -e
+}
+
+function Login()
+{
+    uri="/api/login"
+
+    if [[ -z "$1" ]]; then 
+        echo "error json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function GetPoint()
+{
+    uri="/api/test/getPoint"
+
+    curl -X GET ${url}${uri}
+    echo -e
 }
 
 ########################################################################################
@@ -82,6 +111,10 @@ function main()
         DragControl $2
     elif [[ $1 == "${cmd_map[6]}" ]]; then 
         SaveStatus
+    elif [[ $1 == "${cmd_map[7]}" ]]; then 
+        Login $2
+    elif [[ $1 == "${cmd_map[8]}" ]]; then 
+        GetPoint
     else
         Help
     fi

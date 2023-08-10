@@ -15,6 +15,10 @@ cmd_map[6]="--tool-sucker-start"
 cmd_map[7]="--tool-sucker-stop"
 cmd_map[8]="--tool-sucker-open"
 cmd_map[9]="--robot-beijing-moveJoint"
+cmd_map[10]="--robot-beijing-open"
+cmd_map[11]="--robot-beijing-moveLine"
+cmd_map[12]="--robot-beijing-dragMode"
+cmd_map[13]="--robot-beijing-getPoint"
 
 #######################################################
 
@@ -35,6 +39,10 @@ function Help()
 
     echo -e
     echo "${cmd_map[9]}  beijing robot device , move joint command"
+    echo "${cmd_map[10]}  beijing robot device , open command"
+    echo "${cmd_map[11]}  beijing robot device , move line command"
+    echo "${cmd_map[12]}  beijing robot device , drag move control command"
+    echo "${cmd_map[13]}  beijing robot device , get point info command"
 
     echo -e
 }
@@ -113,6 +121,51 @@ function RobotBeijingMoveJoint()
     echo -e
 }
 
+function RobotBeijingOpen()
+{
+    uri="/api/robots/beijing/open"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function RobotBeijingMoveLine()
+{
+    uri="/api/robots/beijing/moveLine"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function RobotBeijingDragMode()
+{
+    uri="/api/robots/beijing/dragMode"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function RobotBeijingGetPoint()
+{
+    uri="/api/robots/beijing/getPoint"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
 #######################################################
 
 function main()
@@ -135,6 +188,14 @@ function main()
         ToolSuckerOpen
     elif [[ $1 == "${cmd_map[9]}" ]]; then 
         RobotBeijingMoveJoint $2
+    elif [[ $1 == "${cmd_map[10]}" ]]; then 
+        RobotBeijingOpen $2
+    elif [[ $1 == "${cmd_map[11]}" ]]; then 
+        RobotBeijingMoveLine $2
+    elif [[ $1 == "${cmd_map[12]}" ]]; then 
+        RobotBeijingDragMode $2
+    elif [[ $1 == "${cmd_map[13]}" ]]; then 
+        RobotBeijingGetPoint
     else 
         Help
     fi
