@@ -13,6 +13,7 @@ cmd_map[5]="--drag-control"
 cmd_map[6]="--save-status"
 cmd_map[7]="--login"
 cmd_map[8]="--get-point"
+cmd_map[9]="--beijing-moveTo"
 
 ########################################################################################
 
@@ -28,6 +29,10 @@ function Help()
     echo "${cmd_map[6]}  save robot status"
     echo "${cmd_map[7]}  login server"
     echo "${cmd_map[8]}  get point info"
+
+    echo -e 
+    echo "${cmd_map[9]}  beijing robot , move to command"
+    
 }
 
 function MoveTo()
@@ -97,6 +102,20 @@ function GetPoint()
 
 ########################################################################################
 
+function BeijingMoveTo()
+{
+    uri="/api/control/moveTo"
+
+    if [[ -z "$1" ]]; then 
+        echo "error json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+########################################################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -115,6 +134,8 @@ function main()
         Login $2
     elif [[ $1 == "${cmd_map[8]}" ]]; then 
         GetPoint
+    elif [[ $1 == "${cmd_map[9]}" ]]; then 
+        BeijingMoveTo $2
     else
         Help
     fi

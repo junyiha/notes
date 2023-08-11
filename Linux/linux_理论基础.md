@@ -339,6 +339,10 @@ NetworkManager 是一个用于在 Linux 系统上管理网络连接的服务和�
 + `sudo netstat -tln | grep 8083`
 + `sudo lsof -i:8083`
 
+### lsof
+
++ apt install lsof
+
 ## 终端,控制台和shell的区别 
 
 + 终端(terminal)
