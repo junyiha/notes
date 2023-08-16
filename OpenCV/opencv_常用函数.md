@@ -1,3 +1,417 @@
+## 简介
+
++ OpenCV 常见类，函数
+
+## cv::circle
+
+在 OpenCV 中，`cv::circle` 是一个用于在图像上绘制圆的函数。这个函数可以用来绘制一个圆，或者在图像上绘制多个圆。
+
+函数原型如下：
+
+```cpp
+void cv::circle(cv::InputOutputArray img, cv::Point center, int radius, const cv::Scalar& color, int thickness = 1, int lineType = LINE_8, int shift = 0);
+```
+
+函数参数解释：
+- `img`: 输入/输出图像，可以是单通道或多通道图像。
+- `center`: `cv::Point` 类型的参数，表示圆心的坐标。
+- `radius`: 圆的半径。
+- `color`: 绘制圆的颜色，可以使用 `cv::Scalar` 类来表示颜色。
+- `thickness`: 圆边界的宽度（线条粗细），默认值为 1。
+- `lineType`: 圆边界的类型，可以是 `LINE_8`（8 连通线）或 `LINE_AA`（反锯齿线）。
+- `shift`: 坐标值的小数位数，通常为 0。
+
+下面是一个示例代码，演示了如何使用 `cv::circle` 函数绘制圆：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个黑色图像
+    cv::Mat image(300, 400, CV_8UC3, cv::Scalar(0, 0, 0));
+
+    // 定义圆心坐标和半径
+    cv::Point center(200, 150);
+    int radius = 50;
+
+    // 绘制圆
+    cv::circle(image, center, radius, cv::Scalar(0, 0, 255), 2);
+
+    // 显示绘制的图像
+    cv::imshow("Circle Example", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在这个示例中，我们创建了一个黑色的图像，然后使用 `cv::circle` 函数绘制了一个红色的圆，圆心为 `(200, 150)`，半径为 50。
+
+`cv::circle` 函数在图像绘制中非常有用，可以用于标记、可视化、边缘检测结果显示等多种情况。可以通过调整参数来控制圆的颜色、半径和边界样式。
+
+---
+
+## cv::Rect
+
+在 OpenCV 中，`cv::Rect` 是一个用于表示矩形的类。它通常用于图像处理和计算机视觉中，用于表示图像中的感兴趣区域（ROI），或者用于描述物体的边界框。
+
+`cv::Rect` 的定义位于 `opencv2/core.hpp` 头文件中，其结构如下：
+
+```cpp
+class Rect {
+public:
+    Rect();
+    Rect(int x, int y, int width, int height);
+    Rect(const Rect& r);
+
+    int x, y;       // 矩形左上角的坐标
+    int width, height; // 矩形的宽度和高度
+};
+```
+
+这个类有以下几个构造函数和成员变量：
+
+- `Rect()`: 默认构造函数，会将矩形的属性初始化为默认值。
+- `Rect(int x, int y, int width, int height)`: 构造函数，传入矩形的左上角坐标、宽度和高度。
+- `Rect(const Rect& r)`: 复制构造函数，用于创建一个已有矩形的副本。
+- `x` 和 `y`: 整数类型的成员变量，表示矩形左上角的 x 和 y 坐标。
+- `width` 和 `height`: 整数类型的成员变量，表示矩形的宽度和高度。
+
+下面是一个示例代码，演示了如何使用 `cv::Rect` 类：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个矩形对象
+    cv::Rect rect1(100, 50, 200, 150);
+
+    // 访问矩形的属性
+    int x = rect1.x;
+    int y = rect1.y;
+    int width = rect1.width;
+    int height = rect1.height;
+
+    // 输出矩形的属性
+    std::cout << "Rectangle: x=" << x << ", y=" << y << ", width=" << width << ", height=" << height << std::endl;
+
+    // 创建另一个矩形对象
+    cv::Rect rect2(50, 30, 100, 80);
+
+    // 使用复制构造函数创建新矩形对象
+    cv::Rect rect3 = rect2;
+
+    return 0;
+}
+```
+
+`cv::Rect` 类在许多图像处理和计算机视觉任务中非常有用，特别是在需要表示感兴趣区域、物体的边界框等情况。它可以帮助您存储和操作矩形的属性，以及在图像处理中进行相关操作，例如提取感兴趣区域、绘制边界框等。
+
+---
+
+## cv::line
+
+在 OpenCV 中，`cv::line` 是一个用于在图像上绘制直线的函数。这个函数可以用来绘制一条连接两个点的直线，或者在图像上绘制多条直线。
+
+函数原型如下：
+
+```cpp
+void cv::line(cv::InputOutputArray img, cv::Point pt1, cv::Point pt2, const cv::Scalar& color, int thickness = 1, int lineType = LINE_8, int shift = 0);
+```
+
+函数参数解释：
+- `img`: 输入/输出图像，可以是单通道或多通道图像。
+- `pt1` 和 `pt2`: 两个 `cv::Point` 类型的参数，表示直线的起点和终点。
+- `color`: 绘制直线的颜色，可以使用 `cv::Scalar` 类来表示颜色。
+- `thickness`: 直线的宽度（线条粗细），默认值为 1。
+- `lineType`: 直线的类型，可以是 `LINE_8`（8 连通线）或 `LINE_AA`（反锯齿直线）。
+- `shift`: 坐标值的小数位数，通常为 0。
+
+下面是一个示例代码，演示了如何使用 `cv::line` 函数绘制直线：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个黑色图像
+    cv::Mat image(300, 400, CV_8UC3, cv::Scalar(0, 0, 0));
+
+    // 定义起点和终点坐标
+    cv::Point pt1(50, 100);
+    cv::Point pt2(350, 200);
+
+    // 绘制直线
+    cv::line(image, pt1, pt2, cv::Scalar(0, 0, 255), 2);
+
+    // 显示绘制的图像
+    cv::imshow("Line Example", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在这个示例中，我们创建了一个黑色的图像，然后使用 `cv::line` 函数在图像上绘制了一条红色的直线，连接了起点 `(50, 100)` 和终点 `(350, 200)`。
+
+`cv::line` 函数在图像绘制中非常有用，可以用于标记、可视化、边缘检测结果显示等多种情况。可以通过调整参数来控制直线的颜色、宽度和类型。
+
+---
+
+## cv::Size
+
+在 OpenCV 中，`cv::Size` 是一个用于表示大小（尺寸）的类。它通常用于图像处理和计算机视觉中，用于表示图像的宽度和高度，或者表示其他物体、区域的尺寸。
+
+`cv::Size` 的定义位于 `opencv2/core.hpp` 头文件中，其结构如下：
+
+```cpp
+class Size {
+public:
+    Size();
+    Size(int width, int height);
+    Size(const Size& sz);
+
+    int width, height;
+};
+```
+
+这个类有以下几个构造函数和成员变量：
+
+- `Size()`: 默认构造函数，会将宽度和高度初始化为 0。
+- `Size(int width, int height)`: 构造函数，传入宽度和高度。
+- `Size(const Size& sz)`: 复制构造函数，用于创建一个已有尺寸的副本。
+- `width` 和 `height`: 整数类型的成员变量，分别表示尺寸的宽度和高度。
+
+下面是一个示例代码，演示了如何使用 `cv::Size` 类：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个尺寸对象
+    cv::Size size1(640, 480);
+
+    // 访问尺寸的宽度和高度
+    int width = size1.width;
+    int height = size1.height;
+
+    // 输出尺寸的宽度和高度
+    std::cout << "Size: " << width << " x " << height << std::endl;
+
+    // 创建另一个尺寸对象
+    cv::Size size2(320, 240);
+
+    // 使用复制构造函数创建新尺寸对象
+    cv::Size size3 = size2;
+
+    return 0;
+}
+```
+
+`cv::Size` 类在许多图像处理和计算机视觉任务中非常有用，特别是在需要表示图像的大小、物体的尺寸等情况。它可以帮助您存储和操作尺寸信息，以及在图像处理中进行相关操作，例如调整图像大小、计算物体的尺寸等。
+
+---
+
+## cv::Point2f
+
+在 OpenCV 中，`cv::Point2f` 是一个用于表示二维浮点坐标点的类。它是 `cv::Point` 的变体，其中坐标值使用浮点数而不是整数表示。`cv::Point2f` 类通常用于图像处理和计算机视觉中，特别是在需要使用浮点坐标来表示像素位置、图像上的点、图像中的特征点等情况。
+
+`cv::Point2f` 的定义位于 `opencv2/core/types.hpp` 头文件中，其结构如下：
+
+```cpp
+class Point2f {
+public:
+    Point2f();
+    Point2f(float x, float y);
+    Point2f(const Point2f& pt);
+
+    float x, y;
+};
+```
+
+这个类有以下几个构造函数和成员变量：
+
+- `Point2f()`: 默认构造函数，会将坐标点初始化为 (0, 0)。
+- `Point2f(float x, float y)`: 构造函数，传入 x 和 y 坐标值。
+- `Point2f(const Point2f& pt)`: 复制构造函数，用于创建一个已有点的副本。
+- `x` 和 `y`: 浮点数类型的成员变量，表示点的 x 和 y 坐标。
+
+下面是一个示例代码，演示了如何使用 `cv::Point2f` 类：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个点对象
+    cv::Point2f pt1(10.5, 20.3);
+
+    // 访问点的坐标
+    float x = pt1.x;
+    float y = pt1.y;
+
+    // 输出点的坐标
+    std::cout << "Point coordinates: (" << x << ", " << y << ")" << std::endl;
+
+    // 创建另一个点对象
+    cv::Point2f pt2(5.2, 8.7);
+
+    // 使用复制构造函数创建新点对象
+    cv::Point2f pt3 = pt2;
+
+    return 0;
+}
+```
+
+`cv::Point2f` 类在许多情况下都非常有用，特别是当需要使用浮点坐标来精确表示像素位置、特征点位置等时。它是 OpenCV 中基本的数据结构之一，用于处理图像中的点和坐标。
+
+---
+
+## cv::RotatedRect
+
+在 OpenCV 中，`cv::RotatedRect` 是一个用于表示旋转矩形的类。旋转矩形是一个带有角度的矩形，通常用于表示在图像中检测到的旋转物体的边界框。
+
+`cv::RotatedRect` 的定义位于 `opencv2/core/types.hpp` 头文件中，其结构如下：
+
+```cpp
+class RotatedRect {
+public:
+    RotatedRect();
+    RotatedRect(const Point2f& center, const Size2f& size, float angle);
+
+    Point2f center;  // 旋转矩形中心坐标
+    Size2f size;     // 旋转矩形的尺寸，宽度和高度
+    float angle;     // 旋转矩形的角度（以度为单位）
+};
+```
+
+这个类有以下几个构造函数和成员变量：
+
+- `RotatedRect()`: 默认构造函数，会将旋转矩形的属性初始化为默认值。
+- `RotatedRect(const Point2f& center, const Size2f& size, float angle)`: 构造函数，传入旋转矩形的中心坐标、尺寸和角度。
+
+成员变量解释：
+- `center`: 一个 `Point2f` 类型的成员变量，表示旋转矩形的中心坐标。
+- `size`: 一个 `Size2f` 类型的成员变量，表示旋转矩形的宽度和高度。
+- `angle`: 一个浮点数，表示旋转矩形的角度，单位为度。
+
+下面是一个示例代码，演示了如何使用 `cv::RotatedRect` 类：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    cv::Point2f center(100, 100);
+    cv::Size2f size(200, 100);
+    float angle = 30.0;
+
+    // 创建一个旋转矩形对象
+    cv::RotatedRect rotatedRect(center, size, angle);
+
+    // 访问旋转矩形的属性
+    cv::Point2f rectCenter = rotatedRect.center;
+    cv::Size2f rectSize = rotatedRect.size;
+    float rectAngle = rotatedRect.angle;
+
+    // 输出旋转矩形的属性
+    std::cout << "Center: (" << rectCenter.x << ", " << rectCenter.y << ")" << std::endl;
+    std::cout << "Size: " << rectSize.width << " x " << rectSize.height << std::endl;
+    std::cout << "Angle: " << rectAngle << " degrees" << std::endl;
+
+    return 0;
+}
+```
+
+`cv::RotatedRect` 类在许多图像处理和计算机视觉任务中非常有用，特别是在需要表示旋转物体的边界框时。它可以帮助您存储和操作旋转矩形的属性，以及在图像中进行相关操作，例如绘制旋转矩形、计算旋转矩形的边界框等。
+
+---
+
+## cv::Point
+
+在 OpenCV 库中，`cv::Point` 是一个用于表示二维坐标点的类。它通常用于图像处理和计算机视觉中，用于表示像素位置、图像上的点、图像中的特征点等。
+
+`cv::Point` 的定义位于 `opencv2/core.hpp` 头文件中，其结构如下：
+
+```cpp
+class Point {
+public:
+    Point();
+    Point(int x, int y);
+    Point(const Point& pt);
+
+    int x, y;
+};
+```
+
+这个类有以下几个构造函数和成员变量：
+
+- `Point()`: 默认构造函数，会将坐标点初始化为 (0, 0)。
+- `Point(int x, int y)`: 构造函数，传入 x 和 y 坐标值。
+- `Point(const Point& pt)`: 复制构造函数，用于创建一个已有点的副本。
+- `x` 和 `y`: 整数类型的成员变量，表示点的 x 和 y 坐标。
+
+下面是一个示例代码，演示了如何使用 `cv::Point` 类：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个点对象
+    cv::Point pt1(10, 20);
+
+    // 访问点的坐标
+    int x = pt1.x;
+    int y = pt1.y;
+
+    // 输出点的坐标
+    std::cout << "Point coordinates: (" << x << ", " << y << ")" << std::endl;
+
+    // 创建另一个点对象
+    cv::Point pt2(5, 8);
+
+    // 使用复制构造函数创建新点对象
+    cv::Point pt3 = pt2;
+
+    return 0;
+}
+```
+
+`cv::Point` 类在许多情况下都非常有用，例如在图像上标记特定位置、表示特征点、进行坐标计算等。它是 OpenCV 中基本的数据结构之一，用于处理图像中的点和坐标。
+
+---
+
+## cv::Scalar 
+
+`cv::Scalar` 是 OpenCV 库中的一个类，用于表示一个包含四个分量的向量，通常用于表示颜色、像素值等。这四个分量可以分别表示蓝色、绿色、红色和透明度（BGR-A）。
+
+这个类在图像处理中经常用于设置颜色、像素值等。每个分量都是一个双精度浮点数，通常取值范围是 0 到 255，表示一个 8 位无符号整数值的颜色分量。
+
+下面是一个简单的例子，演示了如何使用 `cv::Scalar` 来创建颜色以及像素值：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个红色的 Scalar 对象
+    cv::Scalar redColor(0, 0, 255);
+
+    // 创建一个白色的 Scalar 对象
+    cv::Scalar whiteColor(255, 255, 255);
+
+    // 输出 Scalar 对象的分量值
+    std::cout << "Red Color: " << redColor[0] << ", " << redColor[1] << ", " << redColor[2] << std::endl;
+
+    // 创建一个像素值为 (100, 150, 200) 的 Scalar 对象
+    cv::Scalar pixelValue(100, 150, 200);
+
+    return 0;
+}
+```
+
+需要注意的是，这里提供的颜色顺序是 BGR，与一般人们常见的 RGB 顺序不同。另外，如果不需要使用透明度，可以忽略透明度分量。
+
+`cv::Scalar` 通常用于填充矩形、绘制文本、设置像素值等场景，方便地表示颜色和值。在图像处理和计算机视觉领域中，`cv::Scalar` 是一个很有用的工具，使颜色和值的处理变得简单且易于理解。
+
+---
+
 ## cv::Mat 
 
 + 简介：

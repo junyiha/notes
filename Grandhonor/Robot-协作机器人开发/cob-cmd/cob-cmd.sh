@@ -22,7 +22,7 @@ function Help()
     echo "cob-cmd.sh  shell script for cob debug"
     echo -e 
     echo "${cmd_map[1]}  output help information"
-    echo "${cmd_map[2]}  [json file]  move to joint space position | cart space position"
+    echo "${cmd_map[2]}  [json file]  move to joint space position | cart space position (m, rad)"
     echo "${cmd_map[3]}  move line demo"
     echo "${cmd_map[4]}  websocket connection to get robot status information"
     echo "${cmd_map[5]}  [json file] control drag mode"

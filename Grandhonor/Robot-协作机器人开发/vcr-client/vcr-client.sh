@@ -19,6 +19,12 @@ cmd_map[10]="--robot-beijing-open"
 cmd_map[11]="--robot-beijing-moveLine"
 cmd_map[12]="--robot-beijing-dragMode"
 cmd_map[13]="--robot-beijing-getPoint"
+cmd_map[14]="--camera-ty-init"
+cmd_map[15]="--camera-ty-open"
+cmd_map[16]="--camera-ty-close"
+cmd_map[17]="--detector-init"
+cmd_map[18]="--detector-open"
+cmd_map[19]="--detector-close"
 
 #######################################################
 
@@ -43,6 +49,17 @@ function Help()
     echo "${cmd_map[11]}  beijing robot device , move line command"
     echo "${cmd_map[12]}  beijing robot device , drag move control command"
     echo "${cmd_map[13]}  beijing robot device , get point info command"
+
+    echo -e 
+    echo "${cmd_map[14]}  TYCamera device, init camera"
+    echo "${cmd_map[15]}  TYCamera device, open camera"
+    echo "${cmd_map[16]}  TYCamera device, close camera"
+
+    echo -e 
+    echo "${cmd_map[17]}  Detector, init detector"
+    echo "${cmd_map[18]}  Detector, open detector"
+    echo "${cmd_map[19]}  Detector, close detector"
+
 
     echo -e
 }
@@ -168,6 +185,64 @@ function RobotBeijingGetPoint()
 
 #######################################################
 
+function TYCameraInit()
+{
+    uri="/api/cameras/tycamera/init"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
+function TYCameraOpen()
+{
+    uri="/api/cameras/tycamera/open"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
+function TYCameraClose()
+{
+    uri="/api/cameras/tycamera/close"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
+#######################################################
+
+function DetectorInit()
+{
+    uri="/api/detectors/detector/init"
+
+    curl -X GET ${url}${uri}
+
+    echo -e   
+}
+
+function DetectorOpen()
+{
+    uri="/api/detectors/detector/open"
+
+    curl -X GET ${url}${uri}
+
+    echo -e   
+}
+
+function DetectorClose()
+{
+    uri="/api/detectors/detector/close"
+
+    curl -X GET ${url}${uri}
+
+    echo -e   
+}
+
+#######################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -196,6 +271,18 @@ function main()
         RobotBeijingDragMode $2
     elif [[ $1 == "${cmd_map[13]}" ]]; then 
         RobotBeijingGetPoint
+    elif [[ $1 == "${cmd_map[14]}" ]]; then 
+        TYCameraInit
+    elif [[ $1 == "${cmd_map[15]}" ]]; then 
+        TYCameraOpen
+    elif [[ $1 == "${cmd_map[16]}" ]]; then 
+        TYCameraClose
+    elif [[ $1 == "${cmd_map[17]}" ]]; then 
+        DetectorInit
+    elif [[ $1 == "${cmd_map[18]}" ]]; then 
+        DetectorOpen
+    elif [[ $1 == "${cmd_map[19]}" ]]; then 
+        DetectorClose
     else 
         Help
     fi
