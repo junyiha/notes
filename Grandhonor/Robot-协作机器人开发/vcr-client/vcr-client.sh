@@ -25,6 +25,7 @@ cmd_map[16]="--camera-ty-close"
 cmd_map[17]="--detector-init"
 cmd_map[18]="--detector-open"
 cmd_map[19]="--detector-close"
+cmd_map[20]="--detector-detect"
 
 #######################################################
 
@@ -58,6 +59,7 @@ function Help()
     echo -e 
     echo "${cmd_map[17]}  Detector, init detector"
     echo "${cmd_map[18]}  Detector, open detector"
+    echo "${cmd_map[20]}  Detector, detect a frame detector"
     echo "${cmd_map[19]}  Detector, close detector"
 
 
@@ -232,6 +234,15 @@ function DetectorOpen()
     echo -e   
 }
 
+function DetectorDetect()
+{
+    uri="/api/detectors/detector/detect"
+
+    curl -X GET ${url}${uri}
+
+    echo -e   
+}
+
 function DetectorClose()
 {
     uri="/api/detectors/detector/close"
@@ -283,6 +294,8 @@ function main()
         DetectorOpen
     elif [[ $1 == "${cmd_map[19]}" ]]; then 
         DetectorClose
+    elif [[ $1 == "${cmd_map[20]}" ]]; then 
+        DetectorDetect
     else 
         Help
     fi
