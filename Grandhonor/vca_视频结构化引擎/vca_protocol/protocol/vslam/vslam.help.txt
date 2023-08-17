@@ -1,0 +1,89 @@
+
+vslam.exe 版本 5.1.6
+
+一般选项：
+
+	--help
+		打印这些信息。
+
+	--version
+		打印版本信息。
+
+日志选项：
+
+	--log-verbose
+		记录详细日志。默认：记录重要日志
+
+设备选项：
+
+	--video-vendor < VENDOR >
+		视觉供应商。默认：1
+
+		1: Intel RealSense。
+
+	--video-mode < MODE >
+		视觉模式。默认：1
+
+		1: RGBD。
+		2: RGBD with IMU。
+		3: STEREO
+		4: STEREO with IMU
+
+服务选项：
+
+	--daemon
+		启用后台驻留模式。
+		注：此功能不支持supervisor守护，或类似的工具。
+
+	--http-listen < ADDRESS > 
+		监听地址。默认：0.0.0.0:19009
+
+控制选项：
+
+	--cmd < COMMAND > 
+		指令。
+
+		1: 停止。
+		2: 启动。
+		3: 查询状态。
+		4: 模式切换。
+
+	--product < TYPE > 
+		导航类型。默认：1
+
+		1: ORB-SLAM3。
+
+	--orb-slam3-voc-file < FILE > 
+		Vocabulary文件。默认：orb_slam3_voc.bin
+
+	--orb-slam3-set-file < FILE > 
+		配置参数文件。默认：orb_slam3_set.yaml
+
+	--orb-slam3-seq-file < FILE > 
+		Sequence文件。默认：orb_slam3_seq.bin
+
+	--mode < MODE > 
+		模式。
+
+		1: 定位。
+		2: 建图。
+
+指令概要：
+
+	wget http://IP:PORT/api --post-data="cmd=1"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=2&product=1"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=3"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=4&mode=1"
+
+		errno=0：成功。
+		errno=1：已停止。
+		errno=22：模式错误。

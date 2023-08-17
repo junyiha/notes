@@ -1,0 +1,202 @@
+
+vccs.exe 版本 5.1.6
+
+一般选项：
+
+	--help
+		打印这些信息。
+
+	--version
+		打印版本信息。
+
+日志选项：
+
+	--log-verbose
+		记录详细日志。默认：记录重要日志
+
+设备选项：
+
+	--hardware-conf < FILE [...] > 
+		物理设备配置文件。
+
+		--devname < TYPE > 
+			设备名字(代号)。
+
+		--type < TYPE > 
+			设备类型。
+
+			1: 串口。
+			2: CANOPEN。
+			3: MODBUS。
+
+		--device < DEV > 
+			设备文件。
+
+	--hardware-conf.d < PATH > 
+		物理设备配置文件路径。
+
+	--device-conf < FILE [...] > 
+		逻辑设备配置文件。
+
+		--devname < TYPE > 
+			设备名字(代号)。
+
+		--type < TYPE > 
+			设备类型。
+
+			1: 超声。
+			2: 轮子。
+			3: 陀螺仪。
+
+		--position < POS > 
+			安装位置。
+
+			1:  1点方向。
+			2:  2点方向。
+			3:  3点方向。
+			4:  4点方向。
+			5:  5点方向。
+			6:  6点方向。
+			7:  7点方向。
+			8:  8点方向。
+			9:  9点方向。
+			10: 10点方向。
+			11: 11点方向。
+			12: 12点方向。
+			25: 前侧。
+			26: 后侧。
+			27: 左侧。
+			28: 右侧。
+			29: 中间。
+
+		--baudrate < NUMBER > 
+			波特率。默认：115200
+
+		--bits < NUMBER > 
+			数据位。默认：8
+
+		--parity < NUMBER > 
+			较验位。默认：0
+
+		--stop < NUMBER > 
+			停止位。默认：1
+
+		--vendor < VENDOR > 
+			供应商。
+
+			轮子：ZhongLingKeJi
+			超声：DianYingPu
+			陀螺仪：GuangYunDianZi
+
+		--product < PRODUCT > 
+			产品型号。
+
+		--address < NUMBER > 
+			设备地址。默认：0
+
+		--timeout < NUMBER > 
+			通讯超时(毫秒)。默认：0
+
+		--interval < NUMBER > 
+			刷新间隔(毫秒)。默认：1000
+
+	--device-conf.d < PATH > 
+		逻辑设备配置文件路径。
+
+	--product < TYPE > 
+		产品型号。默认：1
+
+		1: 大聪明1号。2轮前驱，8个超声，1个陀螺仪。
+
+	--wheelbase < NUMBER > 
+		轴距(毫米)。默认：335
+
+	--wheeltrack < NUMBER > 
+		轮距(毫米)。默认：468
+
+服务选项：
+
+	--daemon
+		启用后台驻留模式。
+		注：此功能不支持supervisor守护，或类似的工具。
+
+	--http-listen < ADDRESS > 
+		监听地址。默认：0.0.0.0:18008
+
+控制选项：
+
+	--cmd < COMMAND > 
+		指令。
+
+		1: 停止。
+		2: 启动。
+		3: 状态查询。
+		4: 挡位切换。
+		5: 油门和转向。
+
+	--speed-max < NUMBER > 
+		车轮最大转速(转/分钟)。默认：15
+
+	--angle-max < NUMBER > 
+		最大转向角度(度)，2位精度。默认：36000
+
+	--gas-rate < NUMBER > 
+		油门频率(毫秒)。默认：300
+
+	--gear < GERR > 
+		档位。
+
+		0: 驻车。
+		1: 倒车。
+		2: 前进。
+
+	--cordon < DISTANCE > 
+		警戒线(毫米)。
+
+	--cordon-front < DISTANCE > 
+		警戒线(毫米)，车头。默认：500
+
+	--cordon-back < DISTANCE > 
+		警戒线(毫米)，车尾。默认：500
+
+	--cordon-left < DISTANCE > 
+		警戒线(毫米)，左侧。默认：300
+
+	--cordon-right < DISTANCE > 
+		警戒线(毫米)，右侧。默认：300。
+
+	--speed < NUMBER > 
+		车轮转速(转/分钟)。
+
+	--angle < NUMBER > 
+		转向角度(度)，2位精度。< 0 右转，= 0 直行 ，> 0 左转。
+
+指令概要：
+
+	wget http://IP:PORT/api --post-data="cmd=1"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=2"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=3"
+
+		errno=0：成功。
+
+	wget http://IP:PORT/api --post-data="cmd=4&gear=0"
+	wget http://IP:PORT/api --post-data="cmd=4&gear=1&cordon=500"
+	wget http://IP:PORT/api --post-data="cmd=4&gear=2&cordon=500"
+
+		errno=0：成功。
+		errno=1：已停止。
+		errno=22：行驶中或挡位错误。
+
+	wget http://IP:PORT/api --post-data="cmd=5&speed=20"
+	wget http://IP:PORT/api --post-data="cmd=5&speed=20&angle=-1000"
+	wget http://IP:PORT/api --post-data="cmd=5&speed=20&angle=1000"
+
+		errno=0：成功。
+		errno=1：已停止。
+		errno=22：驻车中。

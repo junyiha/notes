@@ -2,7 +2,8 @@
 
 file_name="mnc-cmd.sh"
 # url="http://127.0.0.1:8001/api/"
-url="http://192.169.5.49:8000/api/"
+# url="http://192.169.5.49:8000/api/"
+url="http://192.169.0.152:8000/api/"
 
 declare -A cmd_map
 cmd_map[1]="-h"
@@ -24,14 +25,18 @@ cmd_map[16]="--docs-warning-record-delete"
 cmd_map[17]="--docs-warning-record-remark"
 cmd_map[18]="--docs-warning-record-count"
 cmd_map[19]="--warning-clear"
+cmd_map[20]="--camera-test"
+cmd_map[21]="--camera-list"
 
 ########################################################################################
 
 function Help()
 {
     echo "${file_name}  shell script for rk server"
+
     echo -e 
     echo "${cmd_map[1]}  output help information"
+    
     echo -e
     echo "${cmd_map[2]}  get device information"
     echo "${cmd_map[3]}  get device system config information"
@@ -39,12 +44,14 @@ function Help()
     echo "${cmd_map[5]}  [json file] update device system config "
     echo "${cmd_map[6]}  get device network information"
     echo "${cmd_map[7]}  get device system time"
+
     echo -e
     echo "${cmd_map[8]}  get document list"
     echo "${cmd_map[9]}  get document of camera list text file"
     echo "${cmd_map[12]}  get document of camera add text file"
     echo "${cmd_map[13]}  get document of camera update text file"
     echo "${cmd_map[14]}  get document of camera delete text file"
+    
     echo -e 
     echo "${cmd_map[10]}  get document of upload alarm text file"
     echo "${cmd_map[11]}  get document of warning record text file"
@@ -52,8 +59,14 @@ function Help()
     echo "${cmd_map[16]}  get document of warning record delete file"
     echo "${cmd_map[17]}  get document of warning record remark file"
     echo "${cmd_map[18]}  get document of warning record count file"
+    
     echo -e 
     echo "${cmd_map[19]}  clear warning record data"
+
+    echo -e 
+    echo "${cmd_map[20]}  test input video name"
+    echo "${cmd_map[21]}  camera list"
+    
     echo -e 
 }
 
@@ -209,6 +222,28 @@ function WarningRecordClear()
 
 ########################################################################################
 
+function CameraTest()
+{
+    uri="setting/camera/test"
+
+    if [[ -z $1 ]]; then 
+        echo "empty json file"
+    else
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function CameraList()
+{
+    uri="setting/camera/list"
+
+    curl -X GET ${url}${uri}
+    echo -e
+}
+
+########################################################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -249,6 +284,10 @@ function main()
         DocsWarningRecordCount
     elif [[ $1 == "${cmd_map[19]}" ]]; then 
         WarningRecordClear
+    elif [[ $1 == "${cmd_map[20]}" ]]; then 
+        CameraTest $2
+    elif [[ $1 == "${cmd_map[21]}" ]]; then 
+        CameraList
     else 
         Help
     fi 
