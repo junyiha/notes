@@ -2,8 +2,8 @@
 
 file_name="mnc-cmd.sh"
 # url="http://127.0.0.1:8001/api/"
-# url="http://192.169.5.49:8000/api/"
-url="http://192.169.0.152:8000/api/"
+url="http://192.169.5.54:8000/api/"
+# url="http://192.169.0.152:8000/api/"
 
 declare -A cmd_map
 cmd_map[1]="-h"
