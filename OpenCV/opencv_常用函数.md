@@ -2,6 +2,245 @@
 
 + OpenCV 常见类，函数
 
+## cv::fillPoly() 函数 详解
+
+`cv::fillPoly()` 函数是 OpenCV 库中的一个函数，用于在图像上填充指定的多边形区域。
+
+以下是关于 `cv::fillPoly()` 函数的详细解释：
+
+- **函数签名**：函数的签名如下：
+
+  ```cpp
+  void cv::fillPoly(
+      InputOutputArray img,
+      InputArrayOfArrays pts,
+      const Scalar &color,
+      int lineType = LINE_8,
+      int shift = 0,
+      Point offset = Point());
+  ```
+
+- **参数**：
+  - `img`：要填充的图像。
+  - `pts`：多边形的顶点集合，可以是一个包含 `cv::Point` 的 `std::vector`，也可以是 `cv::Mat`。
+  - `color`：填充的颜色，类型为 `cv::Scalar`，表示 BGR 通道的颜色值。
+  - `lineType`：线段的类型，默认为 `LINE_8`，表示8连通线段。
+  - `shift`：坐标的小数部分位数，默认为0。
+  - `offset`：坐标的偏移，默认为 `Point()`。
+
+- **功能**：
+  - 该函数用于在图像上填充一个或多个多边形区域，根据给定的多边形顶点集合和颜色进行填充。
+  - 填充的多边形可以是简单多边形，也可以是包含洞的多边形。
+
+- **示例**：
+  ```cpp
+  cv::Mat image(300, 300, CV_8UC3, cv::Scalar(0, 0, 0));
+
+  std::vector<cv::Point> polygon;
+  polygon.push_back(cv::Point(50, 50));
+  polygon.push_back(cv::Point(150, 50));
+  polygon.push_back(cv::Point(150, 150));
+  polygon.push_back(cv::Point(50, 150));
+
+  std::vector<std::vector<cv::Point>> polygons;
+  polygons.push_back(polygon);
+
+  cv::fillPoly(image, polygons, cv::Scalar(0, 255, 0));
+
+  cv::imshow("Filled Image", image);
+  cv::waitKey(0);
+  ```
+
+- **注意事项**：
+  - `pts` 参数接受一个包含多个多边形的顶点集合，因此你可以一次性填充多个多边形。
+  - 该函数会直接在输入图像上进行填充操作，所以确保图像的尺寸和类型与所需操作匹配。
+
+总之，`cv::fillPoly()` 函数是用于在图像上填充多边形区域的函数。通过提供多边形的顶点集合和填充颜色，你可以在图像中创建各种填充区域，用于可视化和图像处理。
+
+## cv::Mat::ptr() 函数 详解
+
+`cv::Mat::ptr()` 函数是 OpenCV 库中 `cv::Mat` 类的一个成员函数，用于获取指定行的指针，从而允许对图像或矩阵数据进行低级别的访问和操作。
+
+以下是关于 `cv::Mat::ptr()` 函数的详细解释：
+
+- **函数签名**：函数的签名如下：
+
+  ```cpp
+  uchar* cv::Mat::ptr(int i = 0);
+  ```
+
+- **参数**：
+  - `i`：指定要获取指针的行数（默认为0），即行的索引。行索引从0开始。
+
+- **返回值**：
+  - 返回一个 `uchar*` 类型的指针，指向指定行的数据。这个指针可以用于低级别的数据访问操作。
+
+- **功能**：
+  - 该函数用于获取指定行的指针，允许你对图像或矩阵数据进行低级别的访问和操作。通过获取指针，你可以在不使用高级 OpenCV 函数的情况下，直接读取和修改像素值。
+
+- **示例**：
+  ```cpp
+  cv::Mat image = cv::imread("image.jpg", cv::IMREAD_COLOR);
+
+  if (!image.empty()) {
+      int row = 100;
+
+      uchar* ptr = image.ptr(row);
+
+      for (int col = 0; col < image.cols; ++col) {
+          uchar blue = ptr[col * 3];     // Blue channel
+          uchar green = ptr[col * 3 + 1]; // Green channel
+          uchar red = ptr[col * 3 + 2];   // Red channel
+      }
+  }
+  ```
+
+- **注意事项**：
+  - 通过 `cv::Mat::ptr()` 获取的指针可以用于访问指定行的像素数据。如果你需要访问其他通道的像素值，你需要根据通道数进行适当的偏移。
+  - 注意确保访问的像素在图像范围内，以避免越界访问。
+
+总之，`cv::Mat::ptr()` 函数是用于获取指定行的指针，从而允许你对图像或矩阵数据进行低级别的访问和操作。这对于一些特定的图像处理任务可能会很有用，但需要小心越界访问。
+
+## cv::Mat::ptr<uint16_t>() 函数 详解
+
+`cv::Mat::ptr<uint16_t>()` 函数是 OpenCV 库中 `cv::Mat` 类的一个成员函数的模板化版本，用于获取指定行的指针，并将指针的数据类型设置为 `uint16_t`，从而允许对图像或矩阵数据进行低级别的访问和操作，特别适用于 `uint16_t` 类型的像素数据。
+
+以下是关于 `cv::Mat::ptr<uint16_t>()` 函数的详细解释：
+
+- **函数签名**：函数的签名如下：
+
+  ```cpp
+  uint16_t* cv::Mat::ptr<uint16_t>(int i = 0);
+  ```
+
+- **参数**：
+  - `i`：指定要获取指针的行数（默认为0），即行的索引。行索引从0开始。
+
+- **返回值**：
+  - 返回一个 `uint16_t*` 类型的指针，指向指定行的数据。这个指针可以用于低级别的数据访问操作。
+
+- **功能**：
+  - 该函数用于获取指定行的指针，并将指针的数据类型设置为 `uint16_t`，允许你对图像或矩阵数据进行低级别的访问和操作。通过获取指针，你可以在不使用高级 OpenCV 函数的情况下，直接读取和修改像素值。
+
+- **示例**：
+  ```cpp
+  cv::Mat depth_image = cv::imread("depth_image.png", cv::IMREAD_ANYDEPTH);
+
+  if (!depth_image.empty() && depth_image.depth() == CV_16U) {
+      int row = 100;
+
+      uint16_t* ptr = depth_image.ptr<uint16_t>(row);
+
+      for (int col = 0; col < depth_image.cols; ++col) {
+          uint16_t depth_value = ptr[col];
+      }
+  }
+  ```
+
+- **注意事项**：
+  - 通过 `cv::Mat::ptr<uint16_t>()` 获取的指针可以用于访问指定行的像素数据，数据类型为 `uint16_t`。确保图像的深度为 `CV_16U`，以匹配数据类型。
+  - 注意确保访问的像素在图像范围内，以避免越界访问。
+
+总之，`cv::Mat::ptr<uint16_t>()` 函数是用于获取指定行的指针，并将数据类型设置为 `uint16_t`，允许你对图像或矩阵数据进行低级别的访问和操作。这对于访问 `uint16_t` 类型的像素数据非常有用，但需要小心越界访问。
+
+## cv::pointPolygonTest() 函数 详解
+
+`cv::pointPolygonTest()` 函数是 OpenCV 库中的一个函数，用于计算一个点与一个多边形之间的关系，即点相对于多边形的内部、外部还是在多边形的边界上。
+
+以下是关于 `cv::pointPolygonTest()` 函数的详细解释：
+
+- **函数签名**：函数的签名如下：
+
+  ```cpp
+  double cv::pointPolygonTest(
+      InputArray contour,
+      Point2f pt,
+      bool measureDist);
+  ```
+
+- **参数**：
+  - `contour`：表示多边形的轮廓的输入数组。可以是一个 `std::vector<cv::Point>`，也可以是一个 `cv::Mat`。
+  - `pt`：要测试的点的坐标，类型为 `cv::Point2f`。
+  - `measureDist`：一个布尔值，表示是否要计算点到多边形边界的距离。如果为 `true`，函数将返回点到多边形的距离；如果为 `false`，函数将只返回点相对于多边形的关系（内部、外部或边界）。
+
+- **返回值**：
+  - 如果 `measureDist` 参数为 `false`，返回值的含义如下：
+    - 正数：点在多边形内部。
+    - 零：点在多边形的边界上。
+    - 负数：点在多边形外部。
+  - 如果 `measureDist` 参数为 `true`，返回值表示点到多边形边界的有符号距离。距离为正数表示点在多边形内部，为零表示点在多边形边界上，为负数表示点在多边形外部。
+
+- **功能**：
+  - 该函数用于计算一个点与一个多边形之间的关系。它可以确定点相对于多边形的位置，以及点到多边形边界的距离（可选）。
+
+- **示例**：
+  ```cpp
+  std::vector<cv::Point> contour = {cv::Point(50, 50), cv::Point(200, 50), cv::Point(200, 200), cv::Point(50, 200)};
+  cv::Point2f point(100, 100);
+
+  double distance = cv::pointPolygonTest(contour, point, true);
+
+  if (distance > 0) {
+      std::cout << "Point is inside the polygon." << std::endl;
+  } else if (distance == 0) {
+      std::cout << "Point is on the polygon boundary." << std::endl;
+  } else {
+      std::cout << "Point is outside the polygon." << std::endl;
+  }
+  ```
+
+- **注意事项**：
+  - 如果你只关心点相对于多边形的关系而不需要距离信息，可以将 `measureDist` 参数设置为 `false`，以提高性能。
+  - 多边形的轮廓必须是闭合的，并且点的坐标应在 `float` 或 `double` 类型的范围内。
+
+总之，`cv::pointPolygonTest()` 函数是用于计算点与多边形之间关系的函数，可以判断点是否在多边形内部、外部或边界上，并可以计算点到多边形边界的距离。
+
+## cv::Mat::at<cv::Vec3b>() 函数 详解
+
+`cv::Mat::at<cv::Vec3b>()` 函数是 OpenCV 库中 `cv::Mat` 类的一个成员函数，用于访问图像或矩阵中特定位置的像素值。在这个函数中，`cv::Vec3b` 是一个表示三通道（BGR 或 RGB）像素值的数据类型。
+
+以下是关于 `cv::Mat::at<cv::Vec3b>()` 函数的详细解释：
+
+- **函数签名**：函数的签名如下：
+
+  ```cpp
+  cv::Vec3b& cv::Mat::at<cv::Vec3b>(int row, int col);
+  ```
+
+- **参数**：
+  - `row`：像素所在的行数（y 坐标）。
+  - `col`：像素所在的列数（x 坐标）。
+
+- **返回值**：
+  - 返回一个引用（`cv::Vec3b&`）到指定位置的像素值。`cv::Vec3b` 表示一个三通道的像素，例如 `(B, G, R)` 或 `(R, G, B)`。
+
+- **功能**：
+  - 该函数用于访问图像或矩阵中指定位置的像素值。返回的引用允许你读取或修改像素的通道值。
+
+- **示例**：
+  ```cpp
+  cv::Mat image = cv::imread("image.jpg");
+
+  if (!image.empty()) {
+      int row = 100;
+      int col = 150;
+
+      cv::Vec3b pixel = image.at<cv::Vec3b>(row, col);
+
+      uchar blue = pixel[0];
+      uchar green = pixel[1];
+      uchar red = pixel[2];
+
+      std::cout << "Pixel at (" << col << ", " << row << "): "
+                << "B: " << int(blue) << " G: " << int(green) << " R: " << int(red) << std::endl;
+  }
+  ```
+
+- **注意事项**：
+  - `cv::Vec3b` 表示三通道像素值，它的索引是 `[0]`、`[1]` 和 `[2]` 分别表示蓝色、绿色和红色通道。但需要注意，OpenCV 中的图像默认使用 BGR 顺序。
+
+总之，`cv::Mat::at<cv::Vec3b>()` 函数是用于访问图像或矩阵中指定位置的三通道像素值的函数。通过该函数，你可以方便地读取和修改图像的像素值，并进行各种图像处理操作。
+
 ## cv::circle
 
 在 OpenCV 中，`cv::circle` 是一个用于在图像上绘制圆的函数。这个函数可以用来绘制一个圆，或者在图像上绘制多个圆。

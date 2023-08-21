@@ -2,6 +2,33 @@
 
 + cmake 语法基础 理论基础
 
+## cmake 构建选项 打开开关
+
+在 CMake 中，你可以使用 `option` 命令创建构建选项开关，以便在构建时根据用户的选择来开启或关闭某些功能。这些选项通常用于控制编译和构建过程中的一些特定配置。以下是如何在 CMake 中创建和使用构建选项开关的示例：
+
+```cmake
+# 在 CMakeLists.txt 中添加以下代码
+option(BUILD_FEATURE_X "Build feature X" ON)
+option(BUILD_FEATURE_Y "Build feature Y" OFF)
+
+# 在合适的位置，根据选项的状态来设置相关内容
+if(BUILD_FEATURE_X)
+    message("Building feature X")
+    add_subdirectory(feature_x)
+endif()
+
+if(BUILD_FEATURE_Y)
+    message("Building feature Y")
+    add_subdirectory(feature_y)
+endif()
+```
+
+在这个示例中，我们定义了两个构建选项：`BUILD_FEATURE_X` 和 `BUILD_FEATURE_Y`。选项的初始状态分别设置为 `ON` 和 `OFF`。如果用户希望构建时开启 "Feature X"，可以在构建命令中使用 `-DBUILD_FEATURE_X=ON`，而如果希望关闭 "Feature Y"，可以使用 `-DBUILD_FEATURE_Y=OFF`。
+
+根据选项的状态，我们在适当的位置添加了相关的配置。在这个例子中，如果选项 `BUILD_FEATURE_X` 被设置为 `ON`，就会构建名为 `feature_x` 的子目录中的内容。类似地，如果选项 `BUILD_FEATURE_Y` 被设置为 `ON`，就会构建 `feature_y` 子目录中的内容。
+
+在实际项目中，你可以根据需要添加更多的选项和配置。这样的构建选项使得用户能够根据项目需求自定义构建过程，只构建他们需要的功能。
+
 ## cmake 变量
 
 在CMake中，变量用于存储和操作数据，可以在CMake脚本中定义、设置和使用。下面是对CMake变量的详细解释：
