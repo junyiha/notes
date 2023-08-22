@@ -164,7 +164,7 @@ clean:
 
 + `${addprefix "前缀", filenames...}`  
   + 为文件加前缀
-    ```
+    ```makefile
     variable = main.o merge.o
     variable += delete.o
     var = ${addprefix -x/, ${variable}}
@@ -174,7 +174,7 @@ clean:
     ```
 + `${wildcard /home/user/workspace/shell/*.sh}`  
   + 获取指定路径下的指定文件
-    ```
+    ```makefile
       var = ${wildcard ./*.txt}
       all:
       	@echo ${var} 
@@ -183,7 +183,7 @@ clean:
     ```
 + `${patsubst pattern, replacement, text}` 
   + 根据相应规则替换文件名
-  ```
+  ```makefile
     var = ${wildcard ./*.txt}
     pat = ${patsubst %.txt, %.md, ${var}}
     all:
@@ -204,7 +204,7 @@ clean:
   + 所以可以通过`$(abspath $(lastword $(MAKEFILE_LIST)))`返回当前正在被执行的`Makefile`的绝对路径,然后通过`patsubst`去掉文件名得到绝对目录
   
 + 代码：
-  ```
+  ```makefile
     makefile_path:=$(abspath $(lastword $(MAKEFILE_LIST)))
     cur_makefile_path:=$(patsubst %/makefile, %/, ${shell ls $(makefile_path)})
 
