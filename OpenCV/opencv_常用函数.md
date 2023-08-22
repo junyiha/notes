@@ -2,6 +2,87 @@
 
 + OpenCV 常见类，函数
 
+## cv::RotatedRect::points() 函数 详解
+
+`cv::RotatedRect::points()` 是 OpenCV 中 `cv::RotatedRect` 类的一个成员函数，用于获取旋转矩形的四个顶点坐标。以下是对 `cv::RotatedRect::points()` 函数的详细解释：
+
+**函数原型：**
+```cpp
+void cv::RotatedRect::points(cv::Point2f pts[]) const
+```
+
+**函数功能：**
+`cv::RotatedRect::points()` 函数用于获取一个旋转矩形的四个顶点坐标，并将这些坐标存储在提供的数组 `pts` 中。旋转矩形是由中心点、宽度、高度和旋转角度定义的，它可以是在任意角度下旋转的矩形。
+
+**参数：**
+- `pts`：一个大小为4的 `cv::Point2f` 数组，用于存储旋转矩形的四个顶点坐标。数组应该在调用函数之前分配好空间。
+
+**返回值：**
+函数没有返回值，它直接将四个顶点的坐标存储在提供的数组 `pts` 中。
+
+**示例用法：**
+以下是一个使用 `cv::RotatedRect::points()` 函数的示例代码：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    cv::Point2f points[4]; // 存储顶点坐标的数组
+    cv::RotatedRect rotatedRect(cv::Point2f(100, 100), cv::Size2f(200, 100), 30); // 创建一个旋转矩形
+
+    rotatedRect.points(points); // 获取旋转矩形的顶点坐标
+
+    for (int i = 0; i < 4; ++i) {
+        std::cout << "Point " << i + 1 << ": (" << points[i].x << ", " << points[i].y << ")" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在上面的示例中，我们首先创建了一个 `cv::RotatedRect` 对象，然后使用 `cv::RotatedRect::points()` 函数获取了该旋转矩形的四个顶点坐标。最后，我们遍历数组 `points`，输出每个顶点的坐标。
+
+总之，`cv::RotatedRect::points()` 函数是一个方便的函数，用于获取旋转矩形的四个顶点坐标，这对于后续的绘制和分析操作非常有用。
+
+## cv::Size2i::area() 函数 详解
+
+`cv::Size2i`是OpenCV中用于表示二维大小的类，其中`cv::Size2i::area()`是一个成员函数，用于计算这个二维大小的面积。以下是对`cv::Size2i::area()`函数的详细解释：
+
+**函数原型：**
+```cpp
+int cv::Size2i::area() const
+```
+
+**函数功能：**
+`cv::Size2i::area()`函数用于计算表示二维大小的`cv::Size2i`对象的面积。对于`cv::Size2i`对象，面积等于其宽度（`width`）乘以高度（`height`）。
+
+**参数：**
+该函数没有参数，因为它是一个成员函数，作用于`cv::Size2i`对象本身。
+
+**返回值：**
+函数返回一个整数，表示`cv::Size2i`对象的面积。
+
+**示例用法：**
+下面是一个使用`cv::Size2i::area()`函数的示例代码：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    cv::Size2i size(5, 8); // 创建一个二维大小为(5, 8)的对象
+    int area = size.area(); // 计算面积，area = 5 * 8 = 40
+
+    std::cout << "Width: " << size.width << ", Height: " << size.height << std::endl;
+    std::cout << "Area: " << area << std::endl;
+
+    return 0;
+}
+```
+
+在上面的示例中，我们创建了一个`cv::Size2i`对象，然后使用`cv::Size2i::area()`函数计算了其面积。面积的计算结果是对象的宽度和高度的乘积。
+
+总而言之，`cv::Size2i::area()`函数是OpenCV中用于计算`cv::Size2i`对象面积的方便函数，它直接返回对象宽度和高度的乘积。
+
 ## cv::fillPoly() 函数 详解
 
 `cv::fillPoly()` 函数是 OpenCV 库中的一个函数，用于在图像上填充指定的多边形区域。
