@@ -44,14 +44,14 @@ function Help()
     echo "${cmd_map[4]}  test post request with body data"
 
     echo -e
-    echo "${cmd_map[5]}  sucker device , init command"
+    # echo "${cmd_map[5]}  sucker device , init command"
+    echo "${cmd_map[8]}  sucker device , open command"
     echo "${cmd_map[6]}  sucker device , start command"
     echo "${cmd_map[7]}  sucker device , stop command"
-    echo "${cmd_map[8]}  sucker device , open command"
 
     echo -e
-    echo "${cmd_map[9]}  beijing robot device , move joint command"
     echo "${cmd_map[10]}  beijing robot device , open command"
+    echo "${cmd_map[9]}  beijing robot device , move joint command"
     echo "${cmd_map[11]}  beijing robot device , move line command"
     echo "${cmd_map[12]}  beijing robot device , drag move control command"
     echo "${cmd_map[13]}  beijing robot device , get point info command"
@@ -63,7 +63,7 @@ function Help()
 
     echo -e 
     echo "${cmd_map[17]}  Detector, init detector"
-    echo "${cmd_map[18]}  Detector, open detector"
+    # echo "${cmd_map[18]}  Detector, open detector"
     echo "${cmd_map[20]}  Detector, detect a frame detector"
     echo "${cmd_map[19]}  Detector, close detector"
 

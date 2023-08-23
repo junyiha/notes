@@ -2,6 +2,55 @@
 
 + PCL(Point Cloud Library)常用的编程技巧
 
+## pcl::PointCloud<pcl::PointXYZ>对象怎么转为pcl::PointCloud<pcl::PointXYZ>::Ptr 指针
+
+将 `pcl::PointCloud<pcl::PointXYZ>` 对象转换为 `pcl::PointCloud<pcl::PointXYZ>::Ptr` 指针可以通过以下几种方法实现，具体取决于您希望如何进行转换。这里提供了两种常用的方法：
+
+1. **使用 `boost::make_shared`（或 `std::make_shared`）**：
+
+   您可以使用 `boost::make_shared` 或 C++11 中的 `std::make_shared` 来创建一个智能指针，并将其指向现有的 `pcl::PointCloud<pcl::PointXYZ>` 对象。这种方法非常简洁，因为它利用了智能指针的构造函数，而无需手动进行分配和释放。
+
+   ```cpp
+   #include <pcl/point_cloud.h>
+   #include <pcl/point_types.h>
+   #include <boost/make_shared.hpp>  // 或者 #include <memory>（C++11）
+
+   int main()
+   {
+       pcl::PointCloud<pcl::PointXYZ> cloud; // 假设已经有一个点云对象
+       
+       // 使用 boost::make_shared（或 std::make_shared）进行转换
+       pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPtr = boost::make_shared<pcl::PointCloud<pcl::PointXYZ>>(cloud);
+       
+       // 使用 cloudPtr 进行操作
+       
+       return 0;
+   }
+   ```
+
+2. **使用显式赋值**：
+
+   另一种方法是通过显式赋值创建指针并将其指向现有的 `pcl::PointCloud<pcl::PointXYZ>` 对象。这种方法需要手动进行指针的分配和释放。
+
+   ```cpp
+   #include <pcl/point_cloud.h>
+   #include <pcl/point_types.h>
+
+   int main()
+   {
+       pcl::PointCloud<pcl::PointXYZ> cloud; // 假设已经有一个点云对象
+       
+       // 创建指针并赋值
+       pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPtr(new pcl::PointCloud<pcl::PointXYZ>(cloud));
+       
+       // 使用 cloudPtr 进行操作
+       
+       return 0;
+   }
+   ```
+
+这两种方法都能将现有的 `pcl::PointCloud<pcl::PointXYZ>` 对象转换为 `pcl::PointCloud<pcl::PointXYZ>::Ptr` 指针。您可以根据您的代码风格和需求选择其中之一。需要注意的是，在任何情况下，确保在不再需要智能指针时正确释放内存，以避免内存泄漏。
+
 ## vtkDebugLeaksManager 定义 
 
 `vtkDebugLeaksManager` 是 Visualization Toolkit（VTK）库中的一个类，用于在调试和测试过程中检测内存泄漏。VTK 是一个用于处理和可视化科学和工程数据的开源软件系统。它提供了广泛的功能，包括图形渲染、图像处理、体积可视化、几何建模等，常用于科学计算、医学图像处理和工程仿真等领域。
