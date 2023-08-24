@@ -1,14 +1,14 @@
-#! /bin/bash 
+#! /bin/bash  
 
 file="vcr-client.sh"
 
-# url="http://192.169.4.16:28001"
+url="http://192.169.4.16:28001"
 
 # release
 # url="http://192.169.0.152:28001"
 
 # debug
-url="http://192.169.0.152:28000"
+# url="http://192.169.0.152:28000"
 
 declare -A cmd_map
 cmd_map[1]="-h"
@@ -31,6 +31,8 @@ cmd_map[17]="--detector-init"
 cmd_map[18]="--detector-open"
 cmd_map[19]="--detector-close"
 cmd_map[20]="--detector-detect"
+cmd_map[21]="--test-hi"
+cmd_map[22]="--test-post-file"
 
 #######################################################
 
@@ -67,6 +69,9 @@ function Help()
     echo "${cmd_map[20]}  Detector, detect a frame detector"
     echo "${cmd_map[19]}  Detector, close detector"
 
+    echo -e 
+    echo "${cmd_map[21]}  httplib test hi"
+    echo "${cmd_map[22]}  httplib upload file"
 
     echo -e
 }
@@ -259,6 +264,32 @@ function DetectorClose()
 
 #######################################################
 
+# httplib_url="http://192.169.4.16:29001"
+httplib_url="http://127.0.0.1:1234"
+
+function TestHttplibHi()
+{
+    uri="/hi"
+
+    curl -X GET ${httplib_url}${uri}
+
+    echo -e
+}
+
+function TestHttplibPostFile()
+{
+    uri="/post"
+
+    # curl -X POST -F image_file=@/home/user/Pictures/Selection_057.jpg ${httplib_url}${uri}
+
+    curl -X POST -F image_file=@/mnt/remote/190-mnt/zhangjunyi/Documents/VCR/pcd_files/cloud-computer-test-aaa.pcd ${httplib_url}${uri}
+    
+
+    echo -e
+}
+
+#######################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -301,6 +332,10 @@ function main()
         DetectorClose
     elif [[ $1 == "${cmd_map[20]}" ]]; then 
         DetectorDetect
+    elif [[ $1 == "${cmd_map[21]}" ]]; then 
+        TestHttplibHi
+    elif [[ $1 == "${cmd_map[22]}" ]]; then 
+        TestHttplibPostFile
     else 
         Help
     fi
