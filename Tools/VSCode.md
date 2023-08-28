@@ -1,5 +1,10 @@
 # VSCode 基础
 
+## 解决cpptools high cpu问题
+
++ 在VScode菜单栏文件->首选项->设置 搜索C_Cpp.intelliSenseCacheSize,修改默认的5120为512
++ 
+
 ## 调试模式 设置环境变量
 
 在Visual Studio Code (VSCode) 中，`launch.json` 文件用于配置调试器的启动选项。当您在VSCode中使用C++进行调试时，可以使用 `launch.json` 文件设置环境变量以定制调试过程。
