@@ -2,6 +2,62 @@
 
 + OpenCV 常见类，函数
 
+## cv::convexHull
+
+在 OpenCV 中，`cv::convexHull()` 函数用于计算一个给定点集的凸包。凸包是包含给定点集中所有点的最小凸多边形。以下是关于 `cv::convexHull()` 函数的详细解释：
+
+**函数签名**：
+```cpp
+cv::convexHull(InputArray points, OutputArray hull, bool clockwise = false, bool returnPoints = true)
+```
+
+**参数**：
+- `points`：输入的点集，可以是 `cv::Mat`、`cv::Mat_<T>`、`cv::vector<Point>` 等。
+- `hull`：计算出的凸包点集。
+- `clockwise`：指定计算的凸包是否按逆时针方向排列。
+- `returnPoints`：如果为 `true`，函数将返回凸包的点集；如果为 `false`，函数将返回凸包的索引。
+
+**返回值**：
+- 函数没有返回值。凸包的点集或索引存储在 `hull` 参数中。
+
+**示例**：
+以下示例演示了如何使用 `cv::convexHull()` 函数计算一组点的凸包：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+
+int main() {
+    std::vector<Point2f> points;
+    points.push_back(Point2f(100, 100));
+    points.push_back(Point2f(300, 100));
+    points.push_back(Point2f(300, 200));
+    points.push_back(Point2f(100, 200));
+
+    std::vector<Point2f> hull;
+    convexHull(points, hull);
+
+    Mat image = Mat::zeros(300, 400, CV_8UC3);
+    for (const Point2f& p : points) {
+        circle(image, p, 5, Scalar(0, 0, 255), -1); // 绘制红色点
+    }
+
+    for (size_t i = 0; i < hull.size(); i++) {
+        line(image, hull[i], hull[(i + 1) % hull.size()], Scalar(255, 0, 0), 2); // 绘制蓝色凸包边界
+    }
+
+    imshow("Convex Hull", image);
+    waitKey(0);
+
+    return 0;
+}
+```
+
+在上述示例中，我们创建了一个点集 `points`，并使用 `convexHull()` 函数计算了这些点的凸包。然后，我们使用绘图函数绘制了原始点和凸包的边界。
+
+运行示例代码后，你将在窗口中看到原始点和计算出的凸包。你可以根据需要调整点的坐标，了解函数的不同参数和用法，以适应你的实际需求。
+
 ## cv::RotatedRect::points() 函数 详解
 
 `cv::RotatedRect::points()` 是 OpenCV 中 `cv::RotatedRect` 类的一个成员函数，用于获取旋转矩形的四个顶点坐标。以下是对 `cv::RotatedRect::points()` 函数的详细解释：
