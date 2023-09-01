@@ -5,10 +5,10 @@ file="vcr-client.sh"
 # url="http://192.169.4.16:28001"
 
 # release
-url="http://192.169.0.152:28001"
+# url="http://192.169.0.152:28001"
 
 # debug
-# url="http://192.169.0.152:28000"
+url="http://192.169.0.152:28000"
 
 declare -A cmd_map
 cmd_map[1]="-h"
