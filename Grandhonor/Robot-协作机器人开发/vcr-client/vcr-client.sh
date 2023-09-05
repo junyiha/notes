@@ -33,6 +33,8 @@ cmd_map[19]="--detector-close"
 cmd_map[20]="--detector-detect"
 cmd_map[21]="--test-hi"
 cmd_map[22]="--test-post-file"
+cmd_map[23]="--robot-beijing-JntToCart"
+cmd_map[24]="--robot-beijing-CartToJnt"
 
 #######################################################
 
@@ -57,6 +59,8 @@ function Help()
     echo "${cmd_map[11]}  beijing robot device , move line command"
     echo "${cmd_map[12]}  beijing robot device , drag move control command"
     echo "${cmd_map[13]}  beijing robot device , get point info command"
+    echo "${cmd_map[23]}  beijing robot device , joint position to cart position"
+    echo "${cmd_map[24]}  beijing robot device , cart position to joint position"
 
     echo -e 
     echo "${cmd_map[14]}  TYCamera device, init camera"
@@ -192,6 +196,30 @@ function RobotBeijingGetPoint()
 
     curl -X GET ${url}${uri}
 
+    echo -e
+}
+
+function RobotBeijingJntToCart()
+{
+    uri="/api/robots/beijing/jointToCart"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
+function RobotBeijingCartToJnt()
+{
+    uri="/api/robots/beijing/cartToJoint"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
     echo -e
 }
 
@@ -336,6 +364,10 @@ function main()
         TestHttplibHi
     elif [[ $1 == "${cmd_map[22]}" ]]; then 
         TestHttplibPostFile
+    elif [[ $1 == "${cmd_map[23]}" ]]; then 
+        RobotBeijingJntToCart $2
+    elif [[ $1 == "${cmd_map[24]}" ]]; then 
+        RobotBeijingCartToJnt $2
     else 
         Help
     fi

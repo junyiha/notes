@@ -20,6 +20,8 @@ cmd_map[14]="--get-tool"
 cmd_map[15]="--get-max-cart-vel"
 cmd_map[16]="--get-max-joint-vel"
 cmd_map[17]="--get-points"
+cmd_map[18]="--jnt-to-cart"
+cmd_map[19]="--cart-to-jnt"
 
 ########################################################################################
 function Help()
@@ -50,6 +52,8 @@ function Help()
     echo "${cmd_map[15]}  output "
     echo "${cmd_map[16]}  output "
     echo "${cmd_map[17]}  output "
+    echo "${cmd_map[18]}  output "
+    echo "${cmd_map[19]}  output "
     echo ""
 }
 
@@ -213,6 +217,28 @@ function GetPoints()
     echo -e
 }
 
+function JntToCart()
+{
+    uri="/api/common/JntToCart"
+    if [ -z "$1" ]; then 
+        echo "Error json file "
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi
+    echo -e
+}
+
+function CartToJnt()
+{
+    uri="/api/common/CartToJnt"
+    if [ -z "$1" ]; then 
+        echo "Error json file "
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi
+    echo -e
+}
+
 ########################################################################################
 
 function main()
@@ -251,6 +277,10 @@ function main()
         GetMaxJointVel 
     elif [[ $1 == "${cmd_map[17]}" ]]; then 
         GetPoints 
+    elif [[ $1 == "${cmd_map[18]}" ]]; then 
+        JntToCart $2
+    elif [[ $1 == "${cmd_map[19]}" ]]; then 
+        CartToJnt $2
     else 
         Help
     fi

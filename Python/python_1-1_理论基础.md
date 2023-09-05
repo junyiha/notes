@@ -875,3 +875,703 @@ f(10, 20, 30, d=40, e=50, f=60)
 f(10, b=20, c=30, d=40, e=50, f=60)   # b 不能使用关键字参数的形式
 f(10, 20, 30, 40, 50, f=60)           # e 必须使用关键字参数的形式
 ```
+
+# 模块
+
++ 在前面的几个章节中我们基本上是用 python 解释器来编程，如果你从 Python 解释器退出再进入，那么你定义的所有的方法和变量就都消失了。
++ 为此 Python 提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。
++ 模块是一个包含所有你定义的函数和变量的文件，其后缀名是.py。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。
+
+## import 语句
+
++ 想使用 Python 源文件，只需在另一个源文件里执行 import 语句，语法如下：
+```
+import module1[, module2[,... moduleN]
+```
+
++ 当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。
++ 搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support，需要把命令放在脚本的顶端：
+```python
+#!/usr/bin/python3
+# Filename: support.py
+ 
+def print_func( par ):
+    print ("Hello : ", par)
+    return
+```
+
+## from ... import 语句
+
++ Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中，语法如下：
+```
+from modname import name1[, name2[, ... nameN]]
+```
+
+## from … import * 语句
+
++ 把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：
+```
+from modname import *
+```
+
+## __name__ 属性
+
++ 一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，模块中的某一程序块不执行，我们可以用__name__属性来使该程序块仅在该模块自身运行时执行。
+```python
+#!/usr/bin/python3
+# Filename: using_name.py
+
+if __name__ == '__main__':
+   print('程序自身在运行')
+else:
+   print('我来自另一模块')
+```
+
++ 每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入。
++ __name__ 与 __main__ 底下是双下划线， _ _ 是这样去掉中间的那个空格。
+
+## dir() 函数
+
++ 内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:
+```python
+>>> import fibo, sys
+>>> dir(fibo)
+['__name__', 'fib', 'fib2']
+>>> dir(sys)  
+['__displayhook__', '__doc__', '__excepthook__', '__loader__', '__name__',
+ '__package__', '__stderr__', '__stdin__', '__stdout__',
+ '_clear_type_cache', '_current_frames', '_debugmallocstats', '_getframe',
+ '_home', '_mercurial', '_xoptions', 'abiflags', 'api_version', 'argv',
+ 'base_exec_prefix', 'base_prefix', 'builtin_module_names', 'byteorder',
+ 'call_tracing', 'callstats', 'copyright', 'displayhook',
+ 'dont_write_bytecode', 'exc_info', 'excepthook', 'exec_prefix',
+ 'executable', 'exit', 'flags', 'float_info', 'float_repr_style',
+ 'getcheckinterval', 'getdefaultencoding', 'getdlopenflags',
+ 'getfilesystemencoding', 'getobjects', 'getprofile', 'getrecursionlimit',
+ 'getrefcount', 'getsizeof', 'getswitchinterval', 'gettotalrefcount',
+ 'gettrace', 'hash_info', 'hexversion', 'implementation', 'int_info',
+ 'intern', 'maxsize', 'maxunicode', 'meta_path', 'modules', 'path',
+ 'path_hooks', 'path_importer_cache', 'platform', 'prefix', 'ps1',
+ 'setcheckinterval', 'setdlopenflags', 'setprofile', 'setrecursionlimit',
+ 'setswitchinterval', 'settrace', 'stderr', 'stdin', 'stdout',
+ 'thread_info', 'version', 'version_info', 'warnoptions']
+```
+
++ 如果没有给定参数，那么 dir() 函数会罗列出当前定义的所有名称:
+```python
+>>> a = [1, 2, 3, 4, 5]
+>>> import fibo
+>>> fib = fibo.fib
+>>> dir() # 得到一个当前模块中定义的属性列表
+['__builtins__', '__name__', 'a', 'fib', 'fibo', 'sys']
+>>> a = 5 # 建立一个新的变量 'a'
+>>> dir()
+['__builtins__', '__doc__', '__name__', 'a', 'sys']
+>>>
+>>> del a # 删除变量名a
+>>>
+>>> dir()
+['__builtins__', '__doc__', '__name__', 'sys']
+>>>
+```
+
+## 标准模块
+
++ Python 本身带着一些标准的模块库，在 Python 库参考文档中将会介绍到（就是后面的"库参考文档"）。
++ 有些模块直接被构建在解析器里，这些虽然不是一些语言内置的功能，但是他却能很高效的使用，甚至是系统级调用也没问题。
++ 这些组件会根据不同的操作系统进行不同形式的配置，比如 winreg 这个模块就只会提供给 Windows 系统。
++ 应该注意到这有一个特别的模块 sys ，它内置在每一个 Python 解析器中。变量 sys.ps1 和 sys.ps2 定义了主提示符和副提示符所对应的字符串:
+```python
+>>> import sys
+>>> sys.ps1
+'>>> '
+>>> sys.ps2
+'... '
+>>> sys.ps1 = 'C> '
+C> print('Runoob!')
+Runoob!
+C> 
+```
+
+## 包
+
++ 包是一种管理 Python 模块命名空间的形式，采用"点模块名称"。
+
++ 比如一个模块的名称是 A.B， 那么他表示一个包 A中的子模块 B 。
++ 就好像使用模块的时候，你不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块重名的情况。
++ 这样不同的作者都可以提供 NumPy 模块，或者是 Python 图形库。
++ 不妨假设你想设计一套统一处理声音文件和数据的模块（或者称之为一个"包"）。
++ 现存很多种不同的音频文件格式（基本上都是通过后缀名区分的，例如： .wav，:file:.aiff，:file:.au，），所以你需要有一组不断增加的模块，用来在不同的格式之间转换。
++ 并且针对这些音频数据，还有很多不同的操作（比如混音，添加回声，增加均衡器功能，创建人造立体声效果），所以你还需要一组怎么也写不完的模块来处理这些操作。
++ 这里给出了一种可能的包结构（在分层的文件系统中）:
+```
+sound/                          顶层包
+      __init__.py               初始化 sound 包
+      formats/                  文件格式转换子包
+              __init__.py
+              wavread.py
+              wavwrite.py
+              aiffread.py
+              aiffwrite.py
+              auread.py
+              auwrite.py
+              ...
+      effects/                  声音效果子包
+              __init__.py
+              echo.py
+              surround.py
+              reverse.py
+              ...
+      filters/                  filters 子包
+              __init__.py
+              equalizer.py
+              vocoder.py
+              karaoke.py
+              ...
+```
+
++ 在导入一个包的时候，Python 会根据 sys.path 中的目录来寻找这个包中包含的子目录。
++ 目录只有包含一个叫做 __init__.py 的文件才会被认作是一个包，主要是为了避免一些滥俗的名字（比如叫做 string）不小心的影响搜索路径中的有效模块。
++ 最简单的情况，放一个空的 :file:__init__.py就可以了。当然这个文件中也可以包含一些初始化代码或者为（将在后面介绍的） __all__变量赋值。
+
++ 用户可以每次只导入一个包里面的特定模块，比如:
+```python
+import sound.effects.echo
+```
+
++ 这将会导入子模块:sound.effects.echo。 他必须使用全名去访问:
+```python
+sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)
+```
+
++ 还有一种导入子模块的方法是:
+```python
+from sound.effects import echo
+```
+
++ 这同样会导入子模块: echo，并且他不需要那些冗长的前缀，所以他可以这样使用:
+```python
+echo.echofilter(input, output, delay=0.7, atten=4)
+```
+
++ 还有一种变化就是直接导入一个函数或者变量:
+```python
+from sound.effects.echo import echofilter
+```
+
++ 同样的，这种方法会导入子模块: echo，并且可以直接使用他的 echofilter() 函数:
+```python
+echofilter(input, output, delay=0.7, atten=4)
+```
+
++ 注意当使用 from package import item 这种形式的时候，对应的 item 既可以是包里面的子模块（子包），或者包里面定义的其他名称，比如函数，类或者变量。
++ import 语法会首先把 item 当作一个包定义的名称，如果没找到，再试图按照一个模块去导入。如果还没找到，抛出一个 :exc:ImportError 异常。
++ 反之，如果使用形如 import item.subitem.subsubitem 这种导入形式，除了最后一项，都必须是包，而最后一项则可以是模块或者是包，但是不可以是类，函数或者变量的名字。
+
+# 输入输出
+
+## 输出格式美化
+
++ Python两种输出值的方式: 表达式语句和 print() 函数。
++ 第三种方式是使用文件对象的 write() 方法，标准输出文件可以用 sys.stdout 引用。
++ 如果你希望输出的形式更加多样，可以使用 str.format() 函数来格式化输出值。
++ 如果你希望将输出的值转成字符串，可以使用 repr() 或 str() 函数来实现。
+  + str()： 函数返回一个用户易读的表达形式。
+  + repr()： 产生一个解释器易读的表达形式。
+
+## 旧式字符串格式化
+
++ % 操作符也可以实现字符串格式化。 它将左边的参数作为类似 sprintf() 式的格式化字符串, 而将右边的代入, 然后返回格式化后的字符串. 例如:
+```python
+>>> import math
+>>> print('常量 PI 的值近似为：%5.3f。' % math.pi)
+常量 PI 的值近似为：3.142。
+```
+
++ 因为 str.format() 是比较新的函数， 大多数的 Python 代码仍然使用 % 操作符。但是因为这种旧式的格式化最终会从该语言中移除, 应该更多的使用 str.format().
+
+## 读取键盘输入
+
++ Python 提供了 input() 内置函数从标准输入读入一行文本，默认的标准输入是键盘。
+```python
+#!/usr/bin/python3
+
+str = input("请输入：")
+print ("你输入的内容是: ", str)
+```
+
+## 读和写文件
+
++ open() 将会返回一个 file 对象，基本语法格式如下:
+```
+open(filename, mode)
+```
+  + filename：包含了你要访问的文件名称的字符串值。
+  + mode：决定了打开文件的模式：只读，写入，追加等。所有可取值见如下的完全列表。这个参数是非强制的，默认文件访问模式为只读(r)。
+
++ 以下实例将字符串写入到文件 foo.txt 中：
+```python
+#!/usr/bin/python3
+
+# 打开一个文件
+f = open("/tmp/foo.txt", "w")
+
+f.write( "Python 是一个非常好的语言。\n是的，的确非常好!!\n" )
+
+# 关闭打开的文件
+f.close()
+```
+  + 第一个参数为要打开的文件名。
+  + 第二个参数描述文件如何使用的字符。 mode 可以是 'r' 如果文件只读, 'w' 只用于写 (如果存在同名文件则将被删除), 和 'a' 用于追加文件内容; 所写的任何数据都会被自动增加到末尾. 'r+' 同时用于读写。 mode 参数是可选的; 'r' 将是默认值。
+
+## 文件对象的方法
+
++ 本节中剩下的例子假设已经创建了一个称为 f 的文件对象。
++ f.read()
++ 为了读取一个文件的内容，调用 f.read(size), 这将读取一定数目的数据, 然后作为字符串或字节对象返回。
++ size 是一个可选的数字类型的参数。 当 size 被忽略了或者为负, 那么该文件的所有内容都将被读取并且返回。
++ 以下实例假定文件 foo.txt 已存在（上面实例中已创建）：
+```python
+#!/usr/bin/python3
+
+# 打开一个文件
+f = open("/tmp/foo.txt", "r")
+
+str = f.read()
+print(str)
+
+# 关闭打开的文件
+f.close()
+```
+
++ f.readline()
++ f.readline() 会从文件中读取单独的一行。换行符为 '\n'。f.readline() 如果返回一个空字符串, 说明已经已经读取到最后一行。
+```python
+#!/usr/bin/python3
+
+# 打开一个文件
+f = open("/tmp/foo.txt", "r")
+
+str = f.readline()
+print(str)
+
+# 关闭打开的文件
+f.close()
+```
+
++ f.readlines()
++ f.readlines() 将返回该文件中包含的所有行。
++ 如果设置可选参数 sizehint, 则读取指定长度的字节, 并且将这些字节按行分割。
+```python
+#!/usr/bin/python3
+
+# 打开一个文件
+f = open("/tmp/foo.txt", "r")
+
+str = f.readlines()
+print(str)
+
+# 关闭打开的文件
+f.close()
+```
+
++ f.write()
++ f.write(string) 将 string 写入到文件中, 然后返回写入的字符数。
+```python
+#!/usr/bin/python3
+
+# 打开一个文件
+f = open("/tmp/foo.txt", "w")
+
+num = f.write( "Python 是一个非常好的语言。\n是的，的确非常好!!\n" )
+print(num)
+# 关闭打开的文件
+f.close()
+```
+
++ f.tell()
++ f.tell() 返回文件对象当前所处的位置, 它是从文件开头开始算起的字节数。
+
++ f.seek()
++ 如果要改变文件指针当前的位置, 可以使用 f.seek(offset, from_what) 函数。
++ from_what 的值, 如果是 0 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾，例如：
+  + seek(x,0) ： 从起始位置即文件首行首字符开始移动 x 个字符
+  + seek(x,1) ： 表示从当前位置往后移动x个字符
+  + seek(-x,2)：表示从文件的结尾往前移动x个字符
++ from_what 值为默认为0，即文件开头。下面给出一个完整的例子：
+```python
+>>> f = open('/tmp/foo.txt', 'rb+')
+>>> f.write(b'0123456789abcdef')
+16
+>>> f.seek(5)     # 移动到文件的第六个字节
+5
+>>> f.read(1)
+b'5'
+>>> f.seek(-3, 2) # 移动到文件的倒数第三字节
+13
+>>> f.read(1)
+b'd'
+```
+
++ f.close()
++ 在文本文件中 (那些打开文件的模式下没有 b 的), 只会相对于文件起始位置进行定位。
++ 当你处理完一个文件后, 调用 f.close() 来关闭文件并释放系统的资源，如果尝试再调用该文件，则会抛出异常。
+```python
+>>> f.close()
+>>> f.read()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+ValueError: I/O operation on closed file
+```
+
++ 当处理一个文件对象时, 使用 with 关键字是非常好的方式。在结束后, 它会帮你正确的关闭文件。 而且写起来也比 try - finally 语句块要简短:
+```python
+>>> with open('/tmp/foo.txt', 'r') as f:
+...     read_data = f.read()
+>>> f.closed
+True
+```
+
+## pickle 模块
+
++ python的pickle模块实现了基本的数据序列和反序列化。
++ 通过pickle模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。
++ 通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。
+
++ 基本接口：
+```python
+pickle.dump(obj, file, [,protocol])
+```
+
+# python3 OS 文件/目录 方法
+
++ os 模块提供了非常丰富的方法用来处理文件和目录。常用的方法如下表所示：
+序号	方法及描述
+1	
+os.access(path, mode)
+
+
+检验权限模式
+2	
+os.chdir(path)
+
+
+改变当前工作目录
+3	
+os.chflags(path, flags)
+
+
+设置路径的标记为数字标记。
+4	
+os.chmod(path, mode)
+
+
+更改权限
+5	
+os.chown(path, uid, gid)
+
+
+更改文件所有者
+6	
+os.chroot(path)
+
+
+改变当前进程的根目录
+7	
+os.close(fd)
+
+
+关闭文件描述符 fd
+8	
+os.closerange(fd_low, fd_high)
+
+
+关闭所有文件描述符，从 fd_low (包含) 到 fd_high (不包含), 错误会忽略
+9	
+os.dup(fd)
+
+
+复制文件描述符 fd
+10	
+os.dup2(fd, fd2)
+
+
+将一个文件描述符 fd 复制到另一个 fd2
+11	
+os.fchdir(fd)
+
+
+通过文件描述符改变当前工作目录
+12	
+os.fchmod(fd, mode)
+
+
+改变一个文件的访问权限，该文件由参数fd指定，参数mode是Unix下的文件访问权限。
+13	
+os.fchown(fd, uid, gid)
+
+
+修改一个文件的所有权，这个函数修改一个文件的用户ID和用户组ID，该文件由文件描述符fd指定。
+14	
+os.fdatasync(fd)
+
+
+强制将文件写入磁盘，该文件由文件描述符fd指定，但是不强制更新文件的状态信息。
+15	
+os.fdopen(fd[, mode[, bufsize]])
+
+
+通过文件描述符 fd 创建一个文件对象，并返回这个文件对象
+16	
+os.fpathconf(fd, name)
+
+
+返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）。
+17	
+os.fstat(fd)
+
+
+返回文件描述符fd的状态，像stat()。
+18	
+os.fstatvfs(fd)
+
+
+返回包含文件描述符fd的文件的文件系统的信息，Python 3.3 相等于 statvfs()。
+19	
+os.fsync(fd)
+
+
+强制将文件描述符为fd的文件写入硬盘。
+20	
+os.ftruncate(fd, length)
+
+
+裁剪文件描述符fd对应的文件, 所以它最大不能超过文件大小。
+21	
+os.getcwd()
+
+
+返回当前工作目录
+22	
+os.getcwdb()
+
+
+返回一个当前工作目录的Unicode对象
+23	
+os.isatty(fd)
+
+
+如果文件描述符fd是打开的，同时与tty(-like)设备相连，则返回true, 否则False。
+24	
+os.lchflags(path, flags)
+
+
+设置路径的标记为数字标记，类似 chflags()，但是没有软链接
+25	
+os.lchmod(path, mode)
+
+
+修改连接文件权限
+26	
+os.lchown(path, uid, gid)
+
+
+更改文件所有者，类似 chown，但是不追踪链接。
+27	
+os.link(src, dst)
+
+
+创建硬链接，名为参数 dst，指向参数 src
+28	
+os.listdir(path)
+
+
+返回path指定的文件夹包含的文件或文件夹的名字的列表。
+29	
+os.lseek(fd, pos, how)
+
+
+设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效
+30	
+os.lstat(path)
+
+
+像stat(),但是没有软链接
+31	
+os.major(device)
+
+
+从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。
+32	
+os.makedev(major, minor)
+
+
+以major和minor设备号组成一个原始设备号
+33	
+os.makedirs(path[, mode])
+
+
+递归文件夹创建函数。像mkdir(), 但创建的所有intermediate-level文件夹需要包含子文件夹。
+34	
+os.minor(device)
+
+
+从原始的设备号中提取设备minor号码 (使用stat中的st_dev或者st_rdev field )。
+35	
+os.mkdir(path[, mode])
+
+
+以数字mode的mode创建一个名为path的文件夹.默认的 mode 是 0777 (八进制)。
+36	
+os.mkfifo(path[, mode])
+
+
+创建命名管道，mode 为数字，默认为 0666 (八进制)
+37	
+os.mknod(filename[, mode=0600, device])
+创建一个名为filename文件系统节点（文件，设备特别文件或者命名pipe）。
+
+38	
+os.open(file, flags[, mode])
+
+
+打开一个文件，并且设置需要的打开选项，mode参数是可选的
+39	
+os.openpty()
+
+
+打开一个新的伪终端对。返回 pty 和 tty的文件描述符。
+40	
+os.pathconf(path, name)
+
+
+返回相关文件的系统配置信息。
+41	
+os.pipe()
+
+
+创建一个管道. 返回一对文件描述符(r, w) 分别为读和写
+42	
+os.popen(command[, mode[, bufsize]])
+
+
+从一个 command 打开一个管道
+43	
+os.read(fd, n)
+
+
+从文件描述符 fd 中读取最多 n 个字节，返回包含读取字节的字符串，文件描述符 fd对应文件已达到结尾, 返回一个空字符串。
+44	
+os.readlink(path)
+
+
+返回软链接所指向的文件
+45	
+os.remove(path)
+
+
+删除路径为path的文件。如果path 是一个文件夹，将抛出OSError; 查看下面的rmdir()删除一个 directory。
+46	
+os.removedirs(path)
+
+
+递归删除目录。
+47	
+os.rename(src, dst)
+
+
+重命名文件或目录，从 src 到 dst
+48	
+os.renames(old, new)
+
+
+递归地对目录进行更名，也可以对文件进行更名。
+49	
+os.rmdir(path)
+
+
+删除path指定的空目录，如果目录非空，则抛出一个OSError异常。
+50	
+os.stat(path)
+
+
+获取path指定的路径的信息，功能等同于C API中的stat()系统调用。
+51	
+os.stat_float_times([newvalue])
+决定stat_result是否以float对象显示时间戳
+
+52	
+os.statvfs(path)
+
+
+获取指定路径的文件系统统计信息
+53	
+os.symlink(src, dst)
+
+
+创建一个软链接
+54	
+os.tcgetpgrp(fd)
+
+
+返回与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组
+55	
+os.tcsetpgrp(fd, pg)
+
+
+设置与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组为pg。
+56	
+os.tempnam([dir[, prefix]])
+
+
+Python3 中已删除。返回唯一的路径名用于创建临时文件。
+57	
+os.tmpfile()
+
+
+Python3 中已删除。返回一个打开的模式为(w+b)的文件对象 .这文件对象没有文件夹入口，没有文件描述符，将会自动删除。
+58	
+os.tmpnam()
+
+
+Python3 中已删除。为创建一个临时文件返回一个唯一的路径
+59	
+os.ttyname(fd)
+
+
+返回一个字符串，它表示与文件描述符fd 关联的终端设备。如果fd 没有与终端设备关联，则引发一个异常。
+60	
+os.unlink(path)
+
+
+删除文件路径
+61	
+os.utime(path, times)
+
+
+返回指定的path文件的访问和修改的时间。
+62	
+os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
+
+
+输出在文件夹中的文件名通过在树中游走，向上或者向下。
+63	
+os.write(fd, str)
+
+
+写入字符串到文件描述符 fd中. 返回实际写入的字符串长度
+64	
+os.path 模块
+
+
+获取文件的属性信息。
+65	
+os.pardir()
+
+
+获取当前目录的父目录，以字符串形式显示目录名。
+66	
+os.replace()
+
+
+重命名文件或目录。
