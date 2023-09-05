@@ -2,6 +2,76 @@
 
 + docker基础语法
 
+## docker inspect 详解
+
+`docker inspect` 命令用于查看 Docker 中的各种对象的详细信息，包括容器、镜像、网络、卷等。这个命令以 JSON 格式输出对象的配置和状态信息，可用于调试、监视和了解 Docker 对象的各个方面。下面是有关 `docker inspect` 命令的详细解释：
+
+语法：
+```bash
+docker inspect [OPTIONS] OBJECT [OBJECT...]
+```
+
+- `OPTIONS`：可选，可以附加一些选项来控制输出格式和内容。
+- `OBJECT`：必需，指定要检查的 Docker 对象的名称或 ID。
+
+以下是一些常见的用法和选项：
+
+1. 查看容器详细信息：
+
+   ```bash
+   docker inspect container_name_or_id
+   ```
+
+   这将输出指定容器的详细信息，包括容器的配置、状态、网络设置等等。
+
+2. 查看镜像详细信息：
+
+   ```bash
+   docker inspect image_name_or_id
+   ```
+
+   这将输出指定镜像的详细信息，包括镜像的元数据、层信息等。
+
+3. 输出格式选项：
+
+   默认情况下，`docker inspect` 输出 JSON 格式的信息，但你可以使用 `--format` 选项来指定自定义输出格式。例如：
+
+   ```bash
+   docker inspect --format '{{.State.Status}}' container_name_or_id
+   ```
+
+   这将仅输出容器的状态（运行、停止等）。
+
+4. 查看多个对象的信息：
+
+   你可以一次查看多个 Docker 对象的信息。例如，要查看多个容器的详细信息，可以列出它们的名称或 ID 并用空格分隔：
+
+   ```bash
+   docker inspect container1 container2
+   ```
+
+5. 使用 `--type` 选项过滤对象类型：
+
+   你可以使用 `--type` 选项来过滤要检查的 Docker 对象的类型。例如，要查看所有网络的详细信息，可以运行：
+
+   ```bash
+   docker inspect --type network
+   ```
+
+   这将列出所有网络的详细信息。
+
+6. 导出信息到文件：
+
+   如果你想将对象的详细信息保存到文件中，可以使用重定向操作符（`>`）将输出重定向到文件。例如：
+
+   ```bash
+   docker inspect container_name_or_id > container_info.json
+   ```
+
+   这将容器的详细信息保存到 `container_info.json` 文件中。
+
+`docker inspect` 命令是一个非常有用的工具，可用于深入了解 Docker 对象的各个方面，从容器的配置到网络设置，以及镜像的元数据等等。通过查看这些信息，你可以更好地理解和管理你的 Docker 环境。
+
 ## docker --network(net) 详解
 
 在 Docker 中，网络是容器和其他容器或宿主机之间进行通信的基础。Docker 提供了多种网络模式和选项，可以根据不同的需求选择适当的网络配置。以下是 Docker 中一些常见的网络选项：
