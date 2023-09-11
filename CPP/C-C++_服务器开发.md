@@ -1,3 +1,50 @@
+## 简介
+
++ C++服务器开发相关笔记
+
+## C++ 服务器开发 github推荐开源项目
+
+以下是一些在 GitHub 上受欢迎且有用的 C++ 服务器开发的开源项目，它们可用于构建各种类型的服务器应用程序。请注意，GitHub 上的项目可能会不断更新，因此建议查看其最新状态和文档：
+
+1. **Boost.Asio**：
+   Boost.Asio 是一个 C++ 网络库，提供异步事件处理和网络通信的功能。它可以用于构建高性能的网络服务器和客户端应用程序。
+   GitHub 地址：https://github.com/boostorg/asio
+
+2. **cpp-netlib**：
+   cpp-netlib 是一个现代的 C++ 网络库，提供 HTTP、HTTPS、HTTP client 等功能。它提供了易于使用的 API 来处理网络通信。
+   GitHub 地址：https://github.com/cpp-netlib/cpp-netlib
+
+3. **Crow**：
+   Crow 是一个 C++ 微型 Web 框架，可用于构建高性能的 Web 服务器。它具有简单的 API 和支持 WebSocket 等功能。
+   GitHub 地址：https://github.com/ipkn/crow
+
+4. **Pistache**：
+   Pistache 是一个 C++ RESTful Web 服务器框架，它具有异步处理和路由功能。它适用于构建 REST API 服务器。
+   GitHub 地址：https://github.com/oktal/pistache
+
+5. **Civetweb**：
+   Civetweb 是一个轻量级的嵌入式 HTTP/WebSocket 服务器，适用于嵌入式系统和小型应用程序。
+   GitHub 地址：https://github.com/civetweb/civetweb
+
+6. **uWebSockets**：
+   uWebSockets 是一个高性能的 WebSocket 库，用于构建 WebSocket 服务器和客户端。它具有低延迟和高吞吐量的特性。
+   GitHub 地址：https://github.com/uNetworking/uWebSockets
+
+7. **Restbed**：
+   Restbed 是一个 C++11 Web 服务框架，支持 HTTP 和 HTTPS，并提供异步事件处理和路由功能。
+   GitHub 地址：https://github.com/corvusoft/restbed
+
+8. **Drogon**：
+   Drogon 是一个高性能的 C++ Web 服务器框架，支持 HTTP/1.1 和 HTTP/2，提供异步和多线程支持。
+   GitHub 地址：https://github.com/an-tao/drogon
+
+9. **Seastar**：
+   Seastar 是一个高性能的 C++ 框架，用于构建分布式系统和高性能的服务器应用程序。它采用异步编程模型。
+   GitHub 地址：https://github.com/scylladb/seastar
+
+请注意，选择适合你的项目需求和技术栈的开源项目非常重要。这些项目在不同的场景和用例中具有不同的优势，因此建议根据你的具体需求来评估这些项目。同时，查看每个项目的文档和社区支持，以确保你能够成功地使用它们。
+
+
 ## 从零设计跨平台C/C++服务器框架
 
 ### 1.1 基础

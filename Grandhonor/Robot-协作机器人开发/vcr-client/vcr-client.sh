@@ -35,6 +35,7 @@ cmd_map[21]="--test-hi"
 cmd_map[22]="--test-post-file"
 cmd_map[23]="--robot-beijing-JntToCart"
 cmd_map[24]="--robot-beijing-CartToJnt"
+cmd_map[25]="--device-list"
 
 #######################################################
 
@@ -76,6 +77,9 @@ function Help()
     echo -e 
     echo "${cmd_map[21]}  httplib test hi"
     echo "${cmd_map[22]}  httplib upload file"
+
+    echo -e 
+    echo "${cmd_map[25]}  device list"
 
     echo -e
 }
@@ -317,6 +321,16 @@ function TestHttplibPostFile()
 }
 
 #######################################################
+function DeviceList()
+{
+    uri="/api/common/list"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
+#######################################################
 
 function main()
 {
@@ -368,6 +382,8 @@ function main()
         RobotBeijingJntToCart $2
     elif [[ $1 == "${cmd_map[24]}" ]]; then 
         RobotBeijingCartToJnt $2
+    elif [[ $1 == "${cmd_map[25]}" ]]; then 
+        DeviceList
     else 
         Help
     fi

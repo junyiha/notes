@@ -6,6 +6,9 @@
 
 ## 相机标定命令 详解
 
++ project
+  + /home/user/zjy/cob_github/arwen-new-fake-robot/web_backend
+
 + compile
   + ./tool.sh -c
 
