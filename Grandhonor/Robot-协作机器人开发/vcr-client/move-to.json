@@ -2,7 +2,7 @@
     "space": "joint",
     "speedPercent": 8,
     "target": [
-        -1,
+        0,
         0,
         0,
         0,

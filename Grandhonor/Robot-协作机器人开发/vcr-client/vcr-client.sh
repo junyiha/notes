@@ -36,6 +36,8 @@ cmd_map[22]="--test-post-file"
 cmd_map[23]="--robot-beijing-JntToCart"
 cmd_map[24]="--robot-beijing-CartToJnt"
 cmd_map[25]="--device-list"
+cmd_map[26]="--tool-sucker-isCaptured"
+cmd_map[27]="--robot-cob-stop-all"
 
 #######################################################
 
@@ -53,6 +55,7 @@ function Help()
     echo "${cmd_map[8]}  sucker device , open command"
     echo "${cmd_map[6]}  sucker device , start command"
     echo "${cmd_map[7]}  sucker device , stop command"
+    echo "${cmd_map[26]}  sucker device , is captured"
 
     echo -e
     echo "${cmd_map[10]}  beijing robot device , open command"
@@ -80,6 +83,9 @@ function Help()
 
     echo -e 
     echo "${cmd_map[25]}  device list"
+
+    echo -e 
+    echo "${cmd_map[27]}  cob robot, stop all"
 
     echo -e
 }
@@ -139,6 +145,14 @@ function ToolSuckerStop()
 function ToolSuckerOpen()
 {
     uri="/api/tools/sucker/open"
+
+    curl -X GET ${url}${uri}
+    echo -e
+}
+
+function ToolSuckerIsCaptured()
+{
+    uri="/api/tools/sucker/isCaptured"
 
     curl -X GET ${url}${uri}
     echo -e
@@ -332,6 +346,17 @@ function DeviceList()
 
 #######################################################
 
+function CobStopAll()
+{
+    uri="/api/robots/cob/stopAll"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
+#######################################################
+
 function main()
 {
     if [[ $1 == "${cmd_map[1]}" ]]; then 
@@ -348,6 +373,8 @@ function main()
         ToolSuckerStart
     elif [[ $1 == "${cmd_map[7]}" ]]; then 
         ToolSuckerStop  
+    elif [[ $1 == "${cmd_map[26]}" ]]; then 
+        ToolSuckerIsCaptured  
     elif [[ $1 == "${cmd_map[8]}" ]]; then 
         ToolSuckerOpen
     elif [[ $1 == "${cmd_map[9]}" ]]; then 
@@ -384,6 +411,8 @@ function main()
         RobotBeijingCartToJnt $2
     elif [[ $1 == "${cmd_map[25]}" ]]; then 
         DeviceList
+    elif [[ $1 == "${cmd_map[27]}" ]]; then 
+        CobStopAll
     else 
         Help
     fi

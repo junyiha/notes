@@ -22,6 +22,7 @@ cmd_map[16]="--get-max-joint-vel"
 cmd_map[17]="--get-points"
 cmd_map[18]="--jnt-to-cart"
 cmd_map[19]="--cart-to-jnt"
+cmd_map[20]="--stop-all"
 
 ########################################################################################
 function Help()
@@ -54,6 +55,7 @@ function Help()
     echo "${cmd_map[17]}  output "
     echo "${cmd_map[18]}  output "
     echo "${cmd_map[19]}  output "
+    echo "${cmd_map[20]}  output "
     echo ""
 }
 
@@ -239,6 +241,15 @@ function CartToJnt()
     echo -e
 }
 
+function StopAll()
+{
+    uri="/api/control/stop"
+
+    curl -X GET ${url}${uri}
+
+    echo -e
+}
+
 ########################################################################################
 
 function main()
@@ -281,6 +292,8 @@ function main()
         JntToCart $2
     elif [[ $1 == "${cmd_map[19]}" ]]; then 
         CartToJnt $2
+    elif [[ $1 == "${cmd_map[20]}" ]]; then 
+        StopAll
     else 
         Help
     fi
