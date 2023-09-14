@@ -38,6 +38,7 @@ cmd_map[24]="--robot-beijing-CartToJnt"
 cmd_map[25]="--device-list"
 cmd_map[26]="--tool-sucker-isCaptured"
 cmd_map[27]="--robot-cob-stop-all"
+cmd_map[28]="--robot-cob-drag"
 
 #######################################################
 
@@ -86,6 +87,7 @@ function Help()
 
     echo -e 
     echo "${cmd_map[27]}  cob robot, stop all"
+    echo "${cmd_map[28]}  cob robot, drag mode"
 
     echo -e
 }
@@ -355,6 +357,18 @@ function CobStopAll()
     echo -e
 }
 
+function CobDrag()
+{
+    uri="/api/robots/cob/dragMode"
+
+    if [ -z "$1" ]; then 
+        echo "empty json file"
+    else 
+        curl -X POST --data-binary @$1 ${url}${uri}
+    fi 
+    echo -e
+}
+
 #######################################################
 
 function main()
@@ -413,6 +427,8 @@ function main()
         DeviceList
     elif [[ $1 == "${cmd_map[27]}" ]]; then 
         CobStopAll
+    elif [[ $1 == "${cmd_map[28]}" ]]; then 
+        CobDrag $2
     else 
         Help
     fi
