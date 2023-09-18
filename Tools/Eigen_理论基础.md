@@ -3,6 +3,221 @@
 + Eigen 第三方库基础知识
 + Eigen，仅包含头文件即可
 
+## Eigen::Isometry3d 类 详解
+
+`Eigen::Isometry3d` 是Eigen库中的一个类，用于表示三维空间中的等距变换（Isometry Transformation），也称为刚体变换（Rigid Transformation）。等距变换包括平移和旋转，通常用于表示物体在三维空间中的姿态和位置。
+
+以下是关于 `Eigen::Isometry3d` 类的详细信息：
+
+**构造函数**：
+```cpp
+Eigen::Isometry3d transform = Eigen::Isometry3d::Identity();
+```
+
+构造函数用于创建一个等距变换，通常初始化为单位等距变换，表示物体的初始位置和姿态。
+
+**成员函数**：
+
+1. `translation()`：
+   返回等距变换的平移部分，它是一个三维向量表示平移的位移。
+
+2. `translation()`（重载）：
+   设置等距变换的平移部分。
+
+3. `rotation()`：
+   返回等距变换的旋转部分，它是一个`Eigen::Matrix3d`表示旋转矩阵。
+
+4. `matrix()`：
+   返回等距变换的矩阵表示，是一个`Eigen::Matrix4d`矩阵。
+
+**示例**：
+```cpp
+#include <iostream>
+#include <Eigen/Geometry>
+
+int main() {
+    // 创建等距变换，表示平移(1, 2, 3)并绕X轴旋转45度
+    Eigen::Isometry3d transform = Eigen::Isometry3d::Identity();
+    transform.translation() = Eigen::Vector3d(1.0, 2.0, 3.0);
+    transform.rotate(Eigen::AngleAxisd(M_PI / 4.0, Eigen::Vector3d::UnitX()));
+
+    // 获取平移部分和旋转部分
+    Eigen::Vector3d translation = transform.translation();
+    Eigen::Matrix3d rotation = transform.rotation();
+
+    // 输出结果
+    std::cout << "平移部分：" << translation.transpose() << std::endl;
+    std::cout << "旋转部分：" << std::endl << rotation << std::endl;
+
+    // 获取等距变换的矩阵表示
+    Eigen::Matrix4d transform_matrix = transform.matrix();
+    std::cout << "等距变换矩阵：" << std::endl << transform_matrix << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，我们创建了一个等距变换对象，并使用成员函数设置其平移部分和旋转部分。然后，我们分别获取了平移部分和旋转部分，并输出了等距变换的矩阵表示。
+
+`Eigen::Isometry3d` 类是Eigen库中用于表示三维等距变换的重要工具。它允许您方便地表示和操作物体在三维空间中的姿态和位置，这在机器人学、计算机图形学和仿真等领域中非常有用。
+
+## Eigen::AngleAxisd 类 详解
+
+`Eigen::AngleAxisd` 是Eigen库中的一个类，用于表示轴角（Axis-Angle）形式的旋转。轴角表示是一种用于描述三维空间中的旋转的常见方式，它包括一个旋转轴和一个旋转角度。该类位于Eigen库的Eigen/Geometry模块中。
+
+以下是关于 `Eigen::AngleAxisd` 类的详细信息：
+
+**构造函数**：
+```cpp
+Eigen::AngleAxisd(const Scalar& angle, const Vector3d& axis)
+```
+- `angle`：旋转角度，以弧度表示。
+- `axis`：旋转轴的单位向量。
+
+构造函数用于创建一个轴角表示的旋转，指定旋转角度和旋转轴。
+
+**成员函数**：
+
+1. `angle()`：
+   返回轴角表示中的旋转角度（以弧度表示）。
+
+2. `axis()`：
+   返回轴角表示中的旋转轴，它是一个单位向量。
+
+3. `toRotationMatrix()`：
+   将轴角表示转换为旋转矩阵（`Eigen::Matrix3d`），这个矩阵可以用于执行坐标变换。
+
+**示例**：
+```cpp
+#include <iostream>
+#include <Eigen/Geometry>
+
+int main() {
+    // 创建轴角表示的旋转（绕X轴旋转45度）
+    Eigen::AngleAxisd rotation(M_PI / 4.0, Eigen::Vector3d::UnitX());
+
+    // 获取旋转角度和旋转轴
+    double angle = rotation.angle();
+    Eigen::Vector3d axis = rotation.axis();
+
+    // 输出结果
+    std::cout << "旋转角度 (弧度): " << angle << std::endl;
+    std::cout << "旋转轴: " << axis.transpose() << std::endl;
+
+    // 将轴角表示转换为旋转矩阵
+    Eigen::Matrix3d rotation_matrix = rotation.toRotationMatrix();
+    std::cout << "旋转矩阵：" << std::endl << rotation_matrix << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，我们创建了一个轴角表示的旋转对象，并使用成员函数获取旋转角度和旋转轴。然后，我们使用 `toRotationMatrix()` 函数将轴角表示转换为旋转矩阵。
+
+`Eigen::AngleAxisd` 类是Eigen库中用于处理轴角旋转的重要工具，它使您能够方便地表示和操作旋转信息。您可以使用旋转矩阵来执行坐标变换，或将其与其他旋转进行组合。这对于机器人学、计算机图形学和仿真等领域非常有用。
+
+## Eigen::Matrix3d 数据结构 详解
+
+`Eigen::Matrix3d` 是Eigen库中的一个数据结构，表示一个3x3的矩阵，其中`d`表示矩阵元素的数据类型为`double`。Eigen库是一个用于线性代数操作的C++库，提供了高性能的矩阵和向量运算，特别适用于数学和科学计算。
+
+`Eigen::Matrix3d` 可以用来表示各种线性代数和几何学中的3x3矩阵，如旋转矩阵、变换矩阵、协方差矩阵等。这个数据结构在计算机图形学、机器人学、物理模拟等领域中经常被使用。
+
+以下是一些关于`Eigen::Matrix3d`的详细信息和常见操作：
+
+1. **构造函数**：您可以使用多种构造函数创建`Eigen::Matrix3d`对象。例如：
+
+   ```cpp
+   Eigen::Matrix3d mat1; // 默认构造函数，创建零矩阵
+   Eigen::Matrix3d mat2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0); // 从给定的元素创建矩阵
+   ```
+
+2. **元素访问**：您可以通过行和列索引来访问矩阵的元素。Eigen库支持使用`(i, j)`或`i`、`j`索引方式，其中`(i, j)`表示第`i`行、第`j`列的元素，`i`和`j`从0开始。
+
+   ```cpp
+   double element = mat2(1, 2); // 访问第2行第3列的元素
+   double element_row_col = mat2.row(1)[2]; // 也可以使用行和列的方式访问
+   ```
+
+3. **矩阵运算**：您可以对`Eigen::Matrix3d`对象执行各种矩阵运算，如矩阵加法、矩阵乘法、矩阵转置等。Eigen库提供了丰富的运算符重载和成员函数来进行这些操作。
+
+   ```cpp
+   Eigen::Matrix3d result = mat1 + mat2; // 矩阵加法
+   Eigen::Matrix3d product = mat1 * mat2; // 矩阵乘法
+   Eigen::Matrix3d transposed = mat1.transpose(); // 矩阵转置
+   ```
+
+4. **单位矩阵**：您可以使用`Eigen::Matrix3d::Identity()`来创建一个单位矩阵。
+
+   ```cpp
+   Eigen::Matrix3d identity = Eigen::Matrix3d::Identity();
+   ```
+
+5. **行和列操作**：Eigen库提供了许多操作来处理矩阵的行和列，如获取行、列、设置行、列等。
+
+   ```cpp
+   Eigen::Vector3d row_vector = mat2.row(1); // 获取第2行
+   Eigen::Vector3d col_vector = mat2.col(2); // 获取第3列
+   mat2.row(0) = Eigen::Vector3d(10.0, 20.0, 30.0); // 设置第1行的值
+   ```
+
+6. **其他操作**：Eigen库还提供了许多其他操作，如求逆、行列式计算、特征值分解等。
+
+`Eigen::Matrix3d` 是Eigen库中一个非常有用的数据结构，用于表示和处理3x3矩阵数据。您可以使用它来执行各种线性代数和几何计算。Eigen库还支持其他矩阵大小的数据结构，如`Eigen::Matrix4d`、`Eigen::MatrixXd`（动态大小矩阵）等，以满足不同的需求。
+
+## Eigen::Vector3d  数据结构 详解
+
+`Eigen::Vector3d` 是Eigen库中的一个数据结构，表示三维向量，其中`d`表示向量元素的数据类型为`double`。Eigen库是一个用于线性代数操作的C++库，提供了高性能的矩阵和向量运算，特别适用于数学和科学计算。
+
+`Eigen::Vector3d` 表示一个包含三个`double`类型元素的向量，通常用于表示三维空间中的位置、方向或其他三维向量数据。这个数据结构在机器人学、计算机图形学、物理模拟等领域中经常被使用。
+
+以下是一些关于`Eigen::Vector3d`的详细信息和常见操作：
+
+1. **构造函数**：您可以使用多种构造函数创建`Eigen::Vector3d`对象。例如：
+
+   ```cpp
+   Eigen::Vector3d v1;           // 默认构造函数，创建零向量 (0, 0, 0)
+   Eigen::Vector3d v2(1.0, 2.0, 3.0); // 从给定的元素创建向量
+   ```
+
+2. **元素访问**：您可以通过下标或成员函数来访问向量的元素。例如：
+
+   ```cpp
+   double x = v2[0]; // 访问第一个元素（x坐标）
+   double y = v2[1]; // 访问第二个元素（y坐标）
+   double z = v2[2]; // 访问第三个元素（z坐标）
+
+   // 或者使用成员函数
+   double x = v2.x();
+   double y = v2.y();
+   double z = v2.z();
+   ```
+
+3. **向量运算**：您可以对`Eigen::Vector3d`对象执行各种向量运算，如加法、减法、点积、叉积等。Eigen库提供了丰富的运算符重载和成员函数来进行这些操作。
+
+   ```cpp
+   Eigen::Vector3d result = v1 + v2; // 向量加法
+   Eigen::Vector3d diff = v1 - v2;   // 向量减法
+   double dot_product = v1.dot(v2);  // 点积
+   Eigen::Vector3d cross_product = v1.cross(v2); // 叉积
+   ```
+
+4. **归一化**：您可以使用成员函数将向量归一化为单位向量。
+
+   ```cpp
+   v2.normalize(); // 归一化v2为单位向量
+   ```
+
+5. **长度和距离**：您可以使用成员函数计算向量的长度（模）或两个点之间的距离。
+
+   ```cpp
+   double length = v2.norm(); // 向量的长度
+   double distance = (v1 - v2).norm(); // 两个点之间的距离
+   ```
+
+6. **其他操作**：Eigen库提供了许多其他操作，如向量的投影、反射、角度计算等。
+
+`Eigen::Vector3d` 是Eigen库中一个非常有用的数据结构，用于表示和处理三维向量数据。您可以使用它来执行各种线性代数和几何计算。注意，Eigen库支持其他数据类型的向量，如`Eigen::Vector3f`（`float`类型元素）和`Eigen::Vector3i`（`int`类型元素）等，以满足不同的需求。
+
 ## Eigen::Vector3f 详解
 
 在C++中，Eigen是一个开源的线性代数库，用于高效地进行矩阵和向量计算。`Eigen::Vector3f`是Eigen库中表示三维浮点数向量的数据类型。

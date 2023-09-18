@@ -2,6 +2,35 @@
 
 + python 常用的编程技巧笔记
 
+## python3 启动新的线程
+
+在 Python 3 中，您可以使用 `threading` 模块来启动新的线程。以下是一个简单的示例，演示如何创建和启动一个新线程：
+
+```python
+import threading
+
+# 定义一个简单的函数，作为新线程的任务
+def print_numbers():
+    for i in range(1, 6):
+        print(f"Number: {i}")
+
+# 创建一个新线程并指定要运行的函数
+new_thread = threading.Thread(target=print_numbers)
+
+# 启动新线程
+new_thread.start()
+
+# 主线程继续执行其他任务
+for letter in 'abcde':
+    print(f"Letter: {letter}")
+```
+
+在这个示例中，我们首先导入 `threading` 模块。然后，我们定义了一个名为 `print_numbers` 的函数，它将在新线程中运行，简单地打印数字 1 到 5。接下来，我们使用 `threading.Thread` 类创建一个新线程，将 `print_numbers` 函数作为目标（`target`）传递给新线程。最后，我们通过调用 `start()` 方法启动新线程，它将在后台运行。
+
+主线程继续执行其他任务，因此您会看到数字和字母的输出交替出现，表明新线程和主线程在并发执行。
+
+请注意，线程是轻量级的执行单元，可以同时运行多个线程，但需要谨慎处理线程之间的共享数据和同步问题，以避免竞争条件和其他线程相关的问题。在复杂的多线程应用程序中，确保线程安全性非常重要。如果需要更多的线程控制和同步，Python 3 还提供了 `threading` 模块中的各种工具。
+
 ## python 解析JSON文件
 
 在Python中解析JSON文件通常是一个非常常见的任务，你可以使用内置的`json`模块来完成这个任务。以下是一个基本的JSON文件解析示例：

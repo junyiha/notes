@@ -2,6 +2,38 @@
 
 + linux系统的常用技巧和方法
 
+## linux killall 命令未找到
+
+如果在 Linux 终端上执行 `killall` 命令时未找到该命令，可能有以下几种可能原因：
+
+1. **命令不存在**：`killall` 命令不是所有 Linux 发行版都默认安装的。某些发行版可能没有包含这个命令，或者可能不在系统的 PATH 路径中。您可以尝试使用 `which` 命令检查是否存在 `killall` 命令，以及它的路径。
+
+   ```bash
+   which killall
+   ```
+
+   如果 `which` 命令没有返回路径，说明系统中没有安装 `killall`。
+
+2. **权限问题**：如果您没有足够的权限来执行 `killall` 命令，可能会导致命令未找到。请确保您具有足够的权限来执行此命令。
+
+3. **未安装相关软件包**：在某些发行版中，`killall` 命令可能需要额外的软件包才能使用。您可以尝试安装 `psmisc` 软件包，它包含了 `killall` 命令。
+
+   在 Debian/Ubuntu 系统中，您可以使用以下命令安装 `psmisc`：
+
+   ```bash
+   sudo apt-get install psmisc
+   ```
+
+   在 Red Hat/CentOS 系统中，您可以使用以下命令安装 `psmisc`：
+
+   ```bash
+   sudo yum install psmisc
+   ```
+
+   安装完成后，`killall` 命令应该可用了。
+
+如果以上步骤仍然无法解决问题，可能需要查看系统设置或与系统管理员联系，以了解有关命令可用性的更多信息。
+
 ## ubuntu 查看CPU架构
 
 要查看 Ubuntu 系统的 CPU 架构，你可以使用以下几种方法：
