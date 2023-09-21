@@ -2,6 +2,139 @@
 
 + shell脚本编程的常用方法
 
+## linux shell 字符串拼接
+
+在Linux Shell中，你可以使用不同的方法来进行字符串拼接，具体取决于你使用的Shell（例如，Bash、Zsh、Fish等）。以下是一些常见的方法：
+
+1. 使用`+`操作符（仅限Bash和Zsh）：
+   
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   result="$str1$str2"
+   echo "$result"
+   ```
+
+   这将会输出：`Hello, world!`
+
+2. 使用`${}`来拼接字符串（适用于大多数Shell）：
+
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   result="${str1}${str2}"
+   echo "$result"
+   ```
+
+   输出与上述相同。
+
+3. 使用`printf`函数来拼接字符串（适用于大多数Shell）：
+
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   result=$(printf "%s%s" "$str1" "$str2")
+   echo "$result"
+   ```
+
+   输出与上述相同。
+
+4. 使用命令替换来拼接字符串（适用于大多数Shell）：
+
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   result=$(echo "${str1}${str2}")
+   echo "$result"
+   ```
+
+   输出与上述相同。
+
+5. 在echo中直接拼接字符串：
+
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   echo "${str1}${str2}"
+   ```
+
+   这将直接输出拼接后的字符串。
+
+6. 使用Here Document（适用于大多数Shell）：
+
+   ```bash
+   str1="Hello, "
+   str2="world!"
+   result=$(cat <<EOF
+   ${str1}${str2}
+   EOF
+   )
+   echo "$result"
+   ```
+
+   这种方法适用于多行字符串拼接。
+
+请注意，上述示例中的字符串拼接方法可以在大多数常见的Shell中使用，但可能会有一些细微的差异。确保根据你所使用的Shell来选择适当的方法。
+
+## linux bash shell 字符串拼接
+
+在Bash Shell中，你可以使用不同的方法来进行字符串拼接。以下是一些常见的方法：
+
+1. 使用`${}`来拼接字符串：
+
+```bash
+str1="Hello, "
+str2="world!"
+result="${str1}${str2}"
+echo "$result"
+```
+
+这将会输出：`Hello, world!`
+
+2. 使用`+`操作符（仅限Bash 4.0及更高版本）：
+
+```bash
+str1="Hello, "
+str2="world!"
+result="$str1$str2"
+echo "$result"
+```
+
+这也会输出：`Hello, world!`
+
+3. 使用`+=`操作符来追加字符串：
+
+```bash
+str1="Hello, "
+str1+="world!"
+echo "$str1"
+```
+
+这将输出：`Hello, world!`
+
+4. 使用命令替换来拼接字符串：
+
+```bash
+str1="Hello, "
+str2="world!"
+result=$(echo "${str1}${str2}")
+echo "$result"
+```
+
+这也会输出：`Hello, world!`
+
+5. 在echo中直接拼接字符串：
+
+```bash
+str1="Hello, "
+str2="world!"
+echo "${str1}${str2}"
+```
+
+这将直接输出拼接后的字符串。
+
+请根据你的需求和个人偏好选择合适的字符串拼接方法。在Bash中，上述示例中的任何一种方法都可以使用。
+
 ## 将命令输出的信息存储到数组
 
 在Linux Shell中，可以使用命令替换和数组来将命令的输出存储到一个数组中。有两种常用的方式来实现这个目标，分别是使用`$()`或反引号``来进行命令替换。

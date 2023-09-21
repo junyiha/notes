@@ -2,6 +2,18 @@
 
 + linux系统的常用技巧和方法
 
+## ubuntu apt 升级指定安装包
+
++ 方法一
+```bash
+apt install --only-upgrade <packagename>
+```
+
++ 方法二
+```bash
+apt install <packagename>
+```
+
 ## linux killall 命令未找到
 
 如果在 Linux 终端上执行 `killall` 命令时未找到该命令，可能有以下几种可能原因：

@@ -2,6 +2,54 @@
 
 + Eigen 库常用的编程技巧
 
+## eigen3 两个矩阵相乘 示例详解
+
+Eigen是一个C++模板库，用于线性代数操作，包括矩阵相乘。Eigen的3.x版本中提供了一个简洁而强大的矩阵相乘接口，用于进行矩阵乘法运算。下面是一个简单的示例，展示如何在Eigen中进行两个矩阵的相乘。
+
+首先，确保你已经安装了Eigen库，并且包含了适当的头文件。通常，你需要在代码中包含类似这样的头文件：
+
+```cpp
+#include <Eigen/Dense>
+```
+
+然后，你可以使用Eigen库来执行矩阵相乘操作。以下是一个示例代码，假设你已经创建了两个矩阵 A 和 B，并且想要计算它们的乘积 C。
+
+```cpp
+#include <iostream>
+#include <Eigen/Dense>
+
+int main() {
+    // 创建矩阵 A 和 B
+    Eigen::MatrixXd A(3, 3);  // 3x3 矩阵
+    Eigen::MatrixXd B(3, 3);  // 3x3 矩阵
+
+    // 初始化矩阵 A 和 B
+    A << 1, 2, 3,
+         4, 5, 6,
+         7, 8, 9;
+
+    B << 9, 8, 7,
+         6, 5, 4,
+         3, 2, 1;
+
+    // 计算矩阵相乘 C = A * B
+    Eigen::MatrixXd C = A * B;
+
+    // 打印结果
+    std::cout << "Matrix A:\n" << A << std::endl;
+    std::cout << "Matrix B:\n" << B << std::endl;
+    std::cout << "Matrix C (A * B):\n" << C << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，我们首先创建了两个3x3的矩阵 A 和 B，并使用`<<`操作符初始化它们。然后，我们使用`*`运算符将矩阵 A 和 B 相乘，将结果存储在矩阵 C 中。
+
+最后，我们打印了矩阵 A、B 和 C 的值。你会看到矩阵 C 包含了矩阵 A 和 B 的乘积。
+
+这只是一个简单的示例，展示了如何在Eigen中进行矩阵相乘操作。Eigen提供了丰富的线性代数功能，包括各种矩阵运算和分解，使其成为处理线性代数问题的强大工具。
+
 ## Eigen::Vector3d 获取元素值
 
 在Eigen C++库中，`Eigen::Vector3d` 是一个表示三维向量的类。要获取`Eigen::Vector3d` 对象的元素值，你可以使用`operator[]`或者成员函数`x()`, `y()` 和 `z()`。下面是一些示例代码：
