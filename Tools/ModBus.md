@@ -2,6 +2,10 @@
 
 + ModBus 相关理论知识
 
+## Contexts 上下文 资源句柄
+
++ 使用 modbus_new_rtu 申请，返回一个 modbus_t ，它包含所有必要的数据
+
 ## modbus 协议 详解
 
 Modbus（Modular Communications System）是一种通信协议，用于在不同设备之间进行数据通信和控制。它通常用于工业自动化领域，用于连接和控制各种设备，如传感器、执行器、PLC（可编程逻辑控制器）等。Modbus协议的详解包括以下几个方面：
