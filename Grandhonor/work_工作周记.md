@@ -282,3 +282,10 @@
 + 点云计算，X轴法向量处理问题 [完成]
   + VCR版本 vcr_release/20230926
 + 3D 模型适配
+
+## 09.27
+
++ 3D 模型适配
+  + YOLOv8-Infer boxs.onnx
+  + VideoProcess/test/old/test.cpp:: test_get_mask
+  + 输入检测图，输出检测信息
