@@ -2,6 +2,51 @@
 
 + Python编程语言的理论基础
 
+# python3 日志处理 工具 推荐
+
+在Python 3中，有许多优秀的日志处理工具可供选择，这些工具可以帮助你有效地记录和管理应用程序的日志信息。以下是一些常用的Python 3日志处理工具的推荐：
+
+1. **Python内置的`logging`模块：**
+   Python的标准库中包含了一个内置的`logging`模块，它提供了强大的日志记录功能。你可以使用这个模块来配置日志级别、输出目标和格式。它是一个常见的选择，因为它是Python的标准库的一部分，无需额外安装。
+
+   ```python
+   import logging
+
+   logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+   ```
+
+2. **Loguru：**
+   Loguru是一个易于使用的第三方日志库，它提供了直观的API和强大的功能。它支持动态日志级别调整、日志旋转、多种输出格式等功能。
+
+   ```python
+   from loguru import logger
+
+   logger.add("app.log", rotation="500 MB", level="INFO")
+   ```
+
+3. **structlog：**
+   structlog是一个用于结构化日志记录的库，它允许你轻松地记录自定义字段，并支持多种输出格式。
+
+   ```python
+   import structlog
+
+   structlog.configure(
+       processors=[
+           structlog.processors.JSONRenderer(),
+           structlog.processors.TimeStamper(fmt="iso"),
+       ],
+       logger_factory=structlog.PrintLoggerFactory(),
+   )
+   ```
+
+4. **Fluentd：**
+   Fluentd是一个开源的日志收集和传输工具，它可以集成到Python应用程序中，并将日志发送到不同的目标，如文件、数据库或日志分析工具中。
+
+5. **Loggly、Papertrail等云日志服务：**
+   如果你的应用程序部署在云上，可以考虑使用云日志服务，如Loggly、Papertrail等。它们提供了强大的日志管理和分析功能，可以帮助你更轻松地处理日志。
+
+选择哪个日志处理工具取决于你的具体需求和偏好。无论你选择哪一个，都应该根据项目的规模和要求来配置和管理日志，以确保你能够有效地监视和调试你的应用程序。
+
 # 编码
 
 + 默认情况下，Python 3 源码文件以 UTF-8 编码，所有字符串都是 unicode 字符串。 当然你也可以为源码文件指定不同的编码
