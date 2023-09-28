@@ -2,6 +2,75 @@
 
 + OpenCV 相关编程技巧
 
+## OpenCV cv::Rect 获取四个点的cv::Point
+
+要从一个 `cv::Rect` 对象中获取其四个角的 `cv::Point`，你可以使用 `cv::Rect` 的成员函数 `tl()` 和 `br()`，分别表示矩形的左上角和右下角。然后，可以使用这两个点来构建其他两个角的坐标。以下是示例代码：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个矩形
+    cv::Rect rect(100, 100, 200, 150);
+
+    // 获取矩形的四个角
+    cv::Point tl = rect.tl(); // 左上角
+    cv::Point br = rect.br(); // 右下角
+
+    // 计算其他两个角的坐标
+    cv::Point tr(rect.x + rect.width, rect.y); // 右上角
+    cv::Point bl(rect.x, rect.y + rect.height); // 左下角
+
+    // 打印四个角的坐标
+    std::cout << "左上角: " << tl << std::endl;
+    std::cout << "右上角: " << tr << std::endl;
+    std::cout << "左下角: " << bl << std::endl;
+    std::cout << "右下角: " << br << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，我们首先创建了一个 `cv::Rect` 对象，然后使用 `tl()` 和 `br()` 方法分别获取了左上角和右下角的坐标。接着，我们使用矩形的属性 `x`、`y`、`width` 和 `height` 来计算右上角和左下角的坐标。最后，我们打印出四个角的坐标。这样，你就可以获取矩形的所有四个角的 `cv::Point` 坐标。
+
+## cv::Mat(cv::Rect) 是什么用法
+
+`cv::Mat` 的构造函数可以接受一个 `cv::Rect` 参数，用于创建一个新的 `cv::Mat` 对象，该对象表示了原始图像中指定区域的像素数据。这可以用于从原始图像中提取感兴趣的区域（Region of Interest，ROI）。
+
+构造函数的用法如下：
+
+```cpp
+cv::Mat::Mat(const cv::Mat& m, const Rect& roi);
+```
+
+其中，`m` 是原始图像，`roi` 是一个 `cv::Rect` 对象，表示要提取的区域。`cv::Mat` 对象将只包含 `roi` 指定的区域的像素数据，而不包含整个原始图像的数据。
+
+以下是一个示例，演示如何使用 `cv::Mat` 的构造函数来提取图像中的感兴趣区域：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("image.jpg");
+
+    // 定义感兴趣区域的矩形
+    cv::Rect roiRect(100, 100, 200, 150);  // (x, y, width, height)
+
+    // 使用构造函数提取感兴趣区域
+    cv::Mat roi = cv::Mat(image, roiRect);
+
+    // 显示原始图像和感兴趣区域
+    cv::imshow("原始图像", image);
+    cv::imshow("感兴趣区域", roi);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在上述示例中，我们首先定义了一个矩形 `roiRect`，表示感兴趣区域的位置和大小。然后，使用 `cv::Mat` 的构造函数，我们从原始图像中提取了这个感兴趣区域，最后将原始图像和感兴趣区域显示出来。这种方法允许你对感兴趣区域进行进一步的处理，而无需复制整个图像数据。
+
 ## OpenCV 检查矩形框是否在四个点围成的四边型之内
 
 要检查一个矩形框是否在由四个点围成的四边形内部，你可以使用 OpenCV 提供的点与多边形关系判断函数。以下是一个示例，演示了如何使用 OpenCV 检查一个矩形框是否在四个点围成的四边形内部：

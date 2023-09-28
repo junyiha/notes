@@ -2,6 +2,142 @@
 
 + OpenCV 常见类，函数
 
+## Mat operator()( const Rect& roi ) const 详解
+
+`cv::Mat` 类中的 `operator()(const Rect& roi) const` 是一个用于提取感兴趣区域（Region of Interest，ROI）的运算符重载。它允许你根据给定的矩形区域来创建一个新的 `cv::Mat` 对象，其中包含了原始图像中该矩形区域的像素数据。以下是这个运算符重载的详细解释：
+
+```cpp
+cv::Mat cv::Mat::operator()(const cv::Rect& roi) const;
+```
+
+参数说明：
+- `roi`：一个 `cv::Rect` 对象，表示感兴趣区域的位置和大小。
+
+运算符重载的返回值是一个新的 `cv::Mat` 对象，其中包含了原始图像中指定感兴趣区域的像素数据。
+
+使用示例：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("image.jpg");
+
+    // 定义感兴趣区域的矩形
+    cv::Rect roiRect(100, 100, 200, 150);  // (x, y, width, height)
+
+    // 使用运算符重载提取感兴趣区域
+    cv::Mat roi = image(roiRect);
+
+    // 显示感兴趣区域
+    cv::imshow("感兴趣区域", roi);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在上述示例中，我们首先读取了一张图像，然后定义了一个 `cv::Rect` 对象 `roiRect`，表示感兴趣区域的位置和大小。接着，我们使用运算符重载 `image(roiRect)` 来提取图像中指定的感兴趣区域，并将其存储在 `roi` 中。最后，我们显示了这个感兴趣区域。这个运算符重载使得提取感兴趣区域变得非常方便，可以快速获取图像的子区域进行进一步处理。
+
+## cv::Mat::setTo() 函数 详解
+
+`cv::Mat::setTo()` 函数用于将图像中的所有像素设置为指定的值或颜色。这个函数非常有用，可以用来创建具有特定像素值的图像，或者将图像的所有像素设置为某个常数值。以下是 `cv::Mat::setTo()` 函数的详解：
+
+```cpp
+void cv::Mat::setTo(const Scalar& value, const Mat& mask = Mat());
+```
+
+参数说明：
+- `value`：要设置的像素值，通常是一个 `cv::Scalar` 对象，表示图像的颜色或强度。例如，如果你想将图像设置为纯黑色，可以使用 `cv::Scalar(0, 0, 0)`。
+- `mask`：可选参数，一个与输入图像相同大小的掩码图像，用于指定哪些像素应该被设置为指定的值。只有在掩码图像中对应的像素值为非零时，对应的目标图像像素才会被设置。默认情况下，没有掩码。
+
+使用示例：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 创建一个空的图像
+    cv::Mat image(300, 400, CV_8UC3); // 3通道，8位无符号整数类型
+
+    // 设置整个图像为纯蓝色
+    cv::Scalar blueColor(255, 0, 0);
+    image.setTo(blueColor);
+
+    // 创建一个掩码图像，只有图像中心部分的像素会被修改
+    cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
+    cv::Rect roiRect(100, 100, 200, 100);
+    mask(roiRect) = 255; // 将中心区域的掩码设置为255
+
+    // 使用掩码将中心部分设置为绿色
+    cv::Scalar greenColor(0, 255, 0);
+    image.setTo(greenColor, mask);
+
+    // 显示图像
+    cv::imshow("图像", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在上述示例中，我们首先创建了一个空的彩色图像，然后使用 `setTo()` 函数将整个图像设置为纯蓝色。接下来，我们创建了一个掩码图像，只有中心区域的像素才会被修改。最后，我们使用掩码将中心部分的像素设置为绿色。这是一个简单示例，演示了如何使用 `cv::Mat::setTo()` 函数来设置图像的像素值。
+
+## cv::resize() 函数 详解
+
+`cv::resize()` 函数用于调整图像或图像区域的大小。你可以使用它来缩小或放大图像，或者将图像裁剪到指定的尺寸。以下是 `cv::resize()` 函数的详解：
+
+```cpp
+void cv::resize(
+    InputArray src,         // 输入图像，可以是 cv::Mat 或其他图像数据结构
+    OutputArray dst,        // 输出图像，可以是 cv::Mat 或其他图像数据结构
+    Size dsize,             // 目标图像的大小，指定为 cv::Size(width, height)
+    double fx = 0,          // 沿水平轴的缩放因子
+    double fy = 0,          // 沿垂直轴的缩放因子
+    int interpolation = INTER_LINEAR // 插值方法，可选，默认为线性插值
+);
+```
+
+参数说明：
+- `src`：输入图像，可以是 `cv::Mat` 或其他支持的图像数据结构。
+- `dst`：输出图像，可以是 `cv::Mat` 或其他支持的图像数据结构。它将包含调整大小后的图像。
+- `dsize`：目标图像的大小，以 `cv::Size` 对象表示，指定为目标宽度和高度。
+- `fx`：沿水平轴的缩放因子。如果为0，则根据垂直缩放因子 `fy` 来确定输出大小。
+- `fy`：沿垂直轴的缩放因子。如果为0，则根据水平缩放因子 `fx` 来确定输出大小。
+- `interpolation`：插值方法，用于在调整大小时估算像素值。可以选择以下插值方法之一：
+  - `INTER_NEAREST`：最近邻插值（速度最快，但质量较差）
+  - `INTER_LINEAR`：双线性插值（默认，速度适中，质量较好）
+  - `INTER_CUBIC`：双三次插值（速度较慢，质量较好）
+  - `INTER_LANCZOS4`：Lanczos插值（速度较慢，质量最好）
+
+使用示例：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("image.jpg");
+
+    // 指定目标大小
+    cv::Size targetSize(200, 150);
+
+    // 调整图像大小
+    cv::Mat resizedImage;
+    cv::resize(image, resizedImage, targetSize, 0, 0, cv::INTER_LINEAR);
+
+    // 显示原始图像和调整大小后的图像
+    cv::imshow("原始图像", image);
+    cv::imshow("调整大小后的图像", resizedImage);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+上述示例将读取一张图像，将其调整为指定的目标大小，然后显示原始图像和调整大小后的图像。你可以根据需要选择不同的插值方法和目标大小。
+
 ## cv::convexHull
 
 在 OpenCV 中，`cv::convexHull()` 函数用于计算一个给定点集的凸包。凸包是包含给定点集中所有点的最小凸多边形。以下是关于 `cv::convexHull()` 函数的详细解释：

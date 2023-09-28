@@ -289,3 +289,5 @@
   + YOLOv8-Infer boxs.onnx
   + VideoProcess/test/old/test.cpp:: test_get_mask
   + 输入检测图，输出检测信息
+    + 目标的最小外接矩形
+    + 目标的掩码图
