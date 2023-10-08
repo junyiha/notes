@@ -2,6 +2,229 @@
 
 + python 常用的编程技巧笔记
 
+## python3 OpenCV 矩形框的x,y,w,h 画在图像上
+
+在 OpenCV 中，您可以使用 `cv2.rectangle` 函数来在图像上绘制一个矩形框，指定矩形的左上角坐标 `(x, y)` 和宽度 `w` 以及高度 `h`。以下是一个示例：
+
+```python
+import cv2
+import numpy as np
+
+# 创建一个空白图像
+image = np.zeros((400, 400, 3), dtype=np.uint8)  # 创建一个 400x400 的黑色图像
+
+# 定义矩形的左上角坐标 (x, y) 和宽度 (w)、高度 (h)
+x, y, w, h = 100, 100, 200, 150
+
+# 定义矩形的颜色 (BGR 格式)
+color = (0, 255, 0)  # 绿色
+
+# 在图像上绘制矩形
+cv2.rectangle(image, (x, y), (x + w, y + h), color, thickness=2)
+
+# 显示图像
+cv2.imshow('Rectangle', image)
+
+# 等待按下任意键然后关闭窗口
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+在上述示例中，我们首先创建了一个空白的黑色图像，然后使用 `cv2.rectangle` 函数绘制一个绿色的矩形框，指定左上角坐标 `(x, y)` 和右下角坐标 `(x + w, y + h)`，以及颜色和线条粗细。
+
+您可以根据需要更改矩形的坐标、颜色和图像大小来适应您的需求。这只是一个基本示例，用于演示如何在 OpenCV 中绘制矩形。
+
+## python3 OpenCV 接收二进制数据 保存为图片
+
+要使用 Python 3 和 OpenCV 接收二进制数据并将其保存为图像，您可以按照以下步骤进行操作：
+
+1. 导入必要的库：
+
+```python
+import cv2
+import numpy as np
+```
+
+2. 接收二进制数据并将其转换为 NumPy 数组。假设您已经从某个地方（例如网络、文件等）接收到了二进制数据，您可以将其转换为 NumPy 数组：
+
+```python
+# 假设 binary_data 是包含二进制图像数据的变量
+# 请替换为您自己的方式来获取二进制数据
+binary_data = b'\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49...'
+
+# 将二进制数据转换为 NumPy 数组
+image_data = np.frombuffer(binary_data, np.uint8)
+```
+
+3. 解码图像数据为 OpenCV 图像对象：
+
+```python
+# 解码二进制数据为图像对象
+image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
+```
+
+上述代码假设您接收的二进制数据是JPEG格式的图像。如果数据是其他图像格式，您可能需要调整 `cv2.imdecode` 的参数。
+
+4. 保存图像到文件：
+
+```python
+# 保存图像到文件
+cv2.imwrite('output_image.jpg', image)
+```
+
+现在，您已经成功将接收的二进制数据保存为图像文件。请确保提供正确的图像文件路径和名称。
+
+整个代码示例如下：
+
+```python
+import cv2
+import numpy as np
+
+# 假设 binary_data 是包含二进制图像数据的变量
+# 请替换为您自己的方式来获取二进制数据
+binary_data = b'\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49...'
+
+# 将二进制数据转换为 NumPy 数组
+image_data = np.frombuffer(binary_data, np.uint8)
+
+# 解码二进制数据为图像对象
+image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
+
+# 保存图像到文件
+cv2.imwrite('output_image.jpg', image)
+```
+
+请注意，这只是一个简单的示例，假设您已经获取了包含二进制数据的变量。在实际应用中，您可能需要使用适当的方法来获取二进制数据，例如通过网络请求、文件读取等。
+
+## python3 将二进制数据写入文件 示例 详解
+
+在Python 3中，将二进制数据写入文件是一种常见的操作，通常用于保存图像、音频、视频文件以及其他二进制数据。以下是一个示例，演示了如何将二进制数据写入文件以及相关的详细解释：
+
+```python
+# 要写入文件的二进制数据
+binary_data = b'\x48\x65\x6c\x6c\x6f\x2c\x20\x57\x6f\x72\x6c\x64\x21'
+
+# 打开文件以二进制写入模式（'wb'表示二进制写入，如果文件不存在则创建，如果文件已存在则覆盖）
+# 您可以指定文件路径和名称
+file_path = "binary_data.bin"
+
+# 使用with语句打开文件，以确保在完成写入后关闭文件
+with open(file_path, 'wb') as file:
+    # 将二进制数据写入文件
+    file.write(binary_data)
+
+# 文件现在已经写入，可以关闭
+
+print(f"二进制数据已写入文件 {file_path}")
+```
+
+上述示例中的关键点包括：
+
+1. 定义要写入文件的二进制数据`binary_data`。这是一个包含十六进制值的字节序列，代表了字符串"Hello, World!"的ASCII编码。
+
+2. 使用`open`函数以二进制写入模式（'wb'）打开文件。在二进制写入模式下，文件以字节为单位进行写入，而不是以文本字符为单位。
+
+3. 使用`with`语句打开文件，以确保在完成写入后自动关闭文件。这有助于防止资源泄漏。
+
+4. 使用`file.write()`方法将二进制数据写入文件。
+
+5. 最后，关闭文件，以确保操作的安全性。
+
+文件`binary_data.bin`现在包含了指定的二进制数据。您可以根据需要修改`binary_data`变量以及文件路径和名称来适应您的实际需求。这种方法适用于将任何二进制数据写入文件。
+
+## python3 base64 编解码 工具 详解
+
+Base64 是一种二进制数据编码的方式，通常用于将二进制数据转换成可打印字符，以便在不损失数据的情况下进行传输和存储。Python 提供了内置的 `base64` 模块，可以用来进行 Base64 编码和解码操作。下面是关于 Python3 中 `base64` 模块的详细解释和示例：
+
+### Base64 编码
+
+Base64 编码将二进制数据转换为可打印字符。可以使用 `base64` 模块的 `b64encode` 函数来执行编码操作。
+
+```python
+import base64
+
+# 要编码的二进制数据
+binary_data = b'Hello, World!'
+
+# 进行 Base64 编码
+encoded_data = base64.b64encode(binary_data)
+
+# 将编码后的数据转换为字符串
+encoded_string = encoded_data.decode('utf-8')
+
+print(encoded_string)
+```
+
+### Base64 解码
+
+Base64 解码将 Base64 编码的字符串重新转换回原始的二进制数据。可以使用 `base64` 模块的 `b64decode` 函数来执行解码操作。
+
+```python
+import base64
+
+# Base64 编码后的字符串
+encoded_string = 'SGVsbG8sIFdvcmxkIQ=='
+
+# 进行 Base64 解码
+decoded_data = base64.b64decode(encoded_string)
+
+# 打印解码后的二进制数据
+print(decoded_data)
+```
+
+### URL 安全的 Base64 编解码
+
+有时候，Base64 编码后的字符串需要在 URL 中传输，但标准的 Base64 编码字符串中包含一些特殊字符（如`+`和`/`）可能会引起问题。为了解决这个问题，可以使用 `base64` 模块的 `urlsafe_b64encode` 和 `urlsafe_b64decode` 函数，它们会将`+`和`/`字符替换为`-`和`_`。
+
+```python
+import base64
+
+# 要编码的二进制数据
+binary_data = b'Hello, World!'
+
+# 进行 URL 安全的 Base64 编码
+urlsafe_encoded_data = base64.urlsafe_b64encode(binary_data)
+
+# 将编码后的数据转换为字符串
+urlsafe_encoded_string = urlsafe_encoded_data.decode('utf-8')
+
+print(urlsafe_encoded_string)
+
+# 进行 URL 安全的 Base64 解码
+decoded_data = base64.urlsafe_b64decode(urlsafe_encoded_string)
+
+# 打印解码后的二进制数据
+print(decoded_data)
+```
+
+这就是使用 Python3 中的 `base64` 模块进行 Base64 编码和解码的基本操作。请注意，在进行编码和解码操作时，要确保输入的数据类型是字节序列（`bytes`）。
+
+## python3 将字符串写入文件
+
+要将字符串写入文件，您可以使用Python的内置文件操作功能。以下是一个简单的示例，演示如何将字符串写入文件：
+
+```python
+# 要写入的字符串
+my_string = "这是要写入文件的字符串。"
+
+# 打开文件以写入模式（'w'表示写入，如果文件不存在则创建，如果文件已存在则覆盖）
+# 您可以指定文件路径和名称
+file_path = "my_file.txt"
+
+# 使用with语句打开文件，以确保在完成写入后关闭文件
+with open(file_path, 'w') as file:
+    # 将字符串写入文件
+    file.write(my_string)
+
+# 文件现在已经写入，可以关闭
+
+print(f"字符串已写入文件 {file_path}")
+```
+
+在这个示例中，我们首先定义要写入文件的字符串`my_string`，然后使用`open`函数打开文件以供写入（使用`'w'`模式）。然后，我们使用`with`语句来确保在完成写入后关闭文件，以避免资源泄漏。最后，我们使用`file.write()`方法将字符串写入文件，然后关闭文件。
+
+注意：如果指定的文件路径已经存在一个文件，使用`'w'`模式会覆盖文件的内容。如果不想覆盖文件，可以使用`'a'`模式以附加方式写入。
+
 ## python3 启动新的线程
 
 在 Python 3 中，您可以使用 `threading` 模块来启动新的线程。以下是一个简单的示例，演示如何创建和启动一个新线程：
