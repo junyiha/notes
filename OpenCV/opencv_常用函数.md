@@ -2,6 +2,74 @@
 
 + OpenCV 常见类，函数
 
+## C++ OpenCV cv::ellipse() 函数 详解
+
+`cv::ellipse()` 函数是OpenCV中用于绘制椭圆的函数。它允许您在图像上绘制椭圆，可以用于标记或可视化图像中的对象或区域。以下是`cv::ellipse()`函数的详解：
+
+```cpp
+void cv::ellipse(
+    InputOutputArray img,           // 输出图像
+    Point center,                   // 椭圆的中心坐标
+    Size axes,                      // 长轴和短轴的大小
+    double angle,                   // 旋转角度（以度为单位）
+    double startAngle,              // 开始角度（以度为单位）
+    double endAngle,                // 结束角度（以度为单位）
+    const Scalar& color,           // 椭圆的颜色（BGR格式）
+    int thickness = 1,             // 边框线宽
+    int lineType = LINE_8,          // 线的类型
+    int shift = 0                   // 点坐标的小数位数
+);
+```
+
+参数说明：
+
+- `img`：输入输出图像，您可以在其上绘制椭圆。
+
+- `center`：椭圆的中心坐标，通常表示为`cv::Point`对象。
+
+- `axes`：一个`cv::Size`对象，表示椭圆的长轴和短轴的大小。
+
+- `angle`：椭圆的旋转角度，以度为单位。正值表示顺时针旋转，负值表示逆时针旋转。
+
+- `startAngle`：起始角度，以度为单位。椭圆将从这个角度开始绘制。
+
+- `endAngle`：结束角度，以度为单位。椭圆将绘制到这个角度。
+
+- `color`：椭圆的颜色，通常表示为`cv::Scalar`对象，使用BGR颜色格式。
+
+- `thickness`：椭圆的边框线宽，默认为1。
+
+- `lineType`：线的类型，可以是`LINE_4`、`LINE_8`或`LINE_AA`中的一个，分别表示4-连通、8-连通和抗锯齿线。
+
+- `shift`：点坐标的小数位数，通常为0。
+
+示例用法：
+
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
+int main() {
+    Mat image(400, 400, CV_8UC3, Scalar(255, 255, 255)); // 创建白色背景图像
+
+    Point center(200, 200);
+    Size axes(100, 50);
+    double angle = 30;
+    double startAngle = 0;
+    double endAngle = 360;
+    Scalar color(0, 0, 255); // 蓝色
+
+    ellipse(image, center, axes, angle, startAngle, endAngle, color, 2);
+
+    imshow("Ellipse", image);
+    waitKey(0);
+
+    return 0;
+}
+```
+
+上述示例创建了一个400x400的白色背景图像，在其中绘制了一个蓝色的椭圆。您可以根据需要调整参数以满足您的绘制需求。
+
 ## Mat operator()( const Rect& roi ) const 详解
 
 `cv::Mat` 类中的 `operator()(const Rect& roi) const` 是一个用于提取感兴趣区域（Region of Interest，ROI）的运算符重载。它允许你根据给定的矩形区域来创建一个新的 `cv::Mat` 对象，其中包含了原始图像中该矩形区域的像素数据。以下是这个运算符重载的详细解释：

@@ -2,6 +2,76 @@
 
 + OpenCV 相关编程技巧
 
+## OpenCV 在图像上绘制旋转矩形框 函数 
+
+要在C++中使用OpenCV在图像上绘制旋转矩形框，您可以使用以下步骤：
+
+1. 首先，确保您已经包含OpenCV库的头文件和命名空间：
+
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+```
+
+2. 创建一个旋转矩形框的数据结构，通常使用`RotatedRect`类来表示。该类包含了旋转矩形的中心坐标、大小和角度。
+
+```cpp
+RotatedRect rotatedRect(Point2f(centerX, centerY), Size2f(width, height), angle);
+```
+
+在上述代码中，`centerX`和`centerY`是旋转矩形框的中心坐标，`width`和`height`是矩形框的宽度和高度，`angle`是旋转角度（以度为单位）。
+
+3. 创建一个空白图像或使用已有的图像作为绘制目标。
+
+```cpp
+Mat image = imread("input.jpg");
+```
+
+4. 使用`ellipse()`函数绘制旋转矩形框。您可以将旋转矩形的参数传递给该函数，然后选择颜色和线宽来绘制矩形框。
+
+```cpp
+Scalar color(0, 255, 0); // 颜色（BGR格式）
+int thickness = 2; // 线宽
+
+ellipse(image, rotatedRect, color, thickness);
+```
+
+5. 最后，您可以选择将绘制后的图像保存到磁盘上或显示它。
+
+完整的示例代码如下：
+
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
+int main() {
+    Mat image = imread("input.jpg");
+    if (image.empty()) {
+        // 处理图像加载失败的情况
+        return -1;
+    }
+
+    Point2f center(image.cols / 2, image.rows / 2);
+    float width = 200; // 矩形框的宽度
+    float height = 100; // 矩形框的高度
+    float angle = 45; // 旋转角度（以度为单位）
+
+    RotatedRect rotatedRect(center, Size2f(width, height), angle);
+
+    Scalar color(0, 255, 0); // 颜色（BGR格式）
+    int thickness = 2; // 线宽
+
+    ellipse(image, rotatedRect, color, thickness);
+
+    imshow("Rotated Rectangle", image);
+    waitKey(0);
+
+    return 0;
+}
+```
+
+这将加载名为"input.jpg"的图像，在图像上绘制一个旋转的矩形框，并显示在窗口中。您可以根据需要调整图像文件名、矩形框参数以及颜色和线宽。
+
 ## OpenCV cv::Rect 获取四个点的cv::Point
 
 要从一个 `cv::Rect` 对象中获取其四个角的 `cv::Point`，你可以使用 `cv::Rect` 的成员函数 `tl()` 和 `br()`，分别表示矩形的左上角和右下角。然后，可以使用这两个点来构建其他两个角的坐标。以下是示例代码：
