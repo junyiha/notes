@@ -9,3 +9,5 @@
 + `tedious` : 冗余的
 
 + `robust` : 强健的
+
++ continuously : 连续不断地 [adv]
