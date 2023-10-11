@@ -10,4 +10,12 @@
 
 + `robust` : 强健的
 
-+ continuously : 连续不断地 [adv]
++ continuously
+  + [adv] 连续不断地
+
++ compat 
+  + [n] 兼容
+
++ conduct : 
+  + [v] 实施，进行，指挥，带领，引导，举止，表现
+  + [n] 行为，举止，经营方式，管理方法
