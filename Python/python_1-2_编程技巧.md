@@ -2,6 +2,89 @@
 
 + python 常用的编程技巧笔记
 
+## python3 main函数接收外部参数并解析解析
+
+如果您想要编写一个Python脚本，使其接收外部参数并进行解析，通常的做法是使用`sys.argv`来访问命令行参数，然后使用`argparse`或其他方法来解析这些参数。以下是一个示例，演示如何在Python中完成这个任务：
+
+```python
+import sys
+import argparse
+
+def main():
+    # 创建ArgumentParser对象
+    parser = argparse.ArgumentParser(description='一个命令行工具示例')
+
+    # 添加命令行参数
+    parser.add_argument('-f', '--file', required=True, help='指定文件名')
+    parser.add_argument('-n', '--number', type=int, default=1, help='指定一个整数（默认为1）')
+    parser.add_argument('--flag', action='store_true', help='设置此标志将为True，否则为False')
+
+    # 解析命令行参数
+    args = parser.parse_args()
+
+    # 访问解析后的参数
+    print('文件名:', args.file)
+    print('整数值:', args.number)
+    print('标志值:', args.flag)
+
+if __name__ == '__main__':
+    main()
+```
+
+在这个示例中，我们定义了一个`main()`函数，它包含参数解析的代码。然后，我们使用`if __name__ == '__main__':`来确保只有在直接运行脚本时才会执行`main()`函数，而不是在作为模块导入时执行。
+
+然后，您可以在命令行中运行脚本，并传递参数，就像之前的示例一样：
+
+```
+python my_script.py -f myfile.txt -n 5 --flag
+```
+
+这将调用`main()`函数，解析命令行参数并执行相关操作。
+
+这是一个基本的示例，您可以根据自己的需求扩展`main()`函数和命令行参数。`argparse`可以帮助您更灵活地定义和解析参数。
+
+## python3 argparse 在python程序内部输出帮助信息
+
+您可以在Python程序内部生成帮助信息，然后将其打印到控制台或保存到文件中，而不需要在命令行中使用`-h`或`--help`选项。要在程序内部输出帮助信息，您可以使用`argparse`的`print_help()`方法。以下是一个示例：
+
+```python
+import argparse
+
+def main():
+    # 创建ArgumentParser对象
+    parser = argparse.ArgumentParser(description='一个命令行工具示例')
+
+    # 添加命令行参数
+    parser.add_argument('-f', '--file', required=True, help='指定文件名', default='default.txt')
+    parser.add_argument('-n', '--number', type=int, help='指定一个整数', default=1)
+    parser.add_argument('--flag', action='store_true', help='设置此标志将为True，否则为False', default=False)
+
+    # 解析命令行参数
+    args = parser.parse_args()
+
+    # 访问解析后的参数
+    print('文件名:', args.file)
+    print('整数值:', args.number)
+    print('标志值:', args.flag)
+
+    # 输出帮助信息
+    parser.print_help()
+
+if __name__ == '__main__':
+    main()
+```
+
+在上述示例中，我们在`main()`函数中使用`parser.print_help()`来生成帮助信息并将其打印到控制台。当您运行脚本时，它将首先输出解析后的参数值，然后再打印帮助信息。
+
+运行脚本：
+
+```
+python my_script.py
+```
+
+这将输出解析后的参数值，然后打印帮助信息，让用户了解如何正确使用脚本。
+
+
 ## python3 OpenCV 矩形框的x,y,w,h 画在图像上
 
 在 OpenCV 中，您可以使用 `cv2.rectangle` 函数来在图像上绘制一个矩形框，指定矩形的左上角坐标 `(x, y)` 和宽度 `w` 以及高度 `h`。以下是一个示例：
