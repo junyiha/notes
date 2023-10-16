@@ -1,0 +1,33 @@
+{
+    "product_uuid":"机器序列号(字符串)",
+    "monotonic": "操作系统运行时长(毫秒，整型)",
+    "realtime": "自然时间(毫秒，整型)",
+    "version": "软件版本(字符串)",
+    "errno": "出错码(整型)。0：成功，3：ID不存在",
+    "task": {
+        "detector": [
+            {
+                "status": [
+                    {
+                        "模型名字1": "Ok/Failed/Unknown(未加载或无输入)"
+                    },
+                    {
+                        "模型名字2": "Ok/Failed/Unknown(未加载或无输入)"
+                    },
+                    {
+                        "模型名字N": "Ok/Failed/Unknown(未加载或无输入)"
+                    }
+                ],
+                "id": "检测器ID(字符串)"
+            }
+        ],
+        "input": {
+            "status": "Ok/Failed/Unknown(未启用)",
+            "type": "输入类型(整型)"
+        },
+        "output": {
+            "status": "Ok/Unknown(无输入或未启用)",
+            "type": "输出类型(整型)"
+        }
+    }
+}
