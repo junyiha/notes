@@ -1,0 +1,40 @@
+ubuntu-16.04-x86_64-NVIDIA需要以下运行环境：
+cuda_10.2.89_440.33.01_linux
+cuda_10.2.1_linux(patch)
+cuda_10.2.2_linux(patch)
+cudnn-10.2-linux-x64-v8.2.4.15
+TensorRT-8.2.5.1.Linux.x86_64-gnu.cuda-10.2.cudnn8.2
+
+
+ubuntu-18.04-x86_64-NVIDIA需要以下运行环境：
+cuda_11.4.4_470.82.01_linux
+cudnn-11.4-linux-x64-v8.2.4.15
+TensorRT-8.2.5.1.Linux.x86_64-gnu.cuda-11.4.cudnn8.2
+
+ubuntu-20.04-x86_64-NVIDIA需要以下运行环境：
+cuda_11.4.4_470.82.01_linux
+cudnn-11.4-linux-x64-v8.2.4.15
+TensorRT-8.2.5.1.Linux.x86_64-gnu.cuda-11.4.cudnn8.2
+
+ubuntu-22.04-x86_64-NVIDIA需要以下运行环境：
+cuda_11.8.0_520.61.05_linux.run
+cudnn-linux-x86_64-8.9.0.131_cuda11-archive.tar.xz
+TensorRT-8.5.1.7.Linux.x86_64-gnu.cuda-11.8.cudnn8.6.tar.gz
+
+注：运行环境安装完成后, 需配置LD_LIBRARY_PATH环境变量，并使其生效。
+
+
+
+视频结构化引擎的安装方法和步骤：
+1：创建运行目录。
+
+2：解压的安装包文件到运行目录。
+	注：如果需要多个安装包组合使用，解压合并到相同目录即可。
+
+3：执行下列命令查看使用帮助，并验证环境是否正常。
+	$ vca.exe --help
+
+4：结构化输出协议在package/vca目录中。
+	注：协议说明在文件内部。
+
+
