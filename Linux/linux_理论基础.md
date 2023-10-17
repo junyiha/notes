@@ -455,7 +455,7 @@ NetworkManager 是一个用于在 Linux 系统上管理网络连接的服务和�
 
 ### 查看指定端口
 
-+ `sudo netstat -tln | grep 8083`
++ `sudo netstat -tlnp | grep 8083`
 + `sudo lsof -i:8083`
 
 ### lsof
