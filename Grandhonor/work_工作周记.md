@@ -587,3 +587,4 @@
     + 系统配置 [完成]
       + 按照时间自动清理
         + autoDeleteEventTimeThreshold
+  + hugo 网络博客第一次搭建 [完成]
