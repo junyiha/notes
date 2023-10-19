@@ -2,6 +2,165 @@
 
 + CMake常用的方法和CMakeLists编程技巧
 
+## cmake CMakeLists.txt文件编译多个可执行文件 for循环 示例 详解
+
+要在CMake中使用循环来生成多个可执行文件，通常需要使用CMake的`foreach`循环结构。下面是一个示例CMakeLists.txt文件，展示如何使用`foreach`循环来生成多个可执行文件：
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+
+project(MyProject)
+
+# 列出所有要编译的可执行文件
+set(executables
+    MyExecutable1
+    MyExecutable2
+    MyExecutable3
+)
+
+# 遍历可执行文件列表并生成它们
+foreach(executable ${executables})
+    # 每个可执行文件的源文件
+    set(${executable}_sources ${executable}.cpp)
+
+    # 添加可执行文件
+    add_executable(${executable} ${${executable}_sources})
+
+    # 如果可执行文件有依赖库文件，可以在这里链接它们
+    # target_link_libraries(${executable} SomeLibrary)
+
+endforeach()
+```
+
+这个示例CMakeLists.txt文件包含以下关键部分：
+
+1. `set(executables ...)`：这一行定义了一个变量`executables`，其中包含了要编译的多个可执行文件的名称。在这个示例中，我们列出了三个可执行文件的名称，但您可以根据需要添加更多。
+
+2. `foreach(executable ${executables})`：这是一个`foreach`循环，用于迭代`executables`变量中的每个可执行文件名称。
+
+3. `set(${executable}_sources ${executable}.cpp)`：在循环内，我们为每个可执行文件设置了一个源文件变量，例如`MyExecutable1_sources`，这是根据可执行文件的名称构建的。
+
+4. `add_executable(${executable} ${${executable}_sources})`：在循环内，我们使用`add_executable`命令为每个可执行文件生成目标。`add_executable`使用了之前定义的源文件变量。
+
+5. （可选）`target_link_libraries(${executable} SomeLibrary)`：如果可执行文件有依赖的库文件，可以使用此命令将它们链接到可执行文件。
+
+这种结构使您能够轻松地扩展项目，以支持多个可执行文件，而无需手动为每个文件编写`add_executable`命令。这在大型项目中特别有用，因为它可以减少配置文件的复杂性。
+
+## cmake CMakeLists.txt文件编译多个可执行文件常见结构 示例 详解
+
+CMake是一个用于管理C++项目的跨平台构建工具，它允许您配置项目并生成适用于不同编译器和操作系统的构建系统。在CMake中，通常将项目的构建配置信息保存在一个名为CMakeLists.txt的文件中。
+
+如果您想要在一个CMake项目中编译多个可执行文件，通常可以按照以下结构来组织CMakeLists.txt文件：
+
+```cmake
+cmake_minimum_required(VERSION 3.0)  # 指定最低的CMake版本
+
+project(MyProject)  # 指定项目名称
+
+# 添加可执行文件1
+add_executable(MyExecutable1
+    source1.cpp
+    source2.cpp
+)
+
+# 添加可执行文件2
+add_executable(MyExecutable2
+    source3.cpp
+    source4.cpp
+)
+
+# 可选：如果项目中有共享的库文件，可以使用add_library添加库文件
+
+# 链接库文件到可执行文件1
+target_link_libraries(MyExecutable1
+    SomeLibrary1
+    SomeLibrary2
+)
+
+# 链接库文件到可执行文件2
+target_link_libraries(MyExecutable2
+    SomeLibrary3
+    SomeLibrary4
+)
+```
+
+上述代码是一个简单的CMakeLists.txt文件，用于编译两个可执行文件。以下是对代码的详细解释：
+
+1. `cmake_minimum_required(VERSION 3.0)`：这一行指定了项目所需的最低CMake版本。您可以根据您的需要更改此版本号。
+
+2. `project(MyProject)`：这一行指定了项目的名称。在这里，项目名称被设置为"MyProject"，您可以将其替换为您的项目名称。
+
+3. `add_executable(MyExecutable1 source1.cpp source2.cpp)`：这一行添加了一个名为"MyExecutable1"的可执行文件，并指定了源代码文件(source1.cpp和source2.cpp)。您可以根据您的项目需要添加更多的源文件。
+
+4. `add_executable(MyExecutable2 source3.cpp source4.cpp)`：同样，这一行添加了一个名为"MyExecutable2"的可执行文件，并指定了不同的源代码文件。
+
+5. `target_link_libraries(MyExecutable1 SomeLibrary1 SomeLibrary2)`：如果您的项目依赖于一些库文件，您可以使用这行来链接这些库文件到"MyExecutable1"。类似地，您可以为"MyExecutable2"链接其他库文件。
+
+这只是一个简单的示例，CMake支持更复杂的项目结构和配置选项，可以根据实际需求进行定制。在实际项目中，您可能需要添加更多的配置信息，如编译选项、包含路径、安装规则等。请根据您的项目需求进一步扩展和定制CMakeLists.txt文件。
+
+## cmake CMakeLists.txt文件常见结构 示例 详解
+
+CMakeLists.txt文件是CMake项目的核心配置文件，它定义了项目的属性、源文件、依赖关系和构建规则。以下是一个常见的CMakeLists.txt文件结构示例，带有详细的解释：
+
+```cmake
+# 指定CMake的最低版本要求
+cmake_minimum_required(VERSION 3.0)
+
+# 定义项目名称
+project(MyProject)
+
+# 添加可执行文件并指定源文件
+add_executable(myapp
+    main.cpp         # 主程序入口
+    utils.cpp        # 自定义工具函数
+)
+
+# 添加可选的编译标志
+# add_compile_options(-std=c++11)  # 设置C++标准，可选
+
+# 查找并添加依赖的库（例如，查找并添加Boost库）
+# find_package(Boost REQUIRED)
+# include_directories(${Boost_INCLUDE_DIRS})
+# target_link_libraries(myapp ${Boost_LIBRARIES})
+
+# 设置输出目录，将可执行文件放在bin目录中
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+# 设置C++标准
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 添加子目录，可以在子目录中定义更多的CMakeLists.txt文件
+# add_subdirectory(subdirectory_name)
+
+# 可以定义自定义的构建规则、安装规则等
+
+# 可以包括其他CMakeLists.txt文件
+# include(subdirectory_name/CMakeLists.txt)
+```
+
+上述示例演示了一个简单的CMakeLists.txt文件，以下是各个部分的详细解释：
+
+1. `cmake_minimum_required(VERSION 3.0)`：这一行指定了最低的CMake版本要求。
+
+2. `project(MyProject)`：这一行定义了项目的名称。项目名称将用于生成构建文件和可执行文件的前缀。
+
+3. `add_executable(myapp ...)`：这一行定义了可执行文件（myapp）以及与之关联的源文件。列出了要包括在可执行文件中的所有源文件。
+
+4. `add_compile_options(-std=c++11)`：这是一个可选部分，用于设置编译选项。在这里，它设置了C++标准为C++11。
+
+5. `find_package(Boost REQUIRED)`：这是一个可选的示例，用于查找并添加依赖的库。在这里，它查找并添加了Boost库。
+
+6. `set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)`：这一行指定了可执行文件的输出目录，通常会将可执行文件放在`bin`子目录中。
+
+7. `set(CMAKE_CXX_STANDARD 11)`：这一行指定了项目所使用的C++标准。
+
+8. `add_subdirectory(subdirectory_name)`：这一行用于包括子目录，如果项目需要包括其他模块或库，你可以在子目录中定义另一个CMakeLists.txt文件。
+
+9. `include(subdirectory_name/CMakeLists.txt)`：这一行可以用于包括其他CMakeLists.txt文件，如果你希望将其他项目的构建规则包括到当前项目中。
+
+这只是一个简单的示例，你可以根据项目的需求和复杂性来扩展和修改CMakeLists.txt文件。CMake提供了广泛的选项和命令，以支持各种不同类型的项目和构建需求。
+
 ## cmake 3.10.2 退出 终止 命令
 
 在CMake 3.10.2版本中，可以使用`return()`命令来退出当前的CMake脚本的执行。这个命令会立即终止当前脚本的执行，并返回到调用方。

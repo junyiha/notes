@@ -2,6 +2,83 @@
 
 + cmake 语法基础 理论基础
 
+## cmake CMakeLists.txt include_directories()函数 详解
+
+`include_directories()`函数是CMake中的一个用于指定头文件包含路径的函数。它用于告诉CMake编译器在哪里查找头文件。在CMakeLists.txt文件中使用`include_directories()`函数非常有用，因为它允许您配置项目以便正确找到所有所需的头文件。
+
+下面是关于`include_directories()`函数的详细解释：
+
+```cmake
+include_directories(directory1 [directory2 ...])
+```
+
+- `directory1`, `directory2`, ...：这些参数是包含头文件的目录路径。您可以指定一个或多个目录，用于告诉CMake查找头文件的位置。通常，这些目录路径是相对于`CMakeLists.txt`文件的。
+
+`include_directories()`函数的作用是将指定的目录路径添加到CMake项目的头文件包含路径中，以使编译器能够找到所需的头文件。当您使用`#include`指令包含头文件时，编译器将在这些目录中查找头文件。
+
+示例用法：
+
+```cmake
+include_directories(include)  # 添加一个名为"include"的头文件目录
+
+# 或者指定多个头文件目录
+include_directories(
+    include
+    common
+)
+```
+
+在上面的示例中，`include_directories()`函数用于指定项目的头文件搜索路径，通常这些路径包括项目中的`include`目录和`common`目录。这使得您可以在CMake项目中使用相对路径来包含头文件，而无需手动指定完整的文件路径。
+
+请注意，从CMake 3.15开始，更推荐使用`target_include_directories()`函数，它允许更好的目标级别控制，以及更容易实现接口库的目录传递。这是一个更现代和更具有可维护性的做法。
+
+```cmake
+target_include_directories(target_name
+    PUBLIC
+        include
+    PRIVATE
+        private_include
+)
+```
+
+上述示例中，`target_include_directories()`函数将头文件目录添加到名为`target_name`的目标（可执行文件或库）中，可以使用`PUBLIC`和`PRIVATE`修饰符来指定头文件目录的可见性。这提供了更灵活的控制选项。
+
+## cmake CMakeLists.txt 内置变量
+
+CMake提供了一些内置变量，用于获取有关项目和构建环境的信息，您可以在CMakeLists.txt文件中使用这些变量来进行配置和生成目标。以下是一些常用的内置变量：
+
+1. `CMAKE_SOURCE_DIR`：指向CMakeLists.txt文件所在的源代码根目录的路径。
+
+2. `CMAKE_BINARY_DIR`：指向CMake生成构建文件的根目录的路径。这通常是项目构建的目录，与源代码分开。
+
+3. `CMAKE_CURRENT_SOURCE_DIR`：指向当前处理的CMakeLists.txt文件所在的目录。
+
+4. `CMAKE_CURRENT_BINARY_DIR`：指向与当前处理的CMakeLists.txt文件关联的构建目录。
+
+5. `CMAKE_PROJECT_NAME`：包含当前项目的名称，通常由`project()`命令指定。
+
+6. `CMAKE_VERSION`：CMake的版本信息。
+
+7. `CMAKE_CXX_COMPILER`：指向C++编译器的可执行文件路径。
+
+8. `CMAKE_C_COMPILER`：指向C编译器的可执行文件路径。
+
+9. `CMAKE_SYSTEM`：指定操作系统的名称。
+
+10. `CMAKE_SYSTEM_NAME`：指定操作系统的名称，通常是与`CMAKE_SYSTEM`相同。
+
+11. `CMAKE_SYSTEM_VERSION`：指定操作系统的版本号。
+
+12. `CMAKE_SYSTEM_PROCESSOR`：指定操作系统的处理器架构。
+
+13. `CMAKE_BUILD_TYPE`：用于指定构建类型（例如，Debug、Release、RelWithDebInfo等）。可以使用此变量来控制编译器标志和优化级别。
+
+14. `CMAKE_INSTALL_PREFIX`：指定安装目标的根目录。默认情况下，它通常是`/usr/local`（Linux）或`C:\Program Files`（Windows）。
+
+15. `CMAKE_MODULE_PATH`：用于指定查找CMake模块的路径。模块通常用于共享一些通用的CMake配置。
+
+这些内置变量可用于配置项目的不同方面，包括源文件路径、构建文件路径、编译器信息、操作系统信息和其他构建选项。您可以在CMakeLists.txt文件中使用这些变量，以根据项目的需求自定义构建过程。
+
 ## cmake 构建选项 打开开关
 
 在 CMake 中，你可以使用 `option` 命令创建构建选项开关，以便在构建时根据用户的选择来开启或关闭某些功能。这些选项通常用于控制编译和构建过程中的一些特定配置。以下是如何在 CMake 中创建和使用构建选项开关的示例：
