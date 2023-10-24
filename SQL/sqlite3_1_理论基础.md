@@ -797,3 +797,720 @@ WHERE [condition]
 
 + 现在，让我们在上述的 SELECT 查询中使用 DISTINCT 关键字：
   + `sqlite> SELECT DISTINCT name FROM COMPANY;`
+
+## SQLite 约束
+
++ 约束是在表的数据列上强制执行的规则。这些是用来限制可以插入到表中的数据类型。这确保了数据库中数据的准确性和可靠性。
++ 约束可以是列级或表级。列级约束仅适用于列，表级约束被应用到整个表。
++ 以下是在 SQLite 中常用的约束
+  + NOT NULL 约束：确保某列不能有 NULL 值。
+  + DEFAULT 约束：当某列没有指定值时，为该列提供默认值。
+  + UNIQUE 约束：确保某列中的所有值是不同的。
+  + PRIMARY Key 约束：唯一标识数据库表中的各行/记录。
+  + CHECK 约束：CHECK 约束确保某列中的所有值满足一定条件。
+
++ NOT NULL 约束
+  + 默认情况下，列可以保存 NULL 值。如果您不想某列有 NULL 值，那么需要在该列上定义此约束，指定在该列上不允许 NULL 值。
+  + NULL 与没有数据是不一样的，它代表着未知的数据。
++ 实例
+  + 例如，下面的 SQLite 语句创建一个新的表 COMPANY，并增加了五列，其中 ID、NAME 和 AGE 三列指定不接受 NULL 值：
+```sql
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+);
+```
+
++ DEFAULT 约束
+  + DEFAULT 约束在 INSERT INTO 语句没有提供一个特定的值时，为列提供一个默认值
++ 实例
+  + 例如，下面的 SQLite 语句创建一个新的表 COMPANY，并增加了五列。在这里，SALARY 列默认设置为 5000.00。所以当 INSERT INTO 语句没有为该列提供值时，该列将被设置为 5000.00。
+```sql
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL    DEFAULT 50000.00
+);
+```
+
++ UNIQUE 约束
+  + UNIQUE 约束防止在一个特定的列存在两个记录具有相同的值。在 COMPANY 表中，例如，您可能要防止两个或两个以上的人具有相同的年龄。
++ 实例
+  + 例如，下面的 SQLite 语句创建一个新的表 COMPANY，并增加了五列。在这里，AGE 列设置为 UNIQUE，所以不能有两个相同年龄的记录：
+```sql
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL UNIQUE,
+   ADDRESS        CHAR(50),
+   SALARY         REAL    DEFAULT 50000.00
+);
+```
+
++ PRIMARY KEY 约束
+  + PRIMARY KEY 约束唯一标识数据库表中的每个记录。在一个表中可以有多个 UNIQUE 列，但只能有一个主键。在设计数据库表时，主键是很重要的。主键是唯一的 ID。
+  + 我们使用主键来引用表中的行。可通过把主键设置为其他表的外键，来创建表之间的关系。由于"长期存在编码监督"，在 SQLite 中，主键可以是 NULL，这是与其他数据库不同的地方。
+  + 主键是表中的一个字段，唯一标识数据库表中的各行/记录。主键必须包含唯一值。主键列不能有 NULL 值。
+  + 一个表只能有一个主键，它可以由一个或多个字段组成。当多个字段作为主键，它们被称为复合键。
+  + 如果一个表在任何字段上定义了一个主键，那么在这些字段上不能有两个记录具有相同的值。
++ 实例
+  + 已经看到了我们创建以 ID 作为主键的 COMAPNY 表的各种实例：
+```sql
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+);
+```
+
++ CHECK 约束
+  + CHECK 约束启用输入一条记录要检查值的条件。如果条件值为 false，则记录违反了约束，且不能输入到表
++ 实例
+  + 例如，下面的 SQLite 创建一个新的表 COMPANY，并增加了五列。在这里，我们为 SALARY 列添加 CHECK，所以工资不能为零
+```sql
+CREATE TABLE COMPANY3(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL    CHECK(SALARY > 0)
+);
+```
+
++ 删除约束
+  + SQLite 支持 ALTER TABLE 的有限子集。在 SQLite 中，ALTER TABLE 命令允许用户重命名表，或向现有表添加一个新的列。重命名列，删除一列，或从一个表中添加或删除约束都是不可能的。
+
+## SQLite Join
+
++ SQLite 的 Join 子句用于结合两个或多个数据库中表的记录。JOIN 是一种通过共同值来结合两个表中字段的手段。
++ SQL 定义了三种主要类型的连接：
+  + 交叉连接 - CROSS JOIN
+  + 内连接 - INNER JOIN
+  + 外连接 - OUTER JOIN
+
++ 交叉连接 - CROSS JOIN
+  + 交叉连接（CROSS JOIN）把第一个表的每一行与第二个表的每一行进行匹配。如果两个输入表分别有 x 和 y 行，则结果表有 x*y 行。由于交叉连接（CROSS JOIN）有可能产生非常大的表，使用时必须谨慎，只在适当的时候使用它们。
+  + 交叉连接的操作，它们都返回被连接的两个表所有数据行的笛卡尔积，返回到的数据行数等于第一个表中符合查询条件的数据行数乘以第二个表中符合查询条件的数据行数。
+  + 下面是交叉连接（CROSS JOIN）的语法：
+    + `SELECT ... FROM table1 CROSS JOIN table2 ...`
+  + 基于上面的表，我们可以写一个交叉连接（CROSS JOIN），如下所示：
+    + `sqlite> SELECT EMP_ID, NAME, DEPT FROM COMPANY CROSS JOIN DEPARTMENT;`
+
++ 内连接 - INNER JOIN
+  + 内连接（INNER JOIN）根据连接谓词结合两个表（table1 和 table2）的列值来创建一个新的结果表。查询会把 table1 中的每一行与 table2 中的每一行进行比较，找到所有满足连接谓词的行的匹配对。当满足连接谓词时，A 和 B 行的每个匹配对的列值会合并成一个结果行。
+  + 内连接（INNER JOIN）是最常见的连接类型，是默认的连接类型。INNER 关键字是可选的。
+  + 下面是内连接（INNER JOIN）的语法：
+    + `SELECT ... FROM table1 [INNER] JOIN table2 ON conditional_expression ...`
+  + 为了避免冗余，并保持较短的措辞，可以使用 USING 表达式声明内连接（INNER JOIN）条件。这个表达式指定一个或多个列的列表：
+    + `SELECT ... FROM table1 JOIN table2 USING ( column1 ,... ) ...`
+  + 自然连接（NATURAL JOIN）类似于 JOIN...USING，只是它会自动测试存在两个表中的每一列的值之间相等值：
+    + `SELECT ... FROM table1 NATURAL JOIN table2...`
+  + 基于上面的表，我们可以写一个内连接（INNER JOIN），如下所示：
+```sql
+sqlite> SELECT EMP_ID, NAME, DEPT FROM COMPANY INNER JOIN DEPARTMENT
+        ON COMPANY.ID = DEPARTMENT.EMP_ID;
+```
+
++ 外连接 - OUTER JOIN
+  + 外连接（OUTER JOIN）是内连接（INNER JOIN）的扩展。虽然 SQL 标准定义了三种类型的外连接：LEFT、RIGHT、FULL，但 SQLite 只支持 左外连接（LEFT OUTER JOIN）。
+  + 外连接（OUTER JOIN）声明条件的方法与内连接（INNER JOIN）是相同的，使用 ON、USING 或 NATURAL 关键字来表达。最初的结果表以相同的方式进行计算。一旦主连接计算完成，外连接（OUTER JOIN）将从一个或两个表中任何未连接的行合并进来，外连接的列使用 NULL 值，将它们附加到结果表中。
+  + 下面是左外连接（LEFT OUTER JOIN）的语法：
+    + `SELECT ... FROM table1 LEFT OUTER JOIN table2 ON conditional_expression ...`
+  + 为了避免冗余，并保持较短的措辞，可以使用 USING 表达式声明外连接（OUTER JOIN）条件。这个表达式指定一个或多个列的列表：
+    + `SELECT ... FROM table1 LEFT OUTER JOIN table2 USING ( column1 ,... ) ...`
+  + 基于上面的表，我们可以写一个外连接（OUTER JOIN），如下所示：
+```sql
+sqlite> SELECT EMP_ID, NAME, DEPT FROM COMPANY LEFT OUTER JOIN DEPARTMENT
+        ON COMPANY.ID = DEPARTMENT.EMP_ID;
+```
+
+## SQLite Unions 子句
+
++ SQLite的 UNION 子句/运算符用于合并两个或多个 SELECT 语句的结果，不返回任何重复的行。
++ 为了使用 UNION，每个 SELECT 被选择的列数必须是相同的，相同数目的列表达式，相同的数据类型，并确保它们有相同的顺序，但它们不必具有相同的长度
+
++ 语法
+  + UNION 的基本语法如下：
+```sql
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+
+UNION
+
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+```
+  + 这里给定的条件根据需要可以是任何表达式。
+
++ UNION ALL 子句
+  + UNION ALL 运算符用于结合两个 SELECT 语句的结果，包括重复行。
+  + 适用于 UNION 的规则同样适用于 UNION ALL 运算符。
+  + UNION ALL 的基本语法如下：
+```sql
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+
+UNION ALL
+
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+```
+  + 这里给定的条件根据需要可以是任何表达式。
+
+## SQLite NULL 值
+
++ SQLite 的 NULL 是用来表示一个缺失值的项。表中的一个 NULL 值是在字段中显示为空白的一个值。
++ 带有 NULL 值的字段是一个不带有值的字段。NULL 值与零值或包含空格的字段是不同的，理解这点是非常重要的。
+
++ 语法
+  + 创建表时使用 NULL 的基本语法如下：
+```sql
+SQLite> CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+);
+```
+  + 在这里，NOT NULL 表示列总是接受给定数据类型的显式值。这里有两个列我们没有使用 NOT NULL，这意味着这两个列可以为 NULL。
+  + 带有 NULL 值的字段在记录创建的时候可以保留为空。
+
++ NULL 值在选择数据时会引起问题，因为当把一个未知的值与另一个值进行比较时，结果总是未知的，且不会包含在最后的结果中。
+
++ 实例
+  + 让我们使用 UPDATE 语句来设置一些允许空值的值为 NULL，如下所示：
+    + `sqlite> UPDATE COMPANY SET ADDRESS = NULL, SALARY = NULL where ID IN(6,7);`
+  + 接下来，让我们看看 IS NOT NULL 运算符的用法，它用来列出所有 SALARY 不为 NULL 的记录：
+```sql
+sqlite> SELECT  ID, NAME, AGE, ADDRESS, SALARY
+        FROM COMPANY
+        WHERE SALARY IS NOT NULL;
+```
+
+## SQLite 别名
+
++ 您可以暂时把表或列重命名为另一个名字，这被称为别名。使用表别名是指在一个特定的 SQLite 语句中重命名表。重命名是临时的改变，在数据库中实际的表的名称不会改变。
++ 列别名用来为某个特定的 SQLite 语句重命名表中的列。
+
++ 语法
+  + 表 别名的基本语法如下：
+```sql
+SELECT column1, column2....
+FROM table_name AS alias_name
+WHERE [condition];
+```
+  + 列 别名的基本语法如下：
+```sql
+SELECT column_name AS alias_name
+FROM table_name
+WHERE [condition];
+```
+
+## SQLite 触发器(Trigger)
+
++ SQLite 触发器（Trigger）是数据库的回调函数，它会在指定的数据库事件发生时自动执行/调用。以下是关于 SQLite 的触发器（Trigger）的要点：
+  + SQLite 的触发器（Trigger）可以指定在特定的数据库表发生 DELETE、INSERT 或 UPDATE 时触发，或在一个或多个指定表的列发生更新时触发。
+  + SQLite 只支持 FOR EACH ROW 触发器（Trigger），没有 FOR EACH STATEMENT 触发器（Trigger）。因此，明确指定 FOR EACH ROW 是可选的。
+  + WHEN 子句和触发器（Trigger）动作可能访问使用表单 NEW.column-name 和 OLD.column-name 的引用插入、删除或更新的行元素，其中 column-name 是从与触发器关联的表的列的名称。
+  + 如果提供 WHEN 子句，则只针对 WHEN 子句为真的指定行执行 SQL 语句。如果没有提供 WHEN 子句，则针对所有行执行 SQL 语句。
+  + BEFORE 或 AFTER 关键字决定何时执行触发器动作，决定是在关联行的插入、修改或删除之前或者之后执行触发器动作。
+  + 当触发器相关联的表删除时，自动删除触发器（Trigger）。
+  + 要修改的表必须存在于同一数据库中，作为触发器被附加的表或视图，且必须只使用 tablename，而不是 database.tablename。
+  + 一个特殊的 SQL 函数 RAISE() 可用于触发器程序内抛出异常。
+
++ 语法
+  + 创建 触发器（Trigger） 的基本语法如下：
+```sql
+CREATE  TRIGGER trigger_name [BEFORE|AFTER] event_name 
+ON table_name
+BEGIN
+ -- 触发器逻辑....
+END;
+```
+  + 在这里，event_name 可以是在所提到的表 table_name 上的 INSERT、DELETE 和 UPDATE 数据库操作。您可以在表名后选择指定 FOR EACH ROW。
+  + 以下是在 UPDATE 操作上在表的一个或多个指定列上创建触发器（Trigger）的语法：
+```sql
+CREATE  TRIGGER trigger_name [BEFORE|AFTER] UPDATE OF column_name 
+ON table_name
+BEGIN
+ -- 触发器逻辑....
+END;
+```
+
++ 列出触发器（TRIGGERS）
+  + 您可以从 sqlite_master 表中列出所有触发器，如下所示：
+```sql
+sqlite> SELECT name FROM sqlite_master
+WHERE type = 'trigger';
+```
+
++ 删除触发器（TRIGGERS）
+  + 下面是 DROP 命令，可用于删除已有的触发器：
+```sql
+sqlite> DROP TRIGGER trigger_name;
+```
+
+## SQLite 索引(Index)
+
++ 索引（Index）是一种特殊的查找表，数据库搜索引擎用来加快数据检索。简单地说，索引是一个指向表中数据的指针。一个数据库中的索引与一本书的索引目录是非常相似的。
++ 拿汉语字典的目录页（索引）打比方，我们可以按拼音、笔画、偏旁部首等排序的目录（索引）快速查找到需要的字。
++ 索引有助于加快 SELECT 查询和 WHERE 子句，但它会减慢使用 UPDATE 和 INSERT 语句时的数据输入。索引可以创建或删除，但不会影响数据。
++ 使用 CREATE INDEX 语句创建索引，它允许命名索引，指定表及要索引的一列或多列，并指示索引是升序排列还是降序排列。
++ 索引也可以是唯一的，与 UNIQUE 约束类似，在列上或列组合上防止重复条目。
+
++ CREATE INDEX 命令
+  + CREATE INDEX 的基本语法如下：
+  + `CREATE INDEX index_name ON table_name;`
+
++ 单列索引
+  + 单列索引是一个只基于表的一个列上创建的索引。基本语法如下：
+```sql
+CREATE INDEX index_name
+ON table_name (column_name);
+```
+
++ 唯一索引
+  + 使用唯一索引不仅是为了性能，同时也为了数据的完整性。唯一索引不允许任何重复的值插入到表中。基本语法如下：
+```sql
+CREATE UNIQUE INDEX index_name
+on table_name (column_name);
+```
+
++ 组合索引
+  + 组合索引是基于一个表的两个或多个列上创建的索引。基本语法如下：
+```sql
+CREATE INDEX index_name
+on table_name (column1, column2);
+```
+
++ 是否要创建一个单列索引还是组合索引，要考虑到您在作为查询过滤条件的 WHERE 子句中使用非常频繁的列。
++ 如果只使用到一个列，则选择使用单列索引。如果在作为过滤的 WHERE 子句中有两个或多个列经常使用，则选择使用组合索引。
+
++ 隐式索引
+  + 隐式索引是在创建对象时，由数据库服务器自动创建的索引。索引自动创建为主键约束和唯一约束。
+
++ DROP INDEX 命令
+  + 一个索引可以使用 SQLite 的 DROP 命令删除。当删除索引时应特别注意，因为性能可能会下降或提高。
+  + 基本语法如下：
+    + `DROP INDEX index_name;`
+
++ 什么情况下要避免使用索引？
+  + 虽然索引的目的在于提高数据库的性能，但这里有几个情况需要避免使用索引。使用索引时，应重新考虑下列准则：
+    + 索引不应该使用在较小的表上。
+    + 索引不应该使用在有频繁的大批量的更新或插入操作的表上。
+    + 索引不应该使用在含有大量的 NULL 值的列上。
+    + 索引不应该使用在频繁操作的列上。
+
+## SQLite Indexed By
+
++ "INDEXED BY index-name" 子句规定必须需要命名的索引来查找前面表中值。
++ 如果索引名 index-name 不存在或不能用于查询，然后 SQLite 语句的准备失败。
++ "NOT INDEXED" 子句规定当访问前面的表（包括由 UNIQUE 和 PRIMARY KEY 约束创建的隐式索引）时，没有使用索引。
++ 然而，即使指定了 "NOT INDEXED"，INTEGER PRIMARY KEY 仍然可以被用于查找条目。
+
++ 语法
+  + 下面是 INDEXED BY 子句的语法，它可以与 DELETE、UPDATE 或 SELECT 语句一起使用：
+```sql
+SELECT|DELETE|UPDATE column1, column2...
+INDEXED BY (index_name)
+table_name
+WHERE (CONDITION);
+```
+
+## SQLite Alter 命令
+
++ SQLite 的 ALTER TABLE 命令不通过执行一个完整的转储和数据的重载来修改已有的表。您可以使用 ALTER TABLE 语句重命名表，使用 ALTER TABLE 语句还可以在已有的表中添加额外的列。
++ 在 SQLite 中，除了重命名表和在已有的表中添加列，ALTER TABLE 命令不支持其他操作。
+
++ 语法
+  + 用来重命名已有的表的 ALTER TABLE 的基本语法如下：
+```sql
+ALTER TABLE database_name.table_name RENAME TO new_table_name;
+```
+  + 用来在已有的表中添加一个新的列的 ALTER TABLE 的基本语法如下：
+```sql
+ALTER TABLE database_name.table_name ADD COLUMN column_def...;
+```
+
+## SQLite Truncate Table
+
++ 在 SQLite 中，并没有 TRUNCATE TABLE 命令，但可以使用 SQLite 的 DELETE 命令从已有的表中删除全部的数据。
+
++ 语法
+  + DELETE 命令的基本语法如下：
+    + `sqlite> DELETE FROM table_name;`
+  + 但这种方法无法将递增数归零。
+  + 如果要将递增数归零，可以使用以下方法：
+    + `sqlite> DELETE FROM sqlite_sequence WHERE name = 'table_name';`
+  + 当 SQLite 数据库中包含自增列时，会自动建立一个名为 sqlite_sequence 的表。这个表包含两个列：name 和 seq。name 记录自增列所在的表，seq 记录当前序号（下一条记录的编号就是当前序号加 1）。如果想把某个自增列的序号归零，只需要修改 sqlite_sequence 表就可以了。
+
+## SQLite 视图(View)
+
++ 视图（View）只不过是通过相关的名称存储在数据库中的一个 SQLite 语句。视图（View）实际上是一个以预定义的 SQLite 查询形式存在的表的组合。
++ 视图（View）可以包含一个表的所有行或从一个或多个表选定行。视图（View）可以从一个或多个表创建，这取决于要创建视图的 SQLite 查询。
++ 视图（View）是一种虚表，允许用户实现以下几点：
+  + 用户或用户组查找结构数据的方式更自然或直观。
+  + 限制数据访问，用户只能看到有限的数据，而不是完整的表。
+  + 汇总各种表中的数据，用于生成报告。
++ SQLite 视图是只读的，因此可能无法在视图上执行 DELETE、INSERT 或 UPDATE 语句。但是可以在视图上创建一个触发器，当尝试 DELETE、INSERT 或 UPDATE 视图时触发，需要做的动作在触发器内容中定义。
+
+## SQLite 事务(Transaction)
+
++ 事务（Transaction）是一个对数据库执行工作单元。事务（Transaction）是以逻辑顺序完成的工作单位或序列，可以是由用户手动操作完成，也可以是由某种数据库程序自动完成。
++ 事务（Transaction）是指一个或多个更改数据库的扩展。例如，如果您正在创建一个记录或者更新一个记录或者从表中删除一个记录，那么您正在该表上执行事务。重要的是要控制事务以确保数据的完整性和处理数据库错误。
++ 实际上，您可以把许多的 SQLite 查询联合成一组，把所有这些放在一起作为事务的一部分进行执行。
+
++ 事务的属性
+  + 事务（Transaction）具有以下四个标准属性，通常根据首字母缩写为 ACID：
+    + 原子性（Atomicity）：确保工作单位内的所有操作都成功完成，否则，事务会在出现故障时终止，之前的操作也会回滚到以前的状态。
+    + 一致性（Consistency）：确保数据库在成功提交的事务上正确地改变状态。
+    + 隔离性（Isolation）：使事务操作相互独立和透明。
+    + 持久性（Durability）：确保已提交事务的结果或效果在系统发生故障的情况下仍然存在。
+
++ 事务控制
+  + 使用下面的命令来控制事务：
+    + BEGIN TRANSACTION：开始事务处理。
+    + COMMIT：保存更改，或者可以使用 END TRANSACTION 命令。
+    + ROLLBACK：回滚所做的更改。
+  + 事务控制命令只与 DML 命令 INSERT、UPDATE 和 DELETE 一起使用。他们不能在创建表或删除表时使用，因为这些操作在数据库中是自动提交的。
+
++ BEGIN TRANSACTION 命令
+  + 事务（Transaction）可以使用 BEGIN TRANSACTION 命令或简单的 BEGIN 命令来启动。此类事务通常会持续执行下去，直到遇到下一个 COMMIT 或 ROLLBACK 命令。不过在数据库关闭或发生错误时，事务处理也会回滚。以下是启动一个事务的简单语法：
+```sql
+BEGIN;
+
+or 
+
+BEGIN TRANSACTION;
+```
+
++ COMMIT 命令
+  + COMMIT 命令是用于把事务调用的更改保存到数据库中的事务命令。
+  + COMMIT 命令把自上次 COMMIT 或 ROLLBACK 命令以来的所有事务保存到数据库。
+  + COMMIT 命令的语法如下：
+```sql
+COMMIT;
+
+or
+
+END TRANSACTION;
+```
+
++ ROLLBACK 命令
+  + ROLLBACK 命令是用于撤消尚未保存到数据库的事务的事务命令。
+  + ROLLBACK 命令只能用于撤销自上次发出 COMMIT 或 ROLLBACK 命令以来的事务。
+  + ROLLBACK 命令的语法如下：
+```sql
+ROLLBACK;
+```
+
+## SQLite 子查询
+
++ 子查询或称为内部查询、嵌套查询，指的是在 SQLite 查询中的 WHERE 子句中嵌入查询语句。
++ 一个 SELECT 语句的查询结果能够作为另一个语句的输入值。
++ 子查询可以与 SELECT、INSERT、UPDATE 和 DELETE 语句一起使用，可伴随着使用运算符如 =、<、>、>=、<=、IN、BETWEEN 等。
++ 以下是子查询必须遵循的几个规则：
+  + 子查询必须用括号括起来。
+  + 子查询在 SELECT 子句中只能有一个列，除非在主查询中有多列，与子查询的所选列进行比较。
+  + ORDER BY 不能用在子查询中，虽然主查询可以使用 ORDER BY。可以在子查询中使用 GROUP BY，功能与 ORDER BY 相同。
+  + 子查询返回多于一行，只能与多值运算符一起使用，如 IN 运算符。
+  + BETWEEN 运算符不能与子查询一起使用，但是，BETWEEN 可在子查询内使用。
+
++ SELECT 语句中的子查询使用
+  + 子查询通常与 SELECT 语句一起使用。基本语法如下：
+```sql
+SELECT column_name [, column_name ]
+FROM   table1 [, table2 ]
+WHERE  column_name OPERATOR
+      (SELECT column_name [, column_name ]
+      FROM table1 [, table2 ]
+      [WHERE])
+```
+
++ INSERT 语句中的子查询使用
+  + 子查询也可以与 INSERT 语句一起使用。INSERT 语句使用子查询返回的数据插入到另一个表中。在子查询中所选择的数据可以用任何字符、日期或数字函数修改。
+  + 基本语法如下：
+```sql
+INSERT INTO table_name [ (column1 [, column2 ]) ]
+           SELECT [ *|column1 [, column2 ]
+           FROM table1 [, table2 ]
+           [ WHERE VALUE OPERATOR ]
+```
+
++ UPDATE 语句中的子查询使用
+  + 子查询可以与 UPDATE 语句结合使用。当通过 UPDATE 语句使用子查询时，表中单个或多个列被更新
+  + 基本语法如下：
+```sql
+UPDATE table
+SET column_name = new_value
+[ WHERE OPERATOR [ VALUE ]
+   (SELECT COLUMN_NAME
+   FROM TABLE_NAME)
+   [ WHERE) ]
+```
+
++ DELETE 语句中的子查询使用
+  + 子查询可以与 DELETE 语句结合使用，就像上面提到的其他语句一样。
+  + 基本语法如下：
+```sql
+DELETE FROM TABLE_NAME
+[ WHERE OPERATOR [ VALUE ]
+   (SELECT COLUMN_NAME
+   FROM TABLE_NAME)
+   [ WHERE) ]
+```
+
+## SQLite Autoincrement (自动递增)
+
++ SQLite 的 AUTOINCREMENT 是一个关键字，用于表中的字段值自动递增。我们可以在创建表时在特定的列名称上使用 AUTOINCREMENT 关键字实现该字段值的自动增加。
++ 关键字 AUTOINCREMENT 只能用于整型（INTEGER）字段。
+
++ 语法
+  + AUTOINCREMENT 关键字的基本用法如下：
+```sql
+CREATE TABLE table_name(
+   column1 INTEGER AUTOINCREMENT,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+);
+```
+
++ 实例
+  + 假设要创建的 COMPANY 表如下所示：
+```sql
+sqlite> CREATE TABLE COMPANY(
+   ID INTEGER PRIMARY KEY   AUTOINCREMENT,
+   NAME           TEXT      NOT NULL,
+   AGE            INT       NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+);
+```
+
+## SQLite Explain (解释)
+
++ 在 SQLite 语句之前，可以使用 "EXPLAIN" 关键字或 "EXPLAIN QUERY PLAN" 短语，用于描述表的细节。
++ 如果省略了 EXPLAIN 关键字或短语，任何的修改都会引起 SQLite 语句的查询行为，并返回有关 SQLite 语句如何操作的信息。
+  + 来自 EXPLAIN 和 EXPLAIN QUERY PLAN 的输出只用于交互式分析和排除故障。
+  + 输出格式的细节可能会随着 SQLite 版本的不同而有所变化。
+  + 应用程序不应该使用 EXPLAIN 或 EXPLAIN QUERY PLAN，因为其确切的行为是可变的且只有部分会被记录。
+
++ 语法
+  + EXPLAIN 的语法如下：
+    + `EXPLAIN [SQLite Query]`
+  + EXPLAIN QUERY PLAN 的语法如下：
+    + `EXPLAIN  QUERY PLAN [SQLite Query]`
+
+## SQLite Vacuum
+
++ VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构。
++ 如果表中没有明确的整型主键（INTEGER PRIMARY KEY），VACUUM 命令可能会改变表中条目的行 ID（ROWID）。VACUUM 命令只适用于主数据库，附加的数据库文件是不可能使用 VACUUM 命令。
++ 如果有一个活动的事务，VACUUM 命令就会失败。VACUUM 命令是一个用于内存数据库的任何操作。由于 VACUUM 命令从头开始重新创建数据库文件，所以 VACUUM 也可以用于修改许多数据库特定的配置参数。
+
+## SQLite 日期 & 时间
+
++ SQLite 支持以下五个日期和时间函数：
++ `date(timestring, modifier, modifier, ...)`	                以 YYYY-MM-DD 格式返回日期。
++	`time(timestring, modifier, modifier, ...)`	                以 HH:MM:SS 格式返回时间。
++	`datetime(timestring, modifier, modifier, ...)`	            以 YYYY-MM-DD HH:MM:SS 格式返回。
++	`julianday(timestring, modifier, modifier, ...)`	          这将返回从格林尼治时间的公元前 4714 年 11 月 24 日正午算起的天数。
++	`strftime(format, timestring, modifier, modifier, ...)`	    这将根据第一个参数指定的格式字符串返回格式化的日期。具体格式见下边讲解。
+
++ 上述五个日期和时间函数把时间字符串作为参数。时间字符串后跟零个或多个 modifier 修饰符。strftime() 函数也可以把格式字符串 format 作为其第一个参数。下面将为您详细讲解不同类型的时间字符串和修饰符。
+
++ 时间字符串
+  + 一个时间字符串可以采用下面任何一种格式：
+    + YYYY-MM-DD	                2010-12-30
+    + YYYY-MM-DD HH:MM	          2010-12-30 12:10
+    + YYYY-MM-DD HH:MM:SS.SSS	    2010-12-30 12:10:04.100
+    + MM-DD-YYYY HH:MM	          12-30-2010 12:10
+    + HH:MM	                      12:10
+    + YYYY-MM-DDTHH:MM	          2010-12-30 12:10
+    + HH:MM:SS	                  12:10:01
+    + YYYYMMDD HHMMSS	            20101230 121001
+    + now	                        2013-05-07
+  + 您可以使用 "T" 作为分隔日期和时间的文字字符。
+
++ 修饰符（Modifier）
+  + 时间字符串后边可跟着零个或多个的修饰符，这将改变有上述五个函数返回的日期和/或时间。任何上述五大功能返回时间。修饰符应从左到右使用，下面列出了可在 SQLite 中使用的修饰符：
+    + NNN days
+    + NNN hours
+    + NNN minutes
+    + NNN.NNNN seconds
+    + NNN months
+    + NNN years
+    + start of month
+    + start of year
+    + start of day
+    + weekday N
+    + unixepoch
+    + localtime
+    + utc
+
++ 格式化
+  + SQLite 提供了非常方便的函数 strftime() 来格式化任何日期和时间。您可以使用以下的替换来格式化日期和时间：
+  + %d	一月中的第几天，01-31
+  + %f	带小数部分的秒，SS.SSS
+  + %H	小时，00-23
+  + %j	一年中的第几天，001-366
+  + %J	儒略日数，DDDD.DDDD
+  + %m	月，00-12
+  + %M	分，00-59
+  + %s	从 1970-01-01 算起的秒数
+  + %S	秒，00-59
+  + %w	一周中的第几天，0-6 (0 is Sunday)
+  + %W	一年中的第几周，01-53
+  + %Y	年，YYYY
+  + %%	% symbol
+
++ 实例
+  + 现在让我们使用 SQLite 提示符尝试不同的实例。下面是计算当前日期：
+```sql
+sqlite> SELECT date('now');
+2013-05-07
+```
+  + 下面是计算当前月份的最后一天：
+```sql
+sqlite> SELECT date('now','start of month','+1 month','-1 day');
+2013-05-31
+```
+  + 下面是计算给定 UNIX 时间戳 1092941466 的日期和时间：
+```sql
+sqlite> SELECT datetime(1092941466, 'unixepoch');
+2004-08-19 18:51:06
+```
+  + 下面是计算给定 UNIX 时间戳 1092941466 相对本地时区的日期和时间：
+```sql
+sqlite> SELECT datetime(1092941466, 'unixepoch', 'localtime');
+2004-08-19 11:51:06
+```
+  + 下面是计算当前的 UNIX 时间戳：
+```sql
+sqlite> SELECT strftime('%s','now');
+1367926057
+```
+  + 下面是计算美国"独立宣言"签署以来的天数：
+```sql
+sqlite> SELECT julianday('now') - julianday('1776-07-04');
+86504.4775830326
+```
+  + 下面是计算从 2004 年某一特定时刻以来的秒数：
+```sql
+sqlite> SELECT strftime('%s','now') - strftime('%s','2004-01-01 02:34:56');
+295001572
+```
+  + 下面是计算当年 10 月的第一个星期二的日期：
+```sql
+sqlite> SELECT date('now','start of year','+9 months','weekday 2');
+2013-10-01
+```
+  + 下面是计算从 UNIX 纪元算起的以秒为单位的时间（类似 strftime('%s','now') ，不同的是这里有包括小数部分）：
+```sql
+sqlite> SELECT (julianday('now') - 2440587.5)*86400.0;
+1367926077.12598
+```
+  + 在 UTC 与本地时间值之间进行转换，当格式化日期时，使用 utc 或 localtime 修饰符，如下所示：
+```sql
+sqlite> SELECT time('12:00', 'localtime');
+05:00:00
+sqlite>  SELECT time('12:00', 'utc');
+19:00:00
+```
+
+## SQLite 常用函数
+
++ SQLite 有许多内置函数用于处理字符串或数字数据。下面列出了一些有用的 SQLite 内置函数，且所有函数都是大小写不敏感，这意味着您可以使用这些函数的小写形式或大写形式或混合形式。欲了解更多详情，请查看 SQLite 的官方文档：
+
++ SQLite COUNT 函数
+  + SQLite COUNT 聚集函数是用来计算一个数据库表中的行数。
++ SQLite MAX 函数
+  + SQLite MAX 聚合函数允许我们选择某列的最大值。
++ SQLite MIN 函数
+  + SQLite MIN 聚合函数允许我们选择某列的最小值。
++ SQLite AVG 函数
+  + SQLite AVG 聚合函数计算某列的平均值。
++ SQLite SUM 函数
+  + SQLite SUM 聚合函数允许为一个数值列计算总和。
++ SQLite RANDOM 函数
+  + SQLite RANDOM 函数返回一个介于 -9223372036854775808 和 +9223372036854775807 之间的伪随机整数。
++ SQLite ABS 函数
+  + SQLite ABS 函数返回数值参数的绝对值。
++ SQLite UPPER 函数
+  + SQLite UPPER 函数把字符串转换为大写字母。
++ SQLite LOWER 函数
+  + SQLite LOWER 函数把字符串转换为小写字母。
++ SQLite LENGTH 函数
+  + SQLite LENGTH 函数返回字符串的长度。
++ SQLite sqlite_version 函数
+  + SQLite sqlite_version 函数返回 SQLite 库的版本。
+
++ 实例
+  + SQLite COUNT 函数
+  + SQLite COUNT 聚集函数是用来计算一个数据库表中的行数。 
+```sql
+sqlite> SELECT count(*) FROM COMPANY;
+```
+  + SQLite MAX 函数
+  + SQLite MAX 聚合函数允许我们选择某列的最大值。 
+```sql
+sqlite> SELECT max(salary) FROM COMPANY;
+```
+  + SQLite MIN 函数
+  + SQLite MIN 聚合函数允许我们选择某列的最小值。 
+```sql
+sqlite> SELECT min(salary) FROM COMPANY;
+```
+  + SQLite AVG 函数
+  + SQLite AVG 聚合函数计算某列的平均值。 
+```sql
+sqlite> SELECT avg(salary) FROM COMPANY;
+```
+  + SQLite SUM 函数
+  + SQLite SUM 聚合函数允许为一个数值列计算总和。 
+```sql
+sqlite> SELECT sum(salary) FROM COMPANY;
+```
+  + SQLite RANDOM 函数
+  + SQLite RANDOM 函数返回一个介于 -9223372036854775808 和 +9223372036854775807 之间的伪随机整数。 
+```sql
+sqlite> SELECT random() AS Random;
+```
+  + SQLite ABS 函数
+  + SQLite ABS 函数返回数值参数的绝对值。 
+```sql
+sqlite> SELECT abs(5), abs(-15), abs(NULL), abs(0), abs("ABC");
+```
+  + SQLite UPPER 函数
+  + SQLite UPPER 函数把字符串转换为大写字母。 
+```sql
+sqlite> SELECT upper(name) FROM COMPANY;
+```
+  + SQLite LOWER 函数
+  + SQLite LOWER 函数把字符串转换为小写字母。 
+```sql
+sqlite> SELECT lower(name) FROM COMPANY;
+```
+  + SQLite LENGTH 函数
+  + SQLite LENGTH 函数返回字符串的长度。 
+```sql
+sqlite> SELECT name, length(name) FROM COMPANY;
+```
+  + SQLite sqlite_version 函数
+  + SQLite sqlite_version 函数返回 SQLite 库的版本。 
+```sql
+sqlite> SELECT sqlite_version() AS 'SQLite Version';
+```
