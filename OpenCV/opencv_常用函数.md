@@ -2,6 +2,10 @@
 
 + OpenCV 常见类，函数
 
+## OpenCV cv::findChessboardCorners() 函数 详解
+
+
+
 ## C++ OpenCV cv::ellipse() 函数 详解
 
 `cv::ellipse()` 函数是OpenCV中用于绘制椭圆的函数。它允许您在图像上绘制椭圆，可以用于标记或可视化图像中的对象或区域。以下是`cv::ellipse()`函数的详解：
@@ -18,7 +22,43 @@ void cv::ellipse(
     int thickness = 1,             // 边框线宽
     int lineType = LINE_8,          // 线的类型
     int shift = 0                   // 点坐标的小数位数
-);
+);`cv::findChessboardCorners()` 是 OpenCV 中用于检测棋盘格角点的函数。这个函数主要用于摄像机标定和校正。下面是有关 `cv::findChessboardCorners()` 函数的详细解释：
+
+```cpp
+bool cv::findChessboardCorners(const cv::Mat& image, cv::Size patternSize, cv::OutputArray corners, int flags = cv::CALIB_CB_ADAPTIVE_THRESH + cv::CALIB_CB_NORMALIZE_IMAGE)
+```
+
+参数解释：
+- `image`：输入的图像，通常是拍摄的包含了棋盘格的图像。
+- `patternSize`：一个 `cv::Size` 对象，指定了棋盘格的内部角点的行和列数，通常为 `(num_cols, num_rows)`。
+- `corners`：用于输出检测到的角点坐标的 `cv::OutputArray`。这是一个包含检测到的角点的 2D 坐标的向量。
+- `flags`：可选参数，用于指定不同的标志位以控制检测的方式。常用的标志包括：
+  - `cv::CALIB_CB_ADAPTIVE_THRESH`：使用自适应阈值方法。
+  - `cv::CALIB_CB_NORMALIZE_IMAGE`：在角点检测之前归一化图像。
+  - `cv::CALIB_CB_FAST_CHECK`：执行快速检查以排除不合格的图像。
+
+返回值：
+- 如果成功检测到棋盘格角点，函数返回 `true`，否则返回 `false`。
+
+使用示例：
+```cpp
+cv::Mat image = cv::imread("chessboard.jpg");
+cv::Size patternSize(7, 6); // 棋盘格的列数和行数
+cv::Mat grayImage;
+cv::cvtColor(image, grayImage, cv::COLOR_BGR2GRAY);
+
+std::vector<cv::Point2f> corners;
+bool found = cv::findChessboardCorners(grayImage, patternSize, corners);
+
+if (found) {
+    // 在图像上绘制角点
+    cv::drawChessboardCorners(image, patternSize, cv::Mat(corners), found);
+    cv::imshow("Chessboard Corners", image);
+    cv::waitKey(0);
+}
+```
+
+`cv::findChessboardCorners()` 函数的主要用途是用于相机标定，以便校正图像畸变。检测到的角点可以用于计算相机的内部和外部参数，以及图像的校正和畸变校正。通常，使用棋盘格图像进行标定是摄影测量和计算机视觉中的一个重要步骤。
 ```
 
 参数说明：
