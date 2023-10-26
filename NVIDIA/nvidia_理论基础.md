@@ -2,6 +2,11 @@
 
 + NVIDIA 相关理论基础知识
 
+## NVIDIA 驱动卸载
+
++ 运行命令：
+  + `sudo apt-get autoremove --purge nvidia-*`
+
 ## NVIDIA 驱动安装
 
 + Ubuntu下安装NVIDIA驱动的三种方法：
@@ -72,4 +77,17 @@ sudo reboot // 重启
 sudo reboot  // 安装完了驱动需要重启
 
 sudo nvidia-smi  //  检验是否安装好驱动
+```
+
+## 查看显卡驱动
+
++ 查看显卡，在终端输入以下命令：
+```bash 
+lspci | grep -i vga
+lspci | grep -i nvidia
+```
+
++ 查看显卡驱动在终端输入以下命令：
+```bash
+lsmod | grep -i nvidia
 ```

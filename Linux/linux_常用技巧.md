@@ -2,6 +2,26 @@
 
 + linux系统的常用技巧和方法
 
+## ubuntu root ssh 登陆配置
+
++ 设置root密码
+  + sudo passwd root
+
++ 修改ssh配置文件
+  + 安装ssh-server: sudo apt install openssh-server
+  + 修改配置文件: sudo vim /etc/ssh/sshd_config
+  + 修改配置：
+``` bash
+ LoginGraceTime 2m
+ PermitRootLogin yes
+ StrictModes yes
+ #MaxAuthTries 6
+ #MaxSessions 10
+```
+
++ 重启ssh，使配置生效
+  + sudo service ssh restart
+  
 ## ubuntu 安装ping工具
 
 `ping` 工具通常已经预安装在大多数 Ubuntu 发行版中，因此你通常不需要手动安装它。你可以在终端中直接使用 `ping` 命令来测试网络连接。
