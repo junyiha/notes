@@ -2,6 +2,158 @@
 
 + python 常用的编程技巧笔记
 
+## python3 列表 常用技巧 详解
+
+Python 中的列表是一种非常常用的数据结构，可以存储多个值，并提供了许多功能丰富的操作。以下是一些 Python 3 中常用的列表技巧和操作的详细解释：
+
+**1. 列表的创建：**
+
+创建一个列表可以使用方括号 `[]` 或 `list()` 构造函数。
+
+```python
+my_list = [1, 2, 3]
+my_empty_list = []
+another_list = list(range(5))
+```
+
+**2. 访问列表元素：**
+
+您可以通过索引访问列表中的元素，索引从 0 开始。
+
+```python
+my_list = [10, 20, 30, 40, 50]
+print(my_list[0])  # 输出 10
+print(my_list[2])  # 输出 30
+```
+
+**3. 修改列表元素：**
+
+列表中的元素是可变的，可以通过索引来修改它们。
+
+```python
+my_list = [10, 20, 30]
+my_list[1] = 25  # 修改第二个元素为 25
+print(my_list)  # 输出 [10, 25, 30]
+```
+
+**4. 添加元素：**
+
+您可以使用 `append()` 方法向列表末尾添加元素。
+
+```python
+my_list = [1, 2, 3]
+my_list.append(4)
+print(my_list)  # 输出 [1, 2, 3, 4]
+```
+
+**5. 删除元素：**
+
+使用 `del` 语句可以删除列表中的元素。
+
+```python
+my_list = [1, 2, 3]
+del my_list[1]  # 删除第二个元素
+print(my_list)  # 输出 [1, 3]
+```
+
+**6. 列表切片：**
+
+通过切片，您可以获取列表中的一部分。
+
+```python
+my_list = [1, 2, 3, 4, 5]
+sublist = my_list[1:4]  # 获取索引 1 到 3 的元素
+print(sublist)  # 输出 [2, 3, 4]
+```
+
+**7. 列表合并：**
+
+使用 `+` 运算符可以将两个列表合并成一个。
+
+```python
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+combined_list = list1 + list2
+print(combined_list)  # 输出 [1, 2, 3, 4, 5, 6]
+```
+
+**8. 列表复制：**
+
+使用切片或 `copy()` 方法可以创建列表的副本。
+
+```python
+original_list = [1, 2, 3]
+copy_list = original_list[:]  # 使用切片创建副本
+```
+
+**9. 列表长度：**
+
+使用 `len()` 函数可以获取列表的长度。
+
+```python
+my_list = [1, 2, 3, 4, 5]
+length = len(my_list)
+print(length)  # 输出 5
+```
+
+**10. 列表推导式：**
+
+列表推导式是一种快速创建列表的方式。
+
+```python
+squared_numbers = [x ** 2 for x in range(5)]
+print(squared_numbers)  # 输出 [0, 1, 4, 9, 16]
+```
+
+**11. 列表排序：**
+
+使用 `sort()` 方法可以对列表进行升序排序。
+
+```python
+my_list = [3, 1, 2, 5, 4]
+my_list.sort()
+print(my_list)  # 输出 [1, 2, 3, 4, 5]
+```
+
+**12. 反转列表：**
+
+使用 `reverse()` 方法可以反转列表元素的顺序。
+
+```python
+my_list = [1, 2, 3]
+my_list.reverse()
+print(my_list)  # 输出 [3, 2, 1]
+```
+
+这些是 Python 3 中常用的列表技巧和操作。列表是一个非常灵活和强大的数据结构，可以用于各种任务，包括存储和处理数据。根据您的需求，您可以使用上述技巧来操作和处理列表。
+
+## "1.1 1.2 1.3" 正则表达式获取三个浮点数 python3
+
+要从字符串中提取三个浮点数，您可以使用正则表达式匹配这些浮点数并提取它们。以下是如何在 Python 3 中使用 `re` 模块实现这个任务：
+
+```python
+import re
+
+text = "1.1 1.2 1.3 Some other text here."
+
+# 定义匹配浮点数的正则表达式模式
+pattern = r'\d+\.\d+'
+
+# 使用 re.findall() 函数提取匹配的浮点数
+matches = re.findall(pattern, text)
+
+print("Matches:", matches)
+```
+
+上述代码首先定义了一个正则表达式模式 `r'\d+\.\d+'`，该模式匹配一个或多个数字后跟一个小数点，然后是一个或多个数字。然后，使用 `re.findall()` 函数来查找并提取匹配的浮点数，并将结果存储在 `matches` 列表中。在这个示例中，`matches` 列表将包含提取的三个浮点数。
+
+输出示例：
+
+```
+Matches: ['1.1', '1.2', '1.3']
+```
+
+
 ## python3 获取系统时间 秒数
 
 要获取当前系统时间的秒数，你可以使用 `time` 模块的 `time()` 函数，它返回自 1970 年 1 月 1 日以来的秒数（称为时间戳）。以下是如何获取系统时间的秒数的示例：

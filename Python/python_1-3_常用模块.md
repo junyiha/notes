@@ -2,6 +2,117 @@
 
 + python常用的模块，第三方工具
 
+## python3 re模块  详解
+
+Python 的 `re` 模块是用于处理正则表达式的标准库，它提供了一组函数和类，用于进行文本匹配和处理。下面是对 Python 3 中的 `re` 模块的详细解释和示例：
+
+**导入 re 模块：**
+
+首先，您需要导入 `re` 模块，以便使用其功能：
+
+```python
+import re
+```
+
+**常用的 `re` 模块函数和方法：**
+
+1. `re.search(pattern, string, flags=0)`: 在给定字符串中搜索匹配指定模式的子串。返回一个匹配对象（Match object），或者在找不到匹配时返回 `None`。
+
+   示例：
+
+   ```python
+   pattern = r'apple'
+   text = "I like apples."
+   match = re.search(pattern, text)
+   if match:
+       print("Match found:", match.group())
+   else:
+       print("No match found.")
+   ```
+
+2. `re.match(pattern, string, flags=0)`: 从字符串的开头开始匹配指定模式。返回一个匹配对象或 `None`。
+
+   示例：
+
+   ```python
+   pattern = r'apple'
+   text = "apple pie is delicious."
+   match = re.match(pattern, text)
+   if match:
+       print("Match found:", match.group())
+   else:
+       print("No match found.")
+   ```
+
+3. `re.findall(pattern, string, flags=0)`: 返回所有匹配指定模式的子串列表。
+
+   示例：
+
+   ```python
+   pattern = r'\d+'
+   text = "There are 123 apples and 456 oranges."
+   matches = re.findall(pattern, text)
+   print("Matches:", matches)
+   ```
+
+4. `re.finditer(pattern, string, flags=0)`: 返回一个匹配对象的迭代器，用于遍历所有匹配项。
+
+   示例：
+
+   ```python
+   pattern = r'\d+'
+   text = "There are 123 apples and 456 oranges."
+   matches = re.finditer(pattern, text)
+   for match in matches:
+       print("Match found:", match.group())
+   ```
+
+5. `re.sub(pattern, repl, string, count=0, flags=0)`: 将匹配指定模式的子串替换为指定的字符串。可选的 `count` 参数指定替换次数。
+
+   示例：
+
+   ```python
+   pattern = r'\d+'
+   text = "There are 123 apples and 456 oranges."
+   replaced_text = re.sub(pattern, 'X', text)
+   print("Replaced text:", replaced_text)
+   ```
+
+6. `re.compile(pattern, flags=0)`: 将正则表达式模式编译为正则表达式对象，以提高性能并重复使用。
+
+   示例：
+
+   ```python
+   pattern = re.compile(r'\d+')
+   text = "There are 123 apples and 456 oranges."
+   matches = pattern.findall(text)
+   print("Matches:", matches)
+   ```
+
+7. `Match` 对象的方法：
+   - `group()`: 返回匹配的字符串。
+   - `start()`: 返回匹配的起始位置。
+   - `end()`: 返回匹配的结束位置。
+   - `span()`: 返回匹配的起始和结束位置。
+
+**正则表达式模式：**
+
+正则表达式模式是一组字符，用于描述匹配文本的模式。例如，`r'\d+'` 表示匹配一个或多个数字。正则表达式模式使用特殊字符和语法来描述匹配模式。
+
+以下是一些常见的正则表达式模式元字符和语法：
+
+- `.`：匹配任何字符（除了换行符）。
+- `*`：匹配前一个字符零次或多次。
+- `+`：匹配前一个字符一次或多次。
+- `?`：匹配前一个字符零次或一次。
+- `[]`：定义字符集，匹配括号内的任何字符。
+- `()`：定义捕获组，用于提取匹配的子字符串。
+- `\d`：匹配数字字符。
+- `\w`：匹配字母、数字或下划线字符。
+- `\s`：匹配空白字符。
+
+正则表达式的详细语法和用法非常广泛，可以根据需要编写复杂的模式来匹配特定的文本模式。根据您的需求，您可以查阅正则表达式的文档和教程来学习更多内容。
+
 ## python3 datetime模块 详解
 
 `datetime` 模块是 Python 标准库中用于处理日期和时间的重要模块。它提供了各种类和函数，允许你在 Python 中执行日期和时间操作。以下是 `datetime` 模块的一些重要类和函数，以及它们的详细说明：
