@@ -2,6 +2,46 @@
 
 + cmake 语法基础 理论基础
 
+## CMakeLists add_definitions() 详解
+
+`add_definitions()` 是 CMake 中用于添加编译器宏定义的命令。它允许您在整个项目中为源代码文件添加全局宏定义，以实现条件编译或其他编译时配置。以下是有关 `add_definitions()` 的详解：
+
+**语法：**
+
+```cmake
+add_definitions(-D<DEFINE_1> -D<DEFINE_2> ... -D<DEFINE_N>)
+```
+
+- `-D<DEFINE>`: 指定一个宏定义，`-D` 后跟宏的名称。您可以使用多个 `-D` 来指定多个宏定义。
+
+**示例：**
+
+假设您希望在整个项目中定义一个宏，例如 `ENABLE_FEATURE_X`，以便在源代码文件中进行条件编译。您可以在项目的 CMakeLists.txt 文件中使用 `add_definitions()` 来定义宏：
+
+```cmake
+add_definitions(-DENABLE_FEATURE_X)
+```
+
+这将使 `-DENABLE_FEATURE_X` 添加到编译器命令行，以便在编译源文件时启用该宏。您可以在源代码文件中使用 `#ifdef` 或 `#ifndef` 指令来检查该宏的存在，然后根据需要执行不同的代码。
+
+```cpp
+#ifdef ENABLE_FEATURE_X
+// 这部分代码只在 ENABLE_FEATURE_X 定义时编译
+// 执行 Feature X 相关的操作
+#else
+// 这部分代码在 ENABLE_FEATURE_X 未定义时编译
+// 执行其他操作
+#endif
+```
+
+**注意事项：**
+
+- `add_definitions()` 命令将全局宏定义应用于整个项目，因此请确保不会意外地影响其他目标或源文件。如果需要更精确的控制，可以考虑使用 `target_compile_definitions()` 命令来为特定目标添加宏定义。
+- 如果您需要定义带有值的宏，例如 `-DVERSION_NUMBER=42`，只需在 `-D` 后添加宏的名称和值即可。
+- 使用 `add_definitions()` 命令会为所有目标和源文件添加宏定义，这可能会导致不必要的宏定义冲突。因此，在 CMake 3.12 及更高版本中，推荐使用 `target_compile_definitions()` 来更精确地控制宏定义的作用范围。
+
+总之，`add_definitions()` 是用于添加全局宏定义的 CMake 命令，它可以帮助您在整个项目中进行条件编译和其他编译时配置。
+
 ## cmake CMakeLists.txt include_directories()函数 详解
 
 `include_directories()`函数是CMake中的一个用于指定头文件包含路径的函数。它用于告诉CMake编译器在哪里查找头文件。在CMakeLists.txt文件中使用`include_directories()`函数非常有用，因为它允许您配置项目以便正确找到所有所需的头文件。

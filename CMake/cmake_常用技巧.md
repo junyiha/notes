@@ -2,6 +2,32 @@
 
 + CMake常用的方法和CMakeLists编程技巧
 
+## CMakeLists 添加宏定义
+
+在 CMake 中，要添加宏定义（宏定义通常用于条件编译），您可以使用 `add_definitions` 或 `target_compile_definitions` 命令，具体取决于您希望将宏定义应用于整个项目还是特定的目标。
+
+**1. 使用 `add_definitions` 添加宏定义（全局）：**
+
+`add_definitions` 命令用于在整个项目范围内添加宏定义。在 CMakeLists.txt 文件中，您可以像这样添加宏定义：
+
+```cmake
+add_definitions(-DMY_MACRO=1)
+```
+
+这将定义一个名为 `MY_MACRO` 的宏，其值为 `1`。您可以在项目的任何源文件中使用该宏。
+
+**2. 使用 `target_compile_definitions` 添加宏定义（特定目标）：**
+
+如果您只想为特定目标（如可执行文件或库）添加宏定义，可以使用 `target_compile_definitions` 命令。例如，假设您有一个名为 `my_target` 的目标：
+
+```cmake
+target_compile_definitions(my_target PRIVATE MY_MACRO=1)
+```
+
+这将为 `my_target` 目标添加一个名为 `MY_MACRO` 的宏，其值为 `1`。`PRIVATE` 关键字表示该宏定义仅应用于 `my_target`，而不会传播到其他目标。
+
+请根据您的项目需求和结构选择适当的方法来添加宏定义。无论是使用 `add_definitions` 还是 `target_compile_definitions`，都可以为您的 CMake 项目添加宏定义以进行条件编译。
+
 ## cmake CMakeLists.txt文件编译多个可执行文件 for循环 示例 详解
 
 要在CMake中使用循环来生成多个可执行文件，通常需要使用CMake的`foreach`循环结构。下面是一个示例CMakeLists.txt文件，展示如何使用`foreach`循环来生成多个可执行文件：
