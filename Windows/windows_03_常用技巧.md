@@ -2,6 +2,104 @@
 
 + windows系统下常用技巧
 
+## windows 设置powshell环境变量
+
+在 Windows PowerShell 中设置环境变量，你可以使用 `$env` 自动变量，也可以使用 PowerShell cmdlet 来实现。以下是两种常见的方法：
+
+1. **使用 `$env` 自动变量**：
+   - 若要设置一个环境变量，你可以使用 `$env:变量名` 这种语法来分配一个值。例如，要设置一个名为 `MY_VARIABLE` 的环境变量，可以执行以下命令：
+
+   ```powershell
+   $env:MY_VARIABLE = "MyValue"
+   ```
+
+   这将创建名为 `MY_VARIABLE` 的环境变量，并将其值设置为 "MyValue"。
+
+   - 若要在 Windows PowerShell 中永久设置环境变量，可以将 `$env` 变量的设置添加到你的 PowerShell 配置文件中，通常是 `$PROFILE` 变量指定的脚本文件中，如 `$PROFILE` 文件或 `$PROFILE.AllUsersCurrentHost` 文件。
+
+2. **使用 PowerShell cmdlet**：
+   - 你还可以使用 PowerShell 的 `Set-Item` cmdlet 来设置环境变量。例如，要设置名为 `MY_VARIABLE` 的环境变量，可以执行以下命令：
+
+   ```powershell
+   [System.Environment]::SetEnvironmentVariable("MY_VARIABLE", "MyValue", [System.EnvironmentVariableTarget]::User)
+   ```
+
+   上述示例将 `MY_VARIABLE` 设置为 "MyValue"，并将其限制在当前用户的环境变量中。你可以使用 `[System.EnvironmentVariableTarget]::Machine` 来设置系统范围的环境变量。
+
+   - 若要永久设置环境变量，你通常需要以管理员权限运行 PowerShell，以便更改系统范围的环境变量。
+
+请注意，设置环境变量可能需要管理员权限，特别是在更改系统范围的环境变量时。确保以管理员身份运行 PowerShell，以避免权限问题。在设置环境变量后，你需要重新启动 PowerShell 或任何需要使用这些变量的应用程序，以使更改生效。
+
+## windows powshell输出环境变量
+
+要在 Windows PowerShell 中查看环境变量，你可以使用 `$env` 自动变量，该变量允许你访问系统环境变量。以下是一些示例：
+
+1. **查看单个环境变量**：
+   若要查看单个环境变量的值，你可以使用 `$env:变量名`，将 "变量名" 替换为你要查看的环境变量的名称。例如，要查看 `PATH` 环境变量的值，可以执行以下命令：
+
+   ```powershell
+   $env:PATH
+   ```
+
+   这将输出 `PATH` 环境变量的值。
+
+2. **查看所有环境变量**：
+   若要查看所有系统环境变量，你可以使用以下命令：
+
+   ```powershell
+   Get-ChildItem Env:
+   ```
+
+   这将列出所有系统环境变量及其值。
+
+3. **查看用户环境变量**：
+   若要查看当前用户的环境变量，可以使用以下命令：
+
+   ```powershell
+   Get-ChildItem Env: -PSProvider Environment
+   ```
+
+   这将列出当前用户的环境变量及其值。
+
+请注意，Windows PowerShell 通常需要以管理员权限运行才能查看和编辑系统环境变量。如果你只是普通用户，你可以查看和编辑用户环境变量。
+
+使用 Windows PowerShell 查看环境变量非常方便，因为它提供了直观的语法和强大的功能来管理环境变量。你可以根据你的需求来使用这些命令来查看和管理环境变量。
+
+## windows cmd输出环境变量
+
+要在 Windows 命令提示符（cmd）中查看系统环境变量，你可以使用 `echo` 命令和特定的环境变量名称。以下是一些示例：
+
+1. **查看单个环境变量**：
+   若要查看单个环境变量，可以使用以下命令，将环境变量的名称替换为你要查看的环境变量名称（例如，`PATH`）：
+
+   ```batch
+   echo %PATH%
+   ```
+
+   这将输出环境变量的值。
+
+2. **查看所有环境变量**：
+   若要查看所有系统环境变量，你可以使用 `set` 命令，不带任何参数，如下所示：
+
+   ```batch
+   set
+   ```
+
+   这将列出所有系统环境变量及其值。
+
+3. **查看用户环境变量**：
+   若要查看当前用户的环境变量，你可以使用 `set` 命令并附加 `/U` 选项，如下所示：
+
+   ```batch
+   set /U
+   ```
+
+   这将列出当前用户的环境变量及其值。
+
+请注意，你需要具有足够的权限才能查看系统环境变量。如果你是管理员，通常可以查看和编辑系统环境变量。如果你只是普通用户，你可以查看和编辑用户环境变量。
+
+在命令提示符中查看环境变量对于调试和配置系统非常有用。你可以根据你的需求来使用这些命令来查看和管理环境变量。
+
 ## windows 截图快捷键
 
 + 要在具有鼠标和键盘时使用截图工具，请执行以下操作： 按Windows 徽标键‌+ Shift+ S。 选择屏幕截图的区域时，桌面将变暗。 默认情况下，选择“矩形模式”。
