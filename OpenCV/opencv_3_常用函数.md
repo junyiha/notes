@@ -4,7 +4,58 @@
 
 ## OpenCV cv::findChessboardCorners() 函数 详解
 
+`cv::findChessboardCorners()` 是 OpenCV（开源计算机视觉库）中的一个函数，用于在图像中找到棋盘格图案的内部角点。这个函数通常用于摄像机校准和计算机视觉应用，以确定棋盘格校准图案的角点位置，这对于摄像机校准非常重要。
 
+以下是对 `cv::findChessboardCorners()` 函数的详细解释：
+
+```cpp
+bool cv::findChessboardCorners(
+    InputArray image,          // 包含棋盘格图案的输入图像。
+    Size patternSize,          // 棋盘格图案的大小（内部角点的数量）。
+    OutputArray corners,      // 存储找到的角点的输出向量。
+    int flags = CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE
+)
+```
+
+参数：
+1. `image`：这是要在其中查找棋盘格角点的输入图像。通常应该是灰度图像，但也可以是彩色图像。
+
+2. `patternSize`：此参数指定了棋盘格图案的大小。它应该是一个 `Size` 对象，包含了棋盘格图案的行和列上的内部角点数量。
+
+3. `corners`：这是一个输出参数，函数会将找到的角点位置存储在其中。通常是一个包含2D点的向量（例如 `std::vector<cv::Point2f>`）。
+
+4. `flags`：可选参数，可用于指定各种操作标志。默认标志（`CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE`）适用于大多数情况。这些标志控制函数如何处理图像。
+
+返回值：
+如果成功找到棋盘格角点，则函数返回 `true`，否则返回 `false`。
+
+`cv::findChessboardCorners()` 的工作原理：
+1. 该函数分析输入图像以检测棋盘格图案的内部角点。
+
+2. 它使用自适应阈值技术对图像进行二值化并查找角点。
+
+3. 找到角点后，它将它们存储在`corners` 输出向量中。
+
+4. `patternSize` 参数帮助函数确定棋盘格图案的期望大小和布局，从而更容易找到角点。
+
+用法：
+通常，您将在摄像机校准过程的一部分中使用此函数，其中您从不同角度和距离捕获棋盘格图案的多幅图像。通过在这些图像中找到角点，您可以计算摄像机的内部和外部参数。
+
+以下是如何使用 `cv::findChessboardCorners()` 的基本示例：
+
+```cpp
+cv::Mat image = cv::imread("chessboard.png", cv::IMREAD_GRAYSCALE);
+cv::Size patternSize(7, 7);  // 指定棋盘格图案的大小。
+std::vector<cv::Point2f> corners;
+bool found = cv::findChessboardCorners(image, patternSize, corners);
+if (found) {
+    // 找到了角点，可以继续进行摄像机校准。
+} else {
+    // 未在图像中找到角点。
+}
+```
+
+这个函数是摄像机校准的关键步骤，通常用于需要准确了解摄像机参数的计算机视觉应用中。
 
 ## C++ OpenCV cv::ellipse() 函数 详解
 
