@@ -1,0 +1,67 @@
+## 简介
+
++ CNPY第三方工具相关笔记
+
+## cnpy 是什么
+
+`cnpy` 是一个用于读取和写入.npy（NumPy数组文件）的C++库。这个库使C++程序能够方便地处理NumPy数组数据，而无需依赖Python。NumPy是一个Python库，用于处理多维数组和科学计算，但有时需要在C++应用程序中使用NumPy数组数据。`cnpy`库提供了在C++中处理.npy文件的功能，包括读取和写入NumPy数组。
+
+以下是`cnpy`库的一些主要特点和功能：
+
+1. **读取.npy文件**：`cnpy`库允许C++程序读取.npy文件中的NumPy数组数据，并将其转换为C++数据结构，以便在C++中进行进一步处理和分析。
+
+2. **写入.npy文件**：使用`cnpy`库，C++程序可以创建新的.npy文件并将NumPy数组数据写入其中，以便与其他Python或C++应用程序共享数据。
+
+3. **支持多种NumPy数据类型**：`cnpy`库支持NumPy中的多种数据类型，包括整数、浮点数、复数、布尔值等，以便适应各种科学计算需求。
+
+4. **跨平台支持**：`cnpy`库是跨平台的，可在多种操作系统上使用，包括Windows、Linux和macOS。
+
+5. **灵活性**：该库允许用户指定数据的存储顺序（如C风格和Fortran风格存储），以满足不同数据来源的需求。
+
+`cnpy`库的使用使C++开发人员能够与Python中使用NumPy的同事轻松共享和处理数据，从而更容易实现跨语言数据交互。这对于需要在C++应用程序中处理科学数据或与Python中的数据分析工具进行集成的项目非常有用。库的源代码和文档通常可以在GitHub上找到。
+
+## cnpy 示例 详解 C++
+
+`cnpy` 是一个用于处理.npy文件的C++库，允许你读取和写入NumPy数组数据。下面是一个简单的示例，展示如何在C++中使用`cnpy`库读取.npy文件、修改数据，然后将数据写回.npy文件的过程。
+
+首先，确保你已经安装了`cnpy`库并设置好了开发环境。你可以在项目的GitHub页面上找到库的源代码和详细文档，然后进行编译和安装。
+
+假设有一个名为`example.npy`的.npy文件，其中包含一个NumPy数组。以下是示例代码：
+
+```cpp
+#include <iostream>
+#include "cnpy.h"
+
+int main() {
+    // 读取.npy文件
+    cnpy::NpyArray arr = cnpy::npy_load("example.npy");
+
+    // 获取NumPy数组的数据指针和形状
+    float* data = arr.data<float>();
+    std::vector<size_t> shape = arr.shape;
+
+    // 修改数据（这里将所有元素乘以2）
+    for (size_t i = 0; i < shape[0]; i++) {
+        data[i] *= 2;
+    }
+
+    // 创建一个新的.npy文件来保存修改后的数据
+    cnpy::npy_save("modified_example.npy", data, shape, "w");
+
+    std::cout << "Data has been modified and saved as 'modified_example.npy'." << std::endl;
+
+    return 0;
+}
+```
+
+这个示例代码做了以下几件事：
+
+1. 使用`cnpy::npy_load`函数读取名为`example.npy`的.npy文件，将数据加载到`cnpy::NpyArray`对象中。
+
+2. 从`NpyArray`对象中获取数据指针和数组的形状。
+
+3. 修改数据。在这个示例中，我们将所有元素乘以2，但你可以根据需要进行任何修改。
+
+4. 使用`cnpy::npy_save`函数将修改后的数据保存为一个新的.npy文件，名为`modified_example.npy`。请注意，我们传递了参数 "w"，表示写入模式。
+
+这样，你就能在C++中使用`cnpy`库读取、处理和保存NumPy数组数据了。这对于处理科学数据、跨语言数据交互以及与Python中的数据分析工具集成非常有用。
