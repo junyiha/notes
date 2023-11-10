@@ -2,6 +2,35 @@
 
 + OpenCV 相关编程技巧
 
+## OpenCV cv::Mat 获取图像在内存中字节大小
+
+在OpenCV中，可以使用`cv::Mat`的`total()`函数和`elemSize()`函数来获取图像在内存中的字节大小。具体地说，`total()`函数返回矩阵中元素的总数，而`elemSize()`函数返回每个元素的字节大小。通过将这两个值相乘，你可以得到整个矩阵的字节大小。
+
+以下是一个示例代码：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("path/to/your/image.jpg");
+
+    if (image.empty()) {
+        std::cerr << "Error: Couldn't read the image." << std::endl;
+        return -1;
+    }
+
+    // 计算图像在内存中的字节大小
+    size_t byteSize = image.total() * image.elemSize();
+
+    std::cout << "Image size in bytes: " << byteSize << std::endl;
+
+    return 0;
+}
+```
+
+请确保你已经安装了OpenCV库，并在编译时链接了相应的库文件。上述示例代码中，`path/to/your/image.jpg`应替换为实际图像的文件路径。
+
 ## OpenCV 在图像上绘制旋转矩形框 函数 
 
 要在C++中使用OpenCV在图像上绘制旋转矩形框，您可以使用以下步骤：
