@@ -110,7 +110,7 @@
   + from_time_t，用来将std::time_t类型转换为系统时间点
 
 + 使用system_clock获取当前系统时间。
-  ```
+  ```cpp
     #include <iostream>
     #include <chrono>
     int main() {    
@@ -123,7 +123,7 @@
   ```
 
 + 统计函数的执行耗时，这种情况更适合使用steady_clock。
-  ```
+  ```cpp
     #include <iostream>
     #include <chrono>
 
@@ -147,7 +147,7 @@
 
 + 持续时间表示一个时间段，比如1s、1min、1day等等，这些时间段是有单位的，因此持续时间也是一个模板变量，用来指定不同的单位
 + 它的定义如下：
-  ```
+  ```cpp
     // Rep表示单位的数量单位
     // Period表示单位
     template<class Rep,  class Period = std::ratio<1>> class duration;
@@ -155,14 +155,14 @@
 
 + Period用来表示时间的单位，比如秒、天、小时等等，而Rep则表示容纳某个数量时间的单位。比较绕口，举个例子，比如说10天，那么Period是单位day，那么其数量是10，而10的类型可以是int型，也可以short型，Rep就用来表示这到底是什么类型存储这个量，如果类型过小，如果时间太长的话将会导致溢出。
 + 再来看下Period的定义，
-  ```
+  ```cpp
     // Num，表示分子
     // Denom，表示分母
     template<std::intmax_t Num, std::intmax_t Denom = 1> class ratio;
   ``` 
 + 举个简单点的例子，Num为1，Denom也为1时，表示是1s，如果Num为1，Denom为1000，那么相当于是1/1000s，也即毫秒。如果Num为60，Denom为1，那么表示 60 / 1s，也即相当于1min。
 + 下面是chrono头文件中的一些常见持续时间定义。
-  ```
+  ```cpp
     Type	Definition
     std::chrono::nanoseconds	duration</*signed integer type of at least 64 bits*/, std::nano>
     std::chrono::microseconds	duration</*signed integer type of at least 55 bits*/, std::micro>
@@ -181,7 +181,7 @@
   + 不同持续时间单位之间的转换。
 + Duration重载了+/-运算符，可以直接进行+/-操作，类型之间的转换可以使用duration_cast方法。
 + 下面是一些使用实例。
-  ```
+  ```cpp
     #include <iostream>
     #include <chrono>
 
@@ -213,7 +213,7 @@
   + 时间点也重载了+/-运算符，用来进行两个时间点之间的相加减
 
 + 下面是一些使用示例。
-  ```
+  ```cpp
     #include <iostream>
     #include <chrono>
 
@@ -237,7 +237,7 @@
 ### 一些应用
 
 + 获取时间戳。
-  ```
+  ```cpp
     std::time_t getTimeStamp()
     {
         std::chrono::time_point<std::chrono::system_clock,std::chrono::milliseconds> tp = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now());
@@ -249,7 +249,7 @@
   ``` 
 
 + 将时间戳转为日期。
-  ```
+  ```cpp
     std::tm* gettm(int64 timestamp)
     {
         int64 milli = timestamp+ (int64)8*60*60*1000;//此处转化为东八区北京时间，如果是其它时区需要按需求修改
