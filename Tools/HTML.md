@@ -605,3 +605,125 @@ p {color:blue;}
   + <thead>	    定义表格的页眉
   + <tbody>	    定义表格的主体
   + <tfoot>	    定义表格的页脚
+
+## HTML 列表
+
++ HTML 支持有序、无序和定义列表:
+
++ HTML无序列表
+  + 无序列表是一个项目的列表，此列项目使用粗体圆点（典型的小黑圆圈）进行标记。
+  + 无序列表使用 <ul> 标签
+```html
+<ul>
+<li>Coffee</li>
+<li>Milk</li>
+</ul>
+```
+
++ HTML 有序列表
+  + 同样，有序列表也是一列项目，列表项目使用数字进行标记。 有序列表始于 <ol> 标签。每个列表项始于 <li> 标签。
+  + 列表项使用数字来标记。
+```html
+<ol>
+<li>Coffee</li>
+<li>Milk</li>
+</ol>
+```
+
++ HTML 自定义列表
+  + 自定义列表不仅仅是一列项目，而是项目及其注释的组合。
+  + 自定义列表以 <dl> 标签开始。每个自定义列表项以 <dt> 开始。每个自定义列表项的定义以 <dd> 开始。
+``html
+<dl>
+<dt>Coffee</dt>
+<dd>- black hot drink</dd>
+<dt>Milk</dt>
+<dd>- white cold drink</dd>
+</dl>
+``
+
++ HTML 列表标签
+  + <ol>	定义有序列表
+  + <ul>	定义无序列表
+  + <li>	定义列表项
+  + <dl>	定义列表
+  + <dt>	自定义列表项目
+  + <dd>	定义自定列表项的描述
+
+## HTML <div> 和<span>
+
++ HTML 可以通过 <div> 和 <span>将元素组合起来。
+
++ HTML 区块元素
+  + 大多数 HTML 元素被定义为块级元素或内联元素。
+  + 块级元素在浏览器显示时，通常会以新行来开始（和结束）。
+  + 实例: <h1>, <p>, <ul>, <table>
+
++ HTML 内联元素
+  + 内联元素在显示时通常不会以新行开始。
+  + 实例: <b>, <td>, <a>, <img>
+
++ HTML <div> 元素
+  + HTML <div> 元素是块级元素，它可用于组合其他 HTML 元素的容器。
+  + <div> 元素没有特定的含义。除此之外，由于它属于块级元素，浏览器会在其前后显示折行。
+  + 如果与 CSS 一同使用，<div> 元素可用于对大的内容块设置样式属性。
+  + <div> 元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用 <table> 元素进行文档布局不是表格的正确用法。<table> 元素的作用是显示表格化的数据。
+
++ HTML <span> 元素
+  + HTML <span> 元素是内联元素，可用作文本的容器
+  + <span> 元素也没有特定的含义。
+  + 当与 CSS 一同使用时，<span> 元素可用于为部分文本设置样式属性。
+
++ HTML 分组标签
+  + <div>	定义了文档的区域，块级 (block-level)
+  + <span>	用来组合文档中的行内元素， 内联元素(inline)
+
+## HTML 布局
+
++ 网站布局
+  + 大多数网站会把内容安排到多个列中（就像杂志或报纸那样）。
+  + 大多数网站可以使用 <div> 或者 <table> 元素来创建多列。CSS 用于对元素进行定位，或者为页面创建背景以及色彩丰富的外观。
+  + table标签来设计出漂亮的布局，但是table标签是不建议作为布局工具使用的 - 表格不是布局工具
+
++ HTML 布局 - 使用<div> 元素
+  + div 元素是用于分组 HTML 元素的块级元素。
+  + 下面的例子使用五个 div 元素来创建多列布局：
+```html
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body>
+ 
+<div id="container" style="width:500px">
+ 
+<div id="header" style="background-color:#FFA500;">
+<h1 style="margin-bottom:0;">主要的网页标题</h1></div>
+ 
+<div id="menu" style="background-color:#FFD700;height:200px;width:100px;float:left;">
+<b>菜单</b><br>
+HTML<br>
+CSS<br>
+JavaScript</div>
+ 
+<div id="content" style="background-color:#EEEEEE;height:200px;width:400px;float:left;">
+内容在这里</div>
+ 
+<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+版权 © runoob.com</div>
+ 
+</div>
+ 
+</body>
+</html>
+```
+
++ HTML 布局 - 有用的提示
+  + Tip: 使用 CSS 最大的好处是，如果把 CSS 代码存放到外部样式表中，那么站点会更易于维护。通过编辑单一的文件，就可以改变所有页面的布局。如需学习更多有关 CSS 的知识，请访问我们的CSS 教程。
+  + Tip: 由于创建高级的布局非常耗时，使用模板是一个快速的选项。通过搜索引擎可以找到很多免费的网站模板（您可以使用这些预先构建好的网站布局，并优化它们）。
+
++ HTML 布局标签
+  + <div>	定义文档区块，块级(block-level)
+  + <span>	定义 span，用来组合文档中的行内元素。
