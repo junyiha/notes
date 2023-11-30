@@ -727,3 +727,365 @@ JavaScript</div>
 + HTML 布局标签
   + <div>	定义文档区块，块级(block-level)
   + <span>	定义 span，用来组合文档中的行内元素。
+
+## HTML 表单和输入
+
++ HTML 表单用于收集用户的输入信息。
++ HTML 表单表示文档中的一个区域，此区域包含交互控件，将用户收集到的信息发送到 Web 服务器。
++ HTML 表单通常包含各种输入字段、复选框、单选按钮、下拉列表等元素。
+
++ HTML 表单
+  + 表单是一个包含表单元素的区域。
+  + 表单元素是允许用户在表单中输入内容，比如：文本域（textarea）、下拉列表（select）、单选框（radio-buttons）、复选框（checkbox） 等等。
+  + 我们可以使用 <form> 标签来创建表单:
+```html
+<form>
+.
+input 元素
+.
+</form>
+```
+
++ HTML 表单 - 输入元素
+  + 多数情况下被用到的表单标签是输入标签 <input>。
+  + 输入类型是由 type 属性定义。
+
++ 文本域（Text Fields）
+  + 文本域通过 <input type="text"> 标签来设定，当用户要在表单中键入字母、数字等内容时，就会用到文本域。
+```html
+<form>
+First name: <input type="text" name="firstname"><br>
+Last name: <input type="text" name="lastname">
+</form>
+```
+  + 注意:表单本身并不可见。同时，在大多数浏览器中，文本域的默认宽度是 20 个字符。
+
++ 密码字段
+  + 密码字段通过标签 <input type="password"> 来定义:
+```html
+<form>
+Password: <input type="password" name="pwd">
+</form>
+```
+  + 注意：密码字段字符不会明文显示，而是以星号 * 或圆点 . 替代
+
++ 单选按钮（Radio Buttons）
+  + <input type="radio"> 标签定义了表单的单选框选项:
+```html
+<form action="">
+<input type="radio" name="sex" value="male">男<br>
+<input type="radio" name="sex" value="female">女
+</form>
+```
+
++ 提交按钮(Submit)
+  + <input type="submit"> 定义了提交按钮。
+  + 当用户单击确认按钮时，表单的内容会被传送到服务器。表单的动作属性 action 定义了服务端的文件名。
+  + action 属性会对接收到的用户输入数据进行相关的处理:
+```html
+<form name="input" action="html_form_action.php" method="get">
+Username: <input type="text" name="user">
+<input type="submit" value="Submit">
+</form>
+```
+
++ HTML 表单标签
+  + <form>	      定义供用户输入的表单
+  + <input>	      定义输入域
+  + <textarea>	  定义文本域 (一个多行的输入控件)
+  + <label>	      定义了 <input> 元素的标签，一般为输入标题
+  + <fieldset>	  定义了一组相关的表单元素，并使用外框包含起来
+  + <legend>	    定义了 <fieldset> 元素的标题
+  + <select>	    定义了下拉选项列表
+  + <optgroup>	  定义选项组
+  + <option>	    定义下拉列表中的选项
+  + <button>	    定义一个点击按钮
+  + <datalist>    New	指定一个预先定义的输入控件选项列表
+  + <keygen>      New	定义了表单的密钥对生成器字段
+  + <output>      New	定义一个计算结果
+
+## HTML 框架
+
++ 通过使用框架，你可以在同一个浏览器窗口中显示不止一个页面。
+
++ iframe语法:
+```html
+<iframe src="URL"></iframe>
+```
+  + 该URL指向不同的网页。
+
++ iframe - 设置高度与宽度
+  + height 和 width 属性用来定义iframe标签的高度与宽度。
+  + 属性默认以像素为单位, 但是你可以指定其按比例显示 (如："80%")。
+```html
+<iframe src="demo_iframe.htm" width="200" height="200"></iframe>
+```
+
++ iframe - 移除边框
+  + frameborder 属性用于定义iframe表示是否显示边框。
+  + 设置属性值为 "0" 移除iframe的边框:
+```html
+<iframe src="demo_iframe.htm" frameborder="0"></iframe>
+```
+
++ 使用 iframe 来显示目标链接页面
+  + iframe 可以显示一个目标链接的页面
+  + 目标链接的属性必须使用 iframe 的属性，如下实例:
+```html
+<iframe src="demo_iframe.htm" name="iframe_a"></iframe>
+<p><a href="https://www.runoob.com" target="iframe_a" rel="noopener">RUNOOB.COM</a></p>
+```
+
++ HTML iframe 标签
+  + <iframe>	定义一个内联的iframe
+
+## HTML 颜色
+
++ HTML 颜色由红色、绿色、蓝色混合而成。
+
++ 颜色值
+  + HTML 颜色由一个十六进制符号来定义，这个符号由红色、绿色和蓝色的值组成（RGB）。
+  + 每种颜色的最小值是0（十六进制：#00）。最大值是255（十六进制：#FF）。
+
+## HTML 颜色名
+
++ 目前所有浏览器都支持以下颜色名。
+  + 141个颜色名称是在HTML和CSS颜色规范定义的（17标准颜色，再加124）。下表列出了所有颜色的值，包括十六进制值。
+  + 提示: 17标准颜色：黑色，蓝色，水，紫红色，灰色，绿色，石灰，栗色，海军，橄榄，橙，紫，红，白，银，蓝绿色，黄色。点击其中一个颜色名称（或一个十六进制值）就可以查看与不同文字颜色搭配的背景颜色。
+
+## HTML 颜色值
+
++ 颜色由红(R)、绿(G)、蓝(B)组成。
+
++ 颜色值
+  + 颜色值由十六进制来表示红、绿、蓝（RGB）。
+  + 每个颜色的最低值为 0(十六进制为 00)，最高值为 255(十六进制为FF)。
+  + 十六进制值的写法为 # 号后跟三个或六个十六进制字符。
+  + 三位数表示法为：#RGB，转换为6位数表示为：#RRGGBB。
+
+## HTML 脚本
+
++ JavaScript 使 HTML 页面具有更强的动态和交互性。
+
++ HTML <script> 标签
+  + <script> 标签用于定义客户端脚本，比如 JavaScript。
+  + <script> 元素既可包含脚本语句，也可通过 src 属性指向外部脚本文件。
+  + JavaScript 最常用于图片操作、表单验证以及内容动态更新。
+  + 下面的脚本会向浏览器输出"Hello World!"：
+```html
+<script>
+document.write("Hello World!");
+</script>
+```
+
++ HTML<noscript> 标签
+  + <noscript> 标签提供无法使用脚本时的替代内容，比方在浏览器禁用脚本时，或浏览器不支持客户端脚本时。
+  + <noscript>元素可包含普通 HTML 页面的 body 元素中能够找到的所有元素。
+  + 只有在浏览器不支持脚本或者禁用脚本时，才会显示 <noscript> 元素中的内容：
+```html
+<script>
+document.write("Hello World!")
+</script>
+<noscript>抱歉，你的浏览器不支持 JavaScript!</noscript>
+```
+
+## HTML 字符实体
+
++ HTML 中的预留字符必须被替换为字符实体。
++ 一些在键盘上找不到的字符也可以使用字符实体来替换。
+
++ HTML 实体
+  + 在 HTML 中，某些字符是预留的。
+  + 在 HTML 中不能使用小于号（<）和大于号（>），这是因为浏览器会误认为它们是标签。
+  + 如果希望正确地显示预留字符，我们必须在 HTML 源代码中使用字符实体（character entities）。 字符实体类似这样：
+```html
+&entity_name;
+或
+
+&#entity_number;
+```
+  + 如需显示小于号，我们必须这样写：&lt; 或 &#60; 或 &#060;
+  + 使用实体名而不是数字的好处是，名称易于记忆。不过坏处是，浏览器也许并不支持所有实体名称（对实体数字的支持却很好）。
+
++ 不间断空格(Non-breaking Space)
+  + HTML 中的常用字符实体是不间断空格(&nbsp;)。
+  + 浏览器总是会截短 HTML 页面中的空格。如果您在文本中写 10 个空格，在显示该页面之前，浏览器会删除它们中的 9 个。如需在页面中增加空格的数量，您需要使用 &nbsp; 字符实体。
+
++ 结合音标符
+  + 发音符号是加到字母上的一个"glyph(字形)"。
+  + 一些变音符号, 如 尖音符 (  ̀) 和 抑音符 (  ́) 。
+  + 变音符号可以出现字母的上面和下面，或者字母里面，或者两个字母间。
+  + 变音符号可以与字母、数字字符的组合来使用。
+
++ HTML字符实体
+  + 实体名称对大小写敏感！
+  +  	空格	&nbsp;	&#160;
+  + <	小于号	&lt;	&#60;
+  + >	大于号	&gt;	&#62;
+  + &	和号	&amp;	&#38;
+  + "	引号	&quot;	&#34;
+  + '	撇号 	&apos; (IE不支持)	&#39;
+  + ￠	分	&cent;	&#162;
+  + £	镑	&pound;	&#163;
+  + ¥	人民币/日元	&yen;	&#165;
+  + €	欧元	&euro;	&#8364;
+  + §	小节	&sect;	&#167;
+  + ©	版权	&copy;	&#169;
+  + ®	注册商标	&reg;	&#174;
+  + ™	商标	&trade;	&#8482;
+  + ×	乘号	&times;	&#215;
+  + ÷	除号	&divide;	&#247;
+
+## HTML 统一资源定位器(Uniform Resource Locators)
+
++ URL 是一个网页地址。
++ URL可以由字母组成，如"runoob.com"，或互联网协议（IP）地址： 192.68.20.50。大多数人进入网站使用网站域名来访问，因为 名字比数字更容易记住。
+
++ URL - 统一资源定位器
+  + Web浏览器通过URL从Web服务器请求页面。
+  + 当您点击 HTML 页面中的某个链接时，对应的 <a> 标签指向万维网上的一个地址。
+  + 一个统一资源定位器(URL) 用于定位万维网上的文档。
+  + 一个网页地址实例: http://www.runoob.com/html/html-tutorial.html 语法规则:
+  + scheme://host.domain:port/path/filename
+  + 说明:
+    + scheme - 定义因特网服务的类型。最常见的类型是 http
+    + host - 定义域主机（http 的默认主机是 www）
+    + domain - 定义因特网域名，比如 runoob.com
+    + :port - 定义主机上的端口号（http 的默认端口号是 80）
+    + path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。
+    + filename - 定义文档/资源的名称
+
++ 常见的 URL Scheme
+  + http	超文本传输协议	以 http:// 开头的普通网页。不加密。
+  + https	安全超文本传输协议	安全网页，加密所有信息交换。
+  + ftp	文件传输协议	用于将文件下载或上传至网站。
+  + file	 	您计算机上的文件。
+
++ URL 字符编码
+  + URL 只能使用 ASCII 字符集.
+  + 来通过因特网进行发送。由于 URL 常常会包含 ASCII 集合之外的字符，URL 必须转换为有效的 ASCII 格式。
+  + URL 编码使用 "%" 其后跟随两位的十六进制数来替换非 ASCII 字符。
+  + URL 不能包含空格。URL 编码通常使用 + 来替换空格。
+
+## HTML 标签简写及全称
+
++ a	          Anchor	                    锚
++ abbr	      Abbreviation	              缩写词
++ acronym	    Acronym	                    取首字母的缩写词
++ address	    Address	                    地址
++ alt	        alter	                      替用(一般是图片显示不出的提示)
++ b	          Bold	                      粗体（文本）
++ bdo	        Bi-Directional              Override	文本显示方向
++ big	        Big	                        变大（文本）
++ blockquote	Block Quotation	            区块引用语
++ br	        Break	                      换行
++ cell	      cell	                      巢
++ cellpadding	cellpadding	                巢补白
++ cellspacing	cellspacing	                巢空间
++ center	    Centered	                  居中（文本）
++ cite	      Citation	                  引用
++ code	      Code	                      源代码（文本）
++ dd	        Definition Description	    定义描述
++ del	        Deleted	                    删除（的文本）
++ dfn	        Defines a Definition Term	  定义定义条目
++ div	        Division	                  分隔
++ dl	        Definition List	            定义列表
++ dt	        Definition Term	            定义术语
++ em	        Emphasized	                加重（文本）
++ font	      Font	                      字体
++ h1~h6	      Header 1 to Header 6	      标题1到标题6
++ hr	        Horizontal Rule	            水平尺
++ href	      hypertext reference	        超文本引用
++ i	          Italic	                    斜体（文本）
++ iframe	    Inline frame	              定义内联框架
++ ins	        Inserted	                  插入（的文本）
++ kbd	        Keyboard	                  键盘（文本）
++ li	        List Item	                  列表项目
++ nl	        navigation lists	          导航列表
++ ol	        Ordered List	              排序列表
++ optgroup	  Option group	              定义选项组
++ p	          Paragraph	                  段落
++ pre	        Preformatted	              预定义格式（文本）
++ q	          Quotation	                  引用语
++ rel	        Reload	                    加载
++ s/          strike	Strikethrough	      删除线
++ samp	      Sample	                    示例（文本
++ small	      Small	                      变小（文本）
++ span	      Span	                      范围
++ src	        Source	                    源文件链接
++ strong	    Strong	                    加重（文本）
++ sub	        Subscripted	                下标（文本）
++ sup	        Superscripted	              上标（文本）
++ td	        table data cell	            表格中的一个单元格
++ th	        table header cell	          表格中的表头
++ tr	        table row	                  表格中的一行
++ tt	        Teletype	                  打印机（文本）
++ u	          Underlined	                下划线（文本）
++ ul	        Unordered List	            不排序列表
++ var	        Variable	                  变量（文本）
+
+## HTML 总结
+
++ 本教程已教你如何使用 HTML 创建站点。
++ HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框架和表格等等，并可将之存为文本文件，浏览器即可读取和显示。
++ HTML 的关键是标签，其作用是指示将出现的内容。
+
++ 学习 CSS
+  + CSS被用来同时控制多重网页的样式和布局。
+  + 通过使用 CSS，所有的格式化均可从 HTML 中剥离出来，并存储于一个独立的文件中。
+  + 如需学习如何创建样式表，请访问我们的 CSS 教程 。
+
++ 学习 JavaScript
+  + JavaScript 可以让你的网页更加生动。
+  + 如果你只想展示内容，静态网站是很好的展示形象，如果你想与用户进行交换或者让网页更加生动那就需要使用到Javascript。
+  + JavaScript是互联网上最流行的脚本语言，目前所有主流浏览器都支持Javascript。
+  + 如果你想学习更多关于Javascript的知识，可以访问本站的JavaScript 教程.
+
+## HTML - XHTML
+
++ XHTML 是以 XML 格式编写的 HTML。
+
++ 什么是 XHTML?
+  + XHTML 指的是可扩展超文本标记语言
+  + XHTML 与 HTML 4.01 几乎是相同的
+  + XHTML 是更严格更纯净的 HTML 版本
+  + XHTML 是以 XML 应用的方式定义的 HTML
+  + XHTML 是 2001 年 1 月发布的 W3C 推荐标准
+  + XHTML 得到所有主流浏览器的支持
+
++ 为什么使用 XHTML?
+  + 因特网上的很多页面包含了"糟糕"的 HTML。
+  + XML 是一种必须正确标记且格式良好的标记语言。
+  + 如果希望学习 XML，请阅读我们的 XML 教程。
+  + 今日的科技界存在一些不同的浏览器技术。其中一些在计算机上运行，而另一些可能在移动电话或其他小型设备上运行。小型设备往往缺乏解释"糟糕"的标记语言的资源和能力。
+  + 所以 - 通过结合 XML 和 HTML 的长处，开发出了 XHTML。XHTML 是作为 XML 被重新设计的 HTML。
+
++ 与 HTML 相比最重要的区别：
+  + 文档结构
+    + XHTML DOCTYPE 是强制性的
+    + <html> 中的 XML namespace 属性是强制性的
+    + <html>、<head>、<title> 以及 <body> 也是强制性的
+  + 元素语法
+    + XHTML 元素必须正确嵌套
+    + XHTML 元素必须始终关闭
+    + XHTML 元素必须小写
+    + XHTML 文档必须有一个根元素
+  + 属性语法
+    + XHTML 属性必须使用小写
+    + XHTML 属性值必须用引号包围
+    + XHTML 属性最小化也是禁止的
+
++ XHTML 元素必须合理嵌套
++ XHTML 元素必须有关闭标签
++ 空元素必须包含关闭标签
++ XHTML 元素必须是小写
++ 属性名称必须是小写
++ 属性值必须有引号
++ 不允许属性简写
++ 如何将 HTML 转换为 XHTML
+  + 添加一个 XHTML <!DOCTYPE> 到你的网页中
+  + 添加 xmlns 属性添加到每个页面的html元素中。
+  + 改变所有的元素为小写
+  + 关闭所有的空元素
+  + 修改所有的属性名称为小写
+  + 所有属性值添加引号
