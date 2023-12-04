@@ -584,7 +584,7 @@ int main(int argc, char* argv[]) {
 
 需要注意的是，`FLAGS_max_log_size` 是一个全局标志，它控制着整个应用程序中单个日志文件的大小。调整这个值可以防止日志文件过大，但也可能会导致日志文件频繁切割，因此需要根据应用程序的需求来选择合适的大小。
 
-## glog FLAGS_max_log_size
+## glog FLAGS_minloglevel
 
 `FLAGS_minloglevel` 是 `glog` 库中的一个标志（flag），用于设置日志消息的最低级别。通过设置这个标志，你可以控制只记录高于或等于指定级别的日志消息，低于指定级别的日志消息将被忽略。
 
