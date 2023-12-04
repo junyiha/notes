@@ -145,3 +145,219 @@ int main() {
    - `std::random_device` 在不同的平台和编译器实现中可能表现不同，有些平台可能无法提供真随机数，或者提供的随机性不足。
 
 总的来说，`std::random_device` 是用于获取随机数种子的一种机制。在大多数情况下，它能够提供高质量的随机数种子，以供初始化伪随机数生成器。但在某些特定情况下，可能会受到平台限制或实现差异的影响。
+
+## std::default_random_engine
+
+`std::default_random_engine` 是 C++ 标准库中的一个类模板，用于生成伪随机数的引擎部分，位于 `<random>` 头文件中。它是 C++ 提供的一个伪随机数生成器（Pseudo-Random Number Generator，PRNG），能够生成一系列的随机数。
+
+这个引擎的实现可能因不同的 C++ 标准库而异，但通常实现了某种伪随机数算法来生成随机数。在程序中使用 `std::default_random_engine` 可以生成随机数序列，通常需要与其他组件（例如分布器）结合使用来生成特定分布的随机数。
+
+以下是一个简单的示例，演示了如何使用 `std::default_random_engine` 生成随机数：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建默认随机数引擎
+    std::default_random_engine generator;
+
+    // 生成整数分布为[1, 6]的随机数
+    std::uniform_int_distribution<int> distribution(1, 6);
+
+    for (int i = 0; i < 5; ++i) {
+        int random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::default_random_engine` 创建了一个默认的随机数引擎。
+- 使用 `std::uniform_int_distribution` 定义了一个整数分布，范围为 `[1, 6]`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了指定范围内的随机数。
+
+需要注意的是，`std::default_random_engine` 可能会因实现的不同而有不同的特性和性能，对于一些需要高质量随机数的场景，可能需要选择更加复杂的随机数引擎或者特定算法来满足需求。
+
+## std::mt19937
+
+`std::mt19937` 是 C++ 标准库 `<random>` 头文件中定义的 Mersenne Twister 随机数引擎的一个特定实例。Mersenne Twister 是一种流行的伪随机数生成器 (PRNG) 算法，提供了高质量、高周期性的随机数序列。
+
+`std::mt19937` 使用 32 位整数作为状态空间，并且具有一个非常大的周期，通常为 2^19937-1。这种引擎在大多数情况下提供了良好的随机性和性能。
+
+以下是一个使用 `std::mt19937` 的简单示例：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建 Mersenne Twister 引擎实例
+    std::mt19937 generator;
+
+    // 定义整数分布为[1, 100]范围内的随机数
+    std::uniform_int_distribution<int> distribution(1, 100);
+
+    for (int i = 0; i < 5; ++i) {
+        int random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::mt19937` 创建了一个 Mersenne Twister 引擎实例。
+- 使用 `std::uniform_int_distribution` 定义了一个整数分布，范围为 `[1, 100]`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了指定范围内的随机数。
+
+`std::mt19937` 是一个常用的随机数引擎，通常能够满足大多数随机数生成的需求。然而，在一些特殊场景下，可能需要根据特定需求选择其他的随机数引擎或者更复杂的生成算法。
+
+## std::uniform_int_distribution
+
+`std::uniform_int_distribution` 是 C++ 标准库 `<random>` 头文件中定义的类模板，用于产生指定范围内均匀分布的整数随机数。
+
+该类模板允许您定义一个离散的整数分布，指定了随机数的范围。在生成随机数时，会根据指定的范围，以均匀分布的方式生成整数。
+
+以下是一个使用 `std::uniform_int_distribution` 的简单示例：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建 Mersenne Twister 引擎实例
+    std::mt19937 generator(std::random_device{}());
+
+    // 定义整数分布为[1, 100]范围内的随机数
+    std::uniform_int_distribution<int> distribution(1, 100);
+
+    for (int i = 0; i < 5; ++i) {
+        int random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::mt19937` 创建了一个 Mersenne Twister 引擎实例，并使用 `std::random_device` 作为种子。
+- 使用 `std::uniform_int_distribution` 定义了一个整数分布，范围为 `[1, 100]`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了指定范围内的随机数。
+
+`std::uniform_int_distribution` 是一个用于生成指定范围内均匀分布的整数随机数的实用工具，可以方便地生成各种整数范围内的随机数。
+
+## std::uniform_real_distribution
+
+`std::uniform_real_distribution` 是 C++ 标准库 `<random>` 头文件中定义的类模板，用于产生指定范围内均匀分布的实数（浮点数）随机数。
+
+该类模板允许您定义一个连续的均匀分布，指定了随机数的范围。在生成随机数时，会根据指定的范围，以均匀分布的方式生成浮点数。
+
+以下是一个使用 `std::uniform_real_distribution` 的简单示例：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建 Mersenne Twister 引擎实例
+    std::mt19937 generator(std::random_device{}());
+
+    // 定义实数分布为[0.0, 1.0)范围内的随机数
+    std::uniform_real_distribution<double> distribution(0.0, 1.0);
+
+    for (int i = 0; i < 5; ++i) {
+        double random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::mt19937` 创建了一个 Mersenne Twister 引擎实例，并使用 `std::random_device` 作为种子。
+- 使用 `std::uniform_real_distribution` 定义了一个实数分布，范围为 `[0.0, 1.0)`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了指定范围内的随机数。
+
+`std::uniform_real_distribution` 是一个用于生成指定范围内均匀分布的实数随机数的实用工具，可以方便地生成各种浮点数范围内的随机数。
+
+## std::normal_distribution
+
+`std::normal_distribution` 是 C++ 标准库 `<random>` 头文件中定义的类模板，用于产生指定均值和标准差的正态分布（高斯分布）的随机数。
+
+正态分布是一种连续的概率分布，通常称为高斯分布，其形状呈钟形曲线，以均值为中心，并由标准差确定其宽度。`std::normal_distribution` 允许您生成服从正态分布的随机数。
+
+以下是一个使用 `std::normal_distribution` 的简单示例：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建 Mersenne Twister 引擎实例
+    std::mt19937 generator(std::random_device{}());
+
+    // 定义正态分布，均值为 0，标准差为 1 的随机数
+    std::normal_distribution<double> distribution(0.0, 1.0);
+
+    for (int i = 0; i < 5; ++i) {
+        double random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::mt19937` 创建了一个 Mersenne Twister 引擎实例，并使用 `std::random_device` 作为种子。
+- 使用 `std::normal_distribution` 定义了一个正态分布，均值为 `0.0`，标准差为 `1.0`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了符合指定正态分布的随机数。
+
+`std::normal_distribution` 是一个用于生成指定均值和标准差的正态分布随机数的实用工具，可以方便地生成服从正态分布的随机数。
+
+## std::poisson_distribution
+
+`std::poisson_distribution` 是 C++ 标准库 `<random>` 头文件中定义的类模板，用于生成服从泊松分布的随机整数。
+
+泊松分布是一种描述在一定时间或空间范围内，事件发生次数的概率分布。它适用于描述在固定时间或空间区间内，事件发生的次数，如单位时间内接收到的电话数、一段时间内发生的交通事故次数等等。
+
+以下是一个使用 `std::poisson_distribution` 的简单示例：
+
+```cpp
+#include <iostream>
+#include <random>
+
+int main() {
+    // 创建 Mersenne Twister 引擎实例
+    std::mt19937 generator(std::random_device{}());
+
+    // 定义泊松分布，lambda 值为 2.0
+    std::poisson_distribution<int> distribution(2.0);
+
+    for (int i = 0; i < 5; ++i) {
+        int random_number = distribution(generator);
+        std::cout << "随机数：" << random_number << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+- 使用 `std::mt19937` 创建了一个 Mersenne Twister 引擎实例，并使用 `std::random_device` 作为种子。
+- 使用 `std::poisson_distribution` 定义了一个泊松分布，lambda 值为 `2.0`。
+- 在循环中，`distribution(generator)` 使用 `generator` 引擎生成了服从指定泊松分布的随机整数。
+
+`std::poisson_distribution` 是一个用于生成服从泊松分布的随机整数的实用工具，可以方便地生成符合泊松分布的随机数。
