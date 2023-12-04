@@ -99,3 +99,417 @@ int main() {
 ```
 
 `<chrono>` 提供了一种标准化的时间处理方式，可用于测量和管理时间，执行定时操作以及进行时间单位转换。它的引入使得在 C++ 中对时间进行处理更加方便和跨平台。
+
+## C++ <chrono>标准库 常用函数
+
+C++ `<chrono>` 标准库提供了用于处理时间的功能，包括时间点（time points）、时间间隔（durations）、时钟（clocks）等。以下是一些 `<chrono>` 标准库中常用的函数和类：
+
+### 类和类型
+
+1. **`std::chrono::duration`**：表示时间间隔的类型。例如 `std::chrono::duration<int>` 表示以整数秒为单位的时间间隔。
+   
+2. **`std::chrono::time_point`**：表示特定时钟的时间点。它由时钟和持续时间构成。
+
+3. **`std::chrono::system_clock`**：提供当前时间，并使用 UNIX 时间（1970 年 1 月 1 日午夜起的秒数）作为其时间起点。
+
+4. **`std::chrono::steady_clock`**：提供一个稳定的时钟，用于测量时间间隔，不受系统时间调整的影响。
+
+5. **`std::chrono::high_resolution_clock`**：提供高分辨率时钟，尽可能提供最高精度的计时，但其精度因平台而异。
+
+### 函数
+
+1. **`std::chrono::duration_cast`**：用于将一个时间间隔类型转换为另一个时间间隔类型。
+
+   ```cpp
+   auto result = std::chrono::duration_cast<std::chrono::minutes>(some_duration);
+   ```
+
+2. **`std::chrono::time_point_cast`**：用于将一个时间点类型转换为另一个时间点类型。
+
+   ```cpp
+   auto result = std::chrono::time_point_cast<std::chrono::hours>(some_time_point);
+   ```
+
+3. **`std::chrono::system_clock::now`**：获取当前时间点。
+
+   ```cpp
+   auto current_time = std::chrono::system_clock::now();
+   ```
+
+4. **`std::chrono::steady_clock::now`**：获取当前稳定时钟的时间点。
+
+   ```cpp
+   auto current_time = std::chrono::steady_clock::now();
+   ```
+
+5. **`std::chrono::duration` 中的各种算术运算**：例如加法、减法、乘法和除法，用于处理时间间隔之间的运算。
+
+### 示例
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 获取当前系统时间点
+    auto start_time = std::chrono::system_clock::now();
+
+    // 模拟一段程序执行时间
+    std::cout << "Working..." << std::endl;
+    for (int i = 0; i < 1000000; ++i) {
+        // 做一些计算
+    }
+
+    // 获取结束时间点
+    auto end_time = std::chrono::system_clock::now();
+
+    // 计算程序执行时间间隔
+    auto duration = end_time - start_time;
+    std::cout << "Program execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " milliseconds\n";
+
+    return 0;
+}
+```
+
+以上是 C++ `<chrono>` 标准库中一些常用的函数和类，可以用于时间点和时间间隔的操作和管理。
+
+## std::chrono::duration
+
+`std::chrono::duration` 是 C++ `<chrono>` 标准库中表示时间间隔的类模板。它表示一个时间段，可以用于测量不同时间点之间的时间差，以及进行时间单位之间的转换。`std::chrono::duration` 的模板定义如下：
+
+```cpp
+template <class Rep, class Period = std::ratio<1>>
+class duration;
+```
+
+- `Rep`：表示持续时间的类型，通常是一个整数类型，用于存储时间长度。
+- `Period`：表示时间单位的类型，通常是 `std::ratio` 类型，它定义了时间间隔的基本单位。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 定义一个持续时间为10秒的duration
+    std::chrono::duration<int> ten_seconds(10);
+
+    // 获取duration的值和单位
+    std::cout << "ten_seconds: " << ten_seconds.count() << " seconds" << std::endl;
+
+    // 定义一个浮点型持续时间，表示0.5秒
+    std::chrono::duration<double> half_second(0.5);
+
+    // 获取duration的值和单位
+    std::cout << "half_second: " << half_second.count() << " seconds" << std::endl;
+
+    // 进行duration之间的加法操作
+    auto total_duration = ten_seconds + half_second;
+
+    // 获取总持续时间的值和单位
+    std::cout << "total_duration: " << total_duration.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在示例中，`std::chrono::duration` 被用来表示不同的时间间隔，可以通过 `count()` 函数获取其持续时间的值，并且支持多种时间间隔的算术操作，如加法、减法等。
+
+## std::chrono::time_point
+
+`std::chrono::time_point` 是 C++ `<chrono>` 标准库中的类模板，用于表示特定时钟（`Clock`）的时间点。它结合了时钟（`Clock`）和持续时间（`Duration`），可以表示从时钟的起点开始经过的时间。`std::chrono::time_point` 的模板定义如下：
+
+```cpp
+template <class Clock, class Duration = typename Clock::duration>
+class time_point;
+```
+
+- `Clock`：表示时钟类型，例如 `std::chrono::system_clock`、`std::chrono::steady_clock` 等。
+- `Duration`：表示时间间隔的类型，通常是 `std::chrono::duration` 类型。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 使用 system_clock 获取当前时间点
+    std::chrono::time_point<std::chrono::system_clock> current_time = std::chrono::system_clock::now();
+
+    // 使用 steady_clock 获取当前时间点
+    std::chrono::time_point<std::chrono::steady_clock> start_time = std::chrono::steady_clock::now();
+
+    // 进行一些操作...
+
+    // 获取另一个时间点并计算时间间隔
+    std::chrono::time_point<std::chrono::steady_clock> end_time = std::chrono::steady_clock::now();
+    std::chrono::duration<double> duration = end_time - start_time;
+
+    // 输出时间间隔
+    std::cout << "Duration: " << duration.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在示例中，`std::chrono::time_point` 被用于存储不同时钟类型（`std::chrono::system_clock` 和 `std::chrono::steady_clock`）的时间点。可以使用 `now()` 函数获取当前时间点，也可以进行时间点之间的算术运算（例如计算时间间隔）。
+
+## std::chrono::system_clock
+
+`std::chrono::system_clock` 是 C++ `<chrono>` 标准库中的时钟类型，用于提供当前系统时间和日期。它是一个基于实时时钟的时钟类，使用的时钟起点通常是 UNIX 时间（1970 年 1 月 1 日午夜起的秒数）。`std::chrono::system_clock` 提供了获取当前时间的方法。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+#include <ctime>
+
+int main() {
+    // 获取当前系统时间点
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+    // 将时间点转换为时间戳（秒数）
+    std::time_t timestamp = std::chrono::system_clock::to_time_t(now);
+
+    // 输出时间戳
+    std::cout << "Current timestamp: " << timestamp << std::endl;
+
+    // 将时间戳转换回时间点
+    std::chrono::system_clock::time_point time_from_timestamp = std::chrono::system_clock::from_time_t(timestamp);
+
+    // 检查时间点是否相同
+    if (time_from_timestamp == now) {
+        std::cout << "Time points are equal." << std::endl;
+    } else {
+        std::cout << "Time points are not equal." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在示例中，`std::chrono::system_clock` 被用于获取当前系统时间点 (`now`)，并且可以将时间点转换为时间戳 (`std::time_t`)，以及将时间戳转换回时间点。这允许在不同的时钟表示之间进行转换和比较。
+
+## std::chrono::steady_clock
+
+`std::chrono::steady_clock` 是 C++ `<chrono>` 标准库中的时钟类型，用于提供稳定、不受系统时间调整影响的时钟。它用于测量时间间隔，适合于需要精确计时而不受系统时间调整（例如时间同步或夏令时变化）影响的场景。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 获取起始时间点
+    std::chrono::steady_clock::time_point start_time = std::chrono::steady_clock::now();
+
+    // 模拟一段程序执行时间
+    for (int i = 0; i < 1000000; ++i) {
+        // 做一些计算
+    }
+
+    // 获取结束时间点
+    std::chrono::steady_clock::time_point end_time = std::chrono::steady_clock::now();
+
+    // 计算程序执行时间间隔
+    std::chrono::duration<double> duration = end_time - start_time;
+
+    // 输出程序执行时间
+    std::cout << "Program execution time: " << duration.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::chrono::steady_clock` 被用于获取程序开始和结束时的时间点，并计算两个时间点之间的持续时间。这种时钟不受系统时间调整的影响，适用于需要精确计时的场景，比如性能测试或计时要求较高的应用程序。
+
+## std::chrono::high_resolution_clock
+
+`std::chrono::high_resolution_clock` 是 C++ `<chrono>` 标准库中的时钟类型，提供了高精度计时功能，尽可能提供最高分辨率的时间测量。然而，精度和实际分辨率可能因平台和实现而异。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 获取起始时间点
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    // 模拟一段程序执行时间
+    for (int i = 0; i < 1000000; ++i) {
+        // 做一些计算
+    }
+
+    // 获取结束时间点
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    // 计算程序执行时间间隔
+    auto duration = end_time - start_time;
+
+    // 输出程序执行时间
+    std::cout << "Program execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(duration).count() << " microseconds" << std::endl;
+
+    return 0;
+}
+```
+
+在示例中，`std::chrono::high_resolution_clock` 被用于测量程序执行时间。需要注意的是，尽管这个时钟通常提供较高的分辨率，但实际精度取决于系统的支持以及硬件平台。因此，在不同的系统上，精度和分辨率可能会有所不同。
+
+## std::chrono::duration_cast
+
+`std::chrono::duration_cast` 是 `<chrono>` 标准库中的函数，用于执行 `std::chrono::duration` 类型之间的转换。它允许将一个持续时间（duration）对象从一种单位转换为另一种单位。常用于从高精度单位（例如纳秒或微秒）转换为较低精度单位（例如秒或毫秒）。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 创建一个高精度的持续时间（纳秒）
+    std::chrono::nanoseconds ns_duration(123456789);
+
+    // 将纳秒转换为毫秒
+    std::chrono::milliseconds ms_duration = std::chrono::duration_cast<std::chrono::milliseconds>(ns_duration);
+
+    // 输出转换后的持续时间
+    std::cout << "Milliseconds: " << ms_duration.count() << " ms" << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，`std::chrono::duration_cast` 将纳秒时间持续时间对象 `ns_duration` 转换为毫秒时间持续时间对象 `ms_duration`。`count()` 函数用于获取转换后持续时间的数值，并输出转换后的持续时间。这个函数非常有用，因为它允许你在不同时间单位之间进行安全和精确的转换。
+
+## std::chrono::time_point_cast
+
+`std::chrono::time_point_cast` 是 `<chrono>` 标准库中的函数，用于将 `std::chrono::time_point` 对象从一种时钟类型（`Clock`）转换为另一种时钟类型，并指定新的时间单位。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 定义一个时间点，使用系统时钟
+    std::chrono::system_clock::time_point sys_time = std::chrono::system_clock::now();
+
+    // 将系统时钟时间点转换为稳定时钟时间点
+    std::chrono::steady_clock::time_point steady_time = std::chrono::time_point_cast<std::chrono::steady_clock::duration>(sys_time);
+
+    // 输出转换后的时间点（稳定时钟）
+    std::cout << "Steady clock time: " << std::chrono::steady_clock::to_time_t(steady_time) << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::chrono::time_point_cast` 用于将系统时钟 (`std::chrono::system_clock`) 的时间点 `sys_time` 转换为稳定时钟 (`std::chrono::steady_clock`) 的时间点 `steady_time`。这种转换可能导致精度损失，因为不同的时钟可能具有不同的分辨率和特性。
+
+## std::chrono::system_clock::now
+
+`std::chrono::system_clock::now` 是 C++ `<chrono>` 标准库中的函数，用于获取当前系统时间点，返回一个 `std::chrono::time_point` 对象，表示当前的系统时间。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+#include <ctime>
+
+int main() {
+    // 获取当前系统时间点
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+    // 将时间点转换为时间戳（秒数）
+    std::time_t timestamp = std::chrono::system_clock::to_time_t(now);
+
+    // 输出时间戳
+    std::cout << "Current timestamp: " << timestamp << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::chrono::system_clock::now()` 用于获取当前系统时间点，然后通过 `std::chrono::system_clock::to_time_t` 将时间点转换为时间戳（秒数）以便输出。
+
+## std::chrono::steady_clock::now
+
+`std::chrono::steady_clock::now()` 是 C++ `<chrono>` 标准库中的函数，用于获取当前稳定时钟（`std::chrono::steady_clock`）的时间点，返回一个 `std::chrono::time_point` 对象，表示当前的稳定时钟时间点。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 获取当前稳定时钟时间点
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+
+    // 进行一些操作...
+
+    // 获取经过的时间间隔
+    std::chrono::steady_clock::time_point later = std::chrono::steady_clock::now();
+    std::chrono::duration<double> duration = later - now;
+
+    // 输出经过的时间间隔
+    std::cout << "Elapsed time: " << duration.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::chrono::steady_clock::now()` 被用于获取程序执行时的稳定时钟时间点，然后可以计算程序执行所经过的时间间隔，这在需要精确计时而又不受系统时间变化影响的场景下非常有用。
+
+## std::chrono::duration
+
+`std::chrono::duration` 是 C++ `<chrono>` 标准库中用于表示时间间隔的类模板。它能够表示一个时间段，即持续时间，以及可以用于测量不同时间点之间的时间差。
+
+### 模板定义：
+
+```cpp
+template<class Rep, class Period = std::ratio<1>>
+class duration;
+```
+
+- `Rep`：表示时间长度的类型，通常是一个整数类型，用于存储时间的长度。
+- `Period`：表示时间单位的类型，通常是 `std::ratio` 类型，定义了时间间隔的基本单位。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    // 定义一个持续时间为 5 秒的 duration 对象
+    std::chrono::duration<int> five_seconds(5);
+
+    // 获取 duration 对象的值和单位
+    std::cout << "Five seconds: " << five_seconds.count() << " seconds" << std::endl;
+
+    // 定义一个浮点型持续时间，表示 2.5 秒
+    std::chrono::duration<double> two_and_half_seconds(2.5);
+
+    // 获取浮点型 duration 对象的值和单位
+    std::cout << "Two and a half seconds: " << two_and_half_seconds.count() << " seconds" << std::endl;
+
+    // 进行 duration 对象之间的加法操作
+    auto total_duration = five_seconds + two_and_half_seconds;
+
+    // 获取总持续时间的值和单位
+    std::cout << "Total duration: " << total_duration.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在示例中，`std::chrono::duration` 用于表示不同的时间间隔，并可以通过 `count()` 函数获取持续时间的值。同时，`std::chrono::duration` 还支持不同时间间隔之间的算术操作，比如加法、减法等。
