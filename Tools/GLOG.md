@@ -1,0 +1,808 @@
+## 简介
+
++ GLOG 相关学习笔记
+
+## glog
+
+`glog` 是 Google 的日志记录库，用于C++。它是一个高性能的日志记录库，旨在提供易于使用的日志记录功能，允许开发者在程序中输出日志消息，以便调试和记录应用程序的运行情况。
+
+以下是 `glog` 库的一些主要特性和用法：
+
+### 特性：
+
+1. **灵活性：** 允许开发者记录不同级别（如INFO、WARNING、ERROR等）的日志消息。
+
+2. **多线程安全：** 在多线程环境下，可以安全地使用 `glog` 记录日志，避免竞争条件和数据冲突。
+
+3. **日志级别控制：** 可以根据需要控制不同级别日志的输出，允许在运行时动态修改日志级别。
+
+4. **日志输出格式化：** 支持不同格式的日志输出，包括文件名、行号、时间戳等信息。
+
+5. **日志文件滚动：** 支持日志文件的滚动（rolling），允许按照一定大小或时间来切分日志文件。
+
+### 用法示例：
+
+#### 安装 glog 库：
+
+你可以通过源代码编译和安装 glog 库，也可以在 Linux 系统中使用包管理器安装（例如 `apt-get`、`yum`）。
+
+#### 使用方法：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志级别（可选）
+    FLAGS_logtostderr = true; // 输出到标准错误流
+    FLAGS_minloglevel = google::INFO; // 设置最低日志级别为 INFO
+
+    // 输出日志消息
+    LOG(INFO) << "This is an information message.";
+    LOG(WARNING) << "This is a warning message.";
+    LOG(ERROR) << "This is an error message.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在上述示例中，首先需要包含 `<glog/logging.h>` 头文件，然后通过 `google::InitGoogleLogging(argv[0]);` 来初始化 glog 库。之后可以使用 `LOG(INFO)`、`LOG(WARNING)`、`LOG(ERROR)` 等宏来输出不同级别的日志消息。
+
+这只是一个简单的例子，`glog` 库提供了更多的功能和选项，允许开发者根据需求进行更高级的日志记录。详细的使用方法可以参考 `glog` 的官方文档。
+
+## glog 详解
+
+`glog`（Google Log）是由 Google 开发的用于 C++ 的日志记录库。它旨在提供高效、灵活和易于使用的日志记录功能，用于记录应用程序的运行时信息和错误。以下是关于 `glog` 的一些详解：
+
+### 特点和优势：
+
+1. **多级别日志记录：** `glog` 允许记录不同级别的日志消息，如 INFO、WARNING、ERROR 等，以便于用户更好地理解应用程序的运行状态。
+
+2. **灵活性：** 提供了丰富的配置选项，用户可以根据需要配置不同的日志输出方式、格式和级别。可以通过 `FLAGS` 或代码来配置参数。
+
+3. **多线程安全：** 在多线程环境中，`glog` 能够安全记录日志消息，避免竞争条件和数据冲突。
+
+4. **日志滚动：** 支持日志文件的滚动（rolling），可以按照大小或时间来切分日志文件，防止日志文件过大影响存储。
+
+5. **异常处理：** 可以将异常信息记录到日志中，有助于排查错误和异常情况。
+
+6. **低开销：** 设计上尽量减少对程序性能的影响，同时提供高效的日志记录和输出功能。
+
+### 使用方法：
+
+#### 初始化：
+
+在程序开始时，需要调用 `google::InitGoogleLogging(argv[0]);` 来初始化 `glog`，该函数将日志输出到文件，默认情况下日志级别为 `INFO`。
+
+#### 输出日志：
+
+使用 `LOG(INFO)`、`LOG(WARNING)`、`LOG(ERROR)` 等宏来输出不同级别的日志消息，例如：
+
+```cpp
+LOG(INFO) << "This is an information message.";
+LOG(WARNING) << "This is a warning message.";
+LOG(ERROR) << "This is an error message.";
+```
+
+#### 配置选项：
+
+可以通过设置 `FLAGS` 来控制日志输出方式、级别和格式，例如：
+
+```cpp
+FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+FLAGS_minloglevel = google::ERROR; // 设置最低日志级别为 ERROR
+FLAGS_logtostderr = true; // 输出到标准错误流
+```
+
+#### 关闭 glog：
+
+在程序结束时，可以调用 `google::ShutdownGoogleLogging();` 来关闭 `glog`。
+
+### 总结：
+
+`glog` 是一个强大且灵活的日志记录工具，能够帮助开发者记录和分析应用程序的运行时信息。它提供了丰富的配置选项和多级别日志记录功能，方便用户根据需要进行定制和使用。详细的使用方法和配置选项可以参考 `glog` 的官方文档。
+
+## glog 常用函数
+
+`glog` 库提供了一些常用的函数和宏，用于配置日志记录、输出日志消息以及进行相关操作。以下是一些常用的 `glog` 函数和宏：
+
+1. **`google::InitGoogleLogging(const char* arg)`**：
+   - 功能：初始化 `glog` 库。
+   - 参数：接收程序名称或命令行参数。
+   - 示例：`google::InitGoogleLogging(argv[0]);`
+
+2. **`google::ShutdownGoogleLogging()`**：
+   - 功能：关闭 `glog` 库。
+   - 示例：`google::ShutdownGoogleLogging();`
+
+3. **`LOG(LEVEL)` 宏**：
+   - 功能：输出不同级别的日志消息。
+   - 参数：`LEVEL` 表示日志级别，如 `INFO`、`WARNING`、`ERROR` 等。
+   - 示例：`LOG(INFO) << "Information message";`
+
+4. **`FLAGS` 全局变量**：
+   - 功能：控制日志记录的各种设置和选项。
+   - 示例：`FLAGS_log_dir = "/path/to/logs";` 设置日志输出目录。
+
+5. **`VLOG(n)` 宏**：
+   - 功能：根据日志的详细程度输出不同的信息。
+   - 参数：`n` 表示详细程度，值越高输出的信息越详细。
+   - 示例：`VLOG(1) << "Verbose message";`
+
+6. **`CHECK(condition)` 宏**：
+   - 功能：检查条件，如果条件不满足则输出错误信息并终止程序。
+   - 参数：`condition` 表示需要检查的条件。
+   - 示例：`CHECK(x > 0) << "x must be greater than 0";`
+
+7. **`DCHECK(condition)` 宏**：
+   - 功能：在调试模式下检查条件，类似于 `CHECK`。
+   - 示例：`DCHECK(ptr != nullptr) << "Pointer is null";`
+
+8. **`LOG_IF(LEVEL, condition)` 宏**：
+   - 功能：当条件满足时输出日志消息。
+   - 参数：`LEVEL` 表示日志级别，`condition` 表示条件。
+   - 示例：`LOG_IF(ERROR, x < 0) << "x is negative";`
+
+9. **`LOG_EVERY_N(LEVEL, n)` 宏**：
+   - 功能：每执行 n 次输出一次日志消息。
+   - 参数：`LEVEL` 表示日志级别，`n` 表示执行次数。
+   - 示例：`LOG_EVERY_N(INFO, 100) << "Output every 100 times";`
+
+10. **`PLOG(LEVEL)` 宏**：
+    - 功能：输出包含系统错误信息的日志消息。
+    - 参数：`LEVEL` 表示日志级别。
+    - 示例：`PLOG(ERROR) << "Error occurred";`
+
+这些函数和宏能够帮助开发者灵活地配置和输出日志消息，根据需求记录不同级别的信息，并提供了方便的错误检查和调试工具。
+
+## glog FLAGS_alsologtostderr
+
+`FLAGS_alsologtostderr` 是 `glog` 库中的一个标志（flag），用于指定日志消息除了输出到日志文件外，是否也输出到标准错误流（stderr）。当这个标志被设置为 `true` 时，日志消息不仅会被写入到指定的日志文件中，还会输出到控制台的错误流。
+
+下面是一个简单的示例，展示了 `FLAGS_alsologtostderr` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志输出目录和文件
+    FLAGS_logtostderr = false;  // 禁止输出到控制台
+    FLAGS_log_dir = "/path/to/logs";  // 设置日志输出目录
+    google::SetLogDestination(google::GLOG_INFO, "/path/to/logs/mylog.log");  // 设置输出文件
+
+    FLAGS_alsologtostderr = true;  // 同时输出到控制台错误流
+
+    LOG(INFO) << "This message will be logged to the file with INFO level and also to stderr.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_alsologtostderr` 被设置为 `true`，因此 `LOG(INFO)` 消息除了被记录到指定的日志文件中外，也会输出到标准错误流（stderr）。
+
+需要注意的是，设置 `FLAGS_alsologtostderr` 为 `true` 可以方便在控制台中查看日志消息，但同时也可能会影响到程序的输出。因此，根据实际需求和应用场景来决定是否使用这个标志。
+
+## glog FLAGS_colorlogtostderr
+
+`FLAGS_colorlogtostderr` 是 `glog` 库中的一个标志（flag），用于启用或禁用将日志消息以彩色输出到标准错误流（stderr）的功能。当这个标志被设置为 `true` 时，日志消息会以彩色形式显示在控制台的错误流中，使不同级别的日志消息更易于区分。
+
+下面是一个简单的示例，展示了 `FLAGS_colorlogtostderr` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 启用彩色输出到控制台错误流
+    FLAGS_colorlogtostderr = true;
+
+    LOG(INFO) << "This message will be logged to stderr in color.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_colorlogtostderr` 被设置为 `true`，因此 `LOG(INFO)` 消息将会以彩色形式显示在控制台的错误流中。
+
+需要注意的是，彩色日志输出的可用性可能取决于终端的支持情况，不同的终端可能会以不同的方式显示彩色输出。如果终端不支持彩色输出，即使设置了 `FLAGS_colorlogtostderr`，日志消息也会以普通文本的形式显示在控制台中。
+
+## glog FLAGS_colorlogtostdout
+
+在 `glog` 中，并没有 `FLAGS_colorlogtostdout` 这个特定的标志（flag）。通常情况下，`glog` 用于控制日志消息输出到标准错误流（stderr），而不是标准输出流（stdout）。
+
+然而，`glog` 支持通过修改日志消息格式来给日志消息添加颜色，但这不是通过特定的标志来控制的。你可以自定义日志消息的格式，并使用 ANSI 转义序列（例如 `\033[颜色代码m`）来添加颜色。但这种方式是基于消息格式的自定义，而不是通过 `FLAGS_colorlogtostdout` 这样的标志进行控制。
+
+如果你想要在控制台的标准输出流（stdout）中查看彩色日志消息，你可以尝试自定义日志消息格式，并在输出日志消息到控制台时使用 ANSI 转义序列来添加颜色。以下是一个简单示例：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 定义彩色日志消息格式
+    FLAGS_logtostderr = true; // 输出到stderr
+    FLAGS_colorlogtostderr = true; // 启用stderr的彩色输出
+
+    // 输出带颜色的日志消息到stderr
+    LOG(INFO) << "\033[1;32mThis message will be logged to stderr in green color.\033[0m";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+请注意，上述示例使用了 ANSI 转义序列 `\033[1;32m` 和 `\033[0m` 来定义彩色的日志消息（在这个例子中是绿色）。但这种方法可能会因终端支持度不同而有所差异，不同的终端可能对彩色输出支持程度不同。
+
+## glog FLAGS_log_dir
+
+`FLAGS_log_dir` 是 `glog` 库中的一个标志（flag），用于设置日志文件的输出目录。通过设置这个标志，你可以指定 `glog` 将日志文件输出到特定的目录中。
+
+下面是一个简单的示例，展示了 `FLAGS_log_dir` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志输出目录
+    FLAGS_log_dir = "/path/to/logs";
+
+    LOG(INFO) << "This message will be logged to a file in the specified log directory.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_log_dir` 被设置为 `"/path/to/logs"`，因此 `LOG(INFO)` 消息将被写入到指定目录中的日志文件中。
+
+需要注意的是，如果输出目录不存在，`glog` 将尝试创建这个目录。确保程序有足够的权限来创建和写入日志文件。同时，`FLAGS_log_dir` 是 `glog` 的一个全局标志，一旦设置，将会影响整个应用程序中的日志文件输出位置。
+
+## glog FLAGS_log_link
+
+`FLAGS_log_link` 是 `glog` 库中的一个标志（flag），用于指定是否创建一个指向最新日志文件的符号链接。这个符号链接可以用于快速查看或访问最新生成的日志文件。
+
+默认情况下，`glog` 不会创建这样的符号链接。但是，通过设置 `FLAGS_log_link` 为 `true`，你可以让 `glog` 在日志文件被创建时自动创建一个符号链接指向最新的日志文件。
+
+下面是一个示例，展示了 `FLAGS_log_link` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置是否创建符号链接
+    FLAGS_log_link = true;
+
+    // 设置日志输出目录
+    FLAGS_log_dir = "/path/to/logs";
+
+    LOG(INFO) << "This message will be logged to a file in the specified log directory.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_log_link` 被设置为 `true`，因此 `glog` 将在生成日志文件时创建一个指向最新日志文件的符号链接。符号链接的名称通常是 `./latest_log`。这样，你可以通过这个符号链接快速访问或查看最新生成的日志文件内容。
+
+## glog FLAGS_log_prefix
+
+`FLAGS_log_prefix` 是 `glog` 库中的一个标志（flag），用于控制日志文件名的前缀部分。默认情况下，`glog` 会使用程序名（也就是 `argv[0]` 中的内容）作为日志文件名的前缀部分。
+
+通过设置 `FLAGS_log_prefix`，你可以在日志文件名前面添加自定义的前缀。
+
+下面是一个示例，展示了 `FLAGS_log_prefix` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志文件名前缀
+    FLAGS_log_prefix = true; // 启用前缀
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged to a file with a prefixed log filename.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_log_prefix` 被设置为 `true`，并且日志文件输出目录被设置为 `"/path/to/logs"`。当程序运行并输出日志消息时，日志文件名会被设置为 `<prefix>.<hostname>.<user>.log.<pid>`，其中 `<prefix>` 是自定义的前缀部分。
+
+需要注意的是，`FLAGS_log_prefix` 是 `glog` 的一个全局标志，一旦设置，将会影响整个应用程序中的日志文件名前缀。
+
+## glog FLAGS_log_utc_time
+
+`FLAGS_log_utc_time` 是 `glog` 库中的一个标志（flag），用于设置日志消息中时间戳的显示格式。默认情况下，`glog` 使用本地时间来记录日志中的时间戳。
+
+通过设置 `FLAGS_log_utc_time` 为 `true`，你可以让 `glog` 使用协调世界时（UTC）的时间来记录日志中的时间戳，而不是使用本地时间。
+
+下面是一个示例，展示了 `FLAGS_log_utc_time` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置使用 UTC 时间戳
+    FLAGS_log_utc_time = true;
+
+    LOG(INFO) << "This message will be logged with a UTC timestamp.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_log_utc_time` 被设置为 `true`，因此 `glog` 将使用协调世界时（UTC）的时间来记录日志中的时间戳。
+
+需要注意的是，这个标志会影响整个应用程序中的日志时间戳显示，而不仅仅是某一个特定的日志消息。
+
+## glog FLAGS_log_year_in_prefix
+
+`FLAGS_log_year_in_prefix` 是 `glog` 库中的一个标志（flag），用于控制日志文件名前缀中是否包含年份信息。默认情况下，`glog` 在生成日志文件名时不包含年份信息。
+
+通过设置 `FLAGS_log_year_in_prefix` 为 `true`，你可以让 `glog` 在日志文件名的前缀中包含年份信息。
+
+以下是一个示例，展示了 `FLAGS_log_year_in_prefix` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志文件名前缀包含年份信息
+    FLAGS_log_year_in_prefix = true;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged to a file with a prefixed log filename including the year.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_log_year_in_prefix` 被设置为 `true`，因此 `glog` 在生成日志文件名时将包含年份信息，例如 `yyyy-mm-dd.hostname.username.log.program_name.pid`。
+
+需要注意的是，`FLAGS_log_year_in_prefix` 是 `glog` 的一个全局标志，一旦设置，将会影响整个应用程序中的日志文件名前缀。
+
+## glog FLAGS_logbuflevel
+
+`FLAGS_logbuflevel` 是 `glog` 库中的一个标志（flag），用于设置日志消息缓冲区的级别。日志消息缓冲区是指在日志消息被写入到文件之前，临时存储日志消息的缓冲区。
+
+默认情况下，`glog` 的日志消息缓冲区级别与日志消息级别相同，也就是说，只有满足或高于指定日志级别的日志消息才会被缓冲并写入到文件中。更低级别的消息可能会直接输出到文件，而不经过缓冲。
+
+通过设置 `FLAGS_logbuflevel`，你可以指定一个日志消息级别，所有等级高于等于指定级别的日志消息都会被缓冲。默认情况下，`FLAGS_logbuflevel` 的值与 `FLAGS_minloglevel` 相同。
+
+以下是一个示例，展示了 `FLAGS_logbuflevel` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志消息缓冲区级别
+    FLAGS_logbuflevel = google::INFO;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be buffered because its level is INFO.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_logbuflevel` 被设置为 `google::INFO`，因此所有 `INFO` 级别及以上的日志消息都会被缓冲，直到被写入到文件中。
+
+需要注意的是，设置了 `FLAGS_logbuflevel` 后，日志消息可能会在内存中积累一段时间，直到缓冲区被写入到文件中。因此，在设置该标志时，需要根据日志消息的重要性和应用程序的需求来选择合适的级别。
+
+## glog FLAGS_logbufsecs
+
+`FLAGS_logbufsecs` 是 `glog` 库中的一个标志（flag），用于设置日志消息缓冲的时间（秒）。这个标志控制着日志消息在被写入到文件之前在缓冲区中存留的时间。
+
+默认情况下，`FLAGS_logbufsecs` 被设置为 30 秒。这意味着即使没有达到日志消息级别的条件，日志消息也会在 30 秒后被强制写入到文件中。
+
+以下是一个示例，展示了 `FLAGS_logbufsecs` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志消息缓冲时间为 10 秒
+    FLAGS_logbufsecs = 10;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be buffered for 10 seconds before being written to file.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_logbufsecs` 被设置为 `10` 秒，因此日志消息将在 10 秒后被强制写入到文件中。
+
+需要注意的是，修改 `FLAGS_logbufsecs` 可以影响日志消息的实时性和延迟写入到文件的时间。选择适当的缓冲时间取决于你的应用程序需求和对日志实时性的要求。
+
+## glog FLAGS_logfile_mode
+
+`FLAGS_logfile_mode` 是 `glog` 库中的一个标志（flag），用于设置日志文件的权限模式。这个标志允许你指定在创建日志文件时所使用的文件权限模式。
+
+默认情况下，`FLAGS_logfile_mode` 未设置，这意味着它会继承当前进程的文件创建权限。在大多数情况下，日志文件会遵循系统默认的文件权限。
+
+通过设置 `FLAGS_logfile_mode`，你可以为日志文件设置特定的权限模式。例如，`0644` 表示对于所有者具有读写权限，对于其他用户具有只读权限。
+
+以下是一个示例，展示了 `FLAGS_logfile_mode` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置日志文件的权限模式为 0644
+    FLAGS_logfile_mode = 0644;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged to a file with the specified file mode.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_logfile_mode` 被设置为 `0644`，这意味着日志文件会以 `-rw-r--r--` 的权限模式创建。这样的设置允许所有者有读写权限，其他用户只有读权限。
+
+请谨慎设置日志文件的权限模式，确保不会泄露敏感信息或影响安全性。
+
+## glog FLAGS_logtostderr
+
+`FLAGS_logtostderr` 是 `glog` 库中的一个标志（flag），用于控制日志消息是否输出到标准错误流（stderr）。当这个标志被设置为 `true` 时，日志消息将不会写入到日志文件中，而是输出到控制台的错误流（stderr）。
+
+以下是一个示例，展示了 `FLAGS_logtostderr` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 输出到标准错误流
+    FLAGS_logtostderr = true;
+
+    LOG(INFO) << "This message will be logged to stderr instead of a log file.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_logtostderr` 被设置为 `true`，因此 `LOG(INFO)` 消息将会被输出到标准错误流（stderr），而不会被写入到日志文件中。
+
+需要注意的是，`FLAGS_logtostderr` 是 `glog` 的一个全局标志，一旦设置，将会影响整个应用程序中的日志输出位置。
+
+## glog FLAGS_max_log_size
+
+`FLAGS_max_log_size` 是 `glog` 库中的一个标志（flag），用于设置单个日志文件的最大大小。通过设置这个标志，你可以控制单个日志文件的大小，当日志文件大小达到设定的阈值时，`glog` 将自动进行日志文件的切割（rolling）或截断（truncation）操作，以防止日志文件过大。
+
+默认情况下，`FLAGS_max_log_size` 未设置，这意味着日志文件大小不受限制，会持续增长直到磁盘空间满。
+
+以下是一个示例，展示了 `FLAGS_max_log_size` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置单个日志文件的最大大小为 10 MB
+    FLAGS_max_log_size = 10; // 单位：MB
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged to a file with a maximum log size of 10 MB.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_max_log_size` 被设置为 `10`，表示日志文件的最大大小为 10 MB。当日志文件达到这个大小时，`glog` 将进行切割或截断操作，保持日志文件大小不超过指定的阈值。
+
+需要注意的是，`FLAGS_max_log_size` 是一个全局标志，它控制着整个应用程序中单个日志文件的大小。调整这个值可以防止日志文件过大，但也可能会导致日志文件频繁切割，因此需要根据应用程序的需求来选择合适的大小。
+
+## glog FLAGS_max_log_size
+
+`FLAGS_minloglevel` 是 `glog` 库中的一个标志（flag），用于设置日志消息的最低级别。通过设置这个标志，你可以控制只记录高于或等于指定级别的日志消息，低于指定级别的日志消息将被忽略。
+
+`glog` 定义了以下几个级别，可用于设置 `FLAGS_minloglevel`：
+
+- `google::GLOG_INFO`：信息级别（INFO）
+- `google::GLOG_WARNING`：警告级别（WARNING）
+- `google::GLOG_ERROR`：错误级别（ERROR）
+- `google::GLOG_FATAL`：致命级别（FATAL）
+
+默认情况下，`FLAGS_minloglevel` 被设置为 `google::GLOG_INFO`，即记录所有级别的日志消息。
+
+以下是一个示例，展示了 `FLAGS_minloglevel` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置最低日志级别为 WARNING
+    FLAGS_minloglevel = google::GLOG_WARNING;
+
+    LOG(INFO) << "This message will not be logged due to the higher level threshold.";
+    LOG(WARNING) << "This warning message will be logged.";
+    LOG(ERROR) << "This error message will be logged too.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_minloglevel` 被设置为 `google::GLOG_WARNING`，因此 `INFO` 级别的日志消息将被忽略，而 `WARNING` 和 `ERROR` 级别的日志消息将会被记录。
+
+根据你的需求，调整 `FLAGS_minloglevel` 可以有效控制日志输出的粒度，只记录重要级别以上的日志，忽略较低级别的日志消息。
+
+## glog FLAGS_stderrthreshold
+
+`FLAGS_stderrthreshold` 是 `glog` 库中的一个标志（flag），用于控制在标准错误流（stderr）中输出的日志消息的最低级别阈值。这个标志允许你指定日志消息在输出到标准错误流时的最低级别，低于指定级别的日志消息将不会输出到 stderr。
+
+和 `FLAGS_minloglevel` 不同的是，`FLAGS_stderrthreshold` 控制的是日志消息输出到标准错误流的级别阈值，而不是输出到日志文件的级别阈值。
+
+以下是一个示例，展示了 `FLAGS_stderrthreshold` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置输出到 stderr 的最低日志级别为 WARNING
+    FLAGS_stderrthreshold = google::GLOG_WARNING;
+
+    LOG(INFO) << "This message will not be logged to stderr due to the higher level threshold.";
+    LOG(WARNING) << "This warning message will be logged to stderr.";
+    LOG(ERROR) << "This error message will also be logged to stderr.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_stderrthreshold` 被设置为 `google::GLOG_WARNING`，因此 `INFO` 级别的日志消息将不会被输出到 stderr，而 `WARNING` 和 `ERROR` 级别的日志消息将会输出到标准错误流。
+
+通过调整 `FLAGS_stderrthreshold`，你可以控制在标准错误流中输出的日志消息的级别，使得只有指定级别及以上的日志消息才会被输出到 stderr。
+
+## glog FLAGS_stop_logging_if_full_disk
+
+`FLAGS_stop_logging_if_full_disk` 是 `glog` 库中的一个标志（flag），用于控制当磁盘空间不足时是否停止日志记录。当设置为 `true` 时，如果检测到磁盘空间不足，`glog` 将停止写入日志消息，以避免将日志写入失败并导致更严重的问题。
+
+默认情况下，`FLAGS_stop_logging_if_full_disk` 未设置，这意味着即使磁盘空间不足，`glog` 仍会尝试继续写入日志消息，可能会导致日志写入失败或磁盘被填满。
+
+以下是一个示例，展示了 `FLAGS_stop_logging_if_full_disk` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 当磁盘空间不足时停止日志记录
+    FLAGS_stop_logging_if_full_disk = true;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged until disk space becomes full.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_stop_logging_if_full_disk` 被设置为 `true`，如果检测到磁盘空间不足，`glog` 将停止写入日志消息，以避免进一步填满磁盘空间。
+
+需要注意的是，这个标志可以帮助避免因磁盘空间不足而导致的日志写入失败，但停止日志记录可能会导致遗漏重要信息。因此，在设置这个标志时需要权衡考虑应用程序的需求和对日志可靠性的要求。
+
+## glog FLAGS_timestamp_in_logfile_name
+
+`FLAGS_timestamp_in_logfile_name` 是 `glog` 库中的一个标志（flag），用于控制在日志文件名中是否包含时间戳信息。当设置为 `true` 时，`glog` 会将时间戳信息添加到生成的日志文件名中。
+
+默认情况下，`FLAGS_timestamp_in_logfile_name` 未设置，日志文件名不会包含时间戳信息。
+
+以下是一个示例，展示了 `FLAGS_timestamp_in_logfile_name` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 在日志文件名中包含时间戳信息
+    FLAGS_timestamp_in_logfile_name = true;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    LOG(INFO) << "This message will be logged to a file with a timestamp in the filename.";
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_timestamp_in_logfile_name` 被设置为 `true`，这意味着日志文件名将包含时间戳信息，例如 `program_name.yyyy-mm-dd.hhmmss.hostname.username.log`。
+
+设置这个标志可以帮助识别日志文件并根据时间戳进行排序或管理。但需要注意，这样的设置会导致生成的日志文件名较长且包含时间戳信息，因此需要根据实际需求和管理方式进行合理设置。
+
+## glog FLAGS_v
+
+`FLAGS_v` 是 `glog` 库中的一个标志（flag），用于设置 `VLOG()` 的最低日志级别。`VLOG()` 是 `glog` 库提供的一个用于记录调试信息的宏，可以根据设置的级别来控制输出不同级别的调试信息。
+
+`FLAGS_v` 的值控制了 `VLOG()` 宏输出的最低日志级别。当 `VLOG()` 中指定的级别大于或等于 `FLAGS_v` 设置的级别时，对应的调试信息将会被输出。
+
+以下是一个示例，展示了 `FLAGS_v` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+void SomeFunction() {
+    VLOG(1) << "Verbose log message at level 1";
+    VLOG(2) << "Verbose log message at level 2";
+    VLOG(3) << "Verbose log message at level 3";
+}
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置 VLOG() 的最低日志级别为 2
+    FLAGS_v = 2;
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    SomeFunction();
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_v` 被设置为 `2`，意味着当调用 `VLOG()` 时指定的级别为 2 或更高时，对应的调试信息将被输出。因此，`VLOG(2)` 和 `VLOG(3)` 的日志消息将被输出，而 `VLOG(1)` 不会被输出。
+
+通过调整 `FLAGS_v`，可以控制调试信息的输出级别，有助于筛选和输出特定级别及以上的调试信息，便于调试和问题定位。
+
+## glog FLAGS_vmodule
+
+`FLAGS_vmodule` 是 `glog` 库中的一个标志（flag），用于指定模块化的调试日志级别。通过 `FLAGS_vmodule`，你可以根据模块的名称设置不同的日志级别，以便更精细地控制输出不同模块的调试信息。
+
+这个标志的设置格式为 `module_name1=level,module_name2=level,...`，其中 `module_name` 是模块的名称，`level` 是指定的日志级别。当 `VLOG()` 中指定的级别大于或等于 `FLAGS_vmodule` 设置的级别时，对应模块的调试信息将会被输出。
+
+以下是一个示例，展示了 `FLAGS_vmodule` 的使用：
+
+```cpp
+#include <iostream>
+#include <glog/logging.h>
+
+void FunctionA() {
+    VLOG(1) << "Verbose log message in FunctionA";
+}
+
+void FunctionB() {
+    VLOG(2) << "Verbose log message in FunctionB";
+}
+
+int main(int argc, char* argv[]) {
+    // 初始化 glog
+    google::InitGoogleLogging(argv[0]);
+
+    // 设置模块化的调试日志级别
+    FLAGS_vmodule = "module_a=1,module_b=2";
+    FLAGS_log_dir = "/path/to/logs"; // 设置日志输出目录
+
+    FunctionA(); // 模块名为 module_a，级别为 1，该日志消息将被输出
+    FunctionB(); // 模块名为 module_b，级别为 2，该日志消息将被输出
+    VLOG(3) << "Verbose log message with level 3"; // 不属于模块，级别为 3，不会被输出
+
+    // 关闭 glog
+    google::ShutdownGoogleLogging();
+
+    return 0;
+}
+```
+
+在这个示例中，`FLAGS_vmodule` 设置为 `"module_a=1,module_b=2"`，这表示 `module_a` 模块的调试信息级别为 1，`module_b` 模块的调试信息级别为 2。因此，通过 `VLOG()` 输出的模块化调试信息将会根据模块的设置进行输出。
+
+这种模块化设置可以帮助你针对特定模块控制调试信息的输出级别，便于精确地调试和定位问题。
