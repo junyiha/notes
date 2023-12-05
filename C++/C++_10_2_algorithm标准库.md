@@ -342,6 +342,51 @@ auto it = std::find_if(numbers.begin(), numbers.end(), [](int x) {
 
 这将返回容器 `numbers` 中第一个大于 3 的元素的迭代器。`std::find_if` 允许你通过 lambda 表达式指定更复杂的条件来查找满足特定条件的元素。
 
+## std::find_if
+
+`std::find_if` 是 C++ STL 中的一个算法，用于在给定范围内查找满足特定条件的第一个元素。
+
+其函数签名如下：
+
+```cpp
+template< class InputIt, class UnaryPredicate >
+InputIt find_if( InputIt first, InputIt last, UnaryPredicate p );
+```
+
+- `first` 和 `last` 是指定范围的迭代器，表示要查找的元素范围。
+- `p` 是一个谓词（UnaryPredicate），它是一个函数或函数对象，用于指定查找的条件。
+
+`std::find_if` 函数从给定范围 `[first, last)` 中查找第一个满足条件 `p` 的元素，并返回指向该元素的迭代器。如果没有找到满足条件的元素，则返回 `last`。
+
+以下是一个简单的示例说明如何使用 `std::find_if` 函数：
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+bool isEven(int num) {
+    return num % 2 == 0;
+}
+
+int main() {
+    std::vector<int> numbers = {1, 3, 5, 7, 4, 6, 9}; // 示例数据
+
+    // 查找第一个偶数
+    auto it = std::find_if(numbers.begin(), numbers.end(), isEven);
+
+    if (it != numbers.end()) {
+        std::cout << "找到第一个偶数: " << *it << std::endl;
+    } else {
+        std::cout << "未找到满足条件的元素" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`isEven` 是一个谓词函数，用于检查一个整数是否为偶数。`std::find_if` 函数被调用来在 `numbers` 容器中查找第一个偶数，如果找到了，则输出该元素的值，否则输出未找到满足条件的提示。
+
 ## std::count_if
 
 `std::count_if` 是C++ STL中的一个算法，用于计算容器中满足特定条件的元素个数。它接受两个迭代器参数，表示要进行计数的范围，并使用一个谓词（predicate）作为条件。
@@ -1112,3 +1157,46 @@ Rotated Vector: 3 4 5 1 2
 ```
 
 在这个例子中，`std::rotate()` 函数被用于对 `numbers` 容器中的元素进行循环左旋。参数 `numbers.begin() + 2` 指定了旋转的新起始位置，将原来前两个元素移到了容器末尾。
+
+## std::adjacent_difference
+
+`std::adjacent_difference` 是 C++ STL 中的一个函数，用于计算一个序列中相邻元素的差值，并将结果存储到另一个序列中。
+
+其函数签名如下：
+
+```cpp
+template< class InputIt, class OutputIt >
+OutputIt adjacent_difference( InputIt first, InputIt last, OutputIt d_first );
+```
+
+- `first` 和 `last` 是输入序列的迭代器范围，表示要进行差值计算的元素范围。
+- `d_first` 是输出序列的起始位置迭代器，用于存储相邻元素之间的差值结果。
+
+以下是一个简单的示例说明 `std::adjacent_difference` 函数的用法：
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> numbers = {1, 3, 5, 7, 9}; // 示例数据
+    std::vector<int> differences(numbers.size()); // 用于存储相邻元素差值的容器
+
+    // 计算相邻元素的差值
+    std::adjacent_difference(numbers.begin(), numbers.end(), differences.begin());
+
+    // 输出结果
+    std::cout << "相邻元素的差值：";
+    for (const auto& diff : differences) {
+        std::cout << diff << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+这个示例中，`std::adjacent_difference` 函数计算了 `numbers` 中相邻元素的差值，并将结果存储在 `differences` 容器中。最后，通过迭代输出了相邻元素的差值。
+
+需要注意的是，`std::adjacent_difference` 函数对于输入序列中的第一个元素会直接复制到输出序列中，而后续元素则会存储与前一个元素的差值。
