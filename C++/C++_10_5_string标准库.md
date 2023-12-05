@@ -424,3 +424,991 @@ int main() {
 ```
 
 在这个示例中，`str.substr(7)` 提取了从索引 7 开始到字符串末尾的子串（"world!"），而 `str.substr(0, 5)` 提取了从索引 0 开始长度为 5 的子串（"Hello"）。
+
+## std::string::swap()
+
+`std::string::swap()` 是 C++ 标准库中 `std::string` 类的成员函数之一。它用于交换两个 `std::string` 对象的内容，但是它的作用并不是直接交换字符串的内容，而是交换它们内部指向字符数据的指针，这样可以在不复制字符串的情况下快速交换它们的内容。
+
+### 函数原型：
+```cpp
+void swap(std::string& str);
+```
+
+### 参数：
+- `str`: 另一个 `std::string` 对象，它的内容将与当前对象的内容进行交换。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str1 = "Hello";
+    std::string str2 = "World";
+
+    std::cout << "交换前:\n";
+    std::cout << "str1: " << str1 << "\n";
+    std::cout << "str2: " << str2 << "\n";
+
+    // 使用 swap() 函数交换 str1 和 str2 的内容
+    str1.swap(str2);
+
+    std::cout << "\n交换后:\n";
+    std::cout << "str1: " << str1 << "\n";
+    std::cout << "str2: " << str2 << "\n";
+
+    return 0;
+}
+```
+
+### 输出：
+```
+交换前:
+str1: Hello
+str2: World
+
+交换后:
+str1: World
+str2: Hello
+```
+
+`str1.swap(str2);` 执行后，`str1` 的内容变为 "World"，`str2` 的内容变为 "Hello"。这种交换方式使得操作更高效，特别是当处理大量字符数据时。
+
+## std::string::find()
+
+`std::string::find()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中查找指定子串第一次出现的位置。
+
+### 函数原型：
+```cpp
+size_t find(const std::string& str, size_t pos = 0) const noexcept;
+size_t find(const char* s, size_t pos = 0) const;
+size_t find(const char* s, size_t pos, size_t count) const;
+size_t find(char c, size_t pos = 0) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的子串。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 0。
+
+### 返回值：
+返回第一次出现子串或字符的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World!";
+
+    // 查找子串 "World"
+    size_t found = str.find("World");
+    if (found != std::string::npos) {
+        std::cout << "子串 'World' 第一次出现的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到子串 'World'" << std::endl;
+    }
+
+    // 查找字符 'o' 第一次出现的位置
+    found = str.find('o');
+    if (found != std::string::npos) {
+        std::cout << "字符 'o' 第一次出现的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到字符 'o'" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+子串 'World' 第一次出现的位置：7
+字符 'o' 第一次出现的位置：4
+```
+
+这个示例中，`str.find("World")` 查找子串 "World" 在 `str` 中第一次出现的位置，返回 7。而 `str.find('o')` 查找字符 'o' 在 `str` 中第一次出现的位置，返回 4。
+
+## std::string::rfind()
+
+`std::string::rfind()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中从末尾开始查找指定子串最后一次出现的位置。
+
+### 函数原型：
+```cpp
+size_t rfind(const std::string& str, size_t pos = npos) const noexcept;
+size_t rfind(const char* s, size_t pos = npos) const;
+size_t rfind(const char* s, size_t pos, size_t count) const;
+size_t rfind(char c, size_t pos = npos) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的子串。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 `std::string::npos`，表示从末尾开始搜索。
+
+### 返回值：
+返回最后一次出现子串或字符的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World! Hello again.";
+
+    // 从末尾开始查找子串 "Hello"
+    size_t found = str.rfind("Hello");
+    if (found != std::string::npos) {
+        std::cout << "子串 'Hello' 最后一次出现的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到子串 'Hello'" << std::endl;
+    }
+
+    // 从末尾开始查找字符 'o'
+    found = str.rfind('o');
+    if (found != std::string::npos) {
+        std::cout << "字符 'o' 最后一次出现的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到字符 'o'" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+子串 'Hello' 最后一次出现的位置：14
+字符 'o' 最后一次出现的位置：24
+```
+
+这个示例中，`str.rfind("Hello")` 从末尾开始查找子串 "Hello" 在 `str` 中最后一次出现的位置，返回 14。而 `str.rfind('o')` 从末尾开始查找字符 'o' 在 `str` 中最后一次出现的位置，返回 24。
+
+## std::string::find_first_of()
+
+`std::string::find_first_of()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中查找与给定字符序列中任何字符匹配的第一个位置。
+
+### 函数原型：
+```cpp
+size_t find_first_of(const std::string& str, size_t pos = 0) const noexcept;
+size_t find_first_of(const char* s, size_t pos = 0) const;
+size_t find_first_of(const char* s, size_t pos, size_t count) const;
+size_t find_first_of(char c, size_t pos = 0) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的字符序列。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 0。
+
+### 返回值：
+返回第一个与字符序列中任何字符匹配的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World!";
+
+    // 查找第一个匹配字符序列中任何字符的位置
+    size_t found = str.find_first_of("aeiou");
+    if (found != std::string::npos) {
+        std::cout << "第一个匹配元音字母的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到匹配的元音字母" << std::endl;
+    }
+
+    // 查找第一个匹配字符 'o' 的位置
+    found = str.find_first_of('o');
+    if (found != std::string::npos) {
+        std::cout << "第一个匹配字符 'o' 的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到字符 'o'" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+第一个匹配元音字母的位置：1
+第一个匹配字符 'o' 的位置：4
+```
+
+这个示例中，`str.find_first_of("aeiou")` 查找字符序列中任何元音字母（'a'、'e'、'i'、'o'、'u'）第一次出现的位置，返回 1。而 `str.find_first_of('o')` 查找字符 'o' 第一次出现的位置，返回 4。
+
+## std::string::find_last_of()
+
+`std::string::find_last_of()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中查找与给定字符序列中任何字符匹配的最后一个位置。
+
+### 函数原型：
+```cpp
+size_t find_last_of(const std::string& str, size_t pos = npos) const noexcept;
+size_t find_last_of(const char* s, size_t pos = npos) const;
+size_t find_last_of(const char* s, size_t pos, size_t count) const;
+size_t find_last_of(char c, size_t pos = npos) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的字符序列。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 `std::string::npos`，表示从末尾开始搜索。
+
+### 返回值：
+返回最后一个与字符序列中任何字符匹配的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World!";
+
+    // 查找最后一个匹配字符序列中任何字符的位置
+    size_t found = str.find_last_of("aeiou");
+    if (found != std::string::npos) {
+        std::cout << "最后一个匹配元音字母的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到匹配的元音字母" << std::endl;
+    }
+
+    // 查找最后一个匹配字符 'o' 的位置
+    found = str.find_last_of('o');
+    if (found != std::string::npos) {
+        std::cout << "最后一个匹配字符 'o' 的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到字符 'o'" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+最后一个匹配元音字母的位置：9
+最后一个匹配字符 'o' 的位置：8
+```
+
+这个示例中，`str.find_last_of("aeiou")` 查找字符序列中任何元音字母（'a'、'e'、'i'、'o'、'u'）最后一次出现的位置，返回 9。而 `str.find_last_of('o')` 查找字符 'o' 最后一次出现的位置，返回 8。
+
+## std::string::find_first_not_of()
+
+`std::string::find_first_not_of()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中查找第一个不属于给定字符序列的字符位置。
+
+### 函数原型：
+```cpp
+size_t find_first_not_of(const std::string& str, size_t pos = 0) const noexcept;
+size_t find_first_not_of(const char* s, size_t pos = 0) const;
+size_t find_first_not_of(const char* s, size_t pos, size_t count) const;
+size_t find_first_not_of(char c, size_t pos = 0) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的字符序列。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 0。
+
+### 返回值：
+返回第一个不属于字符序列中任何字符的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "   Hello, World!";
+
+    // 查找第一个不属于空格字符的位置
+    size_t found = str.find_first_not_of(" \t\n\v\f\r");
+    if (found != std::string::npos) {
+        std::cout << "第一个不属于空白字符的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到不属于空白字符的位置" << std::endl;
+    }
+
+    // 查找第一个不属于字符 'H' 的位置
+    found = str.find_first_not_of('H');
+    if (found != std::string::npos) {
+        std::cout << "第一个不属于字符 'H' 的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到不属于字符 'H' 的位置" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+第一个不属于空白字符的位置：3
+第一个不属于字符 'H' 的位置：0
+```
+
+这个示例中，`str.find_first_not_of(" \t\n\v\f\r")` 查找第一个不属于空白字符（空格、制表符、换行符等）的位置，返回 3。而 `str.find_first_not_of('H')` 查找第一个不属于字符 'H' 的位置，返回 0。
+
+## std::string::find_last_not_of()
+
+`std::string::find_last_not_of()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于在字符串中查找最后一个不属于给定字符序列的字符位置。
+
+### 函数原型：
+```cpp
+size_t find_last_not_of(const std::string& str, size_t pos = npos) const noexcept;
+size_t find_last_not_of(const char* s, size_t pos = npos) const;
+size_t find_last_not_of(const char* s, size_t pos, size_t count) const;
+size_t find_last_not_of(char c, size_t pos = npos) const noexcept;
+```
+
+### 参数：
+- `str`：要查找的字符序列。
+- `s`：要查找的 C 风格字符串（以 null 结尾的字符数组）。
+- `count`：要查找的 C 风格字符串中的字符数。
+- `c`：要查找的字符。
+- `pos`：搜索的起始位置，默认为 `std::string::npos`，表示从末尾开始搜索。
+
+### 返回值：
+返回最后一个不属于字符序列中任何字符的位置，如果未找到，则返回 `std::string::npos`（`static const size_t npos = -1;`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "   Hello, World!   ";
+
+    // 查找最后一个不属于空格字符的位置
+    size_t found = str.find_last_not_of(" \t\n\v\f\r");
+    if (found != std::string::npos) {
+        std::cout << "最后一个不属于空白字符的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到不属于空白字符的位置" << std::endl;
+    }
+
+    // 查找最后一个不属于字符 '!' 的位置
+    found = str.find_last_not_of('!');
+    if (found != std::string::npos) {
+        std::cout << "最后一个不属于字符 '!' 的位置：" << found << std::endl;
+    } else {
+        std::cout << "未找到不属于字符 '!' 的位置" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+最后一个不属于空白字符的位置：14
+最后一个不属于字符 '!' 的位置：13
+```
+
+在这个示例中，`str.find_last_not_of(" \t\n\v\f\r")` 查找最后一个不属于空白字符（空格、制表符、换行符等）的位置，返回 14。而 `str.find_last_not_of('!')` 查找最后一个不属于字符 '!' 的位置，返回 13。
+
+## std::string::compare()
+
+`std::string::compare()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于比较两个字符串的大小关系。
+
+### 函数原型：
+```cpp
+int compare(const std::string& str) const noexcept;
+int compare(size_t pos, size_t len, const std::string& str) const;
+int compare(size_t pos, size_t len, const std::string& str, size_t subpos, size_t sublen) const;
+int compare(const char* s) const;
+int compare(size_t pos, size_t len, const char* s) const;
+int compare(size_t pos, size_t len, const char* s, size_t n) const;
+```
+
+### 参数：
+- `str`：要比较的另一个字符串。
+- `s`：要比较的 C 风格字符串（以 null 结尾的字符数组）。
+- `pos`：字符串中的起始位置，默认为 0。
+- `len`：要比较的字符数，默认为 `std::string::npos`。
+- `subpos`：子串的起始位置，默认为 0。
+- `sublen`：子串的字符数，默认为 `std::string::npos`。
+- `n`：要比较的字符数。
+
+### 返回值：
+- 返回值为负数：表示调用对象小于参数字符串。
+- 返回值为零：表示调用对象等于参数字符串。
+- 返回值为正数：表示调用对象大于参数字符串。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str1 = "apple";
+    std::string str2 = "banana";
+
+    // 比较两个字符串
+    int result = str1.compare(str2);
+    if (result < 0) {
+        std::cout << "str1 小于 str2" << std::endl;
+    } else if (result == 0) {
+        std::cout << "str1 等于 str2" << std::endl;
+    } else {
+        std::cout << "str1 大于 str2" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+str1 小于 str2
+```
+
+在这个示例中，`str1.compare(str2)` 比较了两个字符串 `str1` 和 `str2`。由于 "apple" 在字典序中小于 "banana"，所以返回值为负数，输出表明 `str1` 小于 `str2`。
+
+## std::stoi()
+
+`std::stoi()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为整数类型（`int`）。
+
+### 函数原型：
+```cpp
+int stoi(const std::string& str, size_t* pos = 0, int base = 10);
+```
+
+### 参数：
+- `str`：要转换为整数的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+- `base`：进制，默认为 10（十进制）。可以是 0 或者介于 2 到 36 之间的值，表示字符序列的进制基数。
+
+### 返回值：
+- 返回转换后的整数值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "12345";
+
+    try {
+        int num = std::stoi(str);
+        std::cout << "转换后的整数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的整数为: 12345
+```
+
+在这个示例中，`std::stoi()` 将字符串 "12345" 转换为整数类型并输出。如果无法转换字符串为整数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::stol()
+
+`std::stol()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为长整型（`long`）。
+
+### 函数原型：
+```cpp
+long stol(const std::string& str, size_t* pos = 0, int base = 10);
+```
+
+### 参数：
+- `str`：要转换为长整型的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+- `base`：进制，默认为 10（十进制）。可以是 0 或者介于 2 到 36 之间的值，表示字符序列的进制基数。
+
+### 返回值：
+- 返回转换后的长整型值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "123456789";
+
+    try {
+        long num = std::stol(str);
+        std::cout << "转换后的长整数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的长整数为: 123456789
+```
+
+这个示例中，`std::stol()` 将字符串 "123456789" 转换为长整数类型并输出。如果无法转换字符串为长整数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::stoll()
+
+`std::stoll()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为长长整型（`long long`）。
+
+### 函数原型：
+```cpp
+long long stoll(const std::string& str, size_t* pos = 0, int base = 10);
+```
+
+### 参数：
+- `str`：要转换为长长整型的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+- `base`：进制，默认为 10（十进制）。可以是 0 或者介于 2 到 36 之间的值，表示字符序列的进制基数。
+
+### 返回值：
+- 返回转换后的长长整型值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "1234567890123456789";
+
+    try {
+        long long num = std::stoll(str);
+        std::cout << "转换后的长长整数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的长长整数为: 1234567890123456789
+```
+
+这个示例中，`std::stoll()` 将字符串 "1234567890123456789" 转换为长长整数类型并输出。如果无法转换字符串为长长整数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::stof()
+
+`std::stof()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为单精度浮点数（`float`）。
+
+### 函数原型：
+```cpp
+float stof(const std::string& str, size_t* pos = 0);
+```
+
+### 参数：
+- `str`：要转换为单精度浮点数的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+
+### 返回值：
+- 返回转换后的单精度浮点数值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "3.14159";
+
+    try {
+        float num = std::stof(str);
+        std::cout << "转换后的单精度浮点数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的单精度浮点数为: 3.14159
+```
+
+这个示例中，`std::stof()` 将字符串 "3.14159" 转换为单精度浮点数类型并输出。如果无法转换字符串为单精度浮点数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::stod()
+
+`std::stod()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为双精度浮点数（`double`）。
+
+### 函数原型：
+```cpp
+double stod(const std::string& str, size_t* pos = 0);
+```
+
+### 参数：
+- `str`：要转换为双精度浮点数的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+
+### 返回值：
+- 返回转换后的双精度浮点数值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "3.14159265359";
+
+    try {
+        double num = std::stod(str);
+        std::cout << "转换后的双精度浮点数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的双精度浮点数为: 3.14159265359
+```
+
+这个示例中，`std::stod()` 将字符串 "3.14159265359" 转换为双精度浮点数类型并输出。如果无法转换字符串为双精度浮点数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::stold()
+
+`std::stold()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将字符串转换为长双精度浮点数（`long double`）。
+
+### 函数原型：
+```cpp
+long double stold(const std::string& str, size_t* pos = 0);
+```
+
+### 参数：
+- `str`：要转换为长双精度浮点数的字符串。
+- `pos`：指向存储第一个无效字符位置的指针，可选参数，默认为 `nullptr`。
+
+### 返回值：
+- 返回转换后的长双精度浮点数值。如果转换过程中出现错误，会抛出 `std::invalid_argument` 或 `std::out_of_range` 异常。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "3.141592653589793238";
+
+    try {
+        long double num = std::stold(str);
+        std::cout << "转换后的长双精度浮点数为: " << num << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "转换失败: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 输出：
+```
+转换后的长双精度浮点数为: 3.141592653589793238
+```
+
+这个示例中，`std::stold()` 将字符串 "3.141592653589793238" 转换为长双精度浮点数类型并输出。如果无法转换字符串为长双精度浮点数，例如，当字符串包含非数字字符时，将抛出异常。
+
+## std::string::c_str()
+
+`std::string::c_str()` 是 C++ 标准库中 `std::string` 类的成员函数，用于返回一个指向以 null 结尾的 C 风格字符串（字符数组）的指针，即指向 `std::string` 对象中存储的字符数据。
+
+### 函数原型：
+```cpp
+const char* c_str() const noexcept;
+```
+
+### 返回值：
+返回一个指向以 null 结尾的字符数组的指针，该字符数组存储了 `std::string` 对象中的字符串内容。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World!";
+
+    const char* cstr = str.c_str();
+    std::cout << "C 风格字符串为: " << cstr << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+C 风格字符串为: Hello, World!
+```
+
+在这个示例中，`str.c_str()` 返回一个指向字符串 "Hello, World!" 的 C 风格字符串的指针，并通过 `std::cout` 输出该字符串。需要注意的是，`c_str()` 返回的指针指向的字符数组是以 null 结尾的，因此可以被正常地当做 C 风格字符串处理。
+
+## std::string::data()
+
+`std::string::data()` 是 C++ 标准库中 `std::string` 类的成员函数，用于返回一个指向字符数据的指针，但不一定以 null 结尾。
+
+### 函数原型：
+```cpp
+const char* data() const noexcept;
+```
+
+### 返回值：
+返回一个指向存储在 `std::string` 对象中的字符数据的指针。与 `c_str()` 不同的是，`data()` 不一定会在字符串的末尾添加 null 终止符。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello, World!";
+
+    const char* strData = str.data();
+    std::cout << "字符数据为: " << strData << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+字符数据为: Hello, World!
+```
+
+在这个示例中，`str.data()` 返回一个指向字符串 "Hello, World!" 的字符数据的指针，并通过 `std::cout` 输出该字符串。需要注意的是，`data()` 返回的指针可能不以 null 结尾，并且对返回指针所指向的数据进行修改时，需要谨慎处理末尾的 null 终止符。
+
+## std::string::reserve()
+
+`std::string::reserve()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于请求字符串预留足够的内存空间，以容纳指定数量的字符，而不会更改字符串的大小。
+
+### 函数原型：
+```cpp
+void reserve(size_t n);
+```
+
+### 参数：
+- `n`：要预留的字符数量。
+
+### 返回值：
+- 无（`void`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello";
+
+    std::cout << "初始容量: " << str.capacity() << std::endl;
+
+    str.reserve(20); // 预留至少可以容纳 20 个字符的空间
+
+    std::cout << "预留后的容量: " << str.capacity() << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+初始容量: 5
+预留后的容量: 20
+```
+
+在这个示例中，`str.reserve(20)` 调用了 `reserve()` 函数来预留至少可以容纳 20 个字符的空间。请注意，`reserve()` 只是预留了空间，并不改变字符串的长度。这对于在预先知道要存储大量字符的情况下，避免多次重新分配内存而提高性能是很有用的。
+
+## std::string::shrink_to_fit()
+
+`std::string::shrink_to_fit()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于要求字符串收缩其容量以适应当前字符串的大小。
+
+### 函数原型：
+```cpp
+void shrink_to_fit();
+```
+
+### 返回值：
+- 无（`void`）。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello";
+
+    std::cout << "初始容量: " << str.capacity() << std::endl;
+
+    str.reserve(100); // 分配较大的空间
+
+    std::cout << "扩大容量后的容量: " << str.capacity() << std::endl;
+
+    str.shrink_to_fit(); // 收缩容量以适应当前大小
+
+    std::cout << "收缩容量后的容量: " << str.capacity() << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+初始容量: 5
+扩大容量后的容量: 100
+收缩容量后的容量: 5
+```
+
+在这个示例中，首先创建了一个字符串 `str`，然后通过 `str.reserve(100)` 手动扩大了其容量。随后调用 `str.shrink_to_fit()` 来收缩字符串的容量以适应当前字符串的大小。这对于释放不再需要的内存空间是有用的，可以减少不必要的内存浪费。
+
+## std::string::capacity()
+
+`std::string::capacity()` 是 C++ 标准库中 `std::string` 类的成员函数之一，用于返回当前字符串能够容纳的字符数量，即分配给字符串的内存空间大小。
+
+### 函数原型：
+```cpp
+size_t capacity() const noexcept;
+```
+
+### 返回值：
+返回字符串当前可容纳的字符数量，即字符串所分配的内存空间大小。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "Hello";
+
+    std::cout << "字符串当前容量: " << str.capacity() << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+字符串当前容量: 15
+```
+
+在这个示例中，`str.capacity()` 返回了字符串 `str` 当前的容量。需要注意的是，字符串的容量并不等同于字符串的长度（即字符个数），而是指字符串当前已分配的内存大小。容量通常大于或等于字符串的长度，因为字符串预留了额外的空间以便于扩展和操作。
+
+## std::getline()
+
+`std::getline()` 是 C++ 标准库中 `<string>` 头文件中提供的函数，用于从输入流中读取一行文本并存储到字符串中。
+
+### 函数原型：
+```cpp
+std::istream& getline(std::istream& is, std::string& str, char delim = '\n');
+```
+
+### 参数：
+- `is`：输入流，例如 `std::cin`（标准输入）或文件流。
+- `str`：用于存储输入行的字符串。
+- `delim`：可选参数，表示行的结束符，默认为换行符 `'\n'`。
+
+### 返回值：
+- 返回输入流 `is` 的引用，以便进行链式输入。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string input;
+
+    std::cout << "请输入一行文本：" << std::endl;
+    std::getline(std::cin, input);
+
+    std::cout << "你输入的内容是：" << input << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+请输入一行文本：
+[用户输入]
+你输入的内容是：[用户输入的内容]
+```
+
+在示例中，`std::getline(std::cin, input)` 从标准输入中读取一行用户输入的文本，并将其存储在 `input` 字符串中。如果输入的行超过了字符串的最大长度，`std::getline()` 会自动调整字符串的大小以容纳整个输入行。
+
+## std::to_string()
+
+`std::to_string()` 是 C++ 标准库中 `<string>` 头文件中提供的函数之一，用于将数值类型转换为对应的字符串形式。
+
+### 函数原型：
+```cpp
+std::string to_string(int value);
+std::string to_string(long value);
+std::string to_string(long long value);
+std::string to_string(unsigned value);
+std::string to_string(unsigned long value);
+std::string to_string(unsigned long long value);
+std::string to_string(float value);
+std::string to_string(double value);
+std::string to_string(long double value);
+```
+
+### 参数：
+- 不同版本的 `to_string()` 接受不同的数值类型作为参数，并将其转换为对应的字符串形式。
+
+### 返回值：
+- 返回包含数值转换后的字符串。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    int intValue = 42;
+    float floatValue = 3.14159f;
+
+    std::string strInt = std::to_string(intValue);
+    std::string strFloat = std::to_string(floatValue);
+
+    std::cout << "整数转换后的字符串: " << strInt << std::endl;
+    std::cout << "浮点数转换后的字符串: " << strFloat << std::endl;
+
+    return 0;
+}
+```
+
+### 输出：
+```
+整数转换后的字符串: 42
+浮点数转换后的字符串: 3.141590
+```
+
+在这个示例中，`std::to_string()` 将整数和浮点数分别转换为对应的字符串形式，并将其存储在 `strInt` 和 `strFloat` 中。这是一个方便的函数，用于将不同类型的数值转换为字符串，以便于输出或字符串处理。
