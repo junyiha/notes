@@ -1,0 +1,377 @@
+## 简介
+
++ C++ <memory>标准库
+
+## C++ <memory>标准库
+
+`<memory>` 是 C++ 标准库中的头文件，提供了一些内存管理相关的类和函数，用于帮助管理动态分配的内存和智能指针等。
+
+以下是 `<memory>` 标准库中一些重要的内容：
+
+1. **动态内存分配：**
+   - `std::allocator`：是用于分配和释放内存的默认分配器。
+   - `std::unique_ptr`：一种独占指针，用于管理动态分配的对象，确保内存的释放。
+   - `std::shared_ptr`：一种共享指针，多个指针可以共享对同一个对象的所有权，使用引用计数来管理内存释放。
+   - `std::weak_ptr`：弱引用指针，用于解决 `std::shared_ptr` 可能导致的循环引用问题。
+
+2. **智能指针相关函数和工具：**
+   - `std::make_unique`：用于创建动态分配的对象并返回一个 `std::unique_ptr`。
+   - `std::make_shared`：用于创建动态分配的对象并返回一个 `std::shared_ptr`。
+
+3. **内存管理相关工具和函数：**
+   - `std::addressof`：获取对象的地址。
+   - `std::pointer_traits`：提供了对指针类型的通用操作。
+   - `std::default_delete`：默认删除器，用于指定 `std::unique_ptr` 的删除策略。
+
+4. **特定内存工具和操作：**
+   - `std::align`：在给定地址处对齐内存。
+   - `std::allocator_traits`：提供了对分配器的通用操作。
+
+使用 `<memory>` 标准库，可以更安全地管理动态分配的内存，避免内存泄漏和悬挂指针等问题。智能指针类能够自动处理内存的释放，大大简化了内存管理的复杂性。
+
+## C++ <memory>标准库 详解
+
+`<memory>` 标准库提供了许多功能，主要用于在 C++ 中管理内存和智能指针。以下是 `<memory>` 标准库中的一些重要组件和功能：
+
+1. **智能指针：**
+   - `std::unique_ptr`：独占所有权的智能指针，确保只有一个指针可以管理一个对象。当 `std::unique_ptr` 被销毁时，它所管理的对象也会被自动释放。
+   - `std::shared_ptr`：允许多个指针共享对同一对象的所有权，使用引用计数来管理对象的生命周期。当最后一个 `std::shared_ptr` 被销毁时，关联的对象才会被释放。
+   - `std::weak_ptr`：弱引用指针，用于打破 `std::shared_ptr` 可能产生的循环引用问题。
+
+2. **内存管理相关工具和函数：**
+   - `std::make_unique`：用于创建动态分配的对象并返回一个 `std::unique_ptr`。
+   - `std::make_shared`：用于创建动态分配的对象并返回一个 `std::shared_ptr`。
+   - `std::allocator`：用于动态内存分配和释放的默认分配器。
+   - `std::default_delete`：默认的删除器，通常与智能指针 `std::unique_ptr` 结合使用，指定对象的释放方式。
+
+3. **工具和类型特征：**
+   - `std::addressof`：获取对象的地址。
+   - `std::pointer_traits`：提供了对指针类型的通用操作。
+   - `std::allocator_traits`：提供了对分配器的通用操作。
+
+4. **内存操作和指针工具：**
+   - `std::align`：在给定地址处对齐内存。
+   - `std::memcpy` 和 `std::memset`：用于内存复制和内存设置。
+
+`<memory>` 标准库提供了许多工具和类，使得在 C++ 中进行内存管理变得更加安全和方便。智能指针能够避免常见的内存管理问题，如悬挂指针、内存泄漏等，有助于提高代码的健壮性和可靠性。同时，这些功能也让程序员更加轻松地进行动态内存管理。
+
+## C++ <memory>标准库 常用类和函数
+
+`<memory>` 标准库中有许多常用的类和函数，主要用于内存管理和智能指针。以下是一些常用的类和函数：
+
+### 常用类：
+
+1. **智能指针类：**
+   - `std::unique_ptr<T>`：独占所有权的智能指针，确保只有一个指针可以管理一个对象。
+   - `std::shared_ptr<T>`：允许多个指针共享对同一对象的所有权。
+   - `std::weak_ptr<T>`：弱引用指针，用于打破 `std::shared_ptr` 可能产生的循环引用问题。
+
+### 常用函数：
+
+1. **内存管理相关函数：**
+   - `std::make_unique<T>()`：用于创建动态分配的对象并返回一个 `std::unique_ptr<T>`。
+   - `std::make_shared<T>()`：用于创建动态分配的对象并返回一个 `std::shared_ptr<T>`。
+   - `std::allocate_shared<T>()`：分配一个对象的共享内存。
+   - `std::allocate_shared<T, Args...>()`：使用自定义分配器分配一个对象的共享内存。
+
+2. **其他函数：**
+   - `std::addressof()`：获取对象的地址。
+   - `std::memcpy()` 和 `std::memset()`：用于内存复制和内存设置。
+
+### 类型特征和工具：
+
+1. **指针和分配器相关的类型特征：**
+   - `std::pointer_traits<T>`：提供了对指针类型 `T` 的通用操作。
+   - `std::allocator_traits<Allocator>`：提供了对分配器 `Allocator` 的通用操作。
+
+2. **分配器相关类：**
+   - `std::allocator<T>`：用于动态内存分配和释放的默认分配器。
+
+`<memory>` 标准库提供了强大的工具和类来管理动态分配的内存，帮助避免内存泄漏和悬挂指针等问题。智能指针类使得在 C++ 中进行内存管理变得更加方便和安全。
+
+## std::unique_ptr
+
+`std::unique_ptr` 是 C++ 标准库 `<memory>` 中定义的智能指针类，用于管理动态分配的对象，并且在其生命周期结束时自动释放所管理的对象。
+
+`std::unique_ptr` 具有独占所有权的特性，即同一时间只能有一个 `std::unique_ptr` 指向一个对象。当 `std::unique_ptr` 被销毁时（例如超出作用域、被赋予新值或者显式释放），它所管理的对象也会被自动释放，从而避免内存泄漏。
+
+以下是 `std::unique_ptr` 的主要特点和用法：
+
+- **独占所有权：** 一个 `std::unique_ptr` 实例是对象的唯一所有者，不能被复制，但可以被移动。
+
+- **创建 `std::unique_ptr`：**
+  - 使用 `std::make_unique<T>()`：用于创建动态分配的对象并返回一个 `std::unique_ptr<T>`。
+  - 直接声明：`std::unique_ptr<T> ptr(new T())`，但不推荐直接使用 `new`。
+
+- **移动语义：** `std::unique_ptr` 支持移动语义，可以使用 `std::move` 来将所有权从一个 `std::unique_ptr` 转移到另一个。
+
+- **释放内存：** 当 `std::unique_ptr` 超出作用域时，它所管理的对象会被自动释放。
+
+示例代码：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+void someFunction() {
+    std::unique_ptr<int> ptr = std::make_unique<int>(42);
+    std::cout << "Value: " << *ptr << std::endl;
+    // ptr 在此处超出作用域，触发自动释放所管理的对象
+}
+
+int main() {
+    someFunction();
+    // 在此处无法访问 ptr，因为它已经超出了作用域
+    return 0;
+}
+```
+
+在这个例子中，`std::make_unique<int>(42)` 创建了一个动态分配的整数对象，并将其存储在 `std::unique_ptr<int>` 中。当 `ptr` 超出作用域时，所管理的对象会被自动释放。
+
+## std::shared_ptr
+
+`std::shared_ptr` 是 C++ 标准库 `<memory>` 中定义的智能指针类，用于管理动态分配的对象，并且可以让多个指针共享对同一对象的所有权。
+
+与 `std::unique_ptr` 不同，`std::shared_ptr` 允许多个 `std::shared_ptr` 实例共享对同一对象的控制权。它使用引用计数机制来管理内存，当最后一个 `std::shared_ptr` 指向对象时，对象会被销毁。
+
+以下是 `std::shared_ptr` 的主要特点和用法：
+
+- **共享所有权：** 多个 `std::shared_ptr` 可以指向同一个对象，共享对该对象的所有权。
+
+- **引用计数：** 使用引用计数来追踪对象的所有权，当最后一个 `std::shared_ptr` 被销毁时，才会释放对象。
+
+- **创建 `std::shared_ptr`：**
+  - 使用 `std::make_shared<T>()`：用于创建动态分配的对象并返回一个 `std::shared_ptr<T>`。
+  - 直接声明：`std::shared_ptr<T> ptr = std::shared_ptr<T>(new T())`，但不推荐直接使用 `new`。
+
+- **复制和移动语义：** `std::shared_ptr` 支持复制和移动语义。复制 `std::shared_ptr` 会增加引用计数，移动 `std::shared_ptr` 会将所有权转移给另一个对象。
+
+- **释放内存：** 当最后一个 `std::shared_ptr` 超出作用域时，所管理的对象会被释放。
+
+示例代码：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+void someFunction() {
+    std::shared_ptr<int> ptr1 = std::make_shared<int>(42);
+    std::shared_ptr<int> ptr2 = ptr1; // 共享指针 ptr1 的所有权
+
+    std::cout << "Value of ptr1: " << *ptr1 << std::endl;
+    std::cout << "Value of ptr2: " << *ptr2 << std::endl;
+    // ptr1 和 ptr2 在此处超出作用域，引用计数减少，对象不会被释放
+}
+
+int main() {
+    someFunction();
+    // 在此处无法访问 ptr1 和 ptr2，因为它们已经超出了作用域
+    return 0;
+}
+```
+
+在这个例子中，`ptr1` 和 `ptr2` 都指向同一个动态分配的整数对象。当函数结束时，引用计数减少，但由于 `ptr1` 和 `ptr2` 都超出作用域，所管理的对象最终会被释放。
+
+## std::weak_ptr
+
+`std::weak_ptr` 是 C++ 标准库 `<memory>` 中定义的智能指针类，用于解决 `std::shared_ptr` 可能导致的循环引用问题，并且不影响所管理对象的生命周期。
+
+`std::weak_ptr` 是一种弱引用指针，它可以指向由 `std::shared_ptr` 管理的对象，但并不拥有对象的所有权。它不会增加对象的引用计数，因此也不会阻止对象的销毁。通常用于观察或临时访问由 `std::shared_ptr` 管理的对象。
+
+以下是 `std::weak_ptr` 的主要特点和用法：
+
+- **弱引用：** 不持有对象的所有权，不会影响对象的生命周期。
+
+- **与 `std::shared_ptr` 搭配使用：** `std::weak_ptr` 可以从 `std::shared_ptr` 创建，并通过 `std::lock()` 方法转换为 `std::shared_ptr`，以临时获取对象的所有权。
+
+- **检查对象是否存在：** 可以使用 `expired()` 方法检查与 `std::weak_ptr` 关联的对象是否被销毁。
+
+- **安全地访问对象：** 使用 `std::lock()` 方法可以安全地获取 `std::shared_ptr`，如果对象存在，则返回 `std::shared_ptr`，否则返回空的 `std::shared_ptr`。
+
+示例代码：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+void observe(std::weak_ptr<int> weakPtr) {
+    if (auto sharedPtr = weakPtr.lock()) { // 尝试获取 shared_ptr
+        std::cout << "Value observed: " << *sharedPtr << std::endl;
+    } else {
+        std::cout << "Object has been destroyed." << std::endl;
+    }
+}
+
+int main() {
+    std::shared_ptr<int> sharedPtr = std::make_shared<int>(42);
+    std::weak_ptr<int> weakPtr = sharedPtr; // 创建 weak_ptr
+
+    observe(weakPtr); // 观察对象
+
+    sharedPtr.reset(); // 销毁 shared_ptr
+    observe(weakPtr); // 再次观察对象
+
+    return 0;
+}
+```
+
+在这个例子中，`weakPtr` 弱引用指向 `sharedPtr` 所管理的整数对象。通过 `std::lock()` 方法，`weakPtr` 可以安全地转换为 `std::shared_ptr`，以临时获取对象的所有权。在 `observe()` 函数中，可以检查对象是否存在，并安全地访问对象。当 `sharedPtr` 被销毁后，通过 `weakPtr` 观察对象时，将得到对象已被销毁的信息。
+
+## std::make_unique
+
+`std::make_unique` 是 C++11 标准引入的一个函数模板，用于创建动态分配的对象并返回一个 `std::unique_ptr` 智能指针。它是用于创建 `std::unique_ptr` 的首选方式，具有安全和简洁的特性。
+
+与直接使用 `new` 来分配内存并创建 `std::unique_ptr` 不同，`std::make_unique` 提供了更加安全和简洁的方式，它在分配对象的同时将其封装到 `std::unique_ptr` 中。
+
+基本用法示例：
+
+```cpp
+#include <memory>
+#include <iostream>
+
+int main() {
+    // 创建一个 std::unique_ptr，管理一个动态分配的整数对象
+    std::unique_ptr<int> ptr = std::make_unique<int>(42);
+
+    std::cout << "Value: " << *ptr << std::endl; // 访问所管理的整数对象
+
+    return 0;
+}
+```
+
+在这个例子中，`std::make_unique<int>(42)` 创建了一个动态分配的整数对象，并将其封装到 `std::unique_ptr<int>` 中。这种方式简洁、安全，并且避免了手动管理内存，提高了代码的可读性和健壮性。
+
+需要注意的是，`std::make_unique` 在 C++11 中引入，但用于创建 `std::unique_ptr`。而对于 `std::shared_ptr`，C++11 并没有提供 `std::make_shared`，但在 C++14 中引入了这个功能。所以在 C++14 中，可以使用 `std::make_shared` 来创建 `std::shared_ptr`。
+
+## std::make_shared
+
+`std::make_shared` 是 C++11 引入的函数模板，用于创建动态分配的对象并返回一个 `std::shared_ptr` 智能指针。它是创建 `std::shared_ptr` 的推荐方式，提供了安全和高效的对象分配和管理。
+
+基本用法示例：
+
+```cpp
+#include <memory>
+#include <iostream>
+
+int main() {
+    // 创建一个 std::shared_ptr，管理一个动态分配的整数对象
+    auto ptr = std::make_shared<int>(42);
+
+    std::cout << "Value: " << *ptr << std::endl; // 访问所管理的整数对象
+
+    return 0;
+}
+```
+
+在这个例子中，`std::make_shared<int>(42)` 创建了一个动态分配的整数对象，并将其封装到 `std::shared_ptr<int>` 中。`std::make_shared` 可以接收参数并直接传递给对象的构造函数。
+
+与直接使用 `new` 来分配内存并创建 `std::shared_ptr` 不同，`std::make_shared` 提供了更高效的内存分配，因为它会分配一个单一的内存块用于存储对象和控制块（用于跟踪引用计数等信息）。这种方式可以减少额外的开销，并且可以更有效地使用内存。
+
+需要注意的是，`std::make_shared` 是 C++11 引入的，在 C++11 之前，可以使用 `std::shared_ptr<T>(new T(args))` 的方式创建 `std::shared_ptr`，但这种方式可能导致额外的内存分配和性能损耗。
+
+## std::allocate_shared
+
+`std::allocate_shared` 是 C++11 引入的函数模板，用于创建动态分配的对象并返回一个 `std::shared_ptr` 智能指针。与 `std::make_shared` 类似，`std::allocate_shared` 也用于动态分配对象，但允许指定自定义的分配器。
+
+基本用法示例：
+
+```cpp
+#include <memory>
+#include <iostream>
+
+struct MyStruct {
+    int value;
+
+    MyStruct(int val) : value(val) {}
+};
+
+int main() {
+    // 使用自定义分配器创建一个 std::shared_ptr，管理一个动态分配的 MyStruct 对象
+    std::allocator<MyStruct> alloc;
+    auto ptr = std::allocate_shared<MyStruct>(alloc, 42);
+
+    std::cout << "Value: " << ptr->value << std::endl; // 访问所管理的对象的成员
+
+    return 0;
+}
+```
+
+在这个例子中，`std::allocate_shared<MyStruct>(alloc, 42)` 使用自定义的分配器 `std::allocator<MyStruct>` 创建了一个动态分配的 `MyStruct` 对象，并将其封装到 `std::shared_ptr<MyStruct>` 中。第一个参数是分配器对象，第二个参数是传递给对象构造函数的参数。
+
+相较于 `std::shared_ptr` 的其他构造函数和 `std::make_shared`，`std::allocate_shared` 允许程序员提供自定义的分配器，以满足特定的内存管理需求。这个函数在一些特殊情况下可以提供更大的灵活性。
+
+## std::addressof
+
+`std::addressof` 是 C++ 标准库 `<memory>` 中定义的函数模板，用于获取对象的地址。
+
+与 C++ 内置的取地址运算符 `&` 不同，`std::addressof` 能够确保即使重载了取地址运算符的类，也能获得对象的真实地址。
+
+`std::addressof` 的基本用法如下：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+int main() {
+    int num = 10;
+    int* ptr = std::addressof(num); // 获取变量 num 的地址
+
+    std::cout << "Address of num: " << ptr << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::addressof` 获取了变量 `num` 的地址，并将其存储在指针 `ptr` 中。使用 `std::cout` 打印出 `num` 的地址。
+
+通常情况下，直接使用取地址运算符 `&` 可以获取对象的地址。但是，如果类重载了取地址运算符（`operator&`），可能会导致取到重载后的地址。在这种情况下，使用 `std::addressof` 可以确保获取到对象的真实地址。
+
+## std::allocator
+
+`std::allocator` 是 C++ 标准库 `<memory>` 头文件中定义的默认分配器类模板。它是 C++ 中动态内存分配和释放的接口之一，用于管理内存的分配和释放。
+
+`std::allocator` 作为内存分配器，提供了用于分配和释放内存的一组操作，其中包括 `allocate()`、`deallocate()`、`construct()` 和 `destroy()` 等函数。
+
+以下是 `std::allocator` 的主要操作：
+
+- `allocate()`：分配指定数量的未初始化内存块。
+- `deallocate()`：释放之前分配的内存块。
+- `construct()`：在分配的内存中构造一个对象。
+- `destroy()`：在分配的内存中销毁一个对象。
+
+它是 C++ 标准库提供的默认分配器，并且也是许多容器（如 `std::vector`、`std::list` 等）的默认分配器。
+
+通常情况下，如果不提供自定义的分配器，标准库的容器会默认使用 `std::allocator` 进行内存管理。当然，如果需要更多的定制或特定的内存管理方式，可以通过定义自己的分配器类并符合特定的接口来实现。
+
+以下是一个简单示例：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+int main() {
+    std::allocator<int> myAllocator;
+
+    // 分配内存来存储 5 个整数
+    int* ptr = myAllocator.allocate(5);
+
+    for (int i = 0; i < 5; ++i) {
+        myAllocator.construct(&ptr[i], i); // 构造对象
+    }
+
+    // 输出分配的整数
+    for (int i = 0; i < 5; ++i) {
+        std::cout << ptr[i] << " ";
+    }
+
+    // 销毁对象并释放内存
+    for (int i = 0; i < 5; ++i) {
+        myAllocator.destroy(&ptr[i]);
+    }
+    myAllocator.deallocate(ptr, 5);
+
+    return 0;
+}
+```
+
+在这个示例中，`std::allocator` 被用来分配和释放一块存储整数的内存，然后构造并输出这些整数，最后销毁并释放分配的内存。

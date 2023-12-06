@@ -1,0 +1,557 @@
+## 简介
+
++ C++ <thread>标准库
+
+## C++ <thread>标准库 
+
+`<thread>` 是 C++ 标准库中提供的头文件，用于支持多线程编程。它包含了许多与线程相关的类、函数和工具，使得开发者能够创建、管理和控制线程。
+
+以下是 `<thread>` 标准库中常用的一些类和函数：
+
+### 类：
+
+1. **std::thread**：表示一个线程对象。通过实例化 `std::thread` 类，可以创建一个新的线程来执行指定的函数或可调用对象。
+
+2. **std::mutex**：互斥量类，用于在多线程环境中保护共享资源，防止多个线程同时访问。
+
+3. **std::condition_variable**：条件变量类，用于在多线程间进行通信和同步，允许线程等待特定的条件。
+
+4. **std::atomic**：提供了原子操作，用于在多线程环境下执行原子操作，避免竞态条件。
+
+### 函数：
+
+1. **std::this_thread::sleep_for()**：让当前线程休眠指定的时间段。
+
+2. **std::this_thread::get_id()**：获取当前线程的唯一标识符。
+
+3. **std::thread::join()**：等待线程结束，阻塞当前线程直到该线程完成执行。
+
+4. **std::thread::detach()**：分离线程，允许线程在后台运行，不需要等待其完成。
+
+5. **std::mutex::lock()** 和 **std::mutex::unlock()**：分别用于互斥量的锁定和解锁。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction() {
+    std::cout << "Hello from thread!" << std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建新线程
+
+    myThread.join(); // 等待线程执行完毕
+
+    std::cout << "Main thread" << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了如何使用 `<thread>` 标准库创建新的线程，并在主线程中等待新线程的执行结束。`std::thread` 类被用来创建一个执行 `threadFunction` 函数的新线程。然后，`join()` 函数被用来等待新线程执行完成，使得主线程可以在新线程执行完成后继续执行。
+
+## C++ <thread>标准库 常用的类和函数
+
+`<thread>` 标准库提供了许多用于多线程编程的类和函数。以下是其中一些常用的类和函数：
+
+### 类：
+
+1. **std::thread**：表示一个线程对象。通过 `std::thread` 类，可以创建一个新的线程来执行指定的函数或可调用对象。
+
+2. **std::mutex**：互斥量类，用于在多线程环境中保护共享资源，防止多个线程同时访问。
+
+3. **std::condition_variable**：条件变量类，用于在多线程间进行通信和同步，允许线程等待特定的条件。
+
+4. **std::atomic**：提供了原子操作，用于在多线程环境下执行原子操作，避免竞态条件。
+
+5. **std::thread::id**：表示线程的唯一标识符。
+
+### 函数：
+
+1. **std::thread::join()**：等待线程结束，阻塞当前线程直到该线程完成执行。
+
+2. **std::thread::detach()**：分离线程，允许线程在后台运行，不需要等待其完成。
+
+3. **std::this_thread::sleep_for()**：让当前线程休眠指定的时间段。
+
+4. **std::this_thread::get_id()**：获取当前线程的唯一标识符。
+
+5. **std::mutex::lock()** 和 **std::mutex::unlock()**：分别用于互斥量的锁定和解锁。
+
+6. **std::condition_variable::wait()** 和 **std::condition_variable::notify_one()**：用于条件变量的等待和唤醒操作。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+std::mutex mtx;
+std::condition_variable cv;
+
+bool ready = false;
+
+void workerThread() {
+    std::unique_lock<std::mutex> lck(mtx);
+    cv.wait(lck, [] { return ready; }); // 等待条件变量为 true
+
+    std::cout << "Worker thread is processing..." << std::endl;
+    // Perform work here
+}
+
+int main() {
+    std::thread worker(workerThread); // 创建新线程
+
+    // 做一些其他工作...
+
+    // 等待一段时间后，设置条件变量为 true
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    {
+        std::lock_guard<std::mutex> lck(mtx);
+        ready = true;
+    }
+    cv.notify_one(); // 唤醒等待的线程
+
+    worker.join(); // 等待线程执行完毕
+
+    return 0;
+}
+```
+
+这个示例演示了如何使用 `<thread>` 标准库中的类和函数进行线程的创建、同步和通信。主线程设置条件变量为 `true` 并唤醒等待的工作线程，从而使得工作线程可以执行相应的任务。
+
+## std::thread
+
+`std::thread` 是 C++ 标准库 `<thread>` 中定义的类，用于表示一个线程对象。通过 `std::thread` 类，可以创建新的线程来执行指定的函数或可调用对象。
+
+### 构造函数：
+
+`std::thread` 对象的构造函数可以接受函数、可调用对象（函数对象、Lambda 表达式等）作为参数，并在新的线程中执行。构造函数的基本形式如下：
+
+```cpp
+#include <thread>
+
+std::thread myThread(myFunction); // 通过函数创建新线程
+std::thread myThread2([] { /* Lambda 表达式 */ }); // 通过 Lambda 表达式创建新线程
+```
+
+### 成员函数和操作：
+
+1. **join()**：等待线程结束，阻塞当前线程直到该线程完成执行。
+   
+   ```cpp
+   myThread.join(); // 等待 myThread 执行完毕
+   ```
+
+2. **detach()**：分离线程，允许线程在后台运行，不需要等待其完成。
+
+   ```cpp
+   myThread.detach(); // 分离 myThread
+   ```
+
+3. **get_id()**：获取线程的唯一标识符。
+
+   ```cpp
+   std::thread::id threadId = myThread.get_id(); // 获取 myThread 的线程标识符
+   ```
+
+4. **joinable()**：检查线程是否可连接，即是否可以调用 `join()` 或 `detach()`。
+
+   ```cpp
+   if (myThread.joinable()) {
+       // 可以调用 join() 或 detach()
+   }
+   ```
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction(int x) {
+    std::cout << "Thread function, x = " << x << std::endl;
+}
+
+int main() {
+    int value = 10;
+    std::thread myThread(threadFunction, value); // 创建新线程
+
+    if (myThread.joinable()) {
+        myThread.join(); // 等待线程执行完毕
+    }
+
+    return 0;
+}
+```
+
+这个示例中，`std::thread` 类被用来创建一个执行 `threadFunction` 函数的新线程。主线程使用 `join()` 函数等待新线程的执行结束。在创建线程时，可以传递函数名或可调用对象，并且可以携带参数供线程函数使用。
+
+## std::thread::join()
+
+`std::thread::join()` 是 `std::thread` 类的成员函数，用于等待线程的结束。调用 `join()` 函数会使当前线程阻塞，直到对应的 `std::thread` 对象所代表的线程执行完毕。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction() {
+    std::cout << "Thread is running..." << std::endl;
+    // 执行一些任务...
+    std::this_thread::sleep_for(std::chrono::seconds(3)); // 模拟线程执行耗时操作
+    std::cout << "Thread completed." << std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建新线程
+
+    if (myThread.joinable()) {
+        myThread.join(); // 等待线程执行完毕
+        std::cout << "Main thread: Thread joined." << std::endl;
+    } else {
+        std::cout << "Main thread: Thread cannot be joined." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`std::thread::join()` 被用来等待 `myThread` 所代表的线程执行完毕。`join()` 函数使得主线程进入阻塞状态，直到 `myThread` 线程执行完毕，然后继续执行主线程的后续代码。
+
+## std::thread::detach()
+
+`std::thread::detach()` 是 `std::thread` 类的成员函数，用于将 `std::thread` 对象所代表的线程与 `std::thread` 对象分离。一旦调用了 `detach()`，`std::thread` 对象将不再与实际线程相关联，且不再具有对线程的控制能力。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction() {
+    std::cout << "Thread is running..." << std::endl;
+    // 执行一些任务...
+    std::this_thread::sleep_for(std::chrono::seconds(3)); // 模拟线程执行耗时操作
+    std::cout << "Thread completed." << std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建新线程
+
+    if (myThread.joinable()) {
+        myThread.detach(); // 分离线程
+        std::cout << "Main thread: Thread detached." << std::endl;
+    } else {
+        std::cout << "Main thread: Thread cannot be detached." << std::endl;
+    }
+
+    // 这里主线程不会等待新线程执行完毕，直接退出
+    return 0;
+}
+```
+
+在这个示例中，`std::thread::detach()` 被用来分离 `myThread` 所代表的线程。调用了 `detach()` 后，`myThread` 不再与线程相关联，即使 `myThread` 所代表的线程仍在执行，主线程也不会等待该线程完成。调用 `detach()` 后，`myThread` 对象将不再具有对线程的控制能力，也不再需要调用 `join()`。
+
+## std::thread::get_id()
+
+`std::thread::get_id()` 是 `std::thread` 类的成员函数，用于获取表示特定线程的唯一标识符。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction() {
+    // 获取线程的唯一标识符
+    std::thread::id threadId = std::this_thread::get_id();
+    std::cout << "Thread ID: " << threadId << std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建新线程
+
+    if (myThread.joinable()) {
+        myThread.join(); // 等待线程执行完毕
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`std::thread::get_id()` 被用来获取表示线程的唯一标识符。`std::thread::id` 是一个表示线程标识符的类型，可以通过 `get_id()` 函数获取当前线程的标识符，然后将其打印输出。
+
+请注意，线程的标识符类型是 `std::thread::id`，它可以通过 `get_id()` 函数来获取。这个标识符是在每个线程创建时由操作系统生成的，用于唯一标识一个线程。
+
+## std::thread::joinable()
+
+`std::thread::joinable()` 是 `std::thread` 类的成员函数，用于检查 `std::thread` 对象是否与实际的线程相关联，即该线程是否可连接（joinable）。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void threadFunction() {
+    std::cout << "Thread is running..." << std::endl;
+    // 执行一些任务...
+    std::this_thread::sleep_for(std::chrono::seconds(3)); // 模拟线程执行耗时操作
+    std::cout << "Thread completed." << std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建新线程
+
+    if (myThread.joinable()) {
+        std::cout << "Thread is joinable." << std::endl;
+        myThread.join(); // 等待线程执行完毕
+    } else {
+        std::cout << "Thread is not joinable." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`std::thread::joinable()` 被用来检查 `myThread` 对象是否与实际线程相关联。如果线程可以连接（即可等待其完成），则调用 `join()` 函数等待线程执行完毕。否则，输出提示线程不可连接。调用 `joinable()` 函数可以避免在不可连接的线程上调用 `join()` 或 `detach()` 导致的未定义行为。
+
+## std::this_thread
+
+`std::this_thread` 是 C++ 标准库中 `<thread>` 头文件中定义的命名空间，提供了一些与当前线程相关的功能和信息。
+
+### 主要成员函数：
+
+1. **std::this_thread::get_id()**：获取当前线程的唯一标识符，返回类型为 `std::thread::id`。
+
+    ```cpp
+    std::thread::id threadId = std::this_thread::get_id();
+    ```
+
+2. **std::this_thread::sleep_for()**：让当前线程休眠指定的时间段。
+
+    ```cpp
+    std::this_thread::sleep_for(std::chrono::seconds(2)); // 休眠 2 秒
+    ```
+
+3. **std::this_thread::yield()**：提示线程调度器当前线程愿意让出 CPU 时间片给其他线程。
+
+    ```cpp
+    std::this_thread::yield(); // 提示线程调度器让出 CPU 时间片
+    ```
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void threadFunction() {
+    std::thread::id threadId = std::this_thread::get_id();
+    std::cout << "Thread ID: " << threadId << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "Thread completed sleep." << std::endl;
+}
+
+int main() {
+    std::cout << "Main thread ID: " << std::this_thread::get_id() << std::endl;
+
+    std::thread myThread(threadFunction); // 创建新线程
+
+    myThread.join(); // 等待线程执行完毕
+
+    return 0;
+}
+```
+
+在这个示例中，`std::this_thread` 被用来获取当前线程的标识符，并在主线程和另一个线程中进行输出。同时，`sleep_for()` 函数被用来让当前线程休眠一段时间。
+
+## std::this_thread命名空间下常用的类和函数
+
+在 `std::this_thread` 命名空间下，主要包含用于管理和操作当前线程的一些常用类和函数。以下是其中一些常用的类和函数：
+
+### 类：
+
+1. **std::this_thread::id**：表示线程的唯一标识符类型，用于标识当前线程的标识符。
+   
+   ```cpp
+   std::thread::id threadId = std::this_thread::get_id(); // 获取当前线程的标识符
+   ```
+
+### 函数：
+
+1. **std::this_thread::get_id()**：获取当前线程的唯一标识符。
+   
+   ```cpp
+   std::thread::id threadId = std::this_thread::get_id(); // 获取当前线程的标识符
+   ```
+
+2. **std::this_thread::sleep_for()**：让当前线程休眠指定的时间段。
+
+   ```cpp
+   std::this_thread::sleep_for(std::chrono::milliseconds(500)); // 休眠 500 毫秒
+   ```
+
+3. **std::this_thread::sleep_until()**：让当前线程休眠直到指定的时间点。
+
+   ```cpp
+   std::chrono::time_point<std::chrono::system_clock> timeout = std::chrono::system_clock::now() + std::chrono::seconds(5);
+   std::this_thread::sleep_until(timeout); // 休眠直到 timeout 时间点
+   ```
+
+4. **std::this_thread::yield()**：提示线程调度器当前线程愿意让出 CPU 时间片给其他线程。
+
+   ```cpp
+   std::this_thread::yield(); // 提示线程调度器让出 CPU 时间片
+   ```
+
+这些函数和类型提供了对当前线程的一些基本操作，比如获取线程标识符、线程休眠等，有助于对当前线程进行控制和管理。
+
+## std::this_thread::id
+
+`std::this_thread::id` 是一个类型，用于表示线程的唯一标识符。这个类型代表了当前线程的标识符，并且可以用于区分不同的线程。
+
+### 主要操作：
+
+1. **std::this_thread::get_id()**：获取当前线程的唯一标识符。
+
+    ```cpp
+    std::thread::id threadId = std::this_thread::get_id(); // 获取当前线程的标识符
+    ```
+
+2. **比较操作**：`std::this_thread::id` 类型的对象支持比较操作符，可以用来检查两个线程标识符是否相等。
+
+    ```cpp
+    std::thread::id threadId1 = std::this_thread::get_id();
+    std::thread::id threadId2 = std::this_thread::get_id();
+
+    if (threadId1 == threadId2) {
+        // 这两个线程标识符相等
+    } else {
+        // 这两个线程标识符不相等
+    }
+    ```
+
+`std::this_thread::id` 类型的对象被用于表示线程的唯一标识符，可以用来区分不同的线程。通常，它被用于获取当前线程的标识符并进行比较，以便进行线程相关的操作和判断。
+
+## std::this_thread::get_id()
+
+`std::this_thread::get_id()` 是 `std::this_thread` 命名空间中的函数，用于获取当前线程的唯一标识符（ID）。返回值类型是 `std::thread::id`，这个类型的对象用于唯一标识线程。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+
+int main() {
+    std::thread::id thisThreadId = std::this_thread::get_id(); // 获取当前线程的标识符
+
+    std::cout << "Current thread ID: " << thisThreadId << std::endl;
+
+    return 0;
+}
+```
+
+这个函数被用来获取当前线程的标识符，返回的 `std::thread::id` 对象可以表示当前线程的唯一标识符。通常用于在多线程环境中识别和区分不同的线程。
+
+## std::this_thread::sleep_for()
+
+`std::this_thread::sleep_for()` 是 `std::this_thread` 命名空间中的函数，用于让当前线程休眠一段指定的时间。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+int main() {
+    std::cout << "Start sleeping..." << std::endl;
+
+    // 休眠 2 秒钟
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    std::cout << "Wake up after sleeping for 2 seconds." << std::endl;
+
+    return 0;
+}
+```
+
+这个函数被用来让当前线程暂停执行一段时间。在示例中，`std::this_thread::sleep_for()` 使得程序执行暂停了 2 秒钟，然后继续往下执行。
+
+该函数的参数是 `std::chrono::duration` 类型的实例，可接受各种时间单位（如秒、毫秒、微秒等），用于指定线程暂停的时间长度。
+
+## std::this_thread::sleep_until()
+
+`std::this_thread::sleep_until()` 是 `std::this_thread` 命名空间中的函数，用于让当前线程休眠直到指定的时间点。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+int main() {
+    std::cout << "Start sleeping..." << std::endl;
+
+    // 设置一个时间点为当前时间加上 5 秒钟
+    std::chrono::time_point<std::chrono::system_clock> wakeupTime = std::chrono::system_clock::now() + std::chrono::seconds(5);
+
+    // 让当前线程休眠直到指定的时间点
+    std::this_thread::sleep_until(wakeupTime);
+
+    std::cout << "Woke up after 5 seconds." << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`std::this_thread::sleep_until()` 函数使得当前线程休眠直到指定的时间点。通过 `std::chrono::time_point` 设置了一个时间点为当前时间加上 5 秒钟，并将其作为参数传递给 `sleep_until()` 函数，使得线程休眠直到这个时间点。
+
+这个函数的参数是 `std::chrono::time_point` 类型的对象，表示线程应该休眠的时间点。
+
+## std::this_thread::yield()
+
+`std::this_thread::yield()` 是 `std::this_thread` 命名空间中的函数，用于提示线程调度器当前线程愿意让出 CPU 时间片，以便给其他线程执行的机会。
+
+### 用法示例：
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void taskFunction() {
+    for (int i = 0; i < 5; ++i) {
+        std::cout << "Task running..." << std::endl;
+        std::this_thread::yield(); // 提示线程调度器让出 CPU 时间片
+    }
+}
+
+int main() {
+    std::thread task(taskFunction); // 创建新线程执行任务
+
+    // 主线程执行
+    for (int i = 0; i < 5; ++i) {
+        std::cout << "Main thread running..." << std::endl;
+        std::this_thread::yield(); // 提示线程调度器让出 CPU 时间片
+    }
+
+    task.join(); // 等待任务线程执行完毕
+
+    return 0;
+}
+```
+
+在这个示例中，`std::this_thread::yield()` 被用来提示线程调度器让出 CPU 时间片。主线程和任务线程分别交替执行，每次循环调用 `yield()` 后，当前线程会主动让出 CPU 时间片，给其他线程执行的机会。注意，`yield()` 函数只是一个提示，调度器是否立即采纳取决于操作系统的具体实现。
