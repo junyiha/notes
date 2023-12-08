@@ -2,6 +2,567 @@
 
 + C++ <cstring>标准库
 
+## C++ <cstring>标准库
+
+`<cstring>` 是 C++ 标准库中的头文件，它提供了一系列对 C 风格字符串（以 null 结尾的字符数组）进行操作的函数和工具。
+
+以下是 `<cstring>` 头文件中常见的函数及其功能：
+
+1. **字符串操作函数**：
+   - `strcpy()`：将一个字符串复制到另一个字符串中。
+   - `strncpy()`：将指定长度的字符串复制到另一个字符串中。
+   - `strcat()`：将一个字符串连接到另一个字符串的末尾。
+   - `strncat()`：将指定长度的字符串连接到另一个字符串的末尾。
+   - `strlen()`：返回字符串的长度。
+   - `strcmp()`：比较两个字符串。
+   - `strncmp()`：比较两个字符串的指定长度部分。
+   - `strchr()`：在字符串中查找指定字符的第一个出现位置。
+   - `strrchr()`：在字符串中查找指定字符的最后一个出现位置。
+   - `strstr()`：在字符串中查找子串的第一个出现位置。
+   - `strtok()`：将字符串分割成标记（token）。
+   - `strpbrk()`：在字符串中查找任意字符集中的任意字符第一次出现的位置。
+
+2. **字符串内存操作函数**：
+   - `memset()`：将内存块设置为指定的值。
+   - `memcpy()`：将一个内存区块的内容拷贝到另一个内存区块。
+   - `memmove()`：将内存区块的内容移动到另一个内存区块。
+   - `memcmp()`：比较两个内存区块。
+
+这些函数提供了对字符串进行复制、连接、比较、搜索以及内存块操作等一系列常用操作的功能。
+
+### 示例：
+
+以下是一个简单的示例，展示了 `<cstring>` 头文件中的一些函数的基本用法：
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char str1[] = "Hello";
+    char str2[] = "World";
+
+    // 拷贝字符串
+    char dest[20];
+    std::strcpy(dest, str1);
+    std::cout << "Copied string: " << dest << std::endl;
+
+    // 拼接字符串
+    std::strcat(dest, " ");
+    std::strcat(dest, str2);
+    std::cout << "Concatenated string: " << dest << std::endl;
+
+    // 比较字符串
+    if (std::strcmp(str1, str2) != 0) {
+        std::cout << "Strings are different." << std::endl;
+    }
+
+    // 查找子串
+    char* sub_str = std::strstr(dest, "World");
+    if (sub_str != nullptr) {
+        std::cout << "Found substring: " << sub_str << std::endl;
+    }
+
+    return 0;
+}
+```
+
+## std::strcpy()
+
+`std::strcpy()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于将一个字符串（以 null 结尾的字符数组）复制到另一个字符串中。
+
+### 函数签名：
+```cpp
+char* strcpy(char* dest, const char* src);
+```
+
+### 参数：
+- `dest`：指向目标字符数组的指针，接收源字符串的内容。要确保目标字符数组足够大，能够容纳源字符串的内容。
+- `src`：指向源字符串的指针，要被复制到目标字符数组中的内容。
+
+### 返回值：
+- 返回一个指向目标字符数组 `dest` 的指针，即源字符串被复制后的字符串起始地址。
+
+### 功能：
+`strcpy()` 函数将源字符串 `src` 的内容（包括结束符 `\0`）复制到目标字符数组 `dest` 中，直到遇到源字符串的结束符 `\0`。如果 `dest` 字符数组不够大，可能会导致缓冲区溢出，因此使用时需要确保目标字符数组足够大以容纳源字符串的内容。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char source[] = "Hello, World!";
+    char destination[20];
+
+    std::strcpy(destination, source);
+
+    std::cout << "Source string: " << source << std::endl;
+    std::cout << "Destination string: " << destination << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`strcpy()` 函数被用来将 `source` 字符串的内容复制到 `destination` 字符数组中。复制后，`destination` 中存储了与 `source` 相同的字符串。
+
+在此示例中，使用了一系列 `<cstring>` 中的函数来进行字符串的复制、拼接、比较和查找操作。`strcpy()` 用于复制字符串，`strcat()` 用于连接字符串，`strcmp()` 用于比较字符串，`strstr()` 用于在字符串中查找子串。
+
+## std::strncpy()
+
+`std::strncpy()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于将一个字符串的指定长度复制到另一个字符串中。
+
+### 函数签名：
+```cpp
+char* strncpy(char* dest, const char* src, size_t count);
+```
+
+### 参数：
+- `dest`：指向目标字符数组的指针，接收源字符串的内容。要确保目标字符数组足够大，能够容纳指定长度的源字符串内容。
+- `src`：指向源字符串的指针，要被复制到目标字符数组中的内容。
+- `count`：要复制的字符数，包括结束符 `\0`。如果 `count` 大于源字符串的长度，将在目标字符串中填充额外的 `\0` 以填满指定的长度。
+
+### 返回值：
+- 返回一个指向目标字符数组 `dest` 的指针，即源字符串的一部分被复制到了目标字符数组中。
+
+### 功能：
+`strncpy()` 函数将源字符串 `src` 的指定长度（包括结束符 `\0`）复制到目标字符数组 `dest` 中。如果源字符串的长度小于 `count`，则剩余的部分将用 `\0` 填充，以确保目标字符数组的长度为 `count`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char source[] = "Hello, World!";
+    char destination[10];
+
+    std::strncpy(destination, source, 5); // 复制 source 中的前5个字符到 destination
+
+    destination[5] = '\0'; // 手动添加 null 结尾字符，确保字符串正确结束
+
+    std::cout << "Source string: " << source << std::endl;
+    std::cout << "Destination string: " << destination << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`strncpy()` 函数被用来将 `source` 字符串的前5个字符复制到 `destination` 字符数组中。最后一个字符被设置为 `\0`，以确保字符串正确结束。
+
+## std::strcat()
+
+`std::strcat()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于将一个字符串连接到另一个字符串的末尾。
+
+### 函数签名：
+```cpp
+char* strcat(char* dest, const char* src);
+```
+
+### 参数：
+- `dest`：指向目标字符数组的指针，包含源字符串，并将要连接的字符串追加到此字符串的末尾。要确保目标字符数组足够大，能够容纳源字符串和要连接的字符串。
+- `src`：指向源字符串的指针，要被连接到目标字符串的末尾。
+
+### 返回值：
+- 返回一个指向目标字符数组 `dest` 的指针，即连接后的字符串起始地址。
+
+### 功能：
+`strcat()` 函数将源字符串 `src` 的内容（不包括结束符 `\0`）连接到目标字符数组 `dest` 的末尾，并添加 `\0` 作为连接后字符串的结束符。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char str1[20] = "Hello, ";
+    char str2[] = "World!";
+
+    std::strcat(str1, str2);
+
+    std::cout << "Concatenated string: " << str1 << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`strcat()` 函数被用来将 `str2` 字符串连接到 `str1` 字符数组的末尾，得到一个新的字符串。最终输出的结果为连接后的字符串 `"Hello, World!"`。请注意，在使用 `strcat()` 连接字符串时，确保目标字符数组有足够的空间来容纳连接后的结果。
+
+## std::strncat()
+
+`std::strncat()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于将源字符串的指定长度连接到另一个字符串的末尾。
+
+### 函数签名：
+```cpp
+char* strncat(char* dest, const char* src, size_t count);
+```
+
+### 参数：
+- `dest`：指向目标字符数组的指针，包含源字符串，并将要连接的部分字符串追加到此字符串的末尾。要确保目标字符数组足够大，能够容纳源字符串和要连接的部分字符串。
+- `src`：指向源字符串的指针，要被连接到目标字符串的末尾。
+- `count`：要连接的字符数，最多追加 `count` 个字符到目标字符数组中。
+
+### 返回值：
+- 返回一个指向目标字符数组 `dest` 的指针，即连接后的字符串起始地址。
+
+### 功能：
+`strncat()` 函数将源字符串 `src` 的指定长度（不包括结束符 `\0`）连接到目标字符数组 `dest` 的末尾，并添加 `\0` 作为连接后字符串的结束符。该函数将最多连接 `count` 个字符，但如果 `src` 中的字符串长度小于 `count`，则会连接完整的 `src` 字符串。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char str1[20] = "Hello, ";
+    char str2[] = "World!";
+
+    std::strncat(str1, str2, 3); // 仅连接 str2 的前3个字符
+
+    std::cout << "Concatenated string: " << str1 << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`strncat()` 函数被用来将 `str2` 字符串的前3个字符连接到 `str1` 字符数组的末尾，得到一个新的字符串。最终输出的结果为连接后的字符串 `"Hello, Wor"`。请确保目标字符数组有足够的空间来容纳连接后的结果。
+
+## std::strlen()
+
+`std::strlen()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于计算以 null 结尾的 C 风格字符串的长度，即字符串中的字符数量，不包括结尾的 null 终止符 `\0`。
+
+### 函数签名：
+```cpp
+size_t strlen(const char* str);
+```
+
+### 参数：
+- `str`：指向以 null 结尾的 C 风格字符串的指针。
+
+### 返回值：
+- 返回字符串的长度，即字符串中的字符数量，不包括结尾的 null 终止符 `\0`。
+
+### 功能：
+`strlen()` 函数会扫描参数 `str` 指向的字符串，直到遇到字符串结尾的 null 终止符 `\0`，然后返回字符串的实际长度，不包括结尾的 null 终止符。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str = "Hello, World!";
+
+    size_t length = std::strlen(str);
+
+    std::cout << "Length of the string: " << length << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`strlen()` 函数被用来计算字符串 `"Hello, World!"` 的长度，即输出结果为字符串的字符数量（不包括结尾的 null 终止符），最终输出结果为字符串的长度为 `13`。
+
+## std::strcmp()
+
+`std::strcmp()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于比较两个字符串。
+
+### 函数签名：
+```cpp
+int strcmp(const char* str1, const char* str2);
+```
+
+### 参数：
+- `str1`：指向第一个要比较的以 null 结尾的 C 风格字符串的指针。
+- `str2`：指向第二个要比较的以 null 结尾的 C 风格字符串的指针。
+
+### 返回值：
+- 如果两个字符串相同，则返回 `0`；如果第一个不同于第二个，返回其 ASCII 值差；如果第一个小于第二个，则返回一个负值；如果第一个大于第二个，则返回一个正值。
+
+### 功能：
+`strcmp()` 函数对比两个字符串 `str1` 和 `str2`，并按照字典顺序进行比较。它逐个比较两个字符串对应位置的字符，直到发现不同的字符或者遇到其中一个字符串的结束符 `\0`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str1 = "Hello";
+    const char* str2 = "World";
+
+    int result = std::strcmp(str1, str2);
+
+    if (result == 0) {
+        std::cout << "Strings are equal." << std::endl;
+    } else if (result < 0) {
+        std::cout << "String 1 is less than String 2." << std::endl;
+    } else {
+        std::cout << "String 1 is greater than String 2." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strcmp()` 函数被用来比较两个字符串 `"Hello"` 和 `"World"`。由于 `"Hello"` 在字典中排在 `"World"` 之前，所以输出结果为 `"String 1 is less than String 2."`。
+
+## std::strncmp()
+
+`std::strncmp()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于比较两个字符串的指定长度部分。
+
+### 函数签名：
+```cpp
+int strncmp(const char* str1, const char* str2, size_t count);
+```
+
+### 参数：
+- `str1`：指向第一个要比较的以 null 结尾的 C 风格字符串的指针。
+- `str2`：指向第二个要比较的以 null 结尾的 C 风格字符串的指针。
+- `count`：要比较的字符数，即指定要比较的字符串部分的长度。
+
+### 返回值：
+- 如果两个字符串相同，则返回 `0`；如果第一个不同于第二个，返回其 ASCII 值差；如果第一个小于第二个，则返回一个负值；如果第一个大于第二个，则返回一个正值。
+
+### 功能：
+`strncmp()` 函数与 `strcmp()` 类似，但是 `strncmp()` 比较的字符数是通过参数 `count` 指定的。它逐个比较两个字符串相应位置的字符，直到达到指定的字符数 `count`、发现不同的字符或者遇到其中一个字符串的结束符 `\0`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str1 = "Hello";
+    const char* str2 = "Help";
+
+    int result = std::strncmp(str1, str2, 3); // 比较前3个字符
+
+    if (result == 0) {
+        std::cout << "First 3 characters of strings are equal." << std::endl;
+    } else if (result < 0) {
+        std::cout << "First 3 characters of String 1 are less than String 2." << std::endl;
+    } else {
+        std::cout << "First 3 characters of String 1 are greater than String 2." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strncmp()` 函数被用来比较两个字符串的前3个字符。因为在比较范围内，`'l'`（来自 `"Hello"`）在字典顺序上大于 `'p'`（来自 `"Help"`），所以输出结果为 `"First 3 characters of String 1 are greater than String 2."`。
+
+## std::strchr()
+
+`std::strchr()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于在字符串中查找指定字符的第一次出现位置。
+
+### 函数签名：
+```cpp
+char* strchr(const char* str, int character);
+```
+
+### 参数：
+- `str`：指向要搜索的以 null 结尾的 C 风格字符串的指针。
+- `character`：要在字符串中查找的字符，作为整数值传递。通常使用字符的 ASCII 值作为参数传递。
+
+### 返回值：
+- 如果找到指定的字符，则返回一个指向该字符首次出现的位置的指针；如果未找到，则返回 `nullptr`。
+
+### 功能：
+`strchr()` 函数在给定字符串 `str` 中搜索指定的字符 `character`，并返回第一次出现的位置（指针）。它从给定字符串的开头开始搜索，直到找到指定的字符或者遇到字符串结束符 `\0`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str = "Hello, World!";
+    char ch = 'o';
+
+    char* position = std::strchr(str, ch);
+
+    if (position != nullptr) {
+        std::cout << "First occurrence of '" << ch << "' at position: " << position - str << std::endl;
+    } else {
+        std::cout << "Character not found." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strchr()` 函数被用来查找字符串 `"Hello, World!"` 中字符 `'o'` 的第一次出现位置。因为 `'o'` 第一次出现在索引为 4 的位置（字符串索引从 0 开始），所以输出结果为 `"First occurrence of 'o' at position: 4"`。
+
+## std::strrchr()
+
+`std::strrchr()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于在字符串中查找指定字符的最后一次出现位置。
+
+### 函数签名：
+```cpp
+char* strrchr(const char* str, int character);
+```
+
+### 参数：
+- `str`：指向要搜索的以 null 结尾的 C 风格字符串的指针。
+- `character`：要在字符串中查找的字符，作为整数值传递。通常使用字符的 ASCII 值作为参数传递。
+
+### 返回值：
+- 如果找到指定的字符，则返回一个指向该字符最后一次出现的位置的指针；如果未找到，则返回 `nullptr`。
+
+### 功能：
+`strrchr()` 函数在给定字符串 `str` 中从后向前搜索指定的字符 `character`，并返回最后一次出现的位置（指针）。它从字符串的结尾向开头搜索，直到找到指定的字符或者遇到字符串起始位置。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str = "Hello, World!";
+    char ch = 'o';
+
+    char* position = std::strrchr(str, ch);
+
+    if (position != nullptr) {
+        std::cout << "Last occurrence of '" << ch << "' at position: " << position - str << std::endl;
+    } else {
+        std::cout << "Character not found." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strrchr()` 函数被用来查找字符串 `"Hello, World!"` 中字符 `'o'` 的最后一次出现位置。因为 `'o'` 最后一次出现在索引为 8 的位置（字符串索引从 0 开始），所以输出结果为 `"Last occurrence of 'o' at position: 8"`。
+
+## std::strstr()
+
+`std::strstr()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于在字符串中查找子串的第一次出现位置。
+
+### 函数签名：
+```cpp
+char* strstr(const char* str, const char* substr);
+```
+
+### 参数：
+- `str`：指向要搜索的以 null 结尾的 C 风格字符串的指针。
+- `substr`：指向要查找的以 null 结尾的 C 风格子串的指针。
+
+### 返回值：
+- 如果找到子串，则返回一个指向字符串 `str` 中子串 `substr` 第一次出现的位置的指针；如果未找到，则返回 `nullptr`。
+
+### 功能：
+`strstr()` 函数在给定字符串 `str` 中搜索子串 `substr`，并返回子串第一次出现的位置（指针）。如果找到了子串，则返回子串第一次出现的位置的指针；如果未找到，则返回 `nullptr`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str = "Hello, World!";
+    const char* substr = "World";
+
+    char* position = std::strstr(str, substr);
+
+    if (position != nullptr) {
+        std::cout << "Substring found at position: " << position - str << std::endl;
+    } else {
+        std::cout << "Substring not found." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strstr()` 函数被用来查找字符串 `"Hello, World!"` 中子串 `"World"` 的第一次出现位置。由于 `"World"` 子串第一次出现在索引为 7 的位置（字符串索引从 0 开始），所以输出结果为 `"Substring found at position: 7"`。
+
+## std::strtok()
+
+`std::strtok()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于将字符串分割成标记（token）。
+
+### 函数签名：
+```cpp
+char* strtok(char* str, const char* delimiters);
+```
+
+### 参数：
+- `str`：要分割的字符串。第一次调用时，传入要分割的字符串；在后续调用时，传入 `nullptr`。如果 `str` 不是 `nullptr`，则函数会修改这个字符串，将找到的分隔标记替换为 null 终止符 `\0`。
+- `delimiters`：作为分隔标记的字符集合，表示分割字符串的分隔符。
+
+### 返回值：
+- 如果找到标记，则返回标记的指针；如果字符串结束或者没有找到标记，则返回 `nullptr`。
+
+### 功能：
+`strtok()` 函数用于将字符串 `str` 根据指定的分隔符 `delimiters` 进行分割，返回每个分割出来的标记。第一次调用时，`str` 指向要分割的字符串，后续调用时传入 `nullptr` 继续分割。每次调用会返回找到的下一个标记，直到字符串结束或者没有找到更多标记。
+
+### 注意事项：
+- `strtok()` 函数是非线程安全的，因为它使用了静态变量来存储上次分割的位置。在多线程环境中，可以使用 `strtok_r()`（POSIX 函数）或者其他替代方案。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char str[] = "Hello, World! This is a test.";
+
+    char* token = std::strtok(str, " ,.!"); // 分割字符集为空格、逗号和句号
+
+    while (token != nullptr) {
+        std::cout << "Token: " << token << std::endl;
+        token = std::strtok(nullptr, " ,.!");
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strtok()` 函数用于将字符串 `"Hello, World! This is a test."` 按照空格、逗号和句号作为分隔符进行分割。通过循环调用 `strtok()`，分别获取分割出来的标记，并输出每个标记。
+
+## std::strpbrk()
+
+`std::strpbrk()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于在字符串中查找任意字符集中的任意字符第一次出现的位置。
+
+### 函数签名：
+```cpp
+char* strpbrk(const char* str, const char* charset);
+```
+
+### 参数：
+- `str`：要搜索的以 null 结尾的 C 风格字符串的指针。
+- `charset`：作为搜索字符集合的字符串，包含了要在 `str` 中查找的字符。
+
+### 返回值：
+- 如果找到任意字符集中的任意字符，则返回第一个匹配的字符的指针；如果未找到，则返回 `nullptr`。
+
+### 功能：
+`strpbrk()` 函数在给定字符串 `str` 中搜索 `charset` 中的任意字符，返回第一次出现的位置（指针）。它会从字符串的开头开始搜索，直到找到任意字符集中的字符或者遇到字符串结束符 `\0`。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str = "Hello, World!";
+    const char* charset = "od!";
+
+    char* position = std::strpbrk(str, charset);
+
+    if (position != nullptr) {
+        std::cout << "Character found at position: " << position - str << std::endl;
+    } else {
+        std::cout << "Character not found." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`strpbrk()` 函数被用来查找字符串 `"Hello, World!"` 中字符集 `"od!"` 中的任意字符第一次出现的位置。由于其中字符 `'o'` 第一次出现在索引为 4 的位置（字符串索引从 0 开始），所以输出结果为 `"Character found at position: 4"`。
+
 ## std::memcpy
 
 `std::memcpy` 是 C++ 标准库 `<cstring>` 头文件中定义的函数，用于在内存块之间复制一定数量的字节。
@@ -72,3 +633,99 @@ int main() {
 ```
 
 在这个示例中，`std::memset()` 将字符 `'A'` 设置到 `buffer` 内存区域的每个字节中。要注意，`std::memset()` 是按字节进行操作，并不会处理字符数组或字符串的结尾 null 终止符。
+
+## std::memmove()
+
+`std::memmove()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于在内存块之间移动一定数量的字节，即使这两个内存块有重叠。
+
+### 函数签名：
+```cpp
+void* memmove(void* dest, const void* src, size_t count);
+```
+
+### 参数：
+- `dest`：指向目标内存区域的指针，表示要移动数据的目标位置。
+- `src`：指向源内存区域的指针，表示要从哪里复制数据。
+- `count`：要移动的字节数。
+
+### 返回值：
+- 返回指向目标内存区域的指针。
+
+### 功能：
+`memmove()` 函数用于从源地址 `src` 复制 `count` 个字节的数据到目标地址 `dest`。这个函数可以处理源地址和目标地址的内存重叠情况，保证在复制数据时不会出错。
+
+### 注意事项：
+- `memmove()` 函数比 `memcpy()` 更安全，因为它可以正确处理内存区域的重叠。对于无重叠的内存区域，`memcpy()` 和 `memmove()` 的功能基本相同。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    char str[] = "Hello, World!";
+    std::cout << "Before memmove: " << str << std::endl;
+
+    // 移动字符串中的一部分数据，模拟向左移动6个字符
+    std::memmove(str + 5, str + 1, 6);
+
+    std::cout << "After memmove: " << str << std::endl;
+
+    return 0;
+}
+```
+
+在此示例中，`memmove()` 函数被用来将字符串中的一部分数据向左移动了 6 个字符。原始字符串为 `"Hello, World!"`，经过 `memmove()` 处理后变为 `"HelloWorld, World!"`。
+
+## std::memcmp()
+
+`std::memcmp()` 是 C++ 标准库 `<cstring>` 头文件中的函数，用于比较两个内存块的内容。
+
+### 函数签名：
+```cpp
+int memcmp(const void* ptr1, const void* ptr2, size_t num);
+```
+
+### 参数：
+- `ptr1`：指向要比较的第一个内存块的指针。
+- `ptr2`：指向要比较的第二个内存块的指针。
+- `num`：要比较的字节数。
+
+### 返回值：
+- 如果两个内存块的内容相等，则返回 `0`。
+- 如果第一个内存块的内容小于第二个内存块的内容，则返回负值。
+- 如果第一个内存块的内容大于第二个内存块的内容，则返回正值。
+
+### 功能：
+`memcmp()` 函数用于按字节比较两个内存块的内容。它逐字节比较两个内存块的内容，直到比较完指定的字节数 `num` 或者发现第一个不相等的字节。返回比较结果。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main() {
+    const char* str1 = "Hello";
+    const char* str2 = "Hello";
+    const char* str3 = "World";
+
+    int result1 = std::memcmp(str1, str2, 5); // 比较 str1 和 str2 的前5个字符
+    int result2 = std::memcmp(str1, str3, 5); // 比较 str1 和 str3 的前5个字符
+
+    if (result1 == 0) {
+        std::cout << "str1 and str2 are equal." << std::endl;
+    } else {
+        std::cout << "str1 and str2 are not equal." << std::endl;
+    }
+
+    if (result2 == 0) {
+        std::cout << "str1 and str3 are equal." << std::endl;
+    } else {
+        std::cout << "str1 and str3 are not equal." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在此示例中，`memcmp()` 函数被用来比较字符串 `"Hello"` 和 `"Hello"` 以及 `"Hello"` 和 `"World"` 的前5个字符。由于前两个字符串相等，所以 `result1` 为 `0`，输出结果为 `"str1 and str2 are equal."`；而第二个比较中，因为字符串不相等，所以 `result2` 不为 `0`，输出结果为 `"str1 and str3 are not equal."`。

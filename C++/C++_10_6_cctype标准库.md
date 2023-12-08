@@ -51,6 +51,59 @@ int main() {
 
 以上示例演示了 `std::isupper()` 函数检查一个字符是否为大写字母，以及 `std::tolower()` 函数将一个字符转换为小写形式。
 
+## C++ <cctype>标准库 详解
+
+`<cctype>` 是 C++ 标准库中的头文件，提供了一系列操作 C 风格字符串中字符的函数，这些函数是字符分类函数（character classification functions），用于检查和操作字符的特性。
+
+以下是 `<cctype>` 头文件中常见的函数及其功能：
+
+1. **字符分类函数**：
+   - `isalnum(int c)`：检查字符是否是字母或数字。
+   - `isalpha(int c)`：检查字符是否是字母。
+   - `isdigit(int c)`：检查字符是否是十进制数字。
+   - `isxdigit(int c)`：检查字符是否是十六进制数字。
+   - `islower(int c)`：检查字符是否是小写字母。
+   - `isupper(int c)`：检查字符是否是大写字母。
+   - `isspace(int c)`：检查字符是否是空白字符（空格、制表符、换行符等）。
+   - `iscntrl(int c)`：检查字符是否是控制字符。
+   - `ispunct(int c)`：检查字符是否是标点符号。
+   - `isprint(int c)`：检查字符是否是可打印字符（包括空格）。
+   - `isgraph(int c)`：检查字符是否是可打印字符，但不包括空格。
+
+2. **字符转换函数**：
+   - `tolower(int c)`：将字符转换为小写字母（如果是大写字母的话）。
+   - `toupper(int c)`：将字符转换为大写字母（如果是小写字母的话）。
+
+这些函数通常用于对字符进行分类、转换或验证操作。它们的参数一般是一个整数（`int` 类型），这个整数可以是字符，也可以是 `EOF`（文件结束符）的值。
+
+### 示例：
+
+以下是一个简单的示例，展示了 `<cctype>` 头文件中的一些函数的基本用法：
+
+```cpp
+#include <iostream>
+#include <cctype>
+
+int main() {
+    char ch = 'A';
+
+    if (std::isalnum(ch)) {
+        std::cout << "Character is alphanumeric." << std::endl;
+    }
+
+    if (std::isdigit(ch)) {
+        std::cout << "Character is a digit." << std::endl;
+    }
+
+    std::cout << "Lowercase: " << std::tolower(ch) << std::endl;
+    std::cout << "Uppercase: " << std::toupper(ch) << std::endl;
+
+    return 0;
+}
+```
+
+此示例中，使用了 `isalnum()`、`isdigit()`、`tolower()` 和 `toupper()` 函数来检查和转换字符的特性。`isalnum()` 检查字符是否是字母或数字，`isdigit()` 检查字符是否是数字，`tolower()` 和 `toupper()` 分别将字符转换为小写和大写形式。
+
 ## std::tolower()
 
 `std::tolower()` 是 C++ 标准库中 `<cctype>` 头文件中提供的函数，用于将单个字符转换为小写形式。
