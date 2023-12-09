@@ -1,0 +1,111 @@
+## 简介
+
++ C++ <deque>标准库
+
+## C++ <deque>标准库
+
+`<deque>` 是 C++ 标准库中的头文件，定义了双端队列（double-ended queue）的模板类 `std::deque`。
+
+### std::deque 概述：
+- **头文件：** `<deque>`
+- **容器类型：** `std::deque` 是标准库中的容器类型之一，表示双端队列。
+- **特点：**
+  - 可以在两端高效地执行插入和删除操作，支持快速的随机访问。
+  - 与 `std::vector` 相似，但在两端插入和删除的操作效率更高，但随机访问的效率稍低。
+  - 内部使用多个固定大小的连续存储块来存储数据，允许在两端进行快速插入和删除。
+
+### 主要操作和用法：
+- **插入和删除操作：**
+  - `push_front()`, `push_back()`: 在队列的前端或后端插入元素。
+  - `pop_front()`, `pop_back()`: 从队列的前端或后端删除元素。
+- **随机访问：**
+  - 支持 `operator[]` 和 `at()` 等方法进行随机访问元素。
+- **大小操作：**
+  - `size()`, `empty()`: 获取队列的大小和判断是否为空。
+- **其他操作：**
+  - `front()`, `back()`: 获取队列的第一个和最后一个元素。
+  - `insert()`, `erase()`: 在指定位置插入或删除元素。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <deque>
+
+int main() {
+    std::deque<int> myDeque = {1, 2, 3};
+
+    myDeque.push_front(0); // 在前端插入元素
+    myDeque.push_back(4); // 在后端插入元素
+
+    std::cout << "Size of deque: " << myDeque.size() << std::endl;
+
+    std::cout << "Front element: " << myDeque.front() << std::endl;
+    std::cout << "Back element: " << myDeque.back() << std::endl;
+
+    myDeque.pop_front(); // 删除前端元素
+    myDeque.pop_back(); // 删除后端元素
+
+    for (const auto& elem : myDeque) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了 `std::deque` 的基本操作，包括在队列的前端和后端插入元素、获取队列的大小和头尾元素、删除前后端元素，并且遍历输出了队列中的元素。
+
+## C++ <deque>标准库 详解
+
+`<deque>` 头文件定义了 C++ 标准库中的 `std::deque`（双端队列）模板类。Deque（双端队列）是一种数据结构，允许在两端进行高效地插入和删除操作。
+
+### std::deque 概述：
+- **头文件：** `<deque>`
+- **容器类型：** `std::deque` 是标准库中的容器类型之一，表示双端队列。
+- **特点：**
+  - 可以在两端高效地执行插入和删除操作，支持快速的随机访问。
+  - 与 `std::vector` 相似，但在两端插入和删除的操作效率更高，但随机访问的效率稍低。
+  - 内部使用多个固定大小的连续存储块来存储数据，允许在两端进行快速插入和删除。
+
+### std::deque 的主要操作和用法：
+- **插入和删除操作：**
+  - `push_front()`, `push_back()`: 在队列的前端或后端插入元素。
+  - `pop_front()`, `pop_back()`: 从队列的前端或后端删除元素。
+- **随机访问：**
+  - 支持 `operator[]` 和 `at()` 等方法进行随机访问元素。
+- **大小操作：**
+  - `size()`, `empty()`: 获取队列的大小和判断是否为空。
+- **其他操作：**
+  - `front()`, `back()`: 获取队列的第一个和最后一个元素。
+  - `insert()`, `erase()`: 在指定位置插入或删除元素。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <deque>
+
+int main() {
+    std::deque<int> myDeque = {1, 2, 3};
+
+    myDeque.push_front(0); // 在前端插入元素
+    myDeque.push_back(4); // 在后端插入元素
+
+    std::cout << "Size of deque: " << myDeque.size() << std::endl;
+
+    std::cout << "Front element: " << myDeque.front() << std::endl;
+    std::cout << "Back element: " << myDeque.back() << std::endl;
+
+    myDeque.pop_front(); // 删除前端元素
+    myDeque.pop_back(); // 删除后端元素
+
+    for (const auto& elem : myDeque) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了 `std::deque` 的基本操作，包括在队列的前端和后端插入元素、获取队列的大小和头尾元素、删除前后端元素，并且遍历输出了队列中的元素。

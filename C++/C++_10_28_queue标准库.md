@@ -1,0 +1,291 @@
+## 简介
+
++ C++ <queue>标准库 
+
+## C++ <queue>标准库 
+
+`<queue>` 是 C++ 标准库中的头文件，定义了队列容器适配器 `std::queue`、优先队列 `std::priority_queue`，以及辅助队列的基本操作。
+
+### std::queue：
+- `std::queue` 是一个基于队列的容器适配器，底层使用其他容器（默认使用 `std::deque`）实现。
+- 队列是一种先进先出（FIFO）的数据结构，允许在队列的末尾（back）插入元素，从队列的前端（front）删除元素。
+- 主要操作：
+  - `push()`: 在队尾插入元素。
+  - `pop()`: 从队首删除元素。
+  - `front()`: 访问队首元素。
+  - `back()`: 访问队尾元素。
+  - `empty()`: 判断队列是否为空。
+  - `size()`: 获取队列中元素的数量。
+
+### std::priority_queue：
+- `std::priority_queue` 是一个基于堆的优先队列容器适配器，底层使用堆来管理元素。
+- 优先队列是一种特殊的队列，它保证了每次弹出元素时都是优先级最高（根据默认的比较器或自定义的比较器）的元素。
+- 主要操作：
+  - `push()`: 插入元素。
+  - `pop()`: 弹出优先级最高的元素。
+  - `top()`: 访问优先级最高的元素。
+  - `empty()`: 判断优先队列是否为空。
+  - `size()`: 获取优先队列中元素的数量。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    // std::queue
+    std::queue<int> myQueue;
+    myQueue.push(1);
+    myQueue.push(2);
+    myQueue.push(3);
+
+    while (!myQueue.empty()) {
+        std::cout << myQueue.front() << " "; // 访问队首元素
+        myQueue.pop(); // 弹出队首元素
+    }
+    std::cout << std::endl;
+
+    // std::priority_queue
+    std::priority_queue<int> myPriorityQueue;
+    myPriorityQueue.push(30);
+    myPriorityQueue.push(10);
+    myPriorityQueue.push(20);
+
+    while (!myPriorityQueue.empty()) {
+        std::cout << myPriorityQueue.top() << " "; // 访问优先级最高的元素
+        myPriorityQueue.pop(); // 弹出优先级最高的元素
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+这个示例演示了如何使用 `std::queue` 和 `std::priority_queue`。`std::queue` 用于创建基本的先进先出队列，而 `std::priority_queue` 则创建一个基于堆的优先队列。
+
+## C++ <queue>标准库 详解
+
+`<queue>` 是 C++ 标准库中的头文件，提供了队列容器适配器 `std::queue` 和优先队列容器适配器 `std::priority_queue`。
+
+### std::queue：
+- `std::queue` 是一个基于队列的容器适配器，用于实现先进先出（FIFO）的数据结构。
+- 默认使用 `std::deque` 作为其底层容器，但也可以使用其他支持 `front()`, `back()`, `push_back()`, `pop_front()` 操作的容器。
+- 主要特点：
+  - `push()`: 在队列的末尾插入元素。
+  - `pop()`: 从队列的开头删除元素。
+  - `front()`: 访问队列的第一个元素。
+  - `back()`: 访问队列的最后一个元素。
+  - `empty()`: 判断队列是否为空。
+  - `size()`: 返回队列中元素的数量。
+
+### std::priority_queue：
+- `std::priority_queue` 是基于堆的优先队列容器适配器。
+- 它与普通的队列不同，其中的元素按照特定的比较器（默认为 `std::less`）以堆排序的方式进行管理。
+- 主要特点：
+  - `push()`: 插入元素。
+  - `pop()`: 弹出优先级最高的元素。
+  - `top()`: 访问优先级最高的元素。
+  - `empty()`: 判断优先队列是否为空。
+  - `size()`: 返回优先队列中元素的数量。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    // 使用 std::queue
+    std::queue<int> myQueue;
+    myQueue.push(1);
+    myQueue.push(2);
+    myQueue.push(3);
+
+    std::cout << "Front of queue: " << myQueue.front() << std::endl; // 访问队首元素
+    std::cout << "Back of queue: " << myQueue.back() << std::endl; // 访问队尾元素
+
+    while (!myQueue.empty()) {
+        std::cout << myQueue.front() << " "; // 访问队首元素
+        myQueue.pop(); // 弹出队首元素
+    }
+    std::cout << std::endl;
+
+    // 使用 std::priority_queue
+    std::priority_queue<int> myPriorityQueue;
+    myPriorityQueue.push(30);
+    myPriorityQueue.push(10);
+    myPriorityQueue.push(20);
+
+    while (!myPriorityQueue.empty()) {
+        std::cout << myPriorityQueue.top() << " "; // 访问优先级最高的元素
+        myPriorityQueue.pop(); // 弹出优先级最高的元素
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了如何使用 `std::queue` 和 `std::priority_queue` 进行基本操作。`std::queue` 用于创建基本的先进先出队列，而 `std::priority_queue` 用于创建一个基于堆的优先队列。
+
+## C++ <queue>标准库 常用的类和函数
+
+在 `<queue>` 标准库中，常用的类包括 `std::queue` 和 `std::priority_queue`，以及与这两个类相关的函数。
+
+### 常用类：
+1. **std::queue**：
+   - 定义：基于队列的容器适配器，实现了先进先出（FIFO）的数据结构。
+   - 主要操作：
+     - `push()`: 在队尾插入元素。
+     - `pop()`: 从队首删除元素。
+     - `front()`: 访问队首元素。
+     - `back()`: 访问队尾元素。
+     - `empty()`: 判断队列是否为空。
+     - `size()`: 返回队列中元素的数量。
+
+2. **std::priority_queue**：
+   - 定义：基于堆的优先队列容器适配器，元素以堆排序方式管理。
+   - 主要操作：
+     - `push()`: 插入元素。
+     - `pop()`: 弹出优先级最高的元素。
+     - `top()`: 访问优先级最高的元素。
+     - `empty()`: 判断优先队列是否为空。
+     - `size()`: 返回优先队列中元素的数量。
+
+### 常用函数：
+- 除了类自身的成员函数外，`<queue>` 还提供了一些与队列和优先队列相关的方法。主要是 `std::make_heap`、`std::push_heap`、`std::pop_heap` 和 `std::sort_heap`，这些函数用于堆操作，可以用于处理堆数据结构。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <queue>
+#include <algorithm>
+
+int main() {
+    // 使用 std::queue
+    std::queue<int> myQueue;
+    myQueue.push(1);
+    myQueue.push(2);
+    myQueue.push(3);
+
+    std::cout << "Front of queue: " << myQueue.front() << std::endl;
+    std::cout << "Back of queue: " << myQueue.back() << std::endl;
+
+    while (!myQueue.empty()) {
+        std::cout << myQueue.front() << " ";
+        myQueue.pop();
+    }
+    std::cout << std::endl;
+
+    // 使用 std::priority_queue
+    std::priority_queue<int> myPriorityQueue;
+    myPriorityQueue.push(30);
+    myPriorityQueue.push(10);
+    myPriorityQueue.push(20);
+
+    while (!myPriorityQueue.empty()) {
+        std::cout << myPriorityQueue.top() << " ";
+        myPriorityQueue.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+以上示例演示了 `std::queue` 和 `std::priority_queue` 的基本使用方法，以及它们的一些常用操作。
+
+## std::queue
+
+`std::queue` 是 C++ 标准库中定义的队列容器适配器，通常基于其他容器（默认使用 `std::deque`）来实现队列的功能。
+
+### 主要特点和操作：
+- **特点：**
+  - 实现了先进先出（FIFO）的数据结构。
+  - 提供了简单的接口，对底层容器进行了封装，使其行为像一个队列。
+- **主要操作：**
+  - `push(const T& val)`: 将元素 `val` 插入队尾。
+  - `pop()`: 移除队首元素。
+  - `front()`: 返回队首元素的引用。
+  - `back()`: 返回队尾元素的引用。
+  - `empty()`: 判断队列是否为空。
+  - `size()`: 返回队列中元素的数量。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    std::queue<int> myQueue;
+
+    // 插入元素
+    myQueue.push(1);
+    myQueue.push(2);
+    myQueue.push(3);
+
+    // 访问队首和队尾元素
+    std::cout << "Front of queue: " << myQueue.front() << std::endl;
+    std::cout << "Back of queue: " << myQueue.back() << std::endl;
+
+    // 移除队首元素
+    myQueue.pop();
+
+    // 输出队列中的元素
+    while (!myQueue.empty()) {
+        std::cout << myQueue.front() << " ";
+        myQueue.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，展示了 `std::queue` 的基本用法，包括插入元素、访问队首和队尾元素、移除队首元素，并且遍历输出了队列中的元素。
+
+## std::priority_queue
+
+`std::priority_queue` 是 C++ 标准库中定义的优先队列容器适配器，基于堆的数据结构实现。
+
+### 主要特点和操作：
+- **特点：**
+  - 实现了优先队列的功能，元素按照特定的比较器（默认为 `std::less`，通常为大顶堆）以堆排序方式管理。
+  - 元素的弹出和插入操作具有特定的优先级，最高优先级元素始终处于队列的顶部。
+- **主要操作：**
+  - `push(const T& val)`: 插入元素 `val` 到优先队列中。
+  - `pop()`: 移除优先级最高的元素。
+  - `top()`: 返回优先级最高的元素的引用。
+  - `empty()`: 判断优先队列是否为空。
+  - `size()`: 返回优先队列中元素的数量。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    std::priority_queue<int> myPriorityQueue;
+
+    // 插入元素
+    myPriorityQueue.push(30);
+    myPriorityQueue.push(10);
+    myPriorityQueue.push(20);
+
+    // 访问优先级最高的元素
+    std::cout << "Top of priority queue: " << myPriorityQueue.top() << std::endl;
+
+    // 移除优先级最高的元素
+    myPriorityQueue.pop();
+
+    // 输出优先队列中的元素
+    while (!myPriorityQueue.empty()) {
+        std::cout << myPriorityQueue.top() << " ";
+        myPriorityQueue.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+以上示例展示了 `std::priority_queue` 的基本用法，包括插入元素、访问优先级最高的元素、移除优先级最高的元素，并且遍历输出了优先队列中的元素。

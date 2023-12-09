@@ -1,0 +1,356 @@
+## 简介
+
++ C++ <list>标准库 
+
+## C++ <list>标准库 
+
+`<list>` 是 C++ 标准库中的头文件，定义了双向链表（doubly linked list）的模板类 `std::list`。双向链表是一种动态数据结构，允许在常量时间内在两端进行插入、删除操作。
+
+### std::list 概述：
+- **头文件：** `<list>`
+- **容器类型：** `std::list` 是标准库中的容器类型之一，实现了双向链表。
+- **特点：**
+  - 元素按插入顺序存储。
+  - 支持高效的插入和删除操作，但对于随机访问效率较低。
+  - 不支持直接随机访问元素，需要使用迭代器进行访问。
+
+### 主要操作和用法：
+- **插入和删除操作：** `push_back()`, `push_front()`, `pop_back()`, `pop_front()` 用于在列表两端插入或删除元素。
+- **迭代器操作：** 使用迭代器进行元素访问、遍历和操作。
+- **大小操作：** `size()`, `empty()` 获取列表的大小和判断是否为空。
+- **其他操作：** `insert()`, `erase()`, `splice()` 等用于在指定位置插入、删除、合并列表等操作。
+
+### 基本示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList;
+
+    myList.push_back(1);
+    myList.push_back(2);
+    myList.push_front(3);
+
+    // 遍历列表
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    // 删除第一个元素
+    myList.pop_front();
+
+    // 插入元素
+    auto it = std::next(myList.begin()); // 获取迭代器
+    myList.insert(it, 4);
+
+    // 删除指定元素
+    myList.remove(2);
+
+    // 输出剩余元素
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+`std::list` 是一个有用的容器，特别适合在需要频繁插入和删除元素而不需要进行随机访问的场景下使用。通过使用迭代器，您可以在列表中执行各种操作，例如插入、删除和遍历元素，而无需关心内部细节。
+
+## C++ <list>标准库 详解
+
+`<list>` 是 C++ 标准库中的头文件，定义了双向链表的模板类 `std::list`。双向链表是一种动态数据结构，允许在两端进行常量时间内的插入和删除操作。
+
+### std::list 概述：
+- **头文件：** `<list>`
+- **容器类型：** `std::list` 是标准库中的容器类型之一，实现了双向链表。
+- **特点：**
+  - 元素按插入顺序存储。
+  - 支持高效的插入和删除操作，但对于随机访问效率较低。
+  - 提供了迭代器支持，允许对链表中的元素进行顺序访问和操作。
+
+### 主要操作和用法：
+- **插入和删除操作：**
+  - `push_back()`, `push_front()`, `pop_back()`, `pop_front()` 用于在列表两端插入或删除元素。
+- **迭代器操作：**
+  - 使用迭代器进行元素访问、遍历和操作。
+- **大小操作：**
+  - `size()`, `empty()` 获取列表的大小和判断是否为空。
+- **插入、删除和移动元素：**
+  - `insert()`, `erase()`, `splice()` 等用于在指定位置插入、删除、合并列表等操作。
+- **搜索和修改操作：**
+  - `find()`, `remove()`, `reverse()`, `sort()` 等用于搜索、移除、反转和排序列表中的元素。
+
+### 详细示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList;
+
+    myList.push_back(1);
+    myList.push_back(2);
+    myList.push_front(3);
+
+    // 遍历列表
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    // 删除第一个元素
+    myList.pop_front();
+
+    // 插入元素
+    auto it = std::next(myList.begin()); // 获取迭代器
+    myList.insert(it, 4);
+
+    // 删除指定元素
+    myList.remove(2);
+
+    // 输出剩余元素
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+`std::list` 是一个有用的容器，适合在需要频繁插入和删除元素而不需要进行随机访问的场景下使用。通过使用迭代器，您可以在列表中执行各种操作，例如插入、删除和遍历元素，而无需关心内部细节。
+
+## C++ <list>标准库 常用的类和函数
+
+在C++标准库的`<list>`头文件中，提供了一些常用的类和函数，主要用于操作双向链表 `std::list`。
+
+### 常用的类：
+- **`std::list`：** 双向链表的模板类，允许在常量时间内在两端进行插入、删除操作。
+
+### 常用的函数和操作：
+- **插入和删除操作：**
+  - `push_back()`, `push_front()`: 在链表的尾部或头部插入元素。
+  - `pop_back()`, `pop_front()`: 从链表的尾部或头部删除元素。
+- **访问元素和迭代器操作：**
+  - `begin()`, `end()`: 返回指向链表起始和结束的迭代器。
+  - `front()`, `back()`: 返回链表头部和尾部的元素。
+  - `insert()`, `erase()`: 在指定位置插入或删除元素。
+  - `clear()`: 清空链表中的所有元素。
+- **大小操作：**
+  - `size()`: 返回链表中元素的数量。
+  - `empty()`: 判断链表是否为空。
+- **其他操作：**
+  - `remove()`: 移除链表中所有与给定值相等的元素。
+  - `sort()`: 对链表中的元素进行排序。
+  - `merge()`: 合并两个已排序的链表。
+  - `splice()`: 将另一个链表的元素移动到当前链表的指定位置。
+
+### 示例用法：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList;
+
+    myList.push_back(1);
+    myList.push_back(2);
+    myList.push_front(3);
+
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    myList.pop_front();
+    myList.insert(++myList.begin(), 4);
+    myList.remove(2);
+
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+`<list>` 提供了一系列方法来操作双向链表，这些方法包括在链表头尾插入或删除元素、访问元素、迭代器操作、大小操作、移除指定元素等。通过这些函数，可以方便地对链表进行操作和管理。
+
+## std::list::remove()
+
+`std::list::remove()` 是 `std::list` 类提供的成员函数之一，用于移除链表中所有与指定值相等的元素。
+
+### 函数签名：
+```cpp
+void remove (const T& val);
+```
+
+- `val`：要从链表中移除的值。
+
+### 函数作用：
+- `remove()` 会在链表中查找与指定值相等的元素，并将它们全部移除。
+
+### 注意事项：
+- 此函数会一次性移除链表中所有与指定值相等的元素。
+- 移除过程中不会改变链表中元素的相对顺序。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList = {1, 2, 2, 3, 4, 2, 5};
+
+    myList.remove(2); // 移除所有值为 2 的元素
+
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`myList.remove(2)` 将移除链表中所有值为 `2` 的元素。最终输出的链表内容将不包含值为 `2` 的元素。
+
+## std::list::sort()
+
+`std::list::sort()` 是 `std::list` 类提供的成员函数之一，用于对链表中的元素进行排序操作。
+
+### 函数签名：
+```cpp
+void sort();
+```
+
+### 函数作用：
+- `sort()` 函数将链表中的元素按升序进行排序。如果链表包含自定义类型的元素，则需要保证该类型支持比较操作符（`<`）。
+
+### 注意事项：
+- 由于 `std::list` 是双向链表，而非连续存储的序列，它采用的排序算法可能与 `std::sort`（用于连续序列的排序）使用的算法不同。
+- 对于具有较大规模的数据集，`std::list::sort()` 可能会比 `std::sort` 慢，因为它的排序复杂度取决于链表的大小，而不是像 `std::sort` 那样可以使用更高效的排序算法。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList = {5, 2, 8, 3, 1, 7};
+
+    myList.sort(); // 对链表元素进行排序
+
+    for (const auto& elem : myList) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`myList.sort()` 对链表中的整数元素进行升序排序。最终输出的链表内容将按照升序排列。
+
+## std::list::merge()
+
+`std::list::merge()` 是 `std::list` 类提供的成员函数之一，用于将两个已排序的链表合并成一个排序链表。
+
+### 函数签名：
+```cpp
+void merge (std::list& x);
+```
+
+- `x`：另一个已排序链表，将其合并到调用函数的链表中。
+
+### 函数作用：
+- `merge()` 函数将调用它的链表与参数中的链表 `x` 合并成一个排序链表。
+- 合并完成后，调用函数的链表将包含原链表和参数链表的所有元素，并按升序排序。
+
+### 注意事项：
+- 需要保证两个链表都已经按升序排序。
+- 合并完成后，参数链表 `x` 将为空，并且被合并到调用函数的链表中。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList1 = {1, 3, 5, 7};
+    std::list<int> myList2 = {2, 4, 6, 8};
+
+    myList1.merge(myList2); // 将 myList2 合并到 myList1 中
+
+    for (const auto& elem : myList1) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "myList2 size: " << myList2.size() << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`myList1.merge(myList2)` 将 `myList2` 合并到 `myList1` 中。最终输出的 `myList1` 将包含合并后的所有元素，并且按升序排序。`myList2` 在合并后将为空。
+
+## std::list::splice()
+
+`std::list::splice()` 是 `std::list` 类提供的成员函数之一，用于在两个 `std::list` 之间移动或合并元素。
+
+### 函数签名：
+```cpp
+void splice(iterator pos, std::list& other);
+void splice(iterator pos, std::list& other, iterator it);
+void splice(iterator pos, std::list& other, iterator first, iterator last);
+```
+
+- `pos`：指定插入位置的迭代器。
+- `other`：另一个 `std::list`。
+- `it`：另一个 `std::list` 的迭代器。
+- `first`, `last`：另一个 `std::list` 中指定范围的迭代器。
+
+### 函数作用：
+- 第一个函数将整个 `other` 链表的元素移动到调用函数的链表中的 `pos` 位置。
+- 第二个函数将 `other` 链表中迭代器 `it` 所指向的元素移动到调用函数的链表中的 `pos` 位置。
+- 第三个函数将 `other` 链表中位于 `[first, last)` 范围内的元素移动到调用函数的链表中的 `pos` 位置。
+
+### 注意事项：
+- 被移动的元素会从 `other` 链表中删除，并插入到调用函数的链表中指定的位置。
+- 被移动的元素保持它们的相对顺序。
+- 被合并的链表中元素的顺序在移动后将改变。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> myList1 = {1, 2, 3};
+    std::list<int> myList2 = {4, 5, 6};
+
+    auto it = ++myList2.begin();
+    myList1.splice(myList1.begin(), myList2); // 将 myList2 整个链表合并到 myList1 的开头
+    myList1.splice(myList1.end(), myList2, it); // 将 myList2 中的第二个元素插入到 myList1 的末尾
+
+    for (const auto& elem : myList1) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    for (const auto& elem : myList2) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`myList1.splice(myList1.begin(), myList2)` 将整个 `myList2` 链表合并到 `myList1` 的开头，然后 `myList1.splice(myList1.end(), myList2, it)` 将 `myList2` 中的第二个元素（通过迭代器 `it` 定位）插入到 `myList1` 的末尾。
