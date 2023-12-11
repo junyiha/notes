@@ -1200,3 +1200,103 @@ int main() {
 这个示例中，`std::adjacent_difference` 函数计算了 `numbers` 中相邻元素的差值，并将结果存储在 `differences` 容器中。最后，通过迭代输出了相邻元素的差值。
 
 需要注意的是，`std::adjacent_difference` 函数对于输入序列中的第一个元素会直接复制到输出序列中，而后续元素则会存储与前一个元素的差值。
+
+## std::equal
+
+`std::equal()` 是 C++ 标准模板库中的一个算法，用于检查两个序列是否相等。它比较两个序列中的对应元素，如果两个序列在相同位置上的元素都相等，则返回 `true`，否则返回 `false`。
+
+### 语法：
+```cpp
+template< class InputIt1, class InputIt2 >
+bool equal( InputIt1 first1, InputIt1 last1, InputIt2 first2 );
+
+template< class InputIt1, class InputIt2, class BinaryPredicate >
+bool equal( InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p );
+```
+
+- `first1` 和 `last1` 是第一个序列的起始和结束迭代器。
+- `first2` 是第二个序列的起始迭代器。
+- `p` 是一个可选的谓词（函数对象或函数指针），用于比较两个元素。
+
+### 参数：
+- `first1`、`last1`：定义了第一个序列的范围，包括 `first1`，但不包括 `last1`。
+- `first2`：定义了第二个序列的起始位置。
+- `p`：如果提供了这个参数，将会用它来比较元素，否则将使用元素类型的 `operator==` 进行比较。
+
+### 返回值：
+- 如果两个序列在范围 `[first1, last1)` 中的相应元素都相等，则返回 `true`，否则返回 `false`。
+
+示例：
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> vec1 = {1, 2, 3, 4, 5};
+    std::vector<int> vec2 = {1, 2, 3, 4, 5};
+
+    bool isEqual = std::equal(vec1.begin(), vec1.end(), vec2.begin());
+
+    if (isEqual) {
+        std::cout << "两个序列相等" << std::endl;
+    } else {
+        std::cout << "两个序列不相等" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`std::equal()` 用于比较两个 `std::vector` 是否相等。由于它们包含相同的元素且相同顺序，因此会输出 "两个序列相等"。
+
+## C++ std::equal 自定义操作
+
+`std::equal` 可以接受一个自定义的操作（谓词），以便进行元素的比较。这个谓词可以是一个函数对象或者函数指针，用于执行元素间的自定义比较。
+
+### 语法：
+```cpp
+template< class InputIt1, class InputIt2, class BinaryPredicate >
+bool equal( InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p );
+```
+
+- `first1` 和 `last1` 是第一个序列的起始和结束迭代器。
+- `first2` 是第二个序列的起始迭代器。
+- `p` 是一个二元谓词，用于比较两个元素。它接受两个参数，分别是两个要比较的元素，返回 `bool` 类型的结果。
+
+### 参数：
+- `first1`、`last1`：定义了第一个序列的范围，包括 `first1`，但不包括 `last1`。
+- `first2`：定义了第二个序列的起始位置。
+- `p`：用于比较两个元素的自定义二元谓词。
+
+### 返回值：
+- 如果两个序列在范围 `[first1, last1)` 中的相应元素使用谓词 `p` 进行比较都返回 `true`，则返回 `true`，否则返回 `false`。
+
+示例：
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+// 自定义谓词，比较元素是否相差1
+bool customPredicate(int a, int b) {
+    return (a - b == 1);
+}
+
+int main() {
+    std::vector<int> vec1 = {1, 3, 5, 7, 9};
+    std::vector<int> vec2 = {2, 4, 6, 8, 10};
+
+    bool isEqual = std::equal(vec1.begin(), vec1.end(), vec2.begin(), customPredicate);
+
+    if (isEqual) {
+        std::cout << "两个序列中对应元素相差1" << std::endl;
+    } else {
+        std::cout << "两个序列中对应元素不相差1" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`std::equal()` 使用了自定义的谓词 `customPredicate` 来比较两个序列的元素是否相差1。如果两个序列中对应位置的元素相差1，则输出 "两个序列中对应元素相差1"，否则输出 "两个序列中对应元素不相差1"。
