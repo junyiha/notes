@@ -587,6 +587,247 @@ int main() {
 
 `std::sort` 是一个高效的排序算法，在处理各种数据结构和数据类型时都能够提供良好的性能。
 
+## std::stable_sort
+
+`std::stable_sort` 是 C++ 标准库中的一个函数，用于对容器中的元素进行排序。与 `std::sort` 不同，`std::stable_sort` 是一种稳定排序算法，它能够保持相等元素的相对位置不变。
+
+函数原型如下：
+
+```cpp
+template< class RandomIt >
+void stable_sort( RandomIt first, RandomIt last );
+
+template< class RandomIt, class Compare >
+void stable_sort( RandomIt first, RandomIt last, Compare comp );
+```
+
+其中：
+- `first` 是一个指向容器要排序部分的起始位置的迭代器；
+- `last` 是一个指向容器结束位置的迭代器；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::stable_sort` 对范围 `[first, last)` 中的元素进行排序，保持相等元素的相对位置不变。这意味着如果两个元素在排序前相等，那么在排序后，它们的相对顺序将保持不变。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {5, 2, 9, 1, 7, 3, 8, 6};
+    
+    std::stable_sort(numbers.begin(), numbers.end());
+    
+    for (const auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    
+    return 0;
+}
+```
+
+上述代码将 `numbers` 容器中的元素使用 `std::stable_sort` 进行排序。排序后，输出的结果将会按升序排列，并且相等元素的相对位置将保持不变。
+
+`std::stable_sort` 在需要稳定排序的情况下非常有用，特别是当需要保持相等元素的相对顺序时。这对于处理某些特定的数据结构或算法非常重要。
+
+总的来说，`std::stable_sort` 是一个强大的排序函数，可以对容器中的元素进行排序，并保持相等元素的相对位置不变。
+
+## std::partial_sort
+
+`std::partial_sort` 是 C++ 标准库中的一个函数，用于对容器中的部分元素进行排序。它能够在排序过程中保持部分元素的顺序，将指定范围内的元素部分排序为序列中最小（或最大）的一部分。
+
+函数原型如下：
+
+```cpp
+template< class RandomIt >
+void partial_sort( RandomIt first, RandomIt middle, RandomIt last );
+
+template< class RandomIt, class Compare >
+void partial_sort( RandomIt first, RandomIt middle, RandomIt last, Compare comp );
+```
+
+其中：
+- `first` 是一个指向容器要排序部分的起始位置的迭代器；
+- `middle` 是一个指向容器的中间位置的迭代器；
+- `last` 是一个指向容器结束位置的迭代器；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::partial_sort` 将容器从 `first` 到 `middle` 的元素部分排序，使得 `middle - first` 个元素是序列中最小（或最大）的一部分，但并不保证这些元素之间的顺序。而剩余的元素，即从 `middle` 到 `last` 的范围内，可能在序列中以任意顺序出现，不做排序。
+
+这个函数通常在需要获取序列中最小或最大的一部分元素时非常有用，而不需要完全对整个序列进行排序。这有助于节省计算资源，特别是当只对部分数据感兴趣时。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {5, 2, 9, 1, 7, 3, 8, 6};
+    
+    std::partial_sort(numbers.begin(), numbers.begin() + 4, numbers.end());
+    
+    for (const auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    
+    return 0;
+}
+```
+
+上述代码将 `numbers` 容器的前四个元素进行部分排序，使得前四个元素是序列中最小的一部分，而后续元素可能在序列中以任意顺序出现。
+
+`std::partial_sort` 在处理大型数据集时能够提供更高的效率，因为它只对部分元素进行排序而不需要对整个序列进行排序。
+
+总之，`std::partial_sort` 是一个有用的函数，适用于在部分排序情况下获取序列中最小（或最大）的一部分元素。
+
+## std::nth_element
+
+`std::nth_element` 是 C++ 标准库中的一个函数，用于在容器中找到第 n 个顺序统计量，即第 n 小或第 n 大的元素，而不必对整个序列进行排序。
+
+函数原型如下：
+
+```cpp
+template< class RandomIt >
+void nth_element( RandomIt first, RandomIt nth, RandomIt last );
+
+template< class RandomIt, class Compare >
+void nth_element( RandomIt first, RandomIt nth, RandomIt last, Compare comp );
+```
+
+其中：
+- `first` 是一个指向容器要排序部分的起始位置的迭代器；
+- `nth` 是一个指向容器中要找到的第 n 个元素的迭代器；
+- `last` 是一个指向容器结束位置的迭代器；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::nth_element` 将容器 `[first, last)` 中的元素重新排列，使得位于位置 `nth` 的元素是序列中第 n 小（或第 n 大）的元素，并且在它之前的元素小于或等于它，在它之后的元素大于或等于它。但并不保证 `nth` 之前或之后的元素是有序的。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {5, 2, 9, 1, 7, 3, 8, 6};
+    
+    std::nth_element(numbers.begin(), numbers.begin() + 4, numbers.end());
+    
+    std::cout << "The fifth smallest element is: " << numbers[4] << std::endl;
+    
+    return 0;
+}
+```
+
+上述代码将 `numbers` 容器中的元素使用 `std::nth_element` 进行部分排序，找到序列中第五小的元素。在输出中，`numbers[4]` 将是第五小的元素，但在它之前或之后的元素不一定是有序的。
+
+`std::nth_element` 是在需要找到第 n 个顺序统计量而无需完全排序整个序列时非常有用的。它的时间复杂度是线性的，而不是完全排序所需的时间复杂度。
+
+总的来说，`std::nth_element` 是一个用于在容器中找到第 n 个顺序统计量的高效算法，可以在部分排序的情况下找到指定位置的元素。
+
+## std::lower_bound
+
+`std::lower_bound` 是 C++ 标准库中的一个算法函数，用于在已排序的序列中查找第一个大于或等于某个值的元素的位置（也就是说，它返回大于或等于指定值的第一个元素的迭代器位置），如果不存在这样的元素，则返回序列末尾的迭代器。
+
+函数原型如下：
+
+```cpp
+template< class ForwardIt, class T >
+ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value);
+
+template< class ForwardIt, class T, class Compare >
+ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp);
+```
+
+其中：
+- `first` 是一个指向容器或数组开始位置的迭代器；
+- `last` 是一个指向容器或数组结束位置的迭代器；
+- `value` 是要查找的值；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::lower_bound` 在一个已排序的序列 `[first, last)` 中查找大于或等于 `value` 的第一个元素。如果找到了匹配的元素，则返回指向该元素的迭代器；如果没有找到匹配的元素，则返回指向序列中第一个大于 `value` 的元素位置的迭代器，如果不存在大于 `value` 的元素，则返回 `last`。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 4, 6, 7, 9, 10};
+    
+    // 使用 std::lower_bound 查找第一个大于或等于 5 的元素位置
+    auto it = std::lower_bound(numbers.begin(), numbers.end(), 5);
+    
+    if (it != numbers.end()) {
+        std::cout << "First element greater than or equal to 5 is: " << *it << std::endl;
+    } else {
+        std::cout << "No element greater than or equal to 5 found." << std::endl;
+    }
+    
+    return 0;
+}
+```
+
+在上述代码中，`std::lower_bound` 在已排序的 `numbers` 容器中查找第一个大于或等于 5 的元素位置，并输出找到的元素值。如果没有找到大于或等于 5 的元素，则输出相应的信息。
+
+`std::lower_bound` 在需要在已排序序列中快速查找大于或等于某个值的元素位置时非常有用。注意，对于无序序列，`std::lower_bound` 不会返回正确的结果，因为它要求输入序列是有序的才能保证正确性。
+
+## std::upper_bound
+
+`std::upper_bound` 是 C++ 标准库中的一个算法函数，用于在已排序的序列中查找第一个大于某个值的元素的位置（也就是说，它返回大于指定值的第一个元素的迭代器位置），如果不存在这样的元素，则返回序列末尾的迭代器。
+
+函数原型如下：
+
+```cpp
+template< class ForwardIt, class T >
+ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value);
+
+template< class ForwardIt, class T, class Compare >
+ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value, Compare comp);
+```
+
+其中：
+- `first` 是一个指向容器或数组开始位置的迭代器；
+- `last` 是一个指向容器或数组结束位置的迭代器；
+- `value` 是要查找的值；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::upper_bound` 在一个已排序的序列 `[first, last)` 中查找大于 `value` 的第一个元素。如果找到了匹配的元素，则返回指向下一个元素的迭代器；如果没有找到匹配的元素，则返回指向序列中第一个大于 `value` 的元素位置的迭代器，如果不存在大于 `value` 的元素，则返回 `last`。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 4, 6, 7, 9, 10};
+    
+    // 使用 std::upper_bound 查找第一个大于 5 的元素位置
+    auto it = std::upper_bound(numbers.begin(), numbers.end(), 5);
+    
+    if (it != numbers.end()) {
+        std::cout << "First element greater than 5 is: " << *it << std::endl;
+    } else {
+        std::cout << "No element greater than 5 found." << std::endl;
+    }
+    
+    return 0;
+}
+```
+
+在上述代码中，`std::upper_bound` 在已排序的 `numbers` 容器中查找第一个大于 5 的元素位置，并输出找到的元素值。如果没有找到大于 5 的元素，则输出相应的信息。
+
+`std::upper_bound` 在需要在已排序序列中快速查找大于某个值的元素位置时非常有用。注意，对于无序序列，`std::upper_bound` 不会返回正确的结果，因为它要求输入序列是有序的才能保证正确性。
+
 ## std::binary_search
 
 `std::binary_search` 是C++ STL中的一个算法，用于在已排序的序列（例如数组或有序容器）中进行二分查找。它接受两个迭代器参数，表示要进行查找的范围，并返回一个布尔值，指示是否找到了指定的元素。
