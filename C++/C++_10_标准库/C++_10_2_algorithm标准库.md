@@ -898,6 +898,183 @@ int main() {
 
 `std::merge` 是一个在合并已排序序列时非常有用的算法，它能够高效地合并两个有序序列到一个新的有序序列中。
 
+## std::set_intersection
+
+`std::set_intersection` 是 C++ 标准库中的一个算法函数，用于在两个有序集合（或有序范围）中找到并计算交集，并将结果存储到另一个集合（或指定的输出范围）中。
+
+函数原型如下：
+
+```cpp
+template <class InputIt1, class InputIt2, class OutputIt>
+OutputIt set_intersection(InputIt1 first1, InputIt1 last1,
+                          InputIt2 first2, InputIt2 last2,
+                          OutputIt d_first);
+
+template <class InputIt1, class InputIt2, class OutputIt, class Compare>
+OutputIt set_intersection(InputIt1 first1, InputIt1 last1,
+                          InputIt2 first2, InputIt2 last2,
+                          OutputIt d_first, Compare comp);
+```
+
+其中：
+- `first1` 和 `last1` 表示第一个有序集合（或范围）的起始和结束位置；
+- `first2` 和 `last2` 表示第二个有序集合（或范围）的起始和结束位置；
+- `d_first` 表示输出的目标位置，即存储交集的容器或输出范围的起始位置；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::set_intersection` 找到两个有序集合（或范围）的交集，并将结果存储到目标容器或输出范围中。返回值是一个指向输出范围的末尾的迭代器，指示了存储交集后的结束位置。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> set1 = {1, 2, 3, 4, 5};
+    std::vector<int> set2 = {3, 4, 5, 6, 7};
+
+    std::vector<int> intersection;
+
+    // 获取两个集合的交集
+    std::set_intersection(set1.begin(), set1.end(),
+                          set2.begin(), set2.end(),
+                          std::back_inserter(intersection));
+
+    // 输出交集
+    std::cout << "Intersection: ";
+    for (const auto& num : intersection) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，`std::set_intersection` 将 `set1` 和 `set2` 两个有序集合的交集计算出来，并将结果存储到 `intersection` 容器中。最后输出了交集的内容。
+
+`std::set_intersection` 对于处理两个有序集合的交集非常有用。它要求输入的两个集合（或范围）都是有序的，以保证正确的交集计算。
+
+## std::set_union
+
+`std::set_union` 是 C++ 标准库中的一个算法函数，用于计算两个有序集合（或有序范围）的并集，并将结果存储到另一个集合（或指定的输出范围）中。
+
+函数原型如下：
+
+```cpp
+template <class InputIt1, class InputIt2, class OutputIt>
+OutputIt set_union(InputIt1 first1, InputIt1 last1,
+                   InputIt2 first2, InputIt2 last2,
+                   OutputIt d_first);
+
+template <class InputIt1, class InputIt2, class OutputIt, class Compare>
+OutputIt set_union(InputIt1 first1, InputIt1 last1,
+                   InputIt2 first2, InputIt2 last2,
+                   OutputIt d_first, Compare comp);
+```
+
+其中：
+- `first1` 和 `last1` 表示第一个有序集合（或范围）的起始和结束位置；
+- `first2` 和 `last2` 表示第二个有序集合（或范围）的起始和结束位置；
+- `d_first` 表示输出的目标位置，即存储并集的容器或输出范围的起始位置；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::set_union` 找到两个有序集合（或范围）的并集，并将结果存储到目标容器或输出范围中。返回值是一个指向输出范围的末尾的迭代器，指示了存储并集后的结束位置。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> set1 = {1, 2, 3, 4, 5};
+    std::vector<int> set2 = {3, 4, 5, 6, 7};
+
+    std::vector<int> union_set;
+
+    // 获取两个集合的并集
+    std::set_union(set1.begin(), set1.end(),
+                   set2.begin(), set2.end(),
+                   std::back_inserter(union_set));
+
+    // 输出并集
+    std::cout << "Union: ";
+    for (const auto& num : union_set) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上述代码中，`std::set_union` 将 `set1` 和 `set2` 两个有序集合的并集计算出来，并将结果存储到 `union_set` 容器中。最后输出了并集的内容。
+
+`std::set_union` 对于处理两个有序集合的并集非常有用。它要求输入的两个集合（或范围）都是有序的，以保证正确的并集计算。
+
+## std::set_difference
+
+`std::set_difference` 是 C++ 标准库中的一个算法函数，用于计算两个有序集合（或有序范围）的差集，并将结果存储到另一个集合（或指定的输出范围）中。
+
+函数原型如下：
+
+```cpp
+template <class InputIt1, class InputIt2, class OutputIt>
+OutputIt set_difference(InputIt1 first1, InputIt1 last1,
+                        InputIt2 first2, InputIt2 last2,
+                        OutputIt d_first);
+
+template <class InputIt1, class InputIt2, class OutputIt, class Compare>
+OutputIt set_difference(InputIt1 first1, InputIt1 last1,
+                        InputIt2 first2, InputIt2 last2,
+                        OutputIt d_first, Compare comp);
+```
+
+其中：
+- `first1` 和 `last1` 表示第一个有序集合（或范围）的起始和结束位置；
+- `first2` 和 `last2` 表示第二个有序集合（或范围）的起始和结束位置；
+- `d_first` 表示输出的目标位置，即存储差集的容器或输出范围的起始位置；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::set_difference` 找到两个有序集合（或范围）的差集，并将结果存储到目标容器或输出范围中。返回值是一个指向输出范围的末尾的迭代器，指示了存储差集后的结束位置。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> set1 = {1, 2, 3, 4, 5};
+    std::vector<int> set2 = {3, 4, 5, 6, 7};
+
+    std::vector<int> difference_set;
+
+    // 获取两个集合的差集
+    std::set_difference(set1.begin(), set1.end(),
+                        set2.begin(), set2.end(),
+                        std::back_inserter(difference_set));
+
+    // 输出差集
+    std::cout << "Difference: ";
+    for (const auto& num : difference_set) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上述代码中，`std::set_difference` 将 `set1` 和 `set2` 两个有序集合的差集计算出来，并将结果存储到 `difference_set` 容器中。最后输出了差集的内容。
+
+`std::set_difference` 对于处理两个有序集合的差集非常有用。它要求输入的两个集合（或范围）都是有序的，以保证正确的差集计算。
+
 ## std::accumulate
 
 `std::accumulate` 是C++ STL中的一个算法，用于对容器中的元素进行累加操作。它接受三个参数：范围的起始和结束迭代器，以及一个初始值，用于指定累加的起始值。
@@ -1399,6 +1576,110 @@ Rotated Vector: 3 4 5 1 2
 
 在这个例子中，`std::rotate()` 函数被用于对 `numbers` 容器中的元素进行循环左旋。参数 `numbers.begin() + 2` 指定了旋转的新起始位置，将原来前两个元素移到了容器末尾。
 
+## std::swap
+
+`std::swap` 是 C++ 标准库中的一个函数，用于交换两个对象的值。这个函数位于 `<algorithm>` 头文件中。
+
+函数原型如下：
+
+```cpp
+template <class T>
+void swap(T& a, T& b);
+```
+
+其中 `a` 和 `b` 是要交换值的两个对象的引用。
+
+`std::swap` 函数交换了两个对象的值，无论这些对象的类型是什么。它通过使用临时变量来实现值的交换。这个函数对于标准数据类型（例如整数、浮点数等）以及自定义类型都是适用的。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+
+int main() {
+    int a = 5;
+    int b = 10;
+
+    std::cout << "Before swap: a = " << a << ", b = " << b << std::endl;
+
+    // 使用 std::swap 交换 a 和 b 的值
+    std::swap(a, b);
+
+    std::cout << "After swap: a = " << a << ", b = " << b << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，`std::swap` 函数被用于交换变量 `a` 和 `b` 的值。经过交换后，`a` 的值变为原来 `b` 的值，`b` 的值变为原来 `a` 的值。
+
+`std::swap` 是一个通用的交换值的函数，可以在很多场景下用于交换各种类型的对象，非常方便。需要注意的是，在进行交换时，对于某些类类型对象，最好实现了合适的交换操作，以提高性能。
+
+## std::swap_ranges
+
+`std::swap_ranges` 是 C++ 标准库中的一个算法函数，用于交换两个范围内的元素值。
+
+函数原型如下：
+
+```cpp
+template <class ForwardIt1, class ForwardIt2>
+ForwardIt2 swap_ranges(ForwardIt1 first1, ForwardIt1 last1, ForwardIt2 first2);
+```
+
+其中：
+- `first1` 和 `last1` 表示第一个范围的起始和结束位置；
+- `first2` 表示第二个范围的起始位置；
+- 返回值为第二个范围的结束位置。
+
+`std::swap_ranges` 函数用于交换两个范围内的元素值，即将范围 `[first1, last1)` 中的元素与范围以 `first2` 为起始位置的另一个范围的元素进行逐个交换。第一个范围的元素数量必须与第二个范围相同。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> vec1 = {1, 2, 3, 4, 5};
+    std::vector<int> vec2 = {6, 7, 8, 9, 10};
+
+    std::cout << "Before swapping:" << std::endl;
+    std::cout << "vec1: ";
+    for (const auto& num : vec1) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "vec2: ";
+    for (const auto& num : vec2) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    // 使用 std::swap_ranges 交换两个向量的元素
+    std::swap_ranges(vec1.begin(), vec1.end(), vec2.begin());
+
+    std::cout << "After swapping:" << std::endl;
+    std::cout << "vec1: ";
+    for (const auto& num : vec1) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "vec2: ";
+    for (const auto& num : vec2) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，`std::swap_ranges` 函数被用于交换两个向量 `vec1` 和 `vec2` 中的元素。经过交换后，`vec1` 中的元素变为原来 `vec2` 中的元素，`vec2` 中的元素变为原来 `vec1` 中的元素。
+
+`std::swap_ranges` 对于交换两个范围内的元素值非常有用。它能够方便地交换两个范围中对应位置的元素值，而不需要手动编写交换的逻辑。
+
 ## std::adjacent_difference
 
 `std::adjacent_difference` 是 C++ STL 中的一个函数，用于计算一个序列中相邻元素的差值，并将结果存储到另一个序列中。
@@ -1541,3 +1822,55 @@ int main() {
 ```
 
 在这个示例中，`std::equal()` 使用了自定义的谓词 `customPredicate` 来比较两个序列的元素是否相差1。如果两个序列中对应位置的元素相差1，则输出 "两个序列中对应元素相差1"，否则输出 "两个序列中对应元素不相差1"。
+
+## std::lexicographical_compare
+
+`std::lexicographical_compare` 是 C++ 标准库中的一个算法函数，用于比较两个范围的字典序大小关系。
+
+函数原型如下：
+
+```cpp
+template <class InputIt1, class InputIt2>
+bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
+                             InputIt2 first2, InputIt2 last2);
+
+template <class InputIt1, class InputIt2, class Compare>
+bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
+                             InputIt2 first2, InputIt2 last2,
+                             Compare comp);
+```
+
+其中：
+- `first1` 和 `last1` 表示第一个范围的起始和结束位置；
+- `first2` 和 `last2` 表示第二个范围的起始和结束位置；
+- `comp` 是一个可选的比较函数，用于定义元素之间的比较方式。如果不提供比较函数，则默认使用 `<` 运算符来进行比较。
+
+`std::lexicographical_compare` 函数按照字典序对两个范围进行比较。它逐个比较两个范围中的元素，并返回一个布尔值，指示了这两个范围的大小关系。如果第一个范围在字典序上小于第二个范围，则返回 `true`；如果第一个范围大于等于第二个范围，则返回 `false`。
+
+以下是一个示例：
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> vec1 = {1, 2, 3, 4};
+    std::vector<int> vec2 = {1, 2, 3, 5};
+
+    // 比较两个向量的字典序大小关系
+    bool result = std::lexicographical_compare(vec1.begin(), vec1.end(), vec2.begin(), vec2.end());
+
+    if (result) {
+        std::cout << "vec1 is lexicographically less than vec2." << std::endl;
+    } else {
+        std::cout << "vec1 is lexicographically greater than or equal to vec2." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在上述示例中，`std::lexicographical_compare` 函数被用于比较两个向量 `vec1` 和 `vec2` 的字典序大小关系。根据返回的布尔值，输出了两个范围的大小关系。
+
+`std::lexicographical_compare` 对于比较两个范围的字典序关系非常有用。它可用于排序算法的实现，也可用于确定两个序列的顺序关系。
