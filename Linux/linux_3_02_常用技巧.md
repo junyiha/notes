@@ -99,3 +99,37 @@ nc 127.0.0.1 80
 连接建立后，你可以手动输入要发送的数据。退出 nc 会话可以通过输入 `Ctrl+C` 来中断连接。
 
 这两个命令都是非常基本和通用的，用于测试 TCP 连接和发送数据。然而，它们并不提供像 HTTP 请求这样的高级协议功能，仅用于简单的连接和数据交换。
+
+## C++ 如何查看可执行文件是否含有调试信息
+
+要检查 C++ 可执行文件是否包含调试信息，可以使用一些工具来查看可执行文件的元数据。在 Linux 环境下，您可以使用 `readelf` 和 `objdump` 这样的工具。在 Windows 平台上，您可以使用 `dumpbin` 工具。
+
+### Linux 上使用 readelf 和 objdump
+
+1. **readelf**：它是一个用于显示 ELF（Executable and Linkable Format）文件信息的工具。要查看可执行文件的调试信息，可以使用以下命令：
+
+    ```bash
+    readelf -S your_executable_file
+    ```
+
+    这会显示文件中各个节（sections）的信息，您可以检查是否有 `.debug` 或 `.debug_*` 这样的节存在。这些节通常存储调试信息。
+
+2. **objdump**：这是另一个用于查看可执行文件信息的工具，可以使用以下命令：
+
+    ```bash
+    objdump -h your_executable_file
+    ```
+
+    这将列出文件的各个节的信息，您可以检查是否存在与调试信息相关的节。
+
+### Windows 上使用 dumpbin
+
+在 Windows 上，您可以使用 Visual Studio 提供的 `dumpbin` 工具来查看可执行文件的信息，包括是否存在调试信息。
+
+```bash
+dumpbin /headers your_executable_file
+```
+
+这将显示可执行文件的头部信息，您可以在其中寻找与调试信息相关的部分。
+
+请注意，调试信息在发布版本的可执行文件中通常被剥离以减少文件大小。在生产环境中，通常不会包含调试信息。
