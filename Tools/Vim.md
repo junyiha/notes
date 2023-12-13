@@ -169,3 +169,86 @@ YouCompleteMe 是一个功能强大的 Vim 插件，提供了高效的代码补�
 5. 重新打开 Vim，然后执行 `:PlugClean` 命令，它会删除未在 `.vimrc` 文件中列出的任何插件。
 
 这样就完成了删除插件的操作。请记住，这些步骤可能因你的插件管理器或特定的插件而有所不同，因此你需要根据你自己的情况进行调整。
+
+## Vim-plug
+
+### 安装
+
++ 运行命令:
+  + curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+### 用法
+
++ 安装插件
+  + 要安装插件，你必须如下所示首先在 Vim 配置文件中声明它们。一般 Vim 的配置文件是  ~/.vimrc
+  + 请记住，当你在配置文件中声明插件时，列表应该以 call plug#begin(PLUGIN_DIRECTORY) 开始，并以 plug#end() 结束。
+  + 例如，我们安装 “lightline.vim” 插件。为此，请在 ~/.vimrc 的顶部添加以下行。
+```bash
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+call plug#end()
+```
+
+### 检查状态
+
++ 使用以下命令检查状态：
+  + :PlugStatus
+
+### 安装插件
+
++ 使用以下命令安装：
+  + :PlugInstall
+
+### 更新插件
+
++ 要更新插件，请运行：
+  + :PlugUpdate
++ 更新插件后，按下 d 查看更改。或者，你可以之后输入 :PlugDiff。
+
+### 审查插件
+
++ 有时，更新的插件可能有新的 bug 或无法正常工作。要解决这个问题，你可以简单地回滚有问题的插件。输入 :PlugDiff 命令，然后按回车键查看上次 :PlugUpdate的更改，并在每个段落上按 X 将每个插件回滚到更新前的前一个状态。
+
+### 删除插件
+
++ 删除一个插件删除或注释掉你以前在你的 vim 配置文件中添加的 plug 命令。然后，运行 :source ~/.vimrc 或重启 Vim 编辑器。最后，运行以下命令卸载插件：
+  + :PlugClean
++ 该命令将删除 vim 配置文件中所有未声明的插件。
+
+## 升级 Vim-plug
+
++ 要升级vim-plug本身，请输入：
+  + :PlugUpgrade
+
+## NERDTree
+
++ 这个插件是几乎所有研发人员都会安装的一个插件——目录树，可以支持在不退出vim的编辑器的前提下，在文件中快速切换，同时能让开发人员快速掌握项目目录结构，是提升开发效率必不可少的工具
+
++ 安装
+```bash
+call plug#begin()
+Plug 'preservim/nerdtree'
+call plug#end()
+```
+
++ 配置
+  + NERDTree默认无须配置即可直接使用，当然更改部分映射后，可以使得目录树试用起来更加得心应手。最常见的配置在~/.vimrc添加如下命令，即可使用Ctrl+n快速开启目录树。
+```bash
+map <C-n> :NERDTreeToggle<CR>
+```
+
++ 使用
+  + 目录树的使用主要通过在vim的command模式下键入如下命令，即可达到相应的效果。
+  + ?: 快速帮助文档
+  + o: 打开一个目录或者打开文件，创建的是 buffer，也可以用来打开书签
+  + go: 打开一个文件，但是光标仍然留在 NERDTree，创建的是 buffer
+  + t: 打开一个文件，创建的是Tab，对书签同样生效
+  + T: 打开一个文件，但是光标仍然留在 NERDTree，创建的是 Tab，对书签同样生效
+  + i: 水平分割创建文件的窗口，创建的是 buffer
+  + gi: 水平分割创建文件的窗口，但是光标仍然留在 NERDTree
+  + s: 垂直分割创建文件的窗口，创建的是 buffer
+  + gs: 和 gi，go 类似
+  + x: 收起当前打开的目录
+  + X: 收起所有打开的目录
+  + e: 以文件管理的方式打开选中的目录
+  + D: 删除书签
