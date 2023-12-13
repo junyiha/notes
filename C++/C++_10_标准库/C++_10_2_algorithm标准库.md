@@ -1874,3 +1874,47 @@ int main() {
 在上述示例中，`std::lexicographical_compare` 函数被用于比较两个向量 `vec1` 和 `vec2` 的字典序大小关系。根据返回的布尔值，输出了两个范围的大小关系。
 
 `std::lexicographical_compare` 对于比较两个范围的字典序关系非常有用。它可用于排序算法的实现，也可用于确定两个序列的顺序关系。
+
+## std::remove
+
+`std::remove` 是 C++ 标准库中的一个算法，位于 `<algorithm>` 头文件中，用于从序列中移除特定的元素并将其移到序列末尾。但需要注意的是，`std::remove` 并不会真正删除元素，它只是将要删除的元素移到序列的末尾，并返回一个指向新末尾之后第一个元素的迭代器。
+
+### 语法：
+```cpp
+template <typename ForwardIterator, typename T>
+ForwardIterator remove(ForwardIterator first, ForwardIterator last, const T& value);
+```
+
+- `first`：指向要处理的序列的起始位置的迭代器。
+- `last`：指向要处理的序列的末尾位置的迭代器（不包含在处理范围内）。
+- `value`：要移除的特定元素的值。
+
+### 返回值：
+返回一个迭代器，指向移除元素后的新的逻辑结尾位置。该位置之后的元素可能是无效值或者是移除元素之前的值。
+
+### 示例：
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 2, 5, 2, 6};
+
+    // 使用 std::remove 移除向量中的值为 2 的元素
+    auto newEnd = std::remove(numbers.begin(), numbers.end(), 2);
+
+    // 实际删除元素前，可以通过 [numbers.begin(), newEnd) 的范围来访问有效元素
+    std::cout << "移除元素后的向量内容为: ";
+    for (auto it = numbers.begin(); it != newEnd; ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+运行此代码会输出：`移除元素后的向量内容为: 1 3 4 5 6 `。在这个例子中，`std::remove` 用于移除向量中的值为 2 的元素，并返回一个新的逻辑结尾位置的迭代器，指向有效元素的末尾。
+
+注意，`std::remove` 并不会真正删除元素，而是将要删除的元素移到末尾。如果需要删除这些元素，可以使用向量的成员函数 `erase()`。

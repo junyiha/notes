@@ -1,0 +1,553 @@
+## 简介
+
++ C++ <bitset>标准库
+
+## C++ <bitset>标准库
+
+`<bitset>` 标准库是 C++ 中用于处理固定大小位集的头文件。它提供了 `std::bitset` 类模板，用于表示固定长度的位序列，并允许对其进行操作。
+
+### `std::bitset` 类
+
+`std::bitset` 是一个固定大小的位集容器。它允许你以比特的形式存储和操作位（0 或 1）。
+
+#### 基本操作
+
+1. **构造函数**: 可以使用多种方式初始化 `std::bitset`。
+    ```cpp
+    std::bitset<8> bits1; // 初始化一个包含8位的位集，默认所有位都是0
+    std::bitset<8> bits2(42); // 使用整数初始化位集
+    std::bitset<8> bits3("10101010"); // 使用字符串表示初始化位集
+    ```
+
+2. **位操作**: 可以执行位操作如设置、清除、翻转和获取位的值。
+    ```cpp
+    bits1.set(3, true); // 设置第3位为1
+    bits2.reset(4); // 清除第4位
+    bits3.flip(1); // 翻转第1位的值
+    bool value = bits1.test(2); // 获取第2位的值
+    ```
+
+3. **转换与访问**: 可以将位集转换为其他数据类型或者访问其内部表示。
+    ```cpp
+    unsigned long ulong_val = bits1.to_ulong(); // 将位集转换为无符号长整型
+    std::string str_val = bits2.to_string(); // 将位集转换为字符串表示
+    ```
+
+4. **运算符重载**: `std::bitset` 支持多种位运算符的重载，例如 `&`、`|`、`^` 等，可以进行位与、位或和位异或等操作。
+
+5. **大小和操作**: `std::bitset` 提供了一些成员函数来获取位集的大小和进行操作，如 `size()` 返回位集的大小，`count()` 返回位集中设置为 1 的位的数量。
+
+#### 限制和注意事项
+
+- `std::bitset` 的大小必须在编译时确定，并且是固定的。
+- 对于大尺寸的位集，可能会占用较多的内存空间。
+
+这个标准库头文件 `<bitset>` 提供了一些简单而强大的功能，可用于位级操作和处理。使用 `std::bitset` 可以方便地进行位操作，这在一些需要位级别控制的情况下非常有用。
+
+## C++ <bitset>标准库 详解
+
+`<bitset>` 是 C++ 标准库中用于处理固定大小位集合的头文件。它提供了 `std::bitset` 类，用于表示固定长度的位序列，并允许对其进行各种操作。以下是 `<bitset>` 标准库的详细解释：
+
+### `std::bitset` 类
+
+`std::bitset` 是一个固定大小的位集容器，每个位的状态可以是 0 或 1。它提供了许多函数和操作符，允许对位集进行各种操作。
+
+#### 构造函数
+
+- **默认构造函数**: `std::bitset` 可以使用默认构造函数创建，位集中的所有位都被初始化为 0。
+  ```cpp
+  std::bitset<8> bits1; // 初始化一个包含8位的位集，默认所有位都是0
+  ```
+
+- **整数和字符串构造函数**: `std::bitset` 可以使用整数或字符串来初始化。
+  ```cpp
+  std::bitset<8> bits2(42); // 使用整数初始化位集
+  std::bitset<8> bits3("10101010"); // 使用字符串表示初始化位集
+  ```
+
+#### 位操作
+
+`std::bitset` 提供了一系列用于位操作的成员函数：
+
+- **set()**: 将指定位置的位设置为指定值。
+  ```cpp
+  bits1.set(3, true); // 设置第3位为1
+  ```
+
+- **reset()**: 将指定位置的位重置为0。
+  ```cpp
+  bits2.reset(4); // 清除第4位
+  ```
+
+- **flip()**: 翻转指定位置的位。
+  ```cpp
+  bits3.flip(1); // 翻转第1位的值
+  ```
+
+- **test()**: 检查指定位置的位。
+  ```cpp
+  bool value = bits1.test(2); // 获取第2位的值
+  ```
+
+#### 转换和访问
+
+`std::bitset` 支持将位集转换为其他类型，并访问其内部表示：
+
+- **to_ulong()**: 将位集转换为无符号长整型。
+  ```cpp
+  unsigned long ulong_val = bits1.to_ulong(); // 将位集转换为无符号长整型
+  ```
+
+- **to_string()**: 将位集转换为字符串表示。
+  ```cpp
+  std::string str_val = bits2.to_string(); // 将位集转换为字符串表示
+  ```
+
+#### 运算符重载
+
+`std::bitset` 支持多种位运算符的重载，如 `&`、`|`、`^` 等，可以进行位与、位或和位异或等操作。
+
+#### 其他操作
+
+- **size()**: 获取位集的大小。
+  ```cpp
+  size_t size = bits1.size(); // 获取位集的大小
+  ```
+
+- **count()**: 获取位集中设置为 1 的位的数量。
+  ```cpp
+  size_t count = bits2.count(); // 获取位集中设置为1的位的数量
+  ```
+
+`std::bitset` 在进行位级操作时非常有用，它提供了一种简单且高效的方式来处理固定大小的位序列。通过这个类，可以执行各种位操作，如设置、清除、翻转和获取位的值，以及进行位级运算等。
+
+## C++ <bitset>标准库 常用的类和函数
+
+在 `<bitset>` 标准库中，最主要和常用的类就是 `std::bitset`。这个类提供了一系列方法和操作符，用于处理固定大小的位集合。以下是 `std::bitset` 常用的一些类成员函数和操作符：
+
+### `std::bitset` 常用的成员函数：
+
+#### 构造函数：
+- `std::bitset<size>`：默认构造函数，创建一个包含 `size` 位的位集，默认所有位都是0。
+
+#### 操作函数：
+
+- `set(pos, value)`：将指定位置 `pos` 的位设置为 `value`。
+- `reset(pos)`：将指定位置 `pos` 的位重置为0。
+- `flip(pos)`：翻转指定位置 `pos` 的位。
+
+#### 查询函数：
+
+- `test(pos)`：检查指定位置 `pos` 的位。
+
+#### 转换函数：
+
+- `to_ulong()`：将位集转换为无符号长整型。
+- `to_ullong()`：将位集转换为无符号长长整型。
+- `to_string()`：将位集转换为字符串表示。
+
+#### 运算符重载：
+
+`std::bitset` 支持多种位运算符的重载，可以进行位与 `&`、位或 `|`、位异或 `^` 等操作。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集，默认所有位都是0
+
+    bits.set(3, true); // 设置第3位为1
+    bits.reset(4); // 清除第4位
+    bits.flip(1); // 翻转第1位的值
+
+    bool value = bits.test(2); // 获取第2位的值
+
+    unsigned long ulong_val = bits.to_ulong(); // 将位集转换为无符号长整型
+    std::string str_val = bits.to_string(); // 将位集转换为字符串表示
+
+    std::cout << "Bitset: " << bits << std::endl;
+    std::cout << "Value at position 2: " << value << std::endl;
+    std::cout << "Converted to unsigned long: " << ulong_val << std::endl;
+    std::cout << "Converted to string: " << str_val << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了 `std::bitset` 的常用函数和运算符的用法。你可以使用这些方法来进行位级操作，查询位的值，将位集转换为其他类型等操作。
+
+## std::bitset
+
+`std::bitset` 是 C++ 标准库中用于表示固定大小位集的类。它允许你以位（0 或 1）的形式存储和操作固定长度的二进制数据。
+
+### 特点和功能：
+
+1. **固定长度的位集合：** `std::bitset` 表示一个固定大小的位序列，位的数量在编译时即确定。
+
+2. **初始化方式：** 可以使用整数、字符串或默认构造函数来初始化 `std::bitset` 对象。
+   
+    ```cpp
+    std::bitset<8> bits1; // 初始化一个包含8位的位集，默认所有位都是0
+    std::bitset<8> bits2(42); // 使用整数初始化位集
+    std::bitset<8> bits3("10101010"); // 使用字符串表示初始化位集
+    ```
+
+3. **位操作函数：** 提供了一系列的函数来操作位，如设置、清除、翻转和检查位的状态。
+   
+    ```cpp
+    bits1.set(3, true); // 设置第3位为1
+    bits2.reset(4); // 清除第4位
+    bits3.flip(1); // 翻转第1位的值
+    bool value = bits1.test(2); // 获取第2位的值
+    ```
+
+4. **转换函数：** 可以将位集转换为其他数据类型，如整数或字符串。
+
+    ```cpp
+    unsigned long ulong_val = bits1.to_ulong(); // 将位集转换为无符号长整型
+    std::string str_val = bits2.to_string(); // 将位集转换为字符串表示
+    ```
+
+5. **位运算符重载：** 支持多种位运算符的重载，如 `&`、`|`、`^` 等，可以进行位与、位或和位异或等操作。
+
+### 示例用法：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集，默认所有位都是0
+
+    bits.set(3, true); // 设置第3位为1
+    bits.reset(4); // 清除第4位
+    bits.flip(1); // 翻转第1位的值
+
+    bool value = bits.test(2); // 获取第2位的值
+
+    unsigned long ulong_val = bits.to_ulong(); // 将位集转换为无符号长整型
+    std::string str_val = bits.to_string(); // 将位集转换为字符串表示
+
+    std::cout << "Bitset: " << bits << std::endl;
+    std::cout << "Value at position 2: " << value << std::endl;
+    std::cout << "Converted to unsigned long: " << ulong_val << std::endl;
+    std::cout << "Converted to string: " << str_val << std::endl;
+
+    return 0;
+}
+```
+
+这个示例展示了 `std::bitset` 的常用功能。通过 `std::bitset`，你可以轻松进行位级操作，并将位集转换为其他数据类型，如整数或字符串。
+
+## std::bitset::set
+
+`std::bitset::set` 是 `std::bitset` 类中的一个成员函数，用于设置位集中指定位置的位为指定的值（0 或 1）。
+
+### 函数签名：
+
+```cpp
+void set(size_t pos, bool value = true);
+```
+
+### 参数：
+
+- `pos`：要设置的位的位置，从 0 开始计数。
+- `value`：要设置的值，默认为 `true`，表示设置该位为 1；若设置为 `false`，则表示设置该位为 0。
+
+### 功能：
+
+- `set` 函数用于将 `std::bitset` 中指定位置 `pos` 的位设置为指定的值 `value`。当 `value` 被设置为 `true` 时，默认将该位设置为 1；当 `value` 被设置为 `false` 时，则将该位设置为 0。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集，默认所有位都是0
+
+    bits.set(3); // 设置第3位为1
+    bits.set(4, false); // 设置第4位为0
+
+    std::cout << "Bitset after setting bit 3 and clearing bit 4: " << bits << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits.set(3)` 将第3位设置为1，`bits.set(4, false)` 将第4位设置为0。最终输出位集中的状态。
+
+## std::bitset::reset
+
+`std::bitset::reset` 是 `std::bitset` 类中的一个成员函数，用于将位集中指定位置的位重置为 0。
+
+### 函数签名：
+
+```cpp
+void reset(size_t pos);
+```
+
+### 参数：
+
+- `pos`：要重置的位的位置，从 0 开始计数。
+
+### 功能：
+
+- `reset` 函数将 `std::bitset` 中指定位置 `pos` 的位重置为 0。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集，默认所有位都是0
+
+    bits.set(3); // 设置第3位为1
+    bits.reset(4); // 清除第4位
+
+    std::cout << "Bitset after setting bit 3 and clearing bit 4: " << bits << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits.set(3)` 将第3位设置为1，`bits.reset(4)` 清除（重置为0）了第4位。最终输出位集中的状态。
+
+## std::bitset::flip
+
+`std::bitset::flip` 是 `std::bitset` 类中的一个成员函数，用于翻转位集中指定位置的位（将 0 变为 1，将 1 变为 0）。
+
+### 函数签名：
+
+```cpp
+void flip(size_t pos);
+```
+
+### 参数：
+
+- `pos`：要翻转的位的位置，从 0 开始计数。
+
+### 功能：
+
+- `flip` 函数将 `std::bitset` 中指定位置 `pos` 的位进行翻转，即将 0 变为 1，将 1 变为 0。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集，默认所有位都是0
+
+    bits.set(3); // 设置第3位为1
+    bits.flip(4); // 翻转第4位
+
+    std::cout << "Bitset after setting bit 3 and flipping bit 4: " << bits << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits.set(3)` 将第3位设置为1，`bits.flip(4)` 对第4位进行翻转操作。最终输出位集中的状态。
+
+## std::bitset::test
+
+`std::bitset::test` 是 `std::bitset` 类中的一个成员函数，用于检查位集中指定位置的位的状态。
+
+### 函数签名：
+
+```cpp
+bool test(size_t pos) const;
+```
+
+### 参数：
+
+- `pos`：要检查的位的位置，从 0 开始计数。
+
+### 返回值：
+
+- `bool`：如果指定位置 `pos` 的位为 1，则返回 `true`；如果为 0，则返回 `false`。
+
+### 功能：
+
+- `test` 函数用于检查 `std::bitset` 中指定位置 `pos` 的位的状态。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits("10101010"); // 初始化一个8位的位集
+
+    bool value1 = bits.test(2); // 获取第2位的值
+    bool value2 = bits.test(5); // 获取第5位的值
+
+    std::cout << "Value at position 2: " << value1 << std::endl;
+    std::cout << "Value at position 5: " << value2 << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits` 是一个包含 8 位的位集。`bits.test(2)` 检查第2位的值，`bits.test(5)` 检查第5位的值，并将结果输出。
+
+## std::bitset::to_ulong
+
+`std::bitset::to_ulong` 是 `std::bitset` 类中的一个成员函数，用于将位集转换为对应的无符号长整型（`unsigned long`）数值。
+
+### 函数签名：
+
+```cpp
+unsigned long to_ulong() const noexcept;
+```
+
+### 返回值：
+
+- `unsigned long`：位集表示的无符号长整型数值。
+
+### 功能：
+
+- `to_ulong` 函数用于将 `std::bitset` 中存储的二进制位序列转换为对应的无符号长整型数值。这个函数会将位集中的二进制位转换为对应的整数值。
+
+### 注意事项：
+
+- 如果 `std::bitset` 的大小超过了 `unsigned long` 的位数，将会抛出 `std::overflow_error` 异常。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits("10101010"); // 初始化一个8位的位集
+
+    unsigned long ulong_val = bits.to_ulong(); // 将位集转换为无符号长整型数值
+
+    std::cout << "Converted to unsigned long: " << ulong_val << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits` 是一个包含 8 位的位集。`bits.to_ulong()` 将位集转换为对应的无符号长整型数值，并将结果输出。
+
+## std::bitset::to_string 
+
+`std::bitset::to_string` 是 `std::bitset` 类中的一个成员函数，用于将位集转换为对应的字符串表示形式。
+
+### 函数签名：
+
+```cpp
+std::string to_string() const noexcept;
+```
+
+### 返回值：
+
+- `std::string`：表示位集的字符串。
+
+### 功能：
+
+- `to_string` 函数用于将 `std::bitset` 中存储的二进制位序列转换为字符串表示形式。这个函数会返回一个字符串，其中包含了位集的二进制表示。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits("10101010"); // 初始化一个8位的位集
+
+    std::string str_val = bits.to_string(); // 将位集转换为字符串表示形式
+
+    std::cout << "Converted to string: " << str_val << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits` 是一个包含 8 位的位集。`bits.to_string()` 将位集转换为对应的字符串表示，并将结果输出。
+
+## std::bitset::size
+
+`std::bitset::size` 是 `std::bitset` 类中的一个成员函数，用于获取位集的大小，即位集中包含的位数。
+
+### 函数签名：
+
+```cpp
+constexpr size_t size() const noexcept;
+```
+
+### 返回值：
+
+- `size_t`：位集中包含的位数。
+
+### 功能：
+
+- `size` 函数用于获取 `std::bitset` 中包含的位数，即位集的大小。返回值为 `size_t` 类型，表示位集中的位数。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits; // 创建一个8位的位集
+
+    size_t bits_size = bits.size(); // 获取位集的大小
+
+    std::cout << "Size of the bitset: " << bits_size << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits` 是一个包含 8 位的位集。`bits.size()` 获取位集的大小，并将结果输出。
+
+## std::bitset::count
+
+`std::bitset::count` 是 `std::bitset` 类中的一个成员函数，用于计算位集中被设置为 1 的位的数量。
+
+### 函数签名：
+
+```cpp
+constexpr size_t count() const noexcept;
+```
+
+### 返回值：
+
+- `size_t`：位集中被设置为 1 的位的数量。
+
+### 功能：
+
+- `count` 函数用于计算 `std::bitset` 中被设置为 1 的位的数量，即统计位集中值为 1 的位的个数。
+
+### 示例：
+
+```cpp
+#include <iostream>
+#include <bitset>
+
+int main() {
+    std::bitset<8> bits("10101010"); // 初始化一个8位的位集
+
+    size_t count_of_ones = bits.count(); // 计算位集中被设置为1的位的数量
+
+    std::cout << "Count of ones in the bitset: " << count_of_ones << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`bits` 是一个包含 8 位的位集。`bits.count()` 统计位集中被设置为 1 的位的数量，并将结果输出。
