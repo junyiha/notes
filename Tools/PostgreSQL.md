@@ -89,3 +89,64 @@ PostgreSQL本身是用C语言开发的，但它提供了许多支持扩展的方
 6. **其他语言扩展**：除了上述常用的语言外，PostgreSQL还支持其他一些语言的扩展，如PL/R（R语言）、PL/V8（JavaScript）等。这些扩展使得开发者可以根据自己的需求选择适合的编程语言来开发数据库功能。
 
 通过这些扩展，开发者可以选择自己熟悉的编程语言来扩展PostgreSQL的功能，使其适应各种需求和场景。
+
+## PostgreSQL 语法
+
++ 默认情况下 PostgreSQL 安装完成后，自带了一个命令行工具 SQL Shell(psql)。
++ Linux 系统可以直接切换到 postgres 用户来开启命令行工具：
+  + #  sudo -i -u postgres
+
++ 进入命令行工具，我们可以使用 \help 来查看各个命令的语法 ：
+  + postgres-# \help <command_name>
+
++ SQL 语句
+  + 一个 SQL 语句通常包含了关键字、标识符（字段）、常量、特殊符号等，下面是一个简单的 SQL 语句：
+  + SELECT id, name FROM runoob
+
++ PostgreSQL 命令
+  + ABORT
+    + ABORT 用于退出当前事务。
+    + ABORT [ WORK | TRANSACTION ]
+  + ALTER AGGREGATE
+    + 修改一个聚集函数的定义 。
+```sql
+ALTER AGGREGATE _name_ ( _argtype_ [ , ... ] ) RENAME TO _new_name_
+ALTER AGGREGATE _name_ ( _argtype_ [ , ... ] ) OWNER TO _new_owner_
+ALTER AGGREGATE _name_ ( _argtype_ [ , ... ] ) SET SCHEMA _new_schema_
+```
+  + ALTER COLLATION
+    + 修改一个排序规则定义 。
+```sql
+ALTER COLLATION _name_ RENAME TO _new_name_
+ALTER COLLATION _name_ OWNER TO _new_owner_
+ALTER COLLATION _name_ SET SCHEMA _new_schema_
+```
+  + ALTER CONVERSION
+```sql
+ALTER CONVERSION name RENAME TO new_name
+ALTER CONVERSION name OWNER TO new_owner
+```
+  + ALTER DATABASE
+    + 修改一个数据库。
+```sql
+ALTER DATABASE name SET parameter { TO | = } { value | DEFAULT }
+ALTER DATABASE name RESET parameter
+ALTER DATABASE name RENAME TO new_name
+ALTER DATABASE name OWNER TO new_owner
+```
+  + ALTER DEFAULT PRIVILEGES
+    + 定义默认的访问权限。
+```sql
+ALTER DEFAULT PRIVILEGES
+    [ FOR { ROLE | USER } target_role [, ...] ]
+    [ IN SCHEMA schema_name [, ...] ]
+    abbreviated_grant_or_revoke
+
+where abbreviated_grant_or_revoke is one of:
+
+GRANT { { SELECT | INSERT | UPDATE | DELETE | TRUNCATE | REFERENCES | TRIGGER }
+    [, ...] | ALL [ PRIVILEGES ] }
+    ON TABLES
+    TO { [ GROUP ] role_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+...
+```
