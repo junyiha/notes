@@ -67,3 +67,93 @@ int main() {
 这个简单的示例展示了一个基于 Boost.Beast 的简单 HTTP 服务器，监听端口 8080。它接受客户端连接并向客户端发送 "Hello, World!" 作为 HTTP 响应。
 
 Boost.Beast 提供了更高层次的抽象和功能，使得处理 HTTP 和 WebSocket 协议变得更加简单和便捷。但是，要构建更完整和复杂的网络应用程序，可能需要更多的学习和深入了解网络编程以及 Boost.Beast 的 API 和特性。
+
+## Boost.Beast模块 实现异步响应的HTTP服务器
+
+下面是一个简单的示例，演示了如何使用 Boost.Beast 模块实现一个异步的 HTTP 服务器，处理来自客户端的 HTTP 请求并异步发送响应。
+
+```cpp
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
+#include <boost/asio.hpp>
+#include <iostream>
+#include <string>
+
+namespace beast = boost::beast;
+namespace http = beast::http;
+namespace net = boost::asio;
+using tcp = boost::asio::ip::tcp;
+
+void handle_request(const http::request<http::string_body>& req, http::response<http::string_body>& res) {
+    // 处理请求
+    if (req.method() == http::verb::get && req.target() == "/hello") {
+        res.result(http::status::ok);
+        res.set(http::field::server, "AsyncBoostServer");
+        res.set(http::field::content_type, "text/plain");
+        res.keep_alive(req.keep_alive());
+        res.body() = "Hello, Boost.Beast!";
+        res.prepare_payload();
+    } else {
+        res.result(http::status::not_found);
+        res.keep_alive(req.keep_alive());
+        res.body() = "Not Found";
+        res.prepare_payload();
+    }
+}
+
+void do_session(tcp::socket& socket) {
+    beast::error_code ec;
+    beast::flat_buffer buffer;
+
+    // 读取请求
+    http::request<http::string_body> req;
+    http::read(socket, buffer, req, ec);
+    if (ec == http::error::end_of_stream) {
+        socket.shutdown(tcp::socket::shutdown_send, ec);
+        return;
+    } else if (ec) {
+        std::cerr << "Error reading HTTP request: " << ec.message() << std::endl;
+        return;
+    }
+
+    // 处理请求
+    http::response<http::string_body> res;
+    handle_request(req, res);
+
+    // 写入响应
+    http::write(socket, res, ec);
+    if (ec) {
+        std::cerr << "Error writing HTTP response: " << ec.message() << std::endl;
+        return;
+    }
+}
+
+int main() {
+    try {
+        net::io_context io_context;
+
+        // 创建监听端点
+        tcp::acceptor acceptor(io_context, {tcp::v4(), 8080});
+        std::cout << "Server started and listening on port 8080" << std::endl;
+
+        while (true) {
+            tcp::socket socket(io_context);
+            acceptor.accept(socket);
+
+            // 异步处理会话
+            net::post(io_context, [&socket]() {
+                do_session(socket);
+            });
+        }
+
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这个示例创建了一个简单的异步 HTTP 服务器，监听端口 `8080`。它使用 Boost.Beast 提供的函数来处理 HTTP 请求和生成相应的 HTTP 响应。在 `do_session()` 函数中，它异步地处理了每个传入的连接，并使用 `handle_request()` 函数根据请求的内容来生成响应。使用 `net::post()` 异步执行会话处理，确保在异步处理完成之前不会阻塞主线程。
+
+请注意，这只是一个简单的示例。在实际的应用程序中，可能需要添加更多的错误处理、请求解析、路由处理和更复杂的逻辑。

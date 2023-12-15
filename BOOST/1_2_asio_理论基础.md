@@ -208,3 +208,200 @@ int main() {
 ```
 
 这个简单的示例创建了一个 TCP 套接字 `tcp::socket`，连接到本地 IP 地址 `127.0.0.1` 的端口 `8080`，发送 "Hello, Server!" 消息，并等待服务器的响应。这个示例只是一个基本的演示，实际中可能需要更复杂的错误处理和异步操作。
+
+## boost::asio::ip::tcp::acceptor 详解
+
+`boost::asio::ip::tcp::acceptor` 是 Boost 库中 `Asio` 网络编程库的一部分，用于在 C++ 中实现基于 TCP 协议的异步接受连接的操作。
+
+### 1. `boost::asio::ip::tcp::acceptor` 概述
+
+- **作用：** `acceptor` 用于在服务器端监听指定的 IP 地址和端口，并接受传入的连接请求。
+- **工作原理：** `acceptor` 负责等待来自客户端的连接请求，并在连接请求到达时接受连接。它允许服务器接受传入连接，并将其传递给对应的处理器。
+- **使用场景：** 在服务器端实现 TCP 服务时，`acceptor` 通常与 `socket` 结合使用，通过 `acceptor` 接受连接，并创建一个新的 `socket` 用于处理客户端和服务器之间的通信。
+
+### 2. `boost::asio::ip::tcp::acceptor` 的基本用法
+
+以下是一个简单的示例，演示如何使用 `acceptor`：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+void handle_accept(const boost::system::error_code& error) {
+    if (!error) {
+        // 处理新连接
+    } else {
+        // 处理连接错误
+    }
+}
+
+int main() {
+    boost::asio::io_context io_context;
+    boost::asio::ip::tcp::acceptor acceptor(io_context);
+
+    // 在本地地址 0.0.0.0，端口号 8080 上监听连接
+    boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 8080);
+    acceptor.open(endpoint.protocol());
+    acceptor.bind(endpoint);
+    acceptor.listen();
+
+    // 异步等待连接请求
+    acceptor.async_accept(
+        [&acceptor](const boost::system::error_code& error, boost::asio::ip::tcp::socket socket) {
+            handle_accept(error);
+        }
+    );
+
+    io_context.run();
+
+    return 0;
+}
+```
+
+### 3. 重要方法和功能
+
+- **`open()`：** 打开接受器并准备接受连接。
+- **`bind()`：** 将接受器绑定到指定的 IP 地址和端口。
+- **`listen()`：** 开始监听传入的连接请求。
+- **`async_accept()`：** 异步接受传入的连接请求。当有新的连接请求到达时，调用回调函数处理连接。
+
+### 4. 注意事项
+
+- 使用 `async_accept` 进行异步连接处理，必须确保在回调函数中处理连接，否则连接将被丢弃。
+- `acceptor` 通常与 `io_context` 一起使用，后者用于异步操作的事件循环处理。
+
+请根据具体的需求和网络应用程序的逻辑，结合 Boost.Asio 的其他部分，例如 `socket` 类等，来构建一个完整的网络应用程序。
+
+## boost::asio::ip::tcp::acceptor 初始化
+
+在使用 `boost::asio::ip::tcp::acceptor` 初始化之前，需要提供一个 `io_context` 对象以及一个 `endpoint`（端点）来指定监听的地址和端口。
+
+下面是一个简单的示例，演示了如何初始化 `boost::asio::ip::tcp::acceptor`：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+int main() {
+    // 创建 io_context 对象
+    boost::asio::io_context io_context;
+
+    // 创建 acceptor 对象
+    boost::asio::ip::tcp::acceptor acceptor(io_context);
+
+    try {
+        // 定义 endpoint（端点），指定要监听的 IP 地址和端口
+        boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 8080);
+
+        // 打开 acceptor，并绑定到指定端点
+        acceptor.open(endpoint.protocol());
+        acceptor.bind(endpoint);
+
+        // 开始监听传入的连接
+        acceptor.listen();
+
+        std::cout << "Server started and listening on port 8080" << std::endl;
+
+        // 在这之后，可以使用 acceptor 的 async_accept() 方法来接受连接请求并处理连接
+        // acceptor.async_accept(...);
+        
+        io_context.run(); // 启动 IO 上下文的事件循环
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中：
+
+1. 创建了一个 `io_context` 对象用于异步 I/O 操作的事件循环。
+2. 使用 `boost::asio::ip::tcp::acceptor` 创建了一个接受器对象。
+3. 指定了一个 `endpoint`，即要监听的 IP 地址和端口。在此示例中，IP 地址是 IPv4 的地址，端口是 8080。
+4. 打开 `acceptor` 并将其绑定到指定的端点。
+5. 调用 `listen()` 开始监听传入的连接请求。
+6. `io_context.run()` 启动了异步操作的事件循环，以便接受来自客户端的连接请求。
+
+请注意，这只是初始化 `boost::asio::ip::tcp::acceptor` 的一个基本示例。实际的应用程序需要根据需求进一步扩展，可能需要添加异步连接接受处理等操作。
+
+## boost::asio::ip::tcp::endpoint 详解
+
+`boost::asio::ip::tcp::endpoint` 是 Boost.Asio 中用于表示 TCP 协议的端点（endpoint）的类。它定义了一个包含 IP 地址和端口号的组合，用于标识网络上的一个节点。
+
+### 主要特点和功能：
+
+1. **表示网络上的节点：** `tcp::endpoint` 表示了网络上的一个节点，它由 IP 地址和端口号组成。
+2. **跨平台性：** `endpoint` 类支持跨平台操作，可以在各种操作系统上使用。
+3. **灵活性：** 允许用户指定 IPv4 或 IPv6 地址，以及端口号。
+
+### 主要方法和操作：
+
+- **构造函数：** 提供了多种构造函数来创建 `tcp::endpoint` 实例，可以根据不同的参数设置 IP 地址和端口号。
+- **协议访问：** 可以通过 `protocol()` 方法访问端点的协议信息。
+- **IP 地址和端口访问：** 通过 `address()` 和 `port()` 方法获取端点的 IP 地址和端口号。
+
+### 示例用法：
+
+以下是一个示例，演示了如何使用 `tcp::endpoint`：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+int main() {
+    // 创建一个 IPv4 的 endpoint
+    boost::asio::ip::tcp::endpoint endpoint_v4(boost::asio::ip::address_v4::any(), 8080);
+
+    // 创建一个 IPv6 的 endpoint
+    boost::asio::ip::tcp::endpoint endpoint_v6(boost::asio::ip::address_v6::any(), 8080);
+
+    std::cout << "IPv4 Endpoint: " << endpoint_v4.address().to_string() << ":" << endpoint_v4.port() << std::endl;
+    std::cout << "IPv6 Endpoint: " << endpoint_v6.address().to_string() << ":" << endpoint_v6.port() << std::endl;
+
+    return 0;
+}
+```
+
+此示例演示了如何创建一个 IPv4 和一个 IPv6 的 `tcp::endpoint`，并打印它们的 IP 地址和端口号。
+
+### 注意事项：
+
+- `tcp::endpoint` 是一个用于表示网络节点的类，并且常用于创建 `acceptor` 和 `socket` 对象来监听和建立连接。
+- 在实际应用中，可以使用 `tcp::endpoint` 来标识本地或远程服务器的地址和端口号。
+
+这是一个简单的概述，`tcp::endpoint` 可以用于标识和操作 TCP 网络上的节点，它是 Boost.Asio 中处理网络连接和数据传输的重要组件之一。
+
+## boost::asio::ip::tcp::endpoint 构造函数 输入字符串
+
+`boost::asio::ip::tcp::endpoint` 类提供了一种从字符串构造端点的方法，它可以解析字符串来创建 TCP 端点。这个构造函数通常用于将用户提供的 IP 地址和端口字符串转换为 `tcp::endpoint` 对象。
+
+以下是一个示例，演示了如何使用 `tcp::endpoint` 的构造函数从字符串创建端点：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+int main() {
+    // 从字符串创建 TCP 端点
+    std::string ip_address = "127.0.0.1"; // IP 地址字符串
+    std::string port_number = "8080";      // 端口号字符串
+
+    boost::asio::io_context io_context;
+    
+    try {
+        // 使用字符串创建 TCP 端点
+        boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string(ip_address), std::stoi(port_number));
+
+        std::cout << "Created endpoint from strings: " << endpoint.address().to_string() << ":" << endpoint.port() << std::endl;
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，`boost::asio::ip::address::from_string()` 方法将 IP 地址字符串转换为 `address` 对象，然后将此对象与端口号一起传递给 `tcp::endpoint` 的构造函数。最后，使用 `endpoint.address().to_string()` 和 `endpoint.port()` 来获取所创建端点的 IP 地址和端口号。
+
+请注意，为了示例简洁，没有进行输入验证。在实际应用程序中，您可能需要添加输入验证来确保字符串包含有效的 IP 地址和端口号。
