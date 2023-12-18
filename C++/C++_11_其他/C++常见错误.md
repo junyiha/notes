@@ -249,3 +249,51 @@ int myFunction() {
   + 第二段是对堆内存分配的总结信息,
   + 第三段的内容描述了内存泄露的具体信息
   + 最后一段是总结,4字节为一块的内存泄露
+
+## C++ 编译： crosses initialization of ...
+
++ 在switch-case中定义变量，编译时出现异常：crosses initialization of......，
++ 异常代码如下:
+```cpp
+switch (ev)
+{
+    case MG_EV_HTTP_MSG:
+        std::thread tmp(EventHandler, connect, hm);
+        tmp.detach();
+        break;
+    default:
+        break;
+}
+```
+
++ 出现异常的原因是：
+  + C/C++中变量的生命周期问题，在case MG_EV_HTTP_MSG中定义了变量tmp，在default中也能够使用，但是如果在程序运行中直接跳入default分支，就会出现没有初始化的异常。
+  + 程序编译时为了防止出现上述情况，就会报编译失败，不是证明程序有异常，只是编译器担心程序有异常。
+
++ 解决方法有两个
+  + 在switch-case外进行定义:
+```cpp
+std::thread tmp(EventHandler, connect, hm);
+switch (ev)
+{
+    case MG_EV_HTTP_MSG:
+        tmp.detach();
+        break;
+    default:
+        break;
+}
+```
+  + 在case中加花括号
+```cpp
+switch (ev)
+{
+    case MG_EV_HTTP_MSG:
+    {
+        std::thread tmp(EventHandler, connect, hm);
+        tmp.detach();
+        break;
+    }
+    default:
+        break;
+}
+```
