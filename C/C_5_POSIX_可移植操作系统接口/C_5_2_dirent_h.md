@@ -1,0 +1,181 @@
+## 简介
+
++ <dirent.h>标准头文件
+
+## Linux POSIX <dirent.h> 详解
+
+在 POSIX 系统中（如 Linux），`<dirent.h>` 头文件提供了访问目录及其条目的函数和数据结构，允许程序对目录进行操作，比如遍历目录、读取目录下的文件等。
+
+以下是 `<dirent.h>` 中常见的一些功能和相关的数据结构：
+
+1. **数据结构 `struct dirent`**：
+   `struct dirent` 是 `<dirent.h>` 中定义的结构体，用于表示目录中的一个条目（文件或子目录）。它通常包含以下成员：
+   - `ino_t d_ino`：表示目录条目的 inode 号。
+   - `char d_name[]`：表示目录条目的名称。
+
+2. **函数 `opendir()`**：
+   `opendir()` 函数用于打开一个目录，它接收目录路径作为参数，并返回一个指向 `DIR` 结构的指针。示例：
+   ```c
+   DIR *dir = opendir("/path/to/directory");
+   ```
+
+3. **函数 `readdir()`**：
+   `readdir()` 函数用于读取打开的目录中的条目。它接收 `opendir()` 返回的 `DIR` 结构指针作为参数，并返回指向 `struct dirent` 结构的指针。示例：
+   ```c
+   struct dirent *entry;
+   while ((entry = readdir(dir)) != NULL) {
+       printf("%s\n", entry->d_name);
+   }
+   ```
+
+4. **函数 `closedir()`**：
+   `closedir()` 函数用于关闭先前由 `opendir()` 打开的目录流。示例：
+   ```c
+   closedir(dir);
+   ```
+
+使用这些函数，你可以在程序中对目录进行操作，例如打开目录、遍历目录中的文件或子目录，读取它们的属性，然后进行相应的操作。这些函数使得在 POSIX 兼容系统上进行文件和目录处理更加方便和灵活。
+
+## Linux POSIX <dirent.h> struct dirent 详解
+
+在 POSIX 系统中，`<dirent.h>` 头文件定义了用于访问目录及其条目的函数和数据结构。其中，`struct dirent` 是该头文件中定义的结构体，用于表示目录中的单个条目（即文件或子目录）的信息。
+
+`struct dirent` 结构体通常包含以下成员：
+
+1. `ino_t d_ino`：这是目录项的 inode 号码（在文件系统中唯一标识文件或目录）。使用 inode 号码可以唯一地标识文件系统中的特定文件或目录。
+
+2. `off_t d_off`：这是目录项在目录中的偏移量，通常在一些特定的文件系统中有用。
+
+3. `unsigned short d_reclen`：这是目录项的长度。
+
+4. `unsigned char d_type`：这是目录项的类型。这个成员通常在 POSIX 系统中非标准化，因此在不同系统上可能会有不同的值，表示文件类型（比如普通文件、目录、链接等）。
+
+5. `char d_name[]`：这是一个字符数组，表示目录项的名称。该数组的大小通常是可变的，因为文件名的长度可能不同。
+
+`struct dirent` 结构体的定义可能会因系统而异，因为不同的操作系统或文件系统可能具有不同的字段或实现。在 POSIX 兼容系统上，通常会使用这个结构体来在程序中读取目录中的条目，并获取每个条目的名称和其他基本信息。
+
+在使用 `<dirent.h>` 头文件中的函数（如 `readdir()`）读取目录内容时，通常会创建 `struct dirent` 类型的变量来存储每个读取到的目录项的信息，然后进一步处理这些信息，比如打印文件名、获取文件属性等操作。
+
+## Linux POSIX <dirent.h> opendir() 详解
+
+在 POSIX 系统中，`opendir()` 函数是 `<dirent.h>` 头文件中用于打开目录的函数之一。它允许程序员打开一个目录流，并返回一个指向 `DIR` 结构的指针，以便后续对该目录进行操作。
+
+函数原型：
+```c
+DIR *opendir(const char *dirname);
+```
+
+参数 `dirname` 是一个字符串，表示目标目录的路径名。函数返回一个指向 `DIR` 结构的指针，或者在出错时返回 `NULL`。
+
+示例用法：
+```c
+#include <stdio.h>
+#include <dirent.h>
+
+int main() {
+    DIR *dir;
+    struct dirent *entry;
+
+    dir = opendir("/path/to/directory"); // 打开目录流
+    if (dir == NULL) {
+        perror("opendir");
+        return -1;
+    }
+
+    while ((entry = readdir(dir)) != NULL) { // 读取目录中的条目
+        printf("%s\n", entry->d_name); // 打印条目名称
+    }
+
+    closedir(dir); // 关闭目录流
+    return 0;
+}
+```
+
+该示例演示了如何使用 `opendir()` 打开目录流，然后使用 `readdir()` 读取目录中的条目，最后使用 `closedir()` 关闭目录流。在这个例子中，`readdir()` 用于读取目录中的每个条目，并通过 `entry->d_name` 打印出每个条目的名称。
+
+需要注意的是，如果 `opendir()` 执行成功，它会返回一个指向 `DIR` 结构的指针，该指针可以用于后续的目录操作。而在出错时，它会返回 `NULL`，此时可以使用 `perror()` 或其他错误处理函数来输出错误信息或进行处理。
+
+## Linux POSIX <dirent.h> readdir() 详解
+
+在 POSIX 系统中，`readdir()` 函数是 `<dirent.h>` 头文件中用于读取目录中条目的函数之一。它允许程序员逐个读取打开的目录流中的目录项，并返回指向 `struct dirent` 结构的指针，指向每个目录项的信息。
+
+函数原型：
+```c
+struct dirent *readdir(DIR *dir);
+```
+
+参数 `dir` 是一个指向先前由 `opendir()` 打开的目录流的指针。函数返回一个指向 `struct dirent` 结构的指针，或者在读取到目录末尾或出错时返回 `NULL`。
+
+示例用法：
+```c
+#include <stdio.h>
+#include <dirent.h>
+
+int main() {
+    DIR *dir;
+    struct dirent *entry;
+
+    dir = opendir("/path/to/directory"); // 打开目录流
+    if (dir == NULL) {
+        perror("opendir");
+        return -1;
+    }
+
+    while ((entry = readdir(dir)) != NULL) { // 读取目录中的条目
+        printf("%s\n", entry->d_name); // 打印条目名称
+    }
+
+    closedir(dir); // 关闭目录流
+    return 0;
+}
+```
+
+在示例中，`readdir()` 用于读取目录中的每个条目，并将其存储在类型为 `struct dirent` 的结构体指针 `entry` 中。`entry->d_name` 包含每个条目的名称，可以用于打印或进一步处理。
+
+循环中的条件 `(entry = readdir(dir)) != NULL` 表示只要 `readdir()` 返回的指针不是 `NULL`，就会继续读取并处理目录中的下一个条目。当读取到目录末尾或出现错误时，`readdir()` 将返回 `NULL`，循环结束。
+
+最后，使用 `closedir()` 函数关闭先前由 `opendir()` 打开的目录流，释放资源并结束操作。
+
+通过 `readdir()` 函数，你可以逐个读取目录中的条目，从而获取目录下文件和子目录的信息，并进行相应的处理。
+
+## Linux POSIX <dirent.h> closedir() 详解
+
+在 POSIX 系统中，`closedir()` 函数是 `<dirent.h>` 头文件中用于关闭先前打开的目录流的函数。它用于释放由 `opendir()` 打开的目录流所占用的资源，并清理相关的内存，以防止资源泄漏。
+
+函数原型：
+```c
+int closedir(DIR *dir);
+```
+
+参数 `dir` 是一个指向先前由 `opendir()` 打开的目录流的指针。函数返回整型值，通常在成功关闭目录流时返回 0，出错时返回 -1。
+
+示例用法：
+```c
+#include <stdio.h>
+#include <dirent.h>
+
+int main() {
+    DIR *dir;
+
+    dir = opendir("/path/to/directory"); // 打开目录流
+    if (dir == NULL) {
+        perror("opendir");
+        return -1;
+    }
+
+    // 对目录进行操作...
+
+    if (closedir(dir) == -1) { // 关闭目录流
+        perror("closedir");
+        return -1;
+    }
+
+    return 0;
+}
+```
+
+在示例中，`closedir()` 函数用于关闭先前由 `opendir()` 打开的目录流 `dir`。它应该在对目录进行操作后使用，以释放相关资源。
+
+如果成功关闭目录流，`closedir()` 返回 0。如果出现错误，它会返回 -1，并且你可以使用 `perror()` 或其他错误处理方法来输出错误信息。
+
+使用 `closedir()` 是一个良好的编程实践，以确保在不再需要目录流时正确释放相关资源，避免资源泄漏和其他问题。
