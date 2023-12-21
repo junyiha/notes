@@ -1,0 +1,24 @@
+## 简介
+
++ 使用C语言实现HTTP服务器
+
+## Linux C实现HTTP服务器
+
+您好！以下是一个简单的步骤，可以帮助您使用C语言在Linux上实现HTTP服务器：
+
+1. 创建套接字并绑定到端口。
+2. 监听套接字以等待客户端连接。
+3. 接受客户端连接并处理HTTP请求。
+4. 从服务器上的文件系统中读取所需的文件并将其发送回客户端。
+5. 关闭套接字并退出。
+
+这是一个简单的步骤，但是实现HTTP服务器需要更多的细节和代码。您可以参考一些开源项目，例如[这个](https://zhuanlan.zhihu.com/p/554876174)知乎专栏文章中提到的一个基于Linux操作系统C语言实现的轻量级HTTP服务器。该文章提供了一个完整的代码示例，您可以在此基础上进行修改和扩展。
+
+希望这可以帮助您入门HTTP服务器的实现。如果您有任何其他问题，请随时问我！
+
+Source: Conversation with Bing, 12/21/2023
+(1) 用C语言实现http服务器（Linux） - 知乎 - 知乎专栏. https://zhuanlan.zhihu.com/p/554876174.
+(2) Linux C Http 文件服务器实现（含源码） - 知乎 - 知乎专栏. https://zhuanlan.zhihu.com/p/109339385.
+(3) C/C++编程日记：用C语言实现的简单Web服务器(Linux)，全代码分享！ - 哔哩哔哩. https://www.bilibili.com/read/cv7985394/.
+(4) linux 搭建http文件服务器 - 业余砖家 - 博客园. https://www.cnblogs.com/yeyuzhuanjia/p/16549008.html.
+(5) Linux C 实现简单的HTTP服务器 - CSDN博客. https://blog.csdn.net/wwxy1995/article/details/95517077.

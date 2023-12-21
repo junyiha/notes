@@ -1052,3 +1052,9 @@
         + 相机
         + 传送带 [pass]
         + 末端工具
+  + rk
+    + 事件播报功能开发
+      + play + mp3文件(通过HTTP传输)
+      + clear
+  + personal
+    + C 实现 HTTP 服务器
