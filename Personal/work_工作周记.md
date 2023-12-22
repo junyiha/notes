@@ -1057,4 +1057,28 @@
       + play + mp3文件(通过HTTP传输)
       + clear
   + personal
+    + C 实现 HTTP 服务器 [ok]
+
++ 12.21
+  + vcr_0.5 [defer]
+    + 设备和算法模块 12.21完成
+      + 算法模块 [defer]
+        + 作业算法
+          + 眼在臂外
+          + 眼在臂上
+          + 眼在臂上的打磨
+        + 视觉算法 [ok]
+          + YOLOV5OBB
+          + YOLOV8BOX
+      + 设备模块 [defer]
+        + 机械臂 [ok]
+        + 相机
+        + 传送带 [pass]
+        + 末端工具
+  + rk [ing]
+    + 事件播报功能开发
+      + play + mp3文件(通过HTTP传输)
+      + clear
+  + personal
     + C 实现 HTTP 服务器
+    + Mongoose 实现HTTP动态请求文件和上传文件
