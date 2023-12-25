@@ -133,3 +133,36 @@ dumpbin /headers your_executable_file
 这将显示可执行文件的头部信息，您可以在其中寻找与调试信息相关的部分。
 
 请注意，调试信息在发布版本的可执行文件中通常被剥离以减少文件大小。在生产环境中，通常不会包含调试信息。
+
+## 如何校准Linux服务器时间
+
++ Linux查看服务器当前事件
+  + 查看当前时区: date -R
+  + 查看当前日期和时间: date
+
++ 校准Linux服务器时间
+  + Linux中有个ntp包可以自动校准时间,安装后可以很方便地校准事件
+  + 安装前可以通过 cat /proc/version 命令查看当前操作系统版本信息
+  + Debian系统安装NTP
+    + apt-get install ntpdate
+  + CentOS系统安装NTP:
+    + yun install ntp
+
++ 校准时间命令
+  + ntpupdate cn.pool.ntp.org
+  + 其中,cn.pool.ntp.org是ntp网络授时组织的中国授时源
+  + 执行校准命令后,会自动调整时间并显示校正的时间偏移量
+
++ 使用命令 hwclock -w 保存配置,以便重启后时间再次不对
+
+## du + sort + head
+
++ du -a ./ | sort -nr 
+  + 按照文件从大到小排序(包含隐藏文件,包含目录,文件,层级目录下文件)
+
++ du -m --max-depth=1 ./ | sort -nr | head -n 10 
+  + 指定目录第一层,显示前top10
+  + -m : 统计单位为MB
+
++ du -m --max-depth=1 ./ | sort -nr -o 'sort.txt' | head -n 10 
+  + 使用sort -o 参数将排序结果存入指定文件 sort.txt 中

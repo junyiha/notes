@@ -1082,3 +1082,48 @@
   + personal
     + C 实现 HTTP 服务器
     + Mongoose 实现HTTP动态请求文件和上传文件
+
++ 12.21
+  + vcr_0.5 [defer]
+    + 设备和算法模块 12.21完成
+      + 算法模块 [defer]
+        + 作业算法
+          + 眼在臂外
+          + 眼在臂上
+          + 眼在臂上的打磨
+        + 视觉算法 [ok]
+          + YOLOV5OBB
+          + YOLOV8BOX
+      + 设备模块 [defer]
+        + 机械臂 [ok]
+        + 相机
+        + 传送带 [pass]
+        + 末端工具
+  + rk [ok]
+    + 事件播报功能开发
+      + play + mp3文件(通过HTTP传输)
+      + clear
+  + personal [ok]
+    + C 实现 HTTP 服务器
+    + Mongoose 实现HTTP动态请求文件和上传文件
+
+## 20231225 - 20240101
+
++ 12.25
+  + vcr_0.5 [ing]
+    + 设备和算法模块 
+      + 算法模块 
+        + 作业算法 [defer]
+          + 拆码垛
+          + 打磨
+          + 焊接
+        + 视觉算法 [ok]
+          + YOLOV5OBB
+          + YOLOV8BOX
+      + 设备模块 [defer]
+        + 机械臂 [ok]
+        + 相机
+        + 传送带 [pass]
+        + 末端工具
+    + 网络通讯
+      + 制定对外接口,与后端联调
