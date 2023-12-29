@@ -1,3 +1,86 @@
+## 简介
+
++ nlohmann/json 库的相关笔记
+
+## nlohmann/json 将std::vector作为值传给键
+
+使用 nlohmann/json 库时，可以将 `std::vector` 作为 JSON 对象的值传递给键。下面是一个简单的示例：
+
+```cpp
+#include <iostream>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+
+    // 创建一个 JSON 对象，将 std::vector 作为值传递给键
+    json jsonObject;
+    jsonObject["myNumbers"] = numbers;
+
+    // 将 JSON 对象转换为字符串输出
+    std::string jsonString = jsonObject.dump();
+    std::cout << "JSON String: " << jsonString << std::endl;
+
+    return 0;
+}
+```
+
+在这个例子中，`std::vector<int>` 中的数字被添加到了名为 `"myNumbers"` 的键中，并将整个向量作为 JSON 对象的值。`jsonObject.dump()` 将 JSON 对象转换为字符串，并使用 `std::cout` 输出到控制台。
+
+你可以根据需要将不同类型的值存储在 JSON 对象中，并根据库的文档进行操作以满足你的特定需求。
+
+## nlohmann/json 解析JSON字符串 将数组传递给std::vector
+
+要使用 nlohmann/json 库解析包含数组的 JSON 字符串并将其传递给 `std::vector`，你可以使用 `from_json` 函数。以下是一个示例：
+
+假设有如下的 JSON 字符串：
+
+```json
+{
+    "myArray": [1, 2, 3, 4, 5]
+}
+```
+
+在 C++ 中使用 nlohmann/json 库解析该 JSON 字符串并将数组传递给 `std::vector` 的示例：
+
+```cpp
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <vector>
+
+using json = nlohmann::json;
+
+int main() {
+    // JSON 字符串
+    std::string jsonString = R"(
+        {
+            "myArray": [1, 2, 3, 4, 5]
+        }
+    )";
+
+    // 解析 JSON 字符串
+    json jsonObject = json::parse(jsonString);
+
+    // 从 JSON 对象中获取数组并传递给 std::vector
+    std::vector<int> myVector = jsonObject["myArray"].get<std::vector<int>>();
+
+    // 输出 std::vector 中的值
+    std::cout << "Values in vector: ";
+    for (const auto& num : myVector) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在这个例子中，`jsonObject["myArray"].get<std::vector<int>>()` 从 JSON 对象中获取名为 `"myArray"` 的数组，并使用 `.get<std::vector<int>>()` 将其转换为 `std::vector<int>` 类型。然后，将 `std::vector` 中的值输出到控制台。
+
+这是一种使用 nlohmann/json 库解析 JSON 字符串并将数组值传递给 `std::vector` 的方法。
+
 ## 解析JSON文件
 
 使用 nlohmann/json 库解析 JSON 文件非常简单。下面是一个简单的示例，演示了如何使用该库解析 JSON 文件：
