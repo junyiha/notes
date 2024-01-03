@@ -1,0 +1,4 @@
+ssh -o 'proxycommand socat - PROXY:47.100.31.121:gh-rk-1004:22,proxyport=5002' root@47.100.31.121
+ssh -o 'proxycommand socat - PROXY:47.100.31.121:gh-rk-1004:22,proxyport=5002' root@47.100.31.121
+ssh root@192.169.0.152
+ssh 192.169.0.152
