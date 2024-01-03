@@ -149,7 +149,7 @@ dumpbin /headers your_executable_file
     + yun install ntp
 
 + 校准时间命令
-  + ntpupdate cn.pool.ntp.org
+  + ntpdate cn.pool.ntp.org
   + 其中,cn.pool.ntp.org是ntp网络授时组织的中国授时源
   + 执行校准命令后,会自动调整时间并显示校正的时间偏移量
 
