@@ -1,0 +1,188 @@
+## 简介
+
++ <sys/poll.h> 是什么
+
+## linux <sys/poll.h>是什么
+
+`<sys/poll.h>` 是一个 C/C++ 中的头文件，它提供了用于使用 `poll()` 系统调用的相关函数和常量。
+
+`poll()` 是一种在多个文件描述符上进行 I/O 多路复用的方法。它允许程序等待多个文件描述符中的一个或多个准备好进行 I/O 操作，而无需阻塞任何描述符。
+
+`<sys/poll.h>` 头文件中包含了 `struct pollfd` 结构体以及与 `poll()` 函数相关的函数原型和宏定义。`struct pollfd` 结构体用于描述要检查状态的文件描述符以及它们的事件。
+
+常用的函数和宏包括：
+- `poll()`：用于检查文件描述符的状态。
+- `POLLIN`、`POLLOUT`、`POLLERR`、`POLLHUP` 等宏：用于描述文件描述符的不同事件类型。
+- `struct pollfd`：用于传递和存储文件描述符的状态和事件信息。
+
+使用 `<sys/poll.h>` 可以实现更高效的 I/O 多路复用，特别是在需要管理大量文件描述符时。
+
+## linux <sys/poll.h>详解
+
+`<sys/poll.h>` 是 Linux 中用于进行 I/O 多路复用的头文件，提供了 `poll()` 系统调用及相关的数据结构和常量。`poll()` 函数可以同时监视多个文件描述符的状态，以确定它们是否可以进行读取、写入或是否发生错误等事件。下面详细介绍 `<sys/poll.h>` 中的一些关键概念和内容：
+
+### `struct pollfd`
+
+`<sys/poll.h>` 中定义了 `struct pollfd` 结构体，它用于描述单个文件描述符的状态和事件。该结构体的定义如下：
+
+```c
+struct pollfd {
+    int fd;         // 文件描述符
+    short events;   // 要监视的事件（输入/输出/错误等）
+    short revents;  // 实际发生的事件（由系统设置）
+};
+```
+
+- `fd` 是要监视的文件描述符。
+- `events` 是需要监视的事件，可以使用以下标志进行设置：
+  - `POLLIN`：数据可以从文件描述符读取。
+  - `POLLOUT`：数据可以写入文件描述符。
+  - `POLLERR`：发生错误。
+  - `POLLHUP`：挂起（连接断开）。
+  - 等等，还有其他可用的标志。
+- `revents` 是实际发生的事件，由系统在调用 `poll()` 后设置。它表示发生了哪些事件。
+
+### `poll()`
+
+`poll()` 是 `<sys/poll.h>` 中的主要函数，用于监视一组文件描述符的状态。其原型如下：
+
+```c
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+```
+
+- `fds` 是一个指向 `struct pollfd` 数组的指针，该数组包含要监视的文件描述符及其相应的事件和结果。
+- `nfds` 是 `fds` 数组中的文件描述符数量。
+- `timeout` 是等待的超时时间（以毫秒为单位），如果设置为负数则表示无限等待，如果设置为零则表示立即返回。
+
+`poll()` 函数会阻塞程序，直到文件描述符中的一个或多个发生了指定的事件，或者等待超时。
+
+### 事件宏
+
+除了 `POLLIN`、`POLLOUT`、`POLLERR` 和 `POLLHUP` 外，`<sys/poll.h>` 还提供了其他用于描述事件的宏，以便更精细地监视文件描述符的状态，例如：
+
+- `POLLPRI`：高优先级数据可以从文件描述符读取。
+- `POLLNVAL`：文件描述符非法。
+
+### 使用方法
+
+要使用 `<sys/poll.h>`，您需要包含该头文件，并根据需要设置 `struct pollfd` 数组的成员，然后调用 `poll()` 函数。
+
+```c
+#include <sys/poll.h>
+
+// 创建一个用于监视的 pollfd 结构体数组
+struct pollfd fds[1];
+fds[0].fd = your_file_descriptor; // 设置文件描述符
+fds[0].events = POLLIN;          // 设置要监视的事件
+
+// 调用 poll() 函数
+int ret = poll(fds, 1, your_timeout); // your_timeout 为超时时间
+
+if (ret > 0) {
+    // poll() 返回值大于 0 表示有文件描述符发生了事件
+    // 可以检查 fds[0].revents 获取实际发生的事件
+    // 处理文件描述符的可读/可写/错误等情况
+} else if (ret == 0) {
+    // 超时，没有文件描述符发生事件
+} else {
+    // poll() 返回值小于 0 表示出现错误
+    // 可以通过 perror() 或其他方式获取错误信息
+}
+```
+
+总之，`<sys/poll.h>` 提供了一种基于事件的 I/O 多路复用机制，允许程序有效地监视多个文件描述符，等待它们中任何一个准备好进行 I/O 操作或者发生特定的事件。
+
+## linux <sys/poll.h> struct pollfd详解
+
+`struct pollfd` 是 `<sys/poll.h>` 中定义的结构体，用于在使用 `poll()` 系统调用时描述要监视的文件描述符及其事件。该结构体提供了必要的信息，让 `poll()` 函数能够监视和报告文件描述符的状态和事件。
+
+以下是 `struct pollfd` 结构体的详细说明：
+
+```c
+struct pollfd {
+    int fd;         // 文件描述符
+    short events;   // 要监视的事件掩码
+    short revents;  // 实际发生的事件掩码（由内核设置）
+};
+```
+
+- `fd`：表示要监视的文件描述符。
+- `events`：是一个掩码，用于指定 `poll()` 函数在调用时应该监视的事件。可以使用以下标志进行设置：
+  - `POLLIN`：可读事件。表示数据可以从文件描述符读取而不会被阻塞。
+  - `POLLOUT`：可写事件。表示数据可以写入文件描述符而不会被阻塞。
+  - `POLLERR`：错误事件。表示发生了错误，需要处理。
+  - `POLLHUP`：挂起事件。表示连接断开或文件描述符被挂起。
+  - 还有其他可用的标志，例如 `POLLPRI`（高优先级可读事件）等。
+- `revents`：是由内核在 `poll()` 函数调用返回后设置的掩码，表示实际发生了哪些事件。`revents` 字段中的位掩码是 `events` 字段的子集。例如，如果设置了 `POLLIN` 标志并且有可读数据可用，那么在返回时 `revents` 将设置 `POLLIN` 位。
+
+结构体中的 `events` 字段用于指定所感兴趣的事件，而 `revents` 字段则由内核在调用 `poll()` 后设置以指示发生的事件。
+
+使用 `struct pollfd` 可以实现对多个文件描述符同时进行 I/O 多路复用的监视，以便有效地处理多个 I/O 事件。通过在 `events` 字段中指定感兴趣的事件，程序可以在调用 `poll()` 后检查 `revents` 字段以了解实际发生的事件，并相应地处理文件描述符的状态。
+
+## linux <sys/poll.h> poll()详解
+
+`<sys/poll.h>` 头文件提供了 `poll()` 系统调用，用于在 Linux 中进行 I/O 多路复用。`poll()` 函数允许程序同时监视多个文件描述符，并在它们之一准备好进行读取、写入或发生错误等事件时进行通知。以下是 `poll()` 函数的详细解释：
+
+### `poll()` 函数原型：
+
+```c
+#include <sys/poll.h>
+
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+```
+
+- `fds` 是一个指向 `struct pollfd` 结构体数组的指针，数组中存储了待监视的文件描述符及其事件。
+- `nfds` 是 `fds` 数组中的文件描述符数量。
+- `timeout` 是等待的超时时间（以毫秒为单位）。它可以有三种情况：
+  - 如果 `timeout` 为正数，表示 `poll()` 在超时之前等待事件就绪。
+  - 如果 `timeout` 为 0，表示 `poll()` 在调用后立即返回。
+  - 如果 `timeout` 为负数，表示 `poll()` 将无限期地等待事件就绪。
+
+### `struct pollfd`
+
+在调用 `poll()` 之前，需要设置 `struct pollfd` 结构体数组的成员，以描述要监视的文件描述符及其所关注的事件。这些成员包括：
+- `fd`：文件描述符。
+- `events`：监视的事件，使用位掩码指定。
+- `revents`：实际发生的事件，由 `poll()` 调用后填充。
+
+### `poll()` 函数的作用
+
+- `poll()` 调用会阻塞程序，直到指定的文件描述符中的一个或多个准备好进行 I/O 操作或发生了指定的事件。
+- 当任一文件描述符准备就绪或超时时，`poll()` 将返回一个大于 0 的值。返回值表示发生事件的文件描述符的数量。
+- 当 `poll()` 超时时，返回值为 0。
+- 如果 `poll()` 调用失败，返回值为 -1，并设置 `errno` 表示错误的类型。
+
+### 示例用法
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/poll.h>
+
+int main() {
+    struct pollfd fds[1];
+    fds[0].fd = /* Your file descriptor */;
+    fds[0].events = POLLIN; // 监视可读事件
+
+    int ret = poll(fds, 1, 1000); // 等待 1000 毫秒
+
+    if (ret > 0) {
+        if (fds[0].revents & POLLIN) {
+            // 文件描述符可读，处理读取操作
+            printf("File descriptor is ready for reading.\n");
+        }
+        // 其他事件检查和处理
+    } else if (ret == 0) {
+        // 超时
+        printf("Timeout occurred.\n");
+    } else {
+        // 错误发生
+        perror("poll");
+        return 1;
+    }
+
+    return 0;
+}
+```
+
+总之，`poll()` 函数允许程序有效地监视多个文件描述符，等待它们之一准备好进行 I/O 操作或发生特定事件。通过设置 `struct pollfd` 结构体数组的成员，并在调用 `poll()` 后检查相应的 `revents` 字段，可以实现对文件描述符的有效监视和处理。
