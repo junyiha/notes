@@ -150,6 +150,67 @@ struct sockaddr_storage {
 
 这个结构体的设计使得它成为一个通用的容器，可以存储不同类型的套接字地址，为网络编程提供了一定的灵活性和扩展性。
 
+## linux <sys/socket.h> setsockopt()详解
+
+`setsockopt()` 是 Linux 中 `<sys/socket.h>` 头文件中定义的函数，用于设置 socket 的选项参数。它允许对打开的 socket 进行配置和控制，以适应特定的网络通信需求。
+
+### 函数原型
+
+```c
+#include <sys/socket.h>
+
+int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
+```
+
+- `sockfd` 是要设置选项的 socket 文件描述符。
+- `level` 是选项的协议级别，通常是 `SOL_SOCKET`（表示通用 socket 选项），也可以是特定协议的级别，如 `IPPROTO_TCP` 或 `IPPROTO_IP`。
+- `optname` 是要设置的选项名称。
+- `optval` 是一个指向存放选项值的缓冲区的指针。
+- `optlen` 是选项值的长度。
+
+### 返回值
+
+- 如果设置选项成功，返回值为 0。
+- 如果失败，返回值为 -1，并设置 `errno` 表示错误的原因。
+
+### 使用方法
+
+```c
+#include <sys/socket.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+
+int main() {
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1) {
+        perror("socket");
+        exit(EXIT_FAILURE);
+    }
+
+    // 设置 socket 选项，例如设置 SO_REUSEADDR 选项
+    int optval = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) == -1) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+
+    // 进行其他操作
+
+    close(sockfd); // 关闭 socket
+
+    return 0;
+}
+```
+
+### 作用
+
+- `setsockopt()` 函数允许在创建 socket 后，通过设置选项对 socket 进行配置，如修改 socket 的属性、调整 socket 的行为等。
+- 例如，可以通过设置 `SO_REUSEADDR` 选项来允许地址重用，允许多个 socket 绑定到相同的地址和端口。
+- 还可以使用其他选项来调整缓冲区大小、设置超时、启用或禁用协议特性等。
+
+总之，`setsockopt()` 是一个用于设置 socket 选项的函数，可以根据需要配置和控制 socket 的行为，以满足特定的网络通信需求。
+
 ## linux <sys/socket.h> socket详解
 
 在 Linux 中，`<sys/socket.h>` 头文件提供了在网络编程中使用的套接字（socket）相关的函数和宏定义。其中最重要的函数之一就是 `socket()`。
