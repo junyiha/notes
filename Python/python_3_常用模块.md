@@ -2,6 +2,114 @@
 
 + python常用的模块，第三方工具
 
+## python3 subprocess模块 详解
+
+`subprocess` 模块是 Python 标准库中的一个工具，用于创建和管理新的进程，并与它们进行交互。它提供了许多功能，允许在 Python 程序中执行外部命令、启动新进程、与这些进程进行通信等。
+
+以下是 `subprocess` 模块的一些主要功能和常用函数：
+
+### 执行外部命令
+- `subprocess.run(args, *, stdin=None, input=None, stdout=None, stderr=None, shell=False, check=False)`：运行指定的命令，并等待其完成。该函数返回一个 `CompletedProcess` 对象，包含了命令的执行结果。参数 `args` 是要执行的命令和参数，`shell=True` 可以用于执行包含通配符或管道的命令。
+
+### 创建新进程
+- `subprocess.Popen(args, bufsize=-1, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, shell=False, cwd=None, env=None, universal_newlines=False, encoding=None, errors=None, text=None, **other_options)`：启动一个新进程，并返回一个 `Popen` 对象，可用于与新进程进行交互。
+
+### 进程间通信
+- `Popen.communicate(input=None, timeout=None)`：与新进程进行交互，发送数据到标准输入并获取标准输出和标准错误。可以设置 `input` 参数来发送数据给新进程，也可以使用 `timeout` 参数设置超时时间。
+
+### 等待进程结束
+- `Popen.wait(timeout=None)`：等待进程结束，并返回退出状态码。可以选择设置超时时间以避免无限等待。
+
+### 其他函数和属性
+- `subprocess.check_output(args, *, stdin=None, stderr=None, shell=False, universal_newlines=False)`：执行命令并返回输出结果，如果命令执行失败则抛出异常。
+- `subprocess.check_call(args, *, stdin=None, stdout=None, stderr=None, shell=False)`：执行命令，如果命令执行失败则抛出异常。
+- `Popen.pid`：获取新进程的进程 ID。
+- 等等。
+
+`subprocess` 模块提供了许多方法来执行外部命令，创建和管理新进程，并与这些进程进行交互。它在执行系统命令、启动子进程、执行 shell 脚本等方面非常有用。需要注意的是，在执行外部命令时应当格外小心，以防止不必要的安全风险，尤其是在使用 `shell=True` 时需谨慎防范命令注入问题。
+
+## python3 Paramiko模块 详解
+
+Paramiko 是一个用于 Python 的库，用于在远程服务器上执行操作，如 SSH 客户端连接、执行命令、文件传输等。它提供了许多功能，使得在 Python 中执行远程操作变得更加简单和灵活。
+
+以下是使用 Python 3 中 Paramiko 模块的一些常见功能和用法：
+
+### 安装 Paramiko
+你可以使用 pip 来安装 Paramiko 模块：
+
+```bash
+pip install paramiko
+```
+
+### 使用 Paramiko 连接到远程服务器
+```python
+import paramiko
+
+# 创建 SSH 客户端
+ssh_client = paramiko.SSHClient()
+
+# 设置策略自动添加未知主机的密钥
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# 连接到远程服务器
+ssh_client.connect(hostname='remote_host', username='username', password='password')
+
+# 执行远程命令
+stdin, stdout, stderr = ssh_client.exec_command('ls -l')
+print(stdout.read().decode())
+
+# 关闭 SSH 连接
+ssh_client.close()
+```
+
+### 使用 SSH 密钥对连接
+```python
+import paramiko
+
+# 创建 SSH 客户端
+ssh_client = paramiko.SSHClient()
+
+# 设置策略自动添加未知主机的密钥
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# 使用密钥对进行身份验证
+private_key = paramiko.RSAKey.from_private_key_file('/path/to/private_key')
+ssh_client.connect(hostname='remote_host', username='username', pkey=private_key)
+
+# 执行远程命令
+stdin, stdout, stderr = ssh_client.exec_command('ls -l')
+print(stdout.read().decode())
+
+# 关闭 SSH 连接
+ssh_client.close()
+```
+
+### 使用 SFTP 进行文件传输
+```python
+import paramiko
+
+# 创建 SSH 客户端
+ssh_client = paramiko.SSHClient()
+
+# 设置策略自动添加未知主机的密钥
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# 连接到远程服务器
+ssh_client.connect(hostname='remote_host', username='username', password='password')
+
+# 创建 SFTP 客户端
+sftp_client = ssh_client.open_sftp()
+
+# 从远程服务器下载文件
+sftp_client.get('/remote/path/file.txt', '/local/path/file.txt')
+
+# 关闭 SFTP 连接和 SSH 连接
+sftp_client.close()
+ssh_client.close()
+```
+
+以上是一些基本的示例，展示了如何使用 Paramiko 模块在 Python 3 中连接到远程服务器、执行命令和进行文件传输。通过 Paramiko，你可以轻松地在 Python 中管理和操作远程服务器。需要注意的是，使用 SSH 连接时，请谨慎处理凭据和密钥，并确保安全地管理和使用它们。
+
 ## python3 re模块  详解
 
 Python 的 `re` 模块是用于处理正则表达式的标准库，它提供了一组函数和类，用于进行文本匹配和处理。下面是对 Python 3 中的 `re` 模块的详细解释和示例：
