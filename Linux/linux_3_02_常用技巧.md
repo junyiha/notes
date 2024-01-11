@@ -2,6 +2,108 @@
 
 + linux系统下常用技巧
 
+## ubuntu 修改swap大小
+
+要修改Ubuntu上的swap大小，可以通过以下步骤进行操作。请注意，这些步骤可能会导致数据丢失或系统故障，因此在进行任何更改之前，请确保备份重要数据。
+
+1. **检查当前的swap大小：**
+   使用以下命令检查当前的swap分区和大小：
+
+   ```bash
+   sudo swapon --show
+   ```
+
+   或者
+
+   ```bash
+   free -h
+   ```
+
+   这将显示当前的swap使用情况。
+
+2. **禁用swap：**
+   在修改swap之前，最好先禁用swap分区：
+
+   ```bash
+   sudo swapoff -a
+   ```
+
+3. **删除旧的swap文件或分区：**
+   如果您的swap是通过文件创建的，可以删除旧的swap文件。如果是分区，则跳过此步骤。
+
+   - 删除swap文件：
+
+     ```bash
+     sudo rm /swapfile
+     ```
+
+4. **创建新的swap文件或分区：**
+   根据您的需求，您可以选择创建新的swap文件或调整分区大小。
+
+   - **创建swap文件：**
+     
+     ```bash
+     sudo fallocate -l [新的swap大小]G /swapfile
+     ```
+
+     其中，[新的swap大小]是您想要的新swap大小，以G为单位。例如，如果您希望将swap大小更改为4GB，将[新的swap大小]替换为4。
+
+     ```bash
+     sudo chmod 600 /swapfile
+     sudo mkswap /swapfile
+     ```
+
+   - **创建swap分区：**
+     如果您要调整swap分区的大小，可以使用磁盘工具（如GParted）进行分区调整。请注意，这可能需要使用Live CD/USB。
+
+5. **启用新的swap：**
+   对于新的swap文件：
+
+   ```bash
+   sudo swapon /swapfile
+   ```
+
+   对于新的swap分区，请重启系统。
+
+6. **更新 /etc/fstab 文件：**
+   为了确保在系统重新启动时新的swap设置仍然有效，您需要更新 `/etc/fstab` 文件。打开这个文件：
+
+   ```bash
+   sudo nano /etc/fstab
+   ```
+
+   在文件中添加一行，指定新的swap文件或分区：
+
+   ```
+   /swapfile none swap sw 0 0
+   ```
+
+   如果使用分区，则更新对应的分区信息。
+
+7. **检查新的swap大小：**
+   使用以下命令确保新的swap设置已经生效：
+
+   ```bash
+   sudo swapon --show
+   ```
+
+   或者
+
+   ```bash
+   free -h
+   ```
+
+   这应该显示新的swap大小。
+
+8. **重启系统：**
+   最后，为了确保所有更改都得到应用，请重新启动系统：
+
+   ```bash
+   sudo reboot
+   ```
+
+请谨慎执行这些步骤，特别是在生产环境中。如果您不确定如何操作，建议在进行更改之前查阅相关文档或寻求专业建议。
+
 ## linux ssh自动化管理
 
 在 Linux 中自动化 SSH 管理可以通过多种方式实现，其中一些包括使用 SSH 密钥对、SSH 配置文件、SSH 代理、以及脚本化工具等。

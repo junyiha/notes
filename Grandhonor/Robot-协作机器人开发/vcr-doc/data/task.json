@@ -103,6 +103,11 @@
             "argument_id": " "
         },
         {
+            "key_word": "counter",
+            "argument_operator": "+",
+            "argument_value": "1"
+        },
+        {
             "key_word": "while",
             "condition_key_word": "counter",
             "condition_value": "100",
