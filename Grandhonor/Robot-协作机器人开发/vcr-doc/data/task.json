@@ -187,7 +187,7 @@
             "condition_key_word": "timer",
             "condition_value": "60",
             "condition_operator": ">",
-            "success_process": [
+            "true_process": [
                 {
                     "key_word": "catch",
                     "argument_id": "9731621822652897745"
@@ -206,7 +206,7 @@
                     ]
                 }
             ],
-            "fail_process": [
+            "false_process": [
                 {
                     "key_word": "release",
                     "argument_id": "9731621822652897745"
