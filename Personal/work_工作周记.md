@@ -1268,3 +1268,30 @@
   + rk
     + 增加获取一张图片接口 [ok]
  
+## 2024.01.15 - 2024.01.21
+
++ 01.15
+  + 请假
+
++ 01.16
+  + rk
+    + 发货 [ok]
+  + vcr
+    + 比特大陆平台机械臂服务编译
+      + 失败. 项目的third_party/lib/下的库文件是x86架构的,需要arm结构的
+      + 用到的第三方库
+        + libOsqpEigen
+        + libabsl
+        + libanalogy
+        + libglags
+        + libglog
+        + libgmock
+        + libgtest
+        + liborocos-kdl
+        + libospq
+        + libpsos
+        + libsmokey
+        + libvxworks
+    + 静态目标抓取算子开发
+      + 检测算法模块开发
+      + 抓取流程
