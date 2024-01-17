@@ -1281,17 +1281,23 @@
       + 失败. 项目的third_party/lib/下的库文件是x86架构的,需要arm结构的
       + 用到的第三方库
         + libOsqpEigen
-        + libabsl
-        + libanalogy
-        + libglags
-        + libglog
-        + libgmock
-        + libgtest
-        + liborocos-kdl
-        + libospq
-        + libpsos
-        + libsmokey
-        + libvxworks
+        + libabsl [ok]
+        + libanalogy [ok]
+        + libgflags [ok]
+        + libglog [ok]
+        + libgmock [ok]
+        + libgtest [ok]
+        + liborocos-kdl [ok]
+        + libospq 
+        + libpsos [ok]
+        + libsmokey [ok]
+        + libvxworks [ok]
+      + apt search
+        + libgtest-dev [ok]
+        + libgmock-dev [ok]
+        + libgoogle-glog-dev [ok]
+        + libgflags-dev [ok]
+        + liborocos-kdl-dev [ok]
     + 静态目标抓取算子开发
       + 检测算法模块开发
       + 抓取流程
