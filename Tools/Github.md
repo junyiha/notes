@@ -39,3 +39,15 @@
 
 + 测试链接是否成功
   + `ssh -T git@github.com`
+
++ 脚本
+```bash
+git config --global user.name "elliot53"
+git config --global user.email "1604244855@qq.com"
+git config user.name
+git config user.email
+ssh-keygen -t rsa -C "1604244855@qq.com"
+cat ~/.ssh/id_rsa.pub
+git remote add origin_ssh ssh@github.com/elliot53/notes.git
+ssh -T git@github.com
+```
