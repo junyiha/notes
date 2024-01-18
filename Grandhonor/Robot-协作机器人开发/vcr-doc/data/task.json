@@ -57,6 +57,14 @@
         {
             "key": "if",
             "value": "if"
+        },
+        {
+            "key": "pause",
+            "value": "暂停"
+        },
+        {
+            "key": "sleep",
+            "value": "休眠"
         }
     ],
     "task_id": [
@@ -84,35 +92,23 @@
             "argument_target": [
                 -0.101099,
                 -0.297817,
-                0.0957633,
+                0.0557633,
                 -2.20871,
                 2.1390289,
                 0.1048353
             ]
         },
         {
-            "key_word": "catch",
-            "argument_id": "9731621822652897745"
-        },
-        {
-            "key_word": "release",
-            "argument_id": "9731621822652897745"
-        },
-        {
-            "key_word": "pause",
-            "argument_id": " "
-        },
-        {
-            "key_word": "counter",
-            "argument_operator": "+",
-            "argument_value": "1"
-        },
-        {
             "key_word": "while",
             "condition_key_word": "counter",
-            "condition_value": "100",
-            "condition_operator": "=",
+            "condition_value": "10",
+            "condition_operator": ">",
             "process": [
+                {
+                    "key_word": "counter",
+                    "argument_operator": "+",
+                    "argument_value": 1
+                },
                 {
                     "key_word": "move_joint",
                     "argument_id": "11474915599209436650",
@@ -134,63 +130,60 @@
                     "argument_target": [
                         -0.101099,
                         -0.297817,
-                        0.0957633,
+                        0.0557633,
                         -2.20871,
                         2.1390289,
                         0.1048353
                     ]
                 },
                 {
-                    "key_word": "if",
-                    "condition_key_word": "timer",
-                    "condition_value": "60",
-                    "condition_operator": ">",
-                    "success_process": [
-                        {
-                            "key_word": "catch",
-                            "argument_id": "9731621822652897745"
-                        },
-                        {
-                            "key_word": "move_joint",
-                            "argument_id": "11474915599209436650",
-                            "argument_speedpercent": 10,
-                            "argument_target": [
-                                0,
-                                0,
-                                1.57,
-                                0,
-                                1.57,
-                                0
-                            ]
-                        }
-                    ],
-                    "fail_process": [
-                        {
-                            "key_word": "release",
-                            "argument_id": "9731621822652897745"
-                        },
-                        {
-                            "key_word": "move_line",
-                            "argument_id": "11474915599209436650",
-                            "argument_cart_vel": 0.02,
-                            "argument_rot_vel": 0.2,
-                            "argument_target": [
-                                -0.101099,
-                                -0.297817,
-                                0.0957633,
-                                -2.20871,
-                                2.1390289,
-                                0.1048353
-                            ]
-                        }
+                    "key_word": "pause"
+                },
+                {
+                    "key_word": "move_line",
+                    "argument_id": "11474915599209436650",
+                    "argument_cart_vel": 0.02,
+                    "argument_rot_vel": 0.2,
+                    "argument_target": [
+                        -0.051099,
+                        -0.297817,
+                        0.0557633,
+                        -2.20871,
+                        2.1390289,
+                        0.1048353
+                    ]
+                },
+                {
+                    "key_word": "move_joint",
+                    "argument_id": "11474915599209436650",
+                    "argument_speedpercent": 10,
+                    "argument_target": [
+                        0,
+                        0,
+                        1.57,
+                        0,
+                        1.57,
+                        0
                     ]
                 }
             ]
         },
         {
+            "key_word": "catch",
+            "argument_id": "9731621822652897745"
+        },
+        {
+            "key_word": "sleep",
+            "argument_sleep": 3
+        },
+        {
+            "key_word": "release",
+            "argument_id": "9731621822652897745"
+        },
+        {
             "key_word": "if",
-            "condition_key_word": "timer",
-            "condition_value": "60",
+            "condition_key_word": "counter",
+            "condition_value": "100",
             "condition_operator": ">",
             "true_process": [
                 {
