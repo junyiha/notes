@@ -75,6 +75,33 @@
             "key_word": "move_joint",
             "argument_id": "11474915599209436650",
             "argument_speedpercent": 10,
+            "argument_robot_tool_index": 1,
+            "argument_robot_tool_name": "one",
+            "argument_robot_tool_mass": 2,
+            "argument_robot_tool_position": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "argument_robot_tool_center_of_mass": [
+                0,
+                0,
+                0
+            ],
+            "argument_robot_tool_inertia": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
             "argument_target": [
                 0,
                 0,
@@ -89,6 +116,33 @@
             "argument_id": "11474915599209436650",
             "argument_cart_vel": 0.02,
             "argument_rot_vel": 0.2,
+            "argument_robot_tool_index": 1,
+            "argument_robot_tool_name": "one",
+            "argument_robot_tool_mass": 2,
+            "argument_robot_tool_position": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "argument_robot_tool_center_of_mass": [
+                0,
+                0,
+                0
+            ],
+            "argument_robot_tool_inertia": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
             "argument_target": [
                 -0.101099,
                 -0.297817,

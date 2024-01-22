@@ -2,6 +2,93 @@
 
 + Linux系统下常见的命令
 
+## Linux pidstat命令 详解
+
+`pidstat` 是 Linux 系统上的一个性能分析工具，用于监视进程的资源使用情况。它属于 sysstat 工具包，通过收集和显示各个进程的统计信息，帮助系统管理员和开发人员了解系统上的进程行为和性能状况。以下是对 `pidstat` 命令的详细解释：
+
+### 1. 安装 sysstat 工具包
+
+在大多数 Linux 发行版上，`pidstat` 都是 sysstat 工具包的一部分。如果尚未安装，可以使用以下命令安装：
+
+```bash
+sudo apt-get install sysstat    # 对于 Debian/Ubuntu
+sudo yum install sysstat        # 对于 CentOS/RHEL
+```
+
+### 2. `pidstat` 基本语法
+
+```bash
+pidstat [options] [interval [count]]
+```
+
+- **options**: `pidstat` 的各种选项，用于指定输出的格式和内容。
+- **interval**: 采样的时间间隔（以秒为单位），表示 `pidstat` 将在这个时间间隔内对系统进行一次采样。
+- **count**: 采样的次数，表示 `pidstat` 将在指定次数的采样后停止。
+
+### 3. 常用选项
+
+以下是一些常用的 `pidstat` 选项：
+
+- **-u**: 显示 CPU 使用情况。
+- **-r**: 显示内存使用情况。
+- **-d**: 显示磁盘 I/O 情况。
+- **-w**: 显示上下文切换和进程切换情况。
+- **-p PID**: 指定要监视的进程ID，可以指定多个 PID。
+
+### 4. 使用示例
+
+#### 4.1 显示 CPU 使用情况
+
+```bash
+pidstat -u
+```
+
+#### 4.2 显示内存使用情况
+
+```bash
+pidstat -r
+```
+
+#### 4.3 显示磁盘 I/O 情况
+
+```bash
+pidstat -d
+```
+
+#### 4.4 显示上下文切换和进程切换情况
+
+```bash
+pidstat -w
+```
+
+#### 4.5 指定要监视的特定进程
+
+```bash
+pidstat -u -p PID
+```
+
+### 5. 输出解释
+
+`pidstat` 的输出包含多列信息，其中一些关键列如下：
+
+- **PID**: 进程ID。
+- **%usr**: 用户空间 CPU 使用百分比。
+- **%system**: 内核空间 CPU 使用百分比。
+- **%CPU**: 进程的总 CPU 使用百分比。
+- **minflt/s**: 每秒的次缺页错误数。
+- **majflt/s**: 每秒的主缺页错误数。
+- **VSZ**: 进程的虚拟内存大小（KB）。
+- **RSS**: 进程的驻留集大小（KB）。
+- **Command**: 进程的命令名称。
+
+### 6. 其他信息
+
+- `pidstat` 还支持许多其他选项，可以通过 `man pidstat` 命令查看完整的手册。
+
+- 可以使用 `pidstat` 来监视系统上运行的各个进程，以便及时发现和解决性能问题。
+
+这只是 `pidstat` 命令的基本介绍，更详细的信息可以参考 `man pidstat` 或者 `pidstat --help`。
+
 ## linux sshpass命令是什么
 
 `sshpass` 是一个 Linux 命令行工具，它允许你在不需要交互式输入密码的情况下，通过 SSH 连接远程服务器。通常情况下，当你使用 SSH 命令连接到远程主机时，系统会提示你输入密码才能完成连接。但是，`sshpass` 可以通过命令行选项提供密码，从而自动化这一过程。
