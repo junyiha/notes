@@ -1279,7 +1279,7 @@
   + vcr
     + 比特大陆平台机械臂服务编译
       + 失败. 项目的third_party/lib/下的库文件是x86架构的,需要arm结构的
-      + 用到的第三方库
+      + third_party/lib/下的第三方库
         + libOsqpEigen
         + libabsl [ok]
         + libanalogy [ok]
