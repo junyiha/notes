@@ -2,6 +2,26 @@
 
 + C++ <condition_variable>标准库
 
+## condition_variable 介绍
+
++ 在C++11中，我们可以使用条件变量(condition_variable)实现多个线程间的同步操作；当条件不满足时，相关线程被一直阻塞，直到某种条件出现，这些线程才会被唤醒。
+
++ 条件变量是利用线程间共享的全局变量进行同步的一种机制，主要包括两个动作：
+  + 一个线程因等待 条件变量的条件成立 而挂起
+  + 另一个线程使 条件成立， 给出信号，从而唤醒被等待的线程。
+
++ 为了防止竞争，条件变量的使用总是和一个互斥锁结合在一起；通常情况下这个锁是std::mutex并且管理这个锁只能是 std::unique_lock<std::mutex> RAII模板类
++ 上面提到的两个步骤，分别是使用以下两个方法实现的：
+  + 等待条件成立使用的是 condition_variable 类成员wait, wait_for 或 wait_util
+  + 给出信号使用的是 condition_variable 类成员 notify_one 或者 notify_all 函数
+
+## 使用说明
+
++ 在条件变量中只能使用 std::unique_lock<std::mutex> 说明
+
++ unique_lock 和 lock_guard 都是管理锁的辅助工具，都是RAII风格；它们是在定义时获得锁，在析构时释放锁。
++ 他们的主要区别在于 unique_lock 锁机制更加灵活。
+
 ## C++ <condition_variable>标准库
 
 `<condition_variable>` 是 C++ 标准库中的头文件，提供了多线程编程中用于线程同步的条件变量。条件变量用于线程之间的同步和通信，允许一个线程在某个特定条件下等待或被唤醒，以进行进一步的处理。
