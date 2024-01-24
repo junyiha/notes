@@ -2,6 +2,60 @@
 
 + GLOG 相关学习笔记
 
+## glog 日志即输出到标准错误流，又输出到文件
+
+```cpp
+int main()
+{
+    google::InitGoogleLogging(argv[0]);
+    google::EnableLogCleaner(1);
+
+    FLAGS_log_dir = "/data/vcr/Log";
+    FLAGS_log_link = true;
+    FLAGS_log_prefix = true;
+    FLAGS_log_utc_time = false;
+    FLAGS_log_year_in_prefix = false;
+    FLAGS_logbufsecs = 0;
+    FLAGS_alsologtostderr = true;
+    FLAGS_colorlogtostderr = true;
+    FLAGS_max_log_size = 10;  // 1MB
+    FLAGS_minloglevel = google::GLOG_INFO;
+    FLAGS_stop_logging_if_full_disk = true;
+    FLAGS_timestamp_in_logfile_name = false;
+
+    Message message;
+    for (int i = 0; i < argc; ++i)
+    {
+        message.message_pool.push_back(std::string(argv[i]));
+    }
+    std::map<std::string, std::function<int(Message&)>> command_map = 
+    {
+        {"--test-vision-algorithm-object", test_vision_algorithm_object},
+        {"--test-robot-object", test_robot_object},
+        {"--test-robot-object-move-joint", test_robot_object_move_joint},
+        {"--test-end-tool-object", test_end_tool_object},
+        {"--test-end-tool-object-control", test_end_tool_object_control},
+        {"--test-camera-object", test_camera_object},
+        {"--test-camera-object-save-rgb", test_camera_object_save_rgb},
+        {"--test-vcr-task-algorithm-object", test_vcr_task_algorithm_object},
+        {"--test-detector-create", test_detector_create},
+        {"--test-glog", test_glog}
+    };
+    auto it = command_map.find(message.message_pool.at(1));
+    if (it != command_map.end())
+    {
+        it->second(message);
+    }
+    else 
+    {
+        LOG(ERROR) << "invalid command: " << message.message_pool.at(1) << "\n";
+    }
+
+    google::ShutdownGoogleLogging();
+    return 0;
+}
+```
+
 ## glog
 
 `glog` 是 Google 的日志记录库，用于C++。它是一个高性能的日志记录库，旨在提供易于使用的日志记录功能，允许开发者在程序中输出日志消息，以便调试和记录应用程序的运行情况。
