@@ -5,6 +5,8 @@
 ## glog 日志即输出到标准错误流，又输出到文件
 
 ```cpp
+#include "glog/logging.h"
+
 int main()
 {
     google::InitGoogleLogging(argv[0]);
