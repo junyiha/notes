@@ -1,6 +1,49 @@
 ## 简介
 
-+ cmake 语法基础 理论基础
++ cmake 常用函数
+
+## cmake find_package() 函数 详解
+
+`find_package()` 函数是 CMake 中用于查找和引入外部软件包（例如库）的关键函数。它被用于在 CMake 项目中引入依赖项，让 CMake 知道如何定位并使用外部库或工具。
+
+该函数的一般形式如下：
+
+```cmake
+find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE] [REQUIRED] [[COMPONENTS] [components...]] [OPTIONAL_COMPONENTS components...])
+```
+
+其中：
+
+- `<PackageName>`：指定要查找的软件包的名称，可以是已知的软件包，也可以是自定义的软件包。
+- `[version]`：可选，用于指定软件包的版本号要求。
+- `[EXACT]`：可选，如果指定了版本号要求，使用 EXACT 表示需要精确匹配指定版本。
+- `[QUIET]`：可选，不显示查找过程中的详细信息。
+- `[MODULE]`：可选，明确指定要查找的是 CMake 模块文件。
+- `[REQUIRED]`：可选，如果软件包未找到，则停止 CMake 过程，报错。
+- `[[COMPONENTS] [components...]]`：可选，指定软件包的组件（如果软件包有多个组件）。
+- `[OPTIONAL_COMPONENTS components...]`：可选，指定可选的软件包组件。
+
+下面是一个例子，演示如何使用 `find_package()` 查找并引入 Boost 库：
+
+```cmake
+cmake_minimum_required(VERSION 3.12)
+project(MyProject)
+
+# 查找 Boost 库
+find_package(Boost 1.65.0 REQUIRED COMPONENTS filesystem system)
+
+# 如果找到 Boost 库，则输出信息
+if (Boost_FOUND)
+    message("Boost found. Include dirs: ${Boost_INCLUDE_DIRS}")
+    message("Boost libraries: ${Boost_LIBRARIES}")
+else()
+    message(FATAL_ERROR "Boost not found.")
+endif()
+```
+
+在这个例子中，`find_package(Boost 1.65.0 REQUIRED COMPONENTS filesystem system)` 表示查找 Boost 库的版本号至少为 1.65.0，必须包含 `filesystem` 和 `system` 两个组件。如果找到了 Boost 库，则输出相应的信息，否则停止 CMake 过程并报错。
+
+总体而言，`find_package()` 函数使得在 CMake 项目中集成外部依赖项变得更加灵活和方便。
 
 ## CMakeLists add_definitions() 详解
 
