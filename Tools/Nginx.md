@@ -2,6 +2,24 @@
 
 + nginx 相关理论知识
 
+## nginx 是什么
+
+Nginx（发音为"engine-x"）是一个开源的高性能的Web服务器和反向代理服务器。它最初由伊戈尔·赛索耶夫（Igor Sysoev）创建，并于2004年首次发布。Nginx专注于高并发性能、低资源消耗和稳定性，使其成为许多互联网公司和网站的首选Web服务器。
+
+主要特点包括：
+
+1. **高性能：** Nginx被设计为能够处理大量并发连接而不陷入性能问题。它采用事件驱动、非阻塞的架构，能够高效地处理数千个同时连接。
+
+2. **低资源消耗：** 相比一些传统的Web服务器，Nginx使用较少的内存和CPU资源，这使其在资源有限的环境中表现出色。
+
+3. **反向代理：** Nginx可以作为反向代理服务器，将请求从客户端传递到后端服务器，然后将响应返回给客户端。这使得它在负载均衡和提高应用程序性能方面非常有用。
+
+4. **静态文件服务：** Nginx优化了对静态文件的服务，能够快速地提供图片、CSS、JavaScript等静态文件，减轻了动态内容生成的压力。
+
+5. **模块化设计：** Nginx的模块化结构使得用户可以方便地扩展其功能，添加新的特性和功能。
+
+由于其性能和灵活性，Nginx常被用于搭建高流量的网站和应用，同时也广泛用于反向代理、负载均衡、缓存等场景。
+
 ## nginx 详解
 
 Nginx（发音为“engine-x”）是一个高性能的开源Web服务器软件，也可以用作反向代理服务器、负载均衡器和HTTP缓存等。在进行Nginx配置时，主要是编辑Nginx的配置文件，通常是`nginx.conf`，以及可能的其他配置文件，如虚拟主机配置文件等。以下是一个简要的Nginx配置详解：
@@ -202,3 +220,199 @@ Nginx支持模块化编程，允许您根据需求添加自定义功能和扩展
    请注意，编写自定义模块可能需要深入理解Nginx的内部机制和事件处理流程。在编写模块之前，建议您详细阅读Nginx的模块开发文档和示例。
 
 总之，Nginx的模块化架构使其非常灵活，可以根据需求轻松添加或定制功能。无论是使用核心模块还是第三方模块，都能够扩展Nginx的功能以满足不同的需求。
+
+## linux下nginx配置 详解
+
+在Linux系统下，Nginx的配置文件通常是`nginx.conf`。下面是一个简单的Nginx配置文件的详解：
+
+```nginx
+# 全局块
+user nginx;         # Nginx worker进程运行的用户
+worker_processes 4;  # 启动的worker进程数
+
+# error_log定义错误日志的路径
+error_log /var/log/nginx/error.log warn;
+
+# events块定义Nginx的事件模型
+events {
+    worker_connections 1024;  # 每个worker进程允许的最大连接数
+}
+
+# http块是配置HTTP服务器的主要部分
+http {
+    # server块定义具体的虚拟主机
+    server {
+        listen 80;  # 监听的端口
+
+        server_name example.com;  # 域名
+
+        # location块定义不同URL的行为
+        location / {
+            root /path/to/your/files;  # 根目录
+            index index.html;          # 默认首页
+        }
+
+        # location块可以有多个，用于处理不同的URL
+        location /api {
+            proxy_pass http://backend-server;  # 反向代理到后端服务器
+        }
+
+        # 静态文件缓存
+        location ~* \.(jpg|jpeg|png|gif|ico|css|js)$ {
+            expires 1y;
+            add_header Cache-Control "public, max-age=31536000";
+        }
+
+        # 错误页面配置
+        error_page 404 /404.html;
+        location = /404.html {
+            root /usr/share/nginx/html;
+            internal;
+        }
+
+        # SSL配置
+        listen 443 ssl;
+        ssl_certificate /path/to/your/ssl_certificate.crt;
+        ssl_certificate_key /path/to/your/ssl_certificate.key;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+        ssl_prefer_server_ciphers on;
+    }
+}
+```
+
+上述配置文件简单地说明了Nginx的一些基本配置，包括全局配置、事件模型、HTTP服务器、虚拟主机、URL处理、反向代理、静态文件缓存、错误页面和SSL配置等。你可以根据自己的需要进行调整和扩展。
+
+请注意，实际配置可能会根据具体的使用场景和需求有所不同。详细的配置可以查阅[Nginx官方文档](http://nginx.org/en/docs/)。
+
+## linux web服务器 nginx反向代理是什么
+
+Nginx的反向代理是一种服务器架构，其中Nginx服务器接收客户端的请求，并将这些请求转发给后端的一组服务器。反向代理隐藏了真实的服务器，使得客户端无法直接访问到后端服务器，而是通过反向代理服务器进行中转。
+
+具体来说，Nginx反向代理的工作流程如下：
+
+1. **客户端发送请求：** 客户端发送HTTP请求到Nginx服务器。
+
+2. **Nginx接收请求：** Nginx服务器接收到客户端的请求。
+
+3. **反向代理处理：** 根据配置，Nginx决定将请求转发给后端的哪个服务器。这个后端服务器可以是一个应用服务器、负载均衡器，或者其他类型的服务器。
+
+4. **向后端服务器发送请求：** Nginx将接收到的请求转发给后端服务器。
+
+5. **后端服务器处理请求：** 后端服务器处理请求，并生成响应。
+
+6. **响应返回给客户端：** 后端服务器将生成的响应返回给Nginx。
+
+7. **Nginx返回响应给客户端：** Nginx将接收到的响应返回给客户端，客户端认为是直接从Nginx获取的响应。
+
+反向代理的优点包括：
+
+- **负载均衡：** 可以实现负载均衡，将请求分发到多个后端服务器，防止单一服务器负载过大。
+
+- **隐藏后端服务器：** 客户端无法直接访问到后端服务器，增加了安全性。
+
+- **缓存和压缩：** Nginx可以对后端服务器的响应进行缓存和压缩，提高性能。
+
+- **SSL终结：** 可以在Nginx上进行SSL终结，解密加密的流量，减轻后端服务器的负担。
+
+反向代理是一种常见的服务器架构，特别适用于需要提高可用性、安全性和性能的场景。
+
+## 常见的服务器架构有哪些？
+
+有许多常见的服务器架构，每种都有其适用的场景和优势。以下是一些常见的服务器架构类型：
+
+1. **单层架构（Single-Tier Architecture）：**
+   - 单层架构是最简单的架构形式，将应用程序、数据库和用户界面等功能集成在一个单一的层中。
+   - 适用于小型应用和测试环境，但在大型和复杂应用中使用较少。
+
+2. **两层架构（Two-Tier Architecture）：**
+   - 由客户端层和服务器层组成，客户端负责用户界面，而服务器负责处理业务逻辑和数据存储。
+   - 常见于传统的客户端-服务器应用，例如数据库应用。
+
+3. **三层架构（Three-Tier Architecture）：**
+   - 包括客户端层、应用服务器层和数据库服务器层。
+   - 分离业务逻辑、数据处理和用户界面，提高灵活性和可维护性。
+
+4. **微服务架构（Microservices Architecture）：**
+   - 将应用程序拆分成小型、独立的服务，每个服务专注于特定的业务功能。
+   - 提供弹性、可伸缩性和独立部署的优势，适用于大型、复杂的分布式系统。
+
+5. **服务导向架构（Service-Oriented Architecture, SOA）：**
+   - 将应用程序拆分为可重用的服务，这些服务通过网络进行通信。
+   - 促进了松耦合和模块化，使得系统更易于维护和扩展。
+
+6. **反向代理架构（Reverse Proxy Architecture）：**
+   - 使用反向代理服务器作为前端，将请求转发给后端服务器，隐藏真实的服务器。
+   - 常用于负载均衡、安全性增强和性能优化。
+
+7. **无服务器架构（Serverless Architecture）：**
+   - 应用程序的开发和运行无需关心底层的服务器和基础设施。
+   - 利用云服务提供商的无服务器计算服务，按需执行代码。
+
+这些架构类型根据应用程序的规模、需求和特点选择，每种架构都有其优势和劣势。在实际应用中，也可以采用混合架构，结合不同的组件和服务来满足特定的需求。
+
+## 在linux下使用nginx构建反响代理架构服务器
+
+在Linux下使用Nginx构建反向代理架构的服务器是相对简单的。以下是基本步骤：
+
+### 步骤一：安装Nginx
+
+确保你的Linux系统中已经安装了Nginx。使用包管理工具，如`apt`、`yum`或`dnf`，执行以下命令进行安装：
+
+```bash
+# 对于基于Debian的系统（例如Ubuntu）
+sudo apt update
+sudo apt install nginx
+
+# 对于基于Red Hat的系统（例如CentOS）
+sudo yum install epel-release
+sudo yum install nginx
+```
+
+### 步骤二：编辑Nginx配置文件
+
+Nginx的主配置文件通常位于 `/etc/nginx/nginx.conf` 或 `/etc/nginx/conf.d/default.conf`。你可以使用文本编辑器（如`nano`或`vim`）编辑该文件：
+
+```bash
+sudo nano /etc/nginx/nginx.conf
+```
+
+或者
+
+```bash
+sudo nano /etc/nginx/conf.d/default.conf
+```
+
+在配置文件中，你需要配置反向代理的相关设置。以下是一个简单的例子：
+
+```nginx
+server {
+    listen 80;
+    server_name your_domain.com;  # 替换成你的域名或服务器IP
+
+    location / {
+        proxy_pass http://backend_server;  # 替换成你的后端服务器地址
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+确保替换 `your_domain.com` 为你的域名或服务器IP，并将 `http://backend_server` 替换为你的后端服务器地址。
+
+### 步骤三：重启Nginx
+
+完成配置后，保存并退出编辑器。然后，重新启动Nginx以使配置生效：
+
+```bash
+sudo systemctl restart nginx
+```
+
+### 注意事项：
+
+- 你可能需要调整防火墙规则，确保Nginx监听的端口是开放的。
+- 确保后端服务器上的应用程序正常运行，并且Nginx能够访问它。
+
+这只是一个简单的反向代理配置示例。实际应用中，你可能还需要考虑负载均衡、SSL/TLS设置、缓存等其他配置，具体根据你的需求进行调整。请查阅[Nginx官方文档](http://nginx.org/en/docs/)以获取更多详细信息。
