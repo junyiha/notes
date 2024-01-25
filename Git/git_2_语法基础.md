@@ -2,6 +2,49 @@
 
 + Git常见的语法知识
 
+## git bundle 命令 详解
+
+`git bundle` 命令用于将 Git 仓库的所有对象（commit、tree、blob等）打包成一个二进制文件，这个文件可以在不连接到中央仓库的情况下传递给其他人，并且可以克隆该仓库。这在离线环境或网络较差的情况下非常有用。
+
+以下是 `git bundle` 命令的基本语法和一些常见用法：
+
+```bash
+# 创建一个包含所有分支的 bundle 文件
+git bundle create repo.bundle --all
+
+# 创建一个包含指定分支的 bundle 文件
+git bundle create repo.bundle branch1 branch2
+
+# 创建一个指定范围的 bundle 文件（从某个 commit 到另一个 commit）
+git bundle create repo.bundle <start-commit>..<end-commit>
+
+# 从 bundle 文件中提取对象到本地仓库
+git clone repo.bundle new-repo
+```
+
+这里是一些命令的详细解释：
+
+- `git bundle create`: 创建一个 bundle 文件。后面的参数是要包含的分支或 commit 的范围。
+- `repo.bundle`: bundle 文件的名称。你可以自定义文件名。
+- `--all`: 包含所有分支。
+- `branch1 branch2`: 包含指定的分支。
+- `<start-commit>..<end-commit>`: 包含指定范围内的 commit。
+
+一旦你创建了 bundle 文件，你可以将它传递给其他人，他们可以通过克隆该 bundle 文件来获取整个仓库的历史。例如，他们可以使用以下命令：
+
+```bash
+git clone repo.bundle new-repo
+```
+
+需要注意的是，`git bundle` 不包含远程仓库的引用，因此在使用 bundle 文件进行克隆时，你将得到一个没有远程跟踪分支的本地仓库。如果需要获取远程跟踪分支，可以使用 `git fetch` 命令。
+
+```bash
+cd new-repo
+git fetch origin refs/heads/*:refs/remotes/origin/*
+```
+
+这样，你就可以在新的本地仓库中获取与远程仓库相同的分支。
+
 ## git config 详解
 
 `git config` 是 Git 版本控制系统中用于配置和管理 Git 仓库的命令。通过 `git config` 命令，你可以设置和获取 Git 仓库的各种配置选项，包括全局配置和仓库级配置。
