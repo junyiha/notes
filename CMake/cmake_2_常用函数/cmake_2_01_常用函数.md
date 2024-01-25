@@ -272,3 +272,45 @@ endif()
 在CMake的配置过程中，用户可以通过设置这些选项来控制构建的行为。
 
 请注意，选项的值是通过CMake**缓存系统**进行保存的，可以通过命令行选项或图形界面工具来修改选项的值。
+
+## cmake find_library 和 find_package 
+
+`find_library` 和 `find_package` 是 CMake 中用于查找库的两个不同的命令，它们各自适用于不同的场景和目的。
+
+### `find_library`:
+
+- **用途：** `find_library` 用于查找和定位系统中的库文件。
+- **语法：** `find_library(<VAR> names...)`
+- **示例：**
+  ```cmake
+  find_library(MY_LIBRARY mylib)
+  if(MY_LIBRARY)
+      message("Library found: ${MY_LIBRARY}")
+  else()
+      message(FATAL_ERROR "Library not found")
+  endif()
+  ```
+- **说明：** `find_library` 将库文件的名称传递给 `names` 参数，并尝试在系统中找到该库文件。如果找到，它将设置 `<VAR>` 变量为库文件的完整路径。在上述示例中，如果找到名为 `libmylib.so` 的库文件，`MY_LIBRARY` 变量将被设置为该库文件的完整路径。
+
+### `find_package`:
+
+- **用途：** `find_package` 用于查找和配置第三方软件包，通常用于查找 CMake 模块。
+- **语法：** `find_package(<PackageName> [version] [EXACT] [QUIET] [MODULE] [REQUIRED] [COMPONENTS [components...]])`
+- **示例：**
+  ```cmake
+  find_package(Boost 1.70 REQUIRED COMPONENTS filesystem system)
+  if(Boost_FOUND)
+      message("Boost found: ${Boost_INCLUDE_DIRS}")
+      message("Boost libraries: ${Boost_LIBRARIES}")
+  else()
+      message(FATAL_ERROR "Boost not found")
+  endif()
+  ```
+- **说明：** `find_package` 用于查找并配置第三方软件包，通常使用 CMake 模块来实现。在上述示例中，`find_package` 尝试查找 Boost 库，并确保找到指定版本以及必需的组件（filesystem 和 system）。如果找到，它将设置相应的变量（例如，`Boost_INCLUDE_DIRS` 和 `Boost_LIBRARIES`）以供后续使用。
+
+### 选择使用：
+
+- 如果你只需要查找和链接系统中的某个库文件，可以使用 `find_library`。
+- 如果你需要查找和配置第三方软件包，使用 `find_package` 通常更方便，因为它可以利用 CMake 模块提供的更多信息。
+
+总体来说，选择使用哪一个命令取决于你的具体需求和项目的复杂性。
