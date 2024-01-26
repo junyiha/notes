@@ -1,3 +1,24 @@
+## 简介
+
++ github 平台使用
+
+## 使用https
+
++ 清除所有的git配置
+  + sudo aptitude purge git
+
++ 在github生成token，它具有访问项目的权限
+
++ 安装gh工具
+  + sudo apt install gh
+
++ 配置个人信息
+  + gh auth login
+  + username: 
+  + token
+
++ git使用https
+
 ## git clone 出错
 
 + 今天克隆GitHub仓库中的项目时，执行git clone git://github.com/alibaba/Tangram-Android.git却失败报错：
