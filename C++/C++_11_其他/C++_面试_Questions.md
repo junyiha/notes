@@ -640,7 +640,7 @@ for (auto it = map.begin(); it != map.end(); )
 ## 显式转换
 
 + static_cast ：任何具有明确定义的类型转换，只要不包含底层const，都可以使用static_cast
-+ dynamic_cast ： 用于(动态)堕胎类型转换，只能用于含有虚函数的类，用于类层次间的向上向下转化
++ dynamic_cast ： 用于(动态)多态类型转换，只能用于含有虚函数的类，用于类层次间的向上向下转化
 + const_cast ： 去除”指向常量的指针“的const性质
 + reinterpret_cast ：为运算对象的位模式提供较低层次的重新解释，常用于函数指针的转换
 
@@ -765,6 +765,39 @@ pf(p);                   // 通过函数指针pf调用函数fun
 ## explicit
 
 + 用于类的构造函数，阻止其执行隐式类型转换，但是仍可以被用来进行显式类型转换
+
+## C++ explicit关键字的作用？
+
+在C++中，`explicit`关键字用于修饰类的构造函数，它有两种主要用途：
+
+1. **禁止隐式类型转换：** 当一个构造函数被声明为`explicit`时，它将禁止编译器执行隐式类型转换。这意味着，该构造函数只能在显式调用的情况下进行类型转换，而不能在隐式类型转换的上下文中使用。
+
+   ```cpp
+   class MyClass {
+   public:
+       explicit MyClass(int x) : value(x) {}
+
+       int getValue() const {
+           return value;
+       }
+
+   private:
+       int value;
+   };
+
+   void exampleFunction(MyClass obj) {
+       // 在没有 explicit 关键字的情况下，可能发生隐式类型转换
+       // MyClass newObj = 42;  // 错误，因为构造函数使用 explicit，禁止隐式类型转换
+       MyClass newObj(42);  // 正确，需要显式调用构造函数
+       int val = newObj.getValue();
+   }
+   ```
+
+   上面的例子中，如果构造函数没有使用`explicit`关键字，那么在`exampleFunction(42)`这一行可能发生隐式类型转换，导致错误。通过使用`explicit`关键字，可以防止这种隐式类型转换。
+
+2. **防止二义性问题：** 在涉及到函数重载的情况下，`explicit`关键字还可以防止二义性问题。如果一个构造函数可以被隐式调用，而另一个构造函数不能，那么在某些上下文中可能会导致编译器无法确定应该调用哪个构造函数的问题。使用`explicit`可以帮助解决这种二义性。
+
+总的来说，`explicit`关键字用于提高代码的安全性和可读性，确保在类型转换的情况下只能进行显式调用。
 
 ## 迭代器
 
@@ -1003,3 +1036,279 @@ void *operater new(size_t size)
 + 有的编程语言要求必须提前将所有原地阿玛一次性转换成二进制指令，也就是生成一个可执行程序(Windows下的exe)，例如C语言，C++，Golang，Pascal，汇编等，这些编程语言成为编译型语言，使用的转换工具称为编译器
 
 + 有的编程语言可以一边执行一边转换，需要那些源代码就转换哪些源代码，不会生成可执行程序，例如Python，JavaScript，PHP，MATLAB等，这种编程语言称为解释型语言，使用的转换工具称为解释器
+
+## C++ 可变长模板 详解
+
+可变长模板（Variadic Templates）是C++11引入的一项特性，它允许模板接受可变数量的参数。这使得在泛型编程中更加灵活，能够处理不同数量和类型的参数。下面详细解释可变长模板的主要概念和用法：
+
+### 1. 模板参数包（Template Parameter Pack）
+
+可变长模板中的关键元素之一是**模板参数包**，它使用省略号（`...`）表示。模板参数包允许模板接受可变数量的参数。在函数模板中，模板参数包可以用于表示函数的参数列表。
+
+```cpp
+template <typename... Args>
+void myFunction(Args... args) {
+    // 函数体
+}
+```
+
+在上述例子中，`Args`是一个模板参数包，可以接受任意数量的模板参数。
+
+### 2. 模板展开（Template Expansion）
+
+**模板展开**是指将模板参数包中的参数展开，以便在模板中使用这些参数。通常使用递归或折叠表达式来实现模板展开。
+
+```cpp
+template <typename T, typename... Args>
+void myFunction(T first, Args... rest) {
+    // 处理 first
+    // 递归调用处理剩余的参数
+    myFunction(rest...);
+}
+```
+
+在上述例子中，`myFunction`通过递归调用实现了对参数的展开处理。
+
+### 3. 基本情况与递归模板
+
+在使用可变长模板时，通常需要定义基本情况和递归模板，以处理模板参数包中的参数。
+
+```cpp
+// 基本情况
+template <typename T>
+void process(T value) {
+    // 处理单个参数的情况
+}
+
+// 递归模板
+template <typename T, typename... Args>
+void process(T first, Args... rest) {
+    // 处理 first
+    // 递归调用处理剩余的参数
+    process(rest...);
+}
+```
+
+### 4. 使用递归展开模板参数包
+
+在递归展开模板参数包时，可以使用递归函数、递归类模板或者C++17引入的折叠表达式（fold expression）。
+
+#### 4.1 递归函数
+
+```cpp
+template <typename T>
+void process(T value) {
+    // 处理单个参数的情况
+}
+
+template <typename T, typename... Args>
+void process(T first, Args... rest) {
+    // 处理 first
+    process(rest...);  // 递归调用处理剩余的参数
+}
+```
+
+#### 4.2 递归类模板
+
+```cpp
+template <typename T>
+struct Processor {
+    static void process(T value) {
+        // 处理单个参数的情况
+    }
+};
+
+template <typename T, typename... Args>
+struct Processor {
+    static void process(T first, Args... rest) {
+        // 处理 first
+        Processor<Args...>::process(rest...);  // 递归调用处理剩余的参数
+    }
+};
+```
+
+#### 4.3 折叠表达式（C++17）
+
+```cpp
+template <typename... Args>
+void process(Args... args) {
+    (processSingle(args), ...);  // 使用折叠表达式展开参数包
+}
+
+template <typename T>
+void processSingle(T value) {
+    // 处理单个参数的情况
+}
+```
+
+### 示例：打印任意数量参数的函数
+
+下面是一个示例，演示了如何使用可变长模板实现一个函数，用于打印任意数量的参数：
+
+```cpp
+#include <iostream>
+
+// 基本情况：当没有参数时，终止递归
+void print() {
+    std::cout << std::endl;
+}
+
+// 递归情况：打印第一个参数，并递归调用处理剩余的参数
+template <typename T, typename... Args>
+void print(T first, Args... rest) {
+    std::cout << first << " ";
+    print(rest...);
+}
+
+int main() {
+    print(1, "Hello", 3.14, 'a');
+    return 0;
+}
+```
+
+在这个例子中，`print`函数接受任意数量的参数，并使用递归展开参数包，打印每一个参数。这样，你可以传递不同数量和类型的参数给`print`函数。
+
+## C++ 如何解决多继承造成的类成员重复的问题？
+
+在C++中，多继承可能导致一个类从多个基类中继承相同的成员（变量或函数），这可能会引起命名冲突和二义性。为了解决这个问题，C++提供了一些机制：
+
+1. **虚继承（Virtual Inheritance）：** 使用虚继承可以解决菱形继承（diamond inheritance）问题，其中一个派生类从两个不相关的基类派生而来，而另一个派生类继承这两个基类。虚继承可以防止在派生类中出现多个对同一基类的实例。
+
+    ```cpp
+    class Base {
+    public:
+        int data;
+    };
+
+    class Derived1 : public virtual Base {
+    };
+
+    class Derived2 : public virtual Base {
+    };
+
+    class MultipleDerived : public Derived1, public Derived2 {
+    };
+
+    int main() {
+        MultipleDerived obj;
+        obj.data = 42; // 可以正常访问基类的成员
+        return 0;
+    }
+    ```
+
+2. **使用命名空间（Namespace）：** 将基类的成员放置在不同的命名空间中，从而避免命名冲突。
+
+    ```cpp
+    namespace FirstNamespace {
+        class Base {
+        public:
+            int data;
+        };
+    }
+
+    namespace SecondNamespace {
+        class Base {
+        public:
+            int data;
+        };
+    }
+
+    class Derived : public FirstNamespace::Base, public SecondNamespace::Base {
+    public:
+        void someFunction() {
+            FirstNamespace::Base::data = 42;  // 使用命名空间解决命名冲突
+            SecondNamespace::Base::data = 24;
+        }
+    };
+    ```
+
+3. **重命名成员：** 在派生类中可以重命名具有冲突名称的成员，以避免二义性。
+
+    ```cpp
+    class Base {
+    public:
+        int data;
+    };
+
+    class Derived1 : public Base {
+    };
+
+    class Derived2 : public Base {
+    };
+
+    class MultipleDerived : public Derived1, public Derived2 {
+    public:
+        int derived1Data; // 重命名避免冲突
+        int derived2Data; // 重命名避免冲突
+    };
+    ```
+
+这些方法的选择取决于具体的情况。虚继承通常在菱形继承中使用，而使用命名空间或重命名成员则可以帮助避免普通的多继承带来的命名冲突。在设计时，尽量避免过于复杂的多继承结构，以减少潜在的问题。
+
+## C++ 为什么要有class？
+
++ 考察目的：
+  + 考对oop基础的理解，而不是考死语法。可引申出动态多态，RAII，类型系统，隐式成员等一票问题。大牛还是菜鸡，用这一个问题就暴露了
+
++ 参考答案
+  + 类是C++用来实现OOP封装、继承和多态的核心机制
+
+## 指针是什么？你能不用指针写C++程序吗？指针好还是不好？
+
++ 考察目的
+  + 这个问题不仅考C基础和计算机原理基础，还可引申出引用，拷贝和移动语义，const correctness，value semantic等一票基础问题。
+
++ 参考答案
+  + C++用虚函数实现多态，用RAII（和析构，异常机制）实现自动资源管理，用拷贝和移动定义资源的复制和转移，进而用隐式成员（Rule of 5，析构，拷贝构造，拷贝赋值，移动构造，移动赋值）来帮助用户省去手写冗余代码，最终达到不多写一个字的资源管理。如果说面向对象的概念已经有些过时了，资源管理却是永不过时的，也是C++从机制上不同于C的最主要一点。有些人写的糟糕C++代码其实是把写面向过程套了一层class的皮、滥用多态让代码纠缠不清、最终既不仅没有简化逻辑，也没有简化资源管理。
+
+## 经典问题：vector和list有什么区别？
+
++ 考察目的
+  + 一个不了解C++如何控制资源颗粒度的程序员恐怕不是一个好的C++程序员。可引申出一大票算法和数据结构问题。
+
+`std::vector`和`std::list`是C++标准库中的两种不同类型的容器，它们有一些重要的区别，主要涉及底层实现、内存分配和访问速度等方面。
+
+1. **底层实现：**
+   - `std::vector` 是基于动态数组实现的，它在内存中是连续存储的，支持快速的随机访问。
+   - `std::list` 是基于双向链表实现的，每个元素在内存中是分散存储的，支持高效的插入和删除操作。
+
+2. **内存分配：**
+   - `std::vector` 的内存是连续分配的，这样可以充分利用缓存，对于顺序访问元素非常高效。
+   - `std::list` 的内存是分散分配的，插入和删除操作不需要移动其他元素，因此在这些操作上更为高效。
+
+3. **插入和删除操作：**
+   - `std::vector` 在末尾进行插入和删除操作是高效的，但在中间或头部进行插入和删除可能需要移动其他元素，效率较低。
+   - `std::list` 在任意位置进行插入和删除操作是高效的，因为它只需要调整相邻元素的指针。
+
+4. **随机访问：**
+   - `std::vector` 支持常量时间的随机访问，因为它在内存中是连续存储的。
+   - `std::list` 不支持常量时间的随机访问，需要通过遍历链表来访问元素。
+
+5. **迭代器的稳定性：**
+   - `std::vector` 在插入或删除元素后，可能会导致迭代器失效。
+   - `std::list` 在插入或删除元素后，仍然能够保持迭代器的有效性。
+
+根据具体的需求，选择使用`std::vector`还是`std::list`。如果需要频繁的随机访问和在末尾进行插入和删除操作，`std::vector`可能更合适。如果需要在任意位置高效地进行插入和删除操作，或者迭代器稳定性对算法有重要影响，那么`std::list`可能更合适。
+
+## C++为什么要有类型？
+
++ 考察目的
+  + 考对静态类型语言的理解和权衡，可引申出类型安全，泛型，模板元编程，编译时计算，静态多态等一众问题。
+
+C++是一种静态类型的编程语言，这意味着在编译时就需要明确指定变量的类型。类型在C++中是一个非常重要的概念，它提供了以下几个关键的优势：
+
+1. **类型安全：** 类型系统可以帮助在编译时捕捉一些错误，防止在运行时发生类型不匹配的问题。这有助于减少由于类型错误引起的潜在程序漏洞和错误。
+
+2. **性能优化：** 静态类型信息使得编译器可以进行更好的优化，生成更高效的机器代码。编译器能够在编译时知道变量的类型，从而进行更好的类型检查和优化。
+
+3. **代码可读性：** 类型信息提供了对代码含义的额外描述，使得代码更加清晰易懂。通过类型信息，读者可以更容易地理解代码的意图，从而提高代码的可维护性。
+
+4. **代码组织和模块化：** 类型有助于将代码组织成各种数据结构和抽象类型，从而支持更好的模块化和封装。这使得代码更易于维护和重用。
+
+5. **静态分析和工具支持：** 静态类型语言可以受益于许多静态分析工具，如编译器和IDE。这些工具可以在编码的早期阶段检测潜在的错误，提供更好的开发体验。
+
+6. **安全性：** 类型系统有助于防止一些类型相关的安全漏洞，如空指针引用、越界访问等。通过类型检查，可以避免一些常见的编程错误。
+
+7. **代码可维护性：** 类型系统有助于更好地组织和管理代码，提高代码的可维护性。类型信息可以作为文档，帮助开发人员理解和维护代码。
+
+尽管动态类型语言（如Python和JavaScript）在某些情况下更灵活，但静态类型语言的类型系统提供了一些关键的优势，特别是对于大型、复杂的项目。这种优势使得C++等静态类型语言在需要高性能、可维护和安全性的场景中得到广泛应用。
