@@ -2,6 +2,36 @@
 
 + linux系统下常用技巧
 
+## linux 查看文件开始n行数据
+
+在Linux中，你可以使用`head`命令来查看文件的前几行数据。以下是一些使用`head`命令的示例：
+
+1. 查看文件的前n行（默认为前10行）：
+   ```
+   head filename
+   ```
+
+   例如，查看文件 "example.txt" 的前10行：
+   ```
+   head example.txt
+   ```
+
+2. 查看文件的前n行：
+   ```
+   head -n 20 filename
+   ```
+
+   这将显示文件 "filename" 的前20行。你可以将数字20替换为你想要查看的行数。
+
+3. 查看多个文件的前n行：
+   ```
+   head -n 15 file1.txt file2.txt
+   ```
+
+   这将显示 "file1.txt" 和 "file2.txt" 的前15行。
+
+请注意，`head`命令默认显示前10行，但你可以使用`-n`选项来指定要显示的行数。如果你想查看文件的末尾行，请使用`tail`命令。
+
 ## linux 忘记密码
 
 + 重启系统，全程按着shift键，直到出现 GNU GRUB 界面，并且选择 Advanced options for ubuntu
