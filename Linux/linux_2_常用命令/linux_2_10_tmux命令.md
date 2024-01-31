@@ -1,0 +1,284 @@
+## 简介
+
++ tmux命令笔记
+
+## linux tmux命令 详解
+
+`tmux`（终端复用工具）是一个在终端窗口中创建和管理多个会话（sessions）、窗口（windows）和面板（panes）的工具。以下是一些常用的`tmux`命令的详解：
+
+### 1. **启动和终止 `tmux`：**
+- **启动 `tmux`：**
+  ```bash
+  tmux
+  ```
+- **退出 `tmux`：**
+  在 `tmux` 中按下 `Ctrl-b`（默认的前缀键），然后按下 `d`，即 `Ctrl-b d`，来退出 `tmux` 会话。
+
+### 2. **会话管理：**
+- **创建新会话：**
+  ```bash
+  tmux new-session -s session_name
+  ```
+- **切换会话：**
+  ```bash
+  tmux switch-client -t session_name
+  ```
+- **列出所有会话：**
+  ```bash
+  tmux list-sessions
+  ```
+- **关闭会话：**
+  ```bash
+  tmux kill-session -t session_name
+  ```
+
+### 3. **窗口管理：**
+- **创建新窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `c`。
+- **切换窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下窗口的编号（从0开始）。
+- **重命名窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `,`，输入新窗口名字。
+- **关闭窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `&`。
+
+### 4. **面板管理：**
+- **垂直分割当前窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `%`。
+- **水平分割当前窗口：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `" `。
+- **切换面板：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下箭头键或使用 `o`。
+- **关闭面板：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `x`。
+
+### 5. **其他操作：**
+- **重新加载配置：**
+  ```bash
+  tmux source-file ~/.tmux.conf
+  ```
+- **显示帮助信息：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `?`。
+
+### 6. **复制和粘贴：**
+- **进入复制模式：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `[`。
+- **在复制模式中移动光标：**
+  使用箭头键移动。
+- **开始选择文本：**
+  按下 `Space` 键开始选择，移动光标来选择文本。
+- **复制选中的文本：**
+  按下 `Enter` 键。
+- **粘贴复制的文本：**
+  在 `tmux` 中按下 `Ctrl-b`，然后按下 `]`。
+
+这些是一些常用的`tmux`命令，希望能够帮助你更有效地使用这个终端复用工具。`tmux`具有强大的功能，可以提高在终端中工作的效率。
+
+## linux tmux命令 常用技巧
+
+以下是一些在使用tmux时的常用技巧和命令：
+
+### 1. **基本会话管理：**
+   - **启动tmux：**
+     ```bash
+     tmux
+     ```
+   - **分离会话：**
+     在tmux会话中按下 `Ctrl-b`，然后按下 `d`。
+   - **重新连接到会话：**
+     ```bash
+     tmux attach-session -t session_name
+     ```
+
+### 2. **窗口和面板：**
+   - **创建新窗口：**
+     ```bash
+     Ctrl-b c
+     ```
+   - **切换窗口：**
+     ```bash
+     Ctrl-b <窗口编号>
+     ```
+   - **切换面板：**
+     ```bash
+     Ctrl-b 方向键
+     ```
+   - **关闭当前窗口或面板：**
+     ```bash
+     Ctrl-b &
+     ```
+
+### 3. **自定义键绑定：**
+   - **修改前缀键：**
+     在tmux配置文件（默认为 `~/.tmux.conf`）中添加：
+     ```bash
+     set-option -g prefix C-a
+     ```
+
+### 4. **复制和粘贴：**
+   - **进入复制模式：**
+     ```bash
+     Ctrl-b [
+     ```
+   - **开始选择文本：**
+     移动光标，按下 `Space` 开始选择，移动光标选择文本。
+   - **复制选中的文本：**
+     ```bash
+     Ctrl-b ]
+     ```
+   - **粘贴复制的文本：**
+     ```bash
+     Ctrl-b P
+     ```
+
+### 5. **垂直和水平分割窗口：**
+   - **垂直分割：**
+     ```bash
+     Ctrl-b %
+     ```
+   - **水平分割：**
+     ```bash
+     Ctrl-b "
+     ```
+
+### 6. **显示和隐藏状态栏：**
+   - **切换状态栏显示：**
+     ```bash
+     Ctrl-b t
+     ```
+   - **临时显示状态栏：**
+     ```bash
+     Ctrl-b :
+     ```
+
+### 7. **会话管理：**
+   - **列出所有会话：**
+     ```bash
+     tmux list-sessions
+     ```
+   - **切换到下一个会话：**
+     ```bash
+     Ctrl-b (
+     ```
+   - **切换到上一个会话：**
+     ```bash
+     Ctrl-b )
+     ```
+
+### 8. **命令行中运行命令：**
+   - **在新窗口中运行命令：**
+     ```bash
+     Ctrl-b :
+     ```
+
+### 9. **重新加载tmux配置：**
+   ```bash
+   Ctrl-b :
+   source-file ~/.tmux.conf
+   ```
+
+这些是一些常用的tmux技巧和命令，可以提高你在终端中使用tmux的效率。根据个人需求，你还可以根据tmux的配置文件进行更多的定制。
+
+## linux tmux命令 高级技巧
+
+以下是一些高级的 tmux 技巧，可以帮助你更好地使用 tmux 进行终端管理：
+
+### 1. **复制到系统剪贴板：**
+   - 如果你的 tmux 版本支持，你可以使用 `reattach-to-user-namespace` 命令将 tmux 复制到系统剪贴板：
+     ```bash
+     brew install reattach-to-user-namespace  # 仅在 macOS 上需要
+     ```
+
+   在 tmux 中按下 `Ctrl-b` 进入复制模式，选择文本，然后按下 `Ctrl-b` + `]` 复制到系统剪贴板。
+
+### 2. **会话共享：**
+   - 多用户共享同一 tmux 会话，允许多人同时查看和编辑相同的终端会话。
+
+     在一个终端中执行：
+     ```bash
+     tmux -S /tmp/shared-session
+     ```
+
+     在另一个终端中执行：
+     ```bash
+     tmux -S /tmp/shared-session attach
+     ```
+
+### 3. **自动重新加载配置：**
+   - 让 tmux 在配置文件修改后自动重新加载：
+
+     在 `~/.tmux.conf` 中添加：
+     ```bash
+     set -g @plugin 'tmux-plugins/tmux-reload'
+     run '~/.tmux.conf'
+     ```
+
+   然后在 tmux 中执行 `Ctrl-b` + `I` 安装插件。
+
+### 4. **远程复制和粘贴：**
+   - 在远程服务器上使用 tmux，可以通过 SSH 远程复制和粘贴。
+
+     在本地终端执行：
+     ```bash
+     ssh -t user@remote tmux -CC
+     ```
+
+     然后你就可以使用本地终端的复制和粘贴功能了。
+
+### 5. **自动开启和关闭窗口/面板：**
+   - 使用 `tmux-resurrect` 插件可以在 tmux 会话间保存和恢复工作状态，包括窗口、面板、程序等。
+
+     安装插件：
+     ```bash
+     set -g @plugin 'tmux-plugins/tmux-resurrect'
+     ```
+
+     在 tmux 中执行 `Ctrl-b` + `I` 安装插件。
+
+### 6. **自定义状态栏：**
+   - 使用 `tmux` 的 `status-right` 和 `status-left` 选项来自定义状态栏，显示自己感兴趣的信息。
+
+     在 `~/.tmux.conf` 中添加类似以下的配置：
+     ```bash
+     set -g status-left "My Custom Status: #H"
+     set -g status-right "Session #S - #I - #P"
+     ```
+
+### 7. **使用 Tmuxp 进行会话管理：**
+   - `tmuxp` 是一个用于管理 tmux 会话的工具，可以通过 YAML 文件来定义和配置 tmux 会话。
+
+     安装 `tmuxp`：
+     ```bash
+     pip install tmuxp
+     ```
+
+     创建和加载会话：
+     ```bash
+     tmuxp load /path/to/config.yaml
+     ```
+
+### 8. **使用多个配置文件：**
+   - 可以根据不同需求，创建多个 tmux 配置文件，然后通过别名加载：
+
+     在 `~/.bashrc` 或 `~/.zshrc` 中添加：
+     ```bash
+     alias tmux='tmux -f ~/.tmux.conf.custom'
+     ```
+
+### 9. **使用 Tmux 插件管理器：**
+   - 使用插件管理器，如 `tpm` (Tmux Plugin Manager) 来轻松管理和安装 tmux 插件。
+
+     安装 `tpm`：
+     ```bash
+     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+     ```
+
+     在 `~/.tmux.conf` 中添加：
+     ```bash
+     set -g @plugin 'tmux-plugins/tpm'
+     run '~/.tmux/plugins/tpm/tpm'
+     ```
+
+     在 tmux 中执行 `Ctrl-b` + `I` 安装插件。
+
+这些高级技巧可以帮助你更充分地利用 tmux 进行终端管理，并根据自己的工作流程进行定制。
