@@ -1,0 +1,168 @@
+## 简介
+
++ mktemp命令
+
+## mktemp
+
++ mktemp, 创建临时的文件或文件夹
++ 参数：
+  + `-d` , `--directory` : create a directory, not a file
+  + `-u` , `--dry-run`   : do not create anything; merely print a name(unsafe)
+  + `-q` , `--quiet`     : suppress diagnostics about file/dir-creation failure
+
+在Linux中，`mktemp`命令用于创建一个临时文件或临时目录，并返回其名称。临时文件和目录通常用于在脚本或程序中进行临时性的文件操作，并在使用完毕后自动删除。
+
+以下是`mktemp`命令的一般语法：
+
+```
+mktemp [options] [template]
+```
+
+其中，`options`是可选的一些选项，`template`是用于生成临时文件名的模板。
+
+以下是一些常见的`mktemp`命令选项和用法：
+
+1. 创建一个临时文件：
+   ```
+   mktemp
+   ```
+
+   此命令将生成一个临时文件，并返回其完整的路径和文件名。
+
+2. 创建一个临时目录：
+   ```
+   mktemp -d
+   ```
+
+   此命令将生成一个临时目录，并返回其完整的路径。
+
+3. 自定义临时文件名模板：
+   ```
+   mktemp -t prefix.XXXXXX
+   ```
+
+   此命令将使用指定的前缀（`prefix`）和`XXXXXX`占位符作为模板生成临时文件名。`XXXXXX`将被自动生成的随机字符替换。
+
+4. 指定临时文件或目录所在的目录：
+   ```
+   mktemp -p directory
+   ```
+
+   此命令将在指定的目录（`directory`）中创建临时文件或目录。
+
+`mktemp`命令还支持其他一些选项，如设置临时文件的权限、创建多个临时文件等。您可以使用`man mktemp`命令查看完整的选项和用法说明。
+
+使用`mktemp`命令可以方便地创建临时文件或目录，避免手动管理和清理临时文件的麻烦。
+
+## linux mktemp命令 详解
+
+`mktemp` 命令在 Linux 中用于创建临时文件或目录，其名称是唯一的，可以防止命名冲突。这在脚本编写或需要创建临时文件的情况下非常有用。
+
+**基本语法：**
+```bash
+mktemp [选项] [模板]
+```
+
+**常见选项：**
+- `-d`：创建临时目录而不是文件。
+- `-u`：生成临时文件或目录名称后，不创建它。
+
+**模板说明：**
+- 模板是一个包含 `X` 字符的字符串，`X` 字符会被替换为一个唯一的字符或数字。
+- 模板的结尾可以是 `/`，以指定创建临时目录。
+
+**示例：**
+1. **创建临时文件：**
+   ```bash
+   tempfile=$(mktemp)
+   echo "This is a temporary file." > "$tempfile"
+   ```
+
+2. **创建临时目录：**
+   ```bash
+   tempdir=$(mktemp -d)
+   echo "This is a temporary directory." > "$tempdir/tempfile"
+   ```
+
+3. **使用模板创建临时文件：**
+   ```bash
+   tempfile=$(mktemp temp_file_XXXXXX.txt)
+   echo "This is a temporary file." > "$tempfile"
+   ```
+
+4. **生成临时文件名但不创建：**
+   ```bash
+   tempname=$(mktemp -u)
+   echo "Generated unique temporary name: $tempname"
+   ```
+
+5. **创建临时文件，但保留名称以供其他用途：**
+   ```bash
+   tempname=$(mktemp -u /tmp/temp_file_XXXXXX.txt)
+   touch "$tempname"
+   echo "This file will be retained with the name: $tempname"
+   ```
+
+**注意：**
+- `mktemp` 默认会在 `/tmp` 目录下创建临时文件或目录。可以通过设置 `TMPDIR` 环境变量来更改默认的临时目录。
+- 在使用 `mktemp` 时，始终将结果保存到变量中，以避免竞态条件（race conditions）。
+
+`mktemp` 是一个强大的工具，它可以确保在多个进程或脚本中创建的临时文件名不会发生冲突。
+
+## linux mktemp命令 常用技巧
+
+以下是在使用 `mktemp` 命令时的一些常用技巧：
+
+1. **创建带有特定前缀或后缀的临时文件：**
+   ```bash
+   tempfile=$(mktemp myprefix_XXXXXX.txt)
+   ```
+   这将创建一个以 `myprefix_` 开头的临时文件，`XXXXXX` 部分由 `mktemp` 替换为唯一字符或数字。
+
+2. **为创建的临时文件指定目录：**
+   ```bash
+   tempfile=$(mktemp -t -p /path/to/directory)
+   ```
+   使用 `-t` 选项并通过 `-p` 指定目录路径，可以在指定目录中创建临时文件。
+
+3. **创建带有自定义模板的临时文件：**
+   ```bash
+   tempfile=$(mktemp -t mytemplate_XXXXXX.txt)
+   ```
+   在模板中使用 `X` 以外的字符，可以创建具有自定义名称的临时文件。
+
+4. **创建临时目录并指定目录前缀：**
+   ```bash
+   tempdir=$(mktemp -d /tmp/mydir_XXXXXX)
+   ```
+   使用 `-d` 选项创建临时目录，并通过模板指定目录名。
+
+5. **创建具有特定权限的临时文件：**
+   ```bash
+   tempfile=$(mktemp --tmpdir=/path/to/directory --mode=600)
+   ```
+   使用 `--mode` 选项可以指定临时文件的权限。在这个例子中，文件权限被设置为只有所有者可读可写。
+
+6. **创建多个临时文件或目录：**
+   ```bash
+   for i in {1..5}; do
+       tempfile=$(mktemp -t temp_file_XXXXXX.txt)
+       echo "This is temporary file $i." > "$tempfile"
+   done
+   ```
+   使用循环可以方便地创建多个临时文件或目录。
+
+7. **通过环境变量设置默认临时目录：**
+   ```bash
+   export TMPDIR=/path/to/default/directory
+   tempfile=$(mktemp)
+   ```
+   通过设置 `TMPDIR` 环境变量，可以为 `mktemp` 命令设置默认的临时目录。
+
+8. **创建带有随机元素的文件名：**
+   ```bash
+   tempfile=$(mktemp /tmp/myfile_$(date +%s)_XXXXXX.txt)
+   ```
+   在文件名中加入随机元素，例如当前时间戳，以确保文件名的唯一性。
+
+这些技巧可以根据具体需求帮助你更灵活地使用 `mktemp` 命令创建临时文件或目录。

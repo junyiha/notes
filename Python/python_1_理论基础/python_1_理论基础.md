@@ -2,6 +2,28 @@
 
 + Python编程语言的理论基础
 
+## python3 str object is not callable
+
+如果你在Python中遇到 "str object is not callable" 错误，通常是因为你意外地使用了内置函数的名称作为变量名。在Python中，避免使用内置函数名作为变量名是一个良好的实践。
+
+例如，以下是一个可能导致该错误的示例：
+
+```python
+str = "Hello"
+result = str(42)  # 这里会引发 "str object is not callable" 错误
+print(result)
+```
+
+在这个例子中，`str`被重新赋值为一个字符串，然后试图调用它就会引发错误。为了避免这种情况，应该使用不同的变量名：
+
+```python
+my_str = "Hello"
+result = str(42)  # 这里不会引发错误，因为 str 是内置函数
+print(result)
+```
+
+确保不要覆盖内置函数和关键字的名称，以避免这种类型的错误。如果已经发生了这种情况，重新启动Python解释器并尽量避免使用与内置函数和关键字相同的变量名。
+
 ## python3 no module named requests
 
 如果您在 Python 3 中遇到 "no module named requests" 错误，这意味着您的 Python 环境中缺少 `requests` 模块。`requests` 是一个用于发送 HTTP 请求的常用库，但它不是 Python 的标准库，因此您需要单独安装它。
