@@ -2,6 +2,35 @@
 
 + nlohmann/json 库的相关笔记
 
+## nlohmann/json 创建包含布尔值的数组
+
+使用nlohmann/json库创建包含布尔值的数组非常简单。首先，确保你已经将该库包含到你的项目中。如果你使用CMake，可以将以下代码添加到你的CMakeLists.txt文件中：
+
+```cmake
+find_package(nlohmann_json REQUIRED)
+```
+
+然后，使用以下C++代码创建包含布尔值的数组：
+
+```cpp
+#include <iostream>
+#include <nlohmann/json.hpp>
+
+int main() {
+    // 创建包含布尔值的数组
+    nlohmann::json boolArray = {true, false, true, true, false};
+
+    // 将JSON数组打印到控制台
+    std::cout << boolArray << std::endl;
+
+    return 0;
+}
+```
+
+在上述示例中，我们首先包含了nlohmann/json库，然后创建了一个包含布尔值的数组 `boolArray`。最后，通过 `std::cout` 将JSON数组打印到控制台。
+
+确保在项目中正确设置和使用nlohmann/json库，以便成功编译和运行这段代码。
+
 ## nlohmann/json 将std::vector作为值传给键
 
 使用 nlohmann/json 库时，可以将 `std::vector` 作为 JSON 对象的值传递给键。下面是一个简单的示例：
