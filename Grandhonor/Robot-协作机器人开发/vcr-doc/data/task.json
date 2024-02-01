@@ -65,6 +65,14 @@
         {
             "key": "sleep",
             "value": "休眠"
+        },
+        {
+            "key": "task_static_catch",
+            "value": "静态抓取算子"
+        },
+        {
+            "key": "task_dynamic_catch",
+            "value": "动态抓取算子"
         }
     ],
     "task_id": [
