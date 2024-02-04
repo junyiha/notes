@@ -293,10 +293,60 @@
         },
         {
             "key_word": "task_static_catch",
-            "argument_robot_id": "11474915599209436650",
+            "argument_robot_id": "10752341407161439024",
             "argument_camera_id": "9594966076229215493",
             "argument_tool_id": "9731621822652897745",
             "argument_vision_algorithm_id": "16096425151749075727",
+            "argument_static_catch_catch_speed_percent": 40,
+            "argument_static_catch_relative_velocity": 20,
+            "argument_static_catch_z_offset": 0.03,
+            "counter_condition": 10,
+            "argument_static_catch_must_in_pause_if_no_target":false,
+            "argument_static_catch_must_in_pause_if_no_place":true,
+            "argument_static_catch_detect_area": [
+                [
+                    -0.5,
+                    -0.2,
+                    0
+                ],
+                [
+                    -0.5,
+                    -0.7,
+                    0
+                ],
+                [
+                    0.1,
+                    -0.2,
+                    0.1
+                ],
+                [
+                    0.1,
+                    -0.7,
+                    0.1
+                ]
+            ],
+            "argument_static_catch_grap_area": [
+                [
+                    -0.15,
+                    -0.2,
+                    0
+                ],
+                [
+                    -0.15,
+                    -0.6,
+                    0
+                ],
+                [
+                    0.45,
+                    -0.2,
+                    0.1
+                ],
+                [
+                    0.45,
+                    -0.6,
+                    0.1
+                ]
+            ],
             "argument_static_catch_home_point_target": [
                 0,
                 0,
@@ -321,35 +371,33 @@
                 1.57,
                 0
             ],
-            "argument_static_catch_catch_speed_percent": 40,
-            "counter_condition": 10,
             "argument_static_catch_place_point_target_array": [
                 [
-                    1.57,
-                    0,
-                    1.57,
-                    0,
-                    1.57,
-                    0
+                    1.7638,
+                    -0.689,
+                    0.7514,
+                    -0.129,
+                    1.5698,
+                    0.1938
                 ],
                 [
-                    1.57,
-                    0,
-                    1.57,
-                    0,
-                    1.57,
-                    0.78
+                    1.7638,
+                    -0.689,
+                    0.7514,
+                    -0.129,
+                    1.5698,
+                    0.1938
                 ],
                 [
-                    1.57,
-                    0,
-                    1.57,
-                    0,
-                    1.57,
-                    1.57
+                    1.7638,
+                    -0.689,
+                    0.7514,
+                    -0.129,
+                    1.5698,
+                    0.1938
                 ]
             ]
-        },
+         },
         {
             "key_word": "task_dynamic_catch",
             "argument_robot_id": "10752341407161439024",
