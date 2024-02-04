@@ -1,0 +1,238 @@
+## 简介
+
++ export命令
+
+## linux export命令 详解
+
+`export`命令用于将变量设置为环境变量，使其在当前Shell及其子进程中可见。环境变量是一种全局变量，对于所有运行在当前Shell下的命令都是可见的。以下是`export`命令的基本语法和一些示例：
+
+### 基本语法：
+
+```bash
+export VARIABLE=value
+```
+
+其中，`VARIABLE`是环境变量的名称，`value`是变量的值。
+
+### 示例：
+
+1. **设置单个环境变量：**
+   ```bash
+   export MY_VARIABLE="Hello, World!"
+   ```
+   这将创建一个名为`MY_VARIABLE`的环境变量，其值为"Hello, World!"。
+
+2. **设置多个环境变量：**
+   ```bash
+   export VAR1="Value1" VAR2="Value2"
+   ```
+   通过在一行上设置多个变量，可以一次性导出多个环境变量。
+
+3. **在变量中包含空格：**
+   ```bash
+   export GREETING="Hello, World!"
+   ```
+   如果变量的值包含空格或特殊字符，可以使用引号将其括起来。
+
+4. **查看当前的环境变量：**
+   ```bash
+   export
+   ```
+   不带任何参数，可以查看当前所有的环境变量。
+
+5. **在一行中执行命令并设置环境变量：**
+   ```bash
+   MY_VARIABLE="Hello" ls
+   ```
+   在执行命令前设置环境变量，仅对该命令生效。
+
+### 注意事项：
+
+- **环境变量生命周期：** 使用`export`设置的环境变量在当前Shell及其所有子进程中可见。当当前Shell关闭时，这些环境变量也将失效。
+
+- **查看特定环境变量：** 若要查看特定环境变量的值，可以使用`echo`命令或`env`命令。例如：
+  ```bash
+  echo $MY_VARIABLE
+  ```
+  或
+  ```bash
+  env | grep MY_VARIABLE
+  ```
+
+- **永久设置环境变量：** 若要使环境变量在系统重启后仍然有效，可以将`export`语句添加到用户的配置文件（如`~/.bashrc`或`~/.bash_profile`）中。
+
+- **无需`export`的本地变量：** 如果变量只在当前Shell中使用，而不需要在子进程中可见，可以不使用`export`，直接设置变量即可。
+
+```bash
+MY_LOCAL_VARIABLE="Local Value"
+```
+
+`export`命令是在Shell脚本和交互式Shell中管理环境变量的重要工具，它允许你创建、修改和删除环境变量，以满足特定的需求。
+
+## linux export命令 常用技巧
+
+在使用`export`命令时，有一些常用的技巧和选项，可以帮助你更灵活地处理环境变量。以下是一些常见的`export`命令技巧：
+
+1. **在一行中执行命令并设置环境变量：**
+   ```bash
+   MY_VARIABLE="Hello" ls
+   ```
+   在执行命令前设置环境变量，仅对该命令生效。
+
+2. **在一行中定义并导出环境变量：**
+   ```bash
+   export MY_VARIABLE="Hello" && ls
+   ```
+   使用`&&`运算符可以确保导出环境变量后再执行后续的命令。
+
+3. **清除环境变量：**
+   ```bash
+   unset MY_VARIABLE
+   ```
+   使用`unset`命令可以清除已导出的环境变量。
+
+4. **将变量值追加到现有值：**
+   ```bash
+   export PATH=$PATH:/new/directory
+   ```
+   使用`$PATH`获取现有的`PATH`值，并将新目录追加到其中。
+
+5. **设置多个变量并导出：**
+   ```bash
+   export VAR1="Value1" VAR2="Value2"
+   ```
+   通过在一行上设置多个变量，可以一次性导出多个环境变量。
+
+6. **查看当前Shell的所有环境变量：**
+   ```bash
+   export
+   ```
+   不带任何参数，可以查看当前所有的环境变量。
+
+7. **在子Shell中执行命令并保留环境变量：**
+   ```bash
+   (export MY_VARIABLE="Hello" && some_command)
+   ```
+   使用圆括号创建子Shell，在其中执行命令，并确保在子Shell中导出的环境变量不会影响到父Shell。
+
+8. **将命令的输出赋值给变量：**
+   ```bash
+   export MY_VARIABLE=$(some_command)
+   ```
+   使用命令替换`$()`将命令的输出赋值给环境变量。
+
+9. **将当前目录添加到`PATH`中：**
+   ```bash
+   export PATH=$PATH:.
+   ```
+   将当前目录添加到`PATH`中，以便执行当前目录中的命令。
+
+这些技巧可以帮助你更好地使用`export`命令，灵活地管理和调整环境变量，以满足不同的需求。确保理解环境变量的生命周期和影响范围，以避免潜在的问题。
+
+## export
+
++ export,命令用于设置或显示环境变量
++ 在shell中执行程序时,shell会提供一组环境变量.
++ export可新增,修改或删除环境变量,供后续执行的程序使用
++ export的效力仅限于该次登录操作
++ 语法:`export [-fnp] [变量名称] = [变量设置值]`
+  + `-f`:代表变量名称中为函数名称
+  + `-n`:删除指定的变量.变量实际上并未删除,只是不会输出到后续指令的执行环境中
+  + `-p`:列出所有的shell赋予程序的环境变量
+
+在Linux中，`export`命令用于设置环境变量。环境变量是在Shell会话中可用的全局变量，它们包含了对系统行为和配置起作用的值。
+
+以下是`export`命令的一般语法：
+
+```
+export [option] variable=value
+```
+
+其中，`option`是可选的一些选项，`variable`是要设置的环境变量的名称，`value`是要分配给该环境变量的值。
+
+以下是一些常见的`export`命令选项和用法：
+
+1. 设置环境变量：
+   ```
+   export VARIABLE=value
+   ```
+
+   此命令将设置名为`VARIABLE`的环境变量，并将其值设置为`value`。
+
+2. 查看当前环境变量：
+   ```
+   export
+   ```
+
+   此命令将列出当前所有已设置的环境变量及其值。
+
+3. 设置多个环境变量：
+   ```
+   export VAR1=value1 VAR2=value2 VAR3=value3
+   ```
+
+   此命令将一次性设置多个环境变量，并为每个变量指定一个值。
+
+环境变量在Shell会话中起作用，它们可以用于配置系统行为、定义路径、设置临时变量等。通过`export`命令设置的环境变量可以在当前Shell会话及其子进程中访问。
+
+请注意，通过`export`命令设置的环境变量在Shell会话结束时会失效。如果您希望永久性地设置环境变量，可以将其添加到Shell配置文件（如`.bashrc`或`.profile`）中。
+
+## linux export命令 高级技巧
+
+在高级应用场景下，`export`命令可以结合其他工具和技巧，提供更灵活、强大的环境变量管理。以下是一些高级的`export`命令技巧：
+
+1. **使用`env`命令预设环境变量：**
+   ```bash
+   env MY_VARIABLE="Hello" some_command
+   ```
+   使用`env`命令可以在执行命令的同时预设环境变量，而不需要显式使用`export`。
+
+2. **在脚本中使用`set -a`导出所有变量：**
+   ```bash
+   #!/bin/bash
+   set -a
+   MY_VARIABLE="Hello"
+   some_command
+   ```
+   使用`set -a`可以自动将所有变量导出为环境变量，而无需显式使用`export`。
+
+3. **使用`declare`命令声明并导出环境变量：**
+   ```bash
+   declare -x MY_VARIABLE="Hello"
+   ```
+   使用`declare -x`命令可以声明并导出环境变量，类似于`export`的作用。
+
+4. **通过`source`命令加载变量定义：**
+   ```bash
+   source my_variables.sh
+   ```
+   将变量定义存储在脚本中，然后使用`source`或`.`命令加载它们，使其成为当前Shell的一部分。
+
+5. **使用`trap`命令在脚本退出时清除环境变量：**
+   ```bash
+   trap 'unset MY_VARIABLE' EXIT
+   MY_VARIABLE="Hello"
+   some_command
+   ```
+   使用`trap`命令可以在脚本退出时自动清除导出的环境变量。
+
+6. **动态设置`PS1`环境变量以自定义Shell提示符：**
+   ```bash
+   export PS1='\u@\h:\w\$ '
+   ```
+   定义`PS1`环境变量可以自定义Shell的提示符，提高Shell使用体验。
+
+7. **使用`eval`执行动态生成的`export`语句：**
+   ```bash
+   eval "export $VARIABLE_NAME=$VARIABLE_VALUE"
+   ```
+   在脚本中使用`eval`执行动态生成的`export`语句，根据需要设置环境变量。
+
+8. **使用`declare`动态创建函数并导出：**
+   ```bash
+   declare -fx my_function
+   export -f my_function
+   ```
+   使用`declare -f`可以导出函数定义作为环境变量，然后使用`export -f`进行导出。
+
+这些高级技巧可以在更复杂的脚本和环境中提供更大的灵活性。在使用这些技巧时，要注意确保代码的可读性和安全性，以及理解环境变量的作用范围和生命周期。

@@ -2,6 +2,23 @@
 
 + wc命令
 
+## wc  
+
++ wc, 用于计算字数
++ 利用wc指令可以计算文件的Byte数,字数或是列数,若不指定文件名称,或是所给予的文件名为`-`,则wc指令会从标准输入设备读取数据
++ 语法:`wc [-clw] [--help] [--version] [文件...]`
++ 参数:
+  + `-c`或`--bytes`或`--chars` 只显示Bytes数
+  + `-w`或`--words` 只显示字数
+  + `-l`或`--lines` 显示行数
+  + `--help` 在线帮助
+  + `--version` 显示版本信息
++ 使用wc统计:
+  + `wc testfile  # testfile文件的统计信息`
+  + `3 92 598 testfile # testfile文件的行数为3, 单词数为92, 字节数为598`
+  + 其中三个数字分别表示testfile文件的行数,单词数,以及该文件的字节数
++ 如果想同时统计多个文件的信息,例如同时统计testfile,testfile_1,testfile_2,可使用:`wc testfile testfile_1 testfile_2  # 统计三个文件的信息`
+
 ## wc
 
 <!-- + `wc`,命令用于计算字数

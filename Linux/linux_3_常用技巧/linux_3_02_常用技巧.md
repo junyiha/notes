@@ -2,6 +2,12 @@
 
 + linux系统下常用技巧
 
+## ip配置
+
++ 临时更改:`sudo ifconfig ip-address netmask mask`, 例如:`sudo ifconfig 192.167.0.92 netmask 255.255.0.0`
++ 永久更改:修改`/etc/network/interface`文件
+
+
 ## linux vim命令 复制文件中指定字符串并进行搜索 
 
 如果你想在一个文件中找到指定的字符串，并将该字符串复制到寄存器中以供后续搜索或操作，你可以使用以下步骤：
