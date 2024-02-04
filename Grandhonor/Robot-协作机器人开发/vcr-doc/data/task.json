@@ -80,12 +80,19 @@
             "key_word": "start"
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "move_joint",
+            "?argument_id": "设备id",
             "argument_id": "11474915599209436650",
+            "?argument_speedpercent": "运动速度 关节空间下的运动速度百分比(0 - 100)",
             "argument_speedpercent": 10,
+            "?argument_robot_tool_index": "末端工具索引",
             "argument_robot_tool_index": 1,
+            "?argument_robot_tool_name": "末端工具名称",
             "argument_robot_tool_name": "one",
+            "?argument_robot_tool_mass": "末端工具质量 单位为千克",
             "argument_robot_tool_mass": 2,
+            "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量",
             "argument_robot_tool_position": [
                 0,
                 0,
@@ -94,11 +101,13 @@
                 0,
                 0
             ],
+            "?argument_robot_tool_center_of_mass": "末端工具的质心",
             "argument_robot_tool_center_of_mass": [
                 0,
                 0,
                 0
             ],
+            "?argument_robot_tool_inertia": "末端工具的转动惯量",
             "argument_robot_tool_inertia": [
                 0,
                 0,
@@ -110,6 +119,7 @@
                 0,
                 0
             ],
+            "?argument_target": "运动的目标关节角 单位为弧度",
             "argument_target": [
                 0,
                 0,
@@ -120,13 +130,21 @@
             ]
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "move_line",
+            "?argument_id": "设备id",
             "argument_id": "11474915599209436650",
+            "?argument_cart_vel": "笛卡尔空间下的平移速度 单位为米每秒",
             "argument_cart_vel": 0.02,
+            "?argument_rot_vel": "笛卡尔空间下的旋转速度 单位为弧度每秒",
             "argument_rot_vel": 0.2,
+            "?argument_robot_tool_index": "末端工具索引",
             "argument_robot_tool_index": 1,
+            "?argument_robot_tool_name": "末端工具名称",
             "argument_robot_tool_name": "one",
+            "?argument_robot_tool_mass": "末端工具质量 单位为千克",
             "argument_robot_tool_mass": 2,
+            "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
             "argument_robot_tool_position": [
                 0,
                 0,
@@ -135,11 +153,13 @@
                 0,
                 0
             ],
+            "?argument_robot_tool_center_of_mass": "末端工具的质心",
             "argument_robot_tool_center_of_mass": [
                 0,
                 0,
                 0
             ],
+            "?argument_robot_tool_inertia": "末端工具的转动惯量",
             "argument_robot_tool_inertia": [
                 0,
                 0,
@@ -151,6 +171,7 @@
                 0,
                 0
             ],
+            "?argument_target": "运动的目标位姿 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
             "argument_target": [
                 -0.101099,
                 -0.297817,
@@ -161,20 +182,65 @@
             ]
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "while",
+            "?condition_key_word": "用于条件判断的算子标识",
             "condition_key_word": "counter",
+            "?condition_value": "用于条件判断的目标值",
             "condition_value": "10",
+            "?condition_operator": "用于条件判断的运算符",
             "condition_operator": ">",
+            "?process": "循环的子流程",
             "process": [
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "counter",
+                    "?argument_operator": "用于计数器进行操作的运算符",
                     "argument_operator": "+",
+                    "?argument_value": "计数器进行操作的目标值",
                     "argument_value": 1
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_joint",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_speedpercent": "运动速度 关节空间下的运动速度百分比(0 - 100)",
                     "argument_speedpercent": 10,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标关节角 单位为弧度",
                     "argument_target": [
                         0,
                         0,
@@ -185,10 +251,48 @@
                     ]
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_line",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_cart_vel": "笛卡尔空间下的平移速度 单位为米每秒",
                     "argument_cart_vel": 0.02,
+                    "?argument_rot_vel": "笛卡尔空间下的旋转速度 单位为弧度每秒",
                     "argument_rot_vel": 0.2,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标位姿 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
                     "argument_target": [
                         -0.101099,
                         -0.297817,
@@ -199,15 +303,54 @@
                     ]
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "pause"
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_line",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_cart_vel": "笛卡尔空间下的平移速度 单位为米每秒",
                     "argument_cart_vel": 0.02,
+                    "?argument_rot_vel": "笛卡尔空间下的旋转速度 单位为弧度每秒",
                     "argument_rot_vel": 0.2,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标位姿 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
                     "argument_target": [
-                        -0.051099,
+                        -0.101099,
                         -0.297817,
                         0.0557633,
                         -2.20871,
@@ -216,9 +359,46 @@
                     ]
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_joint",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_speedpercent": "运动速度 关节空间下的运动速度百分比(0 - 100)",
                     "argument_speedpercent": 10,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标关节角 单位为弧度",
                     "argument_target": [
                         0,
                         0,
@@ -227,35 +407,85 @@
                         1.57,
                         0
                     ]
-                }
+                }        
             ]
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "catch",
+            "?argument_id": "设备id",
             "argument_id": "9731621822652897745"
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "sleep",
+            "?argument_sleep": "休眠的时间 单位为秒",
             "argument_sleep": 3
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "release",
+            "?argument_id": "设备id",
             "argument_id": "9731621822652897745"
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "if",
+            "?condition_key_word": "用于条件判断的算子标识",
             "condition_key_word": "counter",
+            "?condition_value": "用于条件判断的目标值",
             "condition_value": "100",
+            "?condition_operator": "用于条件判断的运算符",
             "condition_operator": ">",
+            "?true_process": "条件为真时要处理的流程",
             "true_process": [
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "catch",
+                    "?argument_id": "设备id",
                     "argument_id": "9731621822652897745"
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_joint",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_speedpercent": "运动速度 关节空间下的运动速度百分比(0 - 100)",
                     "argument_speedpercent": 10,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标关节角 单位为弧度",
                     "argument_target": [
                         0,
                         0,
@@ -266,25 +496,66 @@
                     ]
                 }
             ],
+            "?false_process": "条件为假时要处理的流程",
             "false_process": [
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "release",
+                    "?argument_id": "设备id",
                     "argument_id": "9731621822652897745"
                 },
                 {
+                    "?key_word": "算子标识，用于区分不同算子",
                     "key_word": "move_line",
+                    "?argument_id": "设备id",
                     "argument_id": "11474915599209436650",
+                    "?argument_cart_vel": "笛卡尔空间下的平移速度 单位为米每秒",
                     "argument_cart_vel": 0.02,
+                    "?argument_rot_vel": "笛卡尔空间下的旋转速度 单位为弧度每秒",
                     "argument_rot_vel": 0.2,
+                    "?argument_robot_tool_index": "末端工具索引",
+                    "argument_robot_tool_index": 1,
+                    "?argument_robot_tool_name": "末端工具名称",
+                    "argument_robot_tool_name": "one",
+                    "?argument_robot_tool_mass": "末端工具质量 单位为千克",
+                    "argument_robot_tool_mass": 2,
+                    "?argument_robot_tool_position": "末端工具相对于末端中心的偏移量 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
+                    "argument_robot_tool_position": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_center_of_mass": "末端工具的质心",
+                    "argument_robot_tool_center_of_mass": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_robot_tool_inertia": "末端工具的转动惯量",
+                    "argument_robot_tool_inertia": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "?argument_target": "运动的目标位姿 位置单位为米,姿态单位为弧度,表达形式为旋转向量",
                     "argument_target": [
                         -0.101099,
                         -0.297817,
-                        0.0957633,
+                        0.0557633,
                         -2.20871,
                         2.1390289,
                         0.1048353
                     ]
-                }
+                }        
             ]
         },
         {
@@ -292,17 +563,29 @@
             "argument_id": "9731621822652897745"
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
             "key_word": "task_static_catch",
+            "?argument_robot_id": "机械臂的设备id",
             "argument_robot_id": "10752341407161439024",
+            "?argument_camera_id": "相机的设备id",
             "argument_camera_id": "9594966076229215493",
+            "?argument_tool_id": "工具的设备id",
             "argument_tool_id": "9731621822652897745",
+            "?argument_vision_algorithm_id": "视觉算法的id",
             "argument_vision_algorithm_id": "16096425151749075727",
+            "?argument_static_catch_catch_speed_percent": "抓取速度 关节空间的运动速度，单位为百分比(0 - 100)",
             "argument_static_catch_catch_speed_percent": 40,
+            "?argument_static_catch_relative_velocity": "抓取时的相对运动速度 关节空间的运动速度，单位为百分比(0 - 100)",
             "argument_static_catch_relative_velocity": 20,
+            "?argument_static_catch_z_offset": "抓取时在物体上方悬停的位置和物体之间的距离 单位为米",
             "argument_static_catch_z_offset": 0.03,
+            "?counter_condition": "算子退出的条件 如果抓取次数大于等于10 算子运行结束并并退出",
             "counter_condition": 10,
+            "?argument_static_catch_must_in_pause_if_no_target":"用于控制在没有检测到目标物体的情况下是否进入暂停状态 true 即进入 | false 即不进入",
             "argument_static_catch_must_in_pause_if_no_target":false,
+            "?argument_static_catch_must_in_pause_if_no_place":"用于控制在放置位置满了的情况下是否进入暂停状态 true 即进入 | false 即不进入",
             "argument_static_catch_must_in_pause_if_no_place":true,
+            "?argument_static_catch_detect_area": "检测区域配置 数组的每个元素为空间中的某一点的坐标，元素数量不低于三个 单位为米",
             "argument_static_catch_detect_area": [
                 [
                     -0.5,
@@ -325,6 +608,7 @@
                     0.1
                 ]
             ],
+            "?argument_static_catch_grap_area": "抓取区域 数组的每个元素为空间中的某一点的坐标，元素数量不低于三个 单位为米",
             "argument_static_catch_grap_area": [
                 [
                     -0.15,
@@ -347,6 +631,7 @@
                     0.1
                 ]
             ],
+            "?argument_static_catch_home_point_target": "Home点 表达形式为关节角 单位为弧度",
             "argument_static_catch_home_point_target": [
                 0,
                 0,
@@ -355,6 +640,7 @@
                 0,
                 0
             ],
+            "?argument_static_catch_place_point_target": "放置点 历史遗留参数 设置但不使用",
             "argument_static_catch_place_point_target": [
                 1.57,
                 0,
@@ -363,6 +649,7 @@
                 1.57,
                 0
             ],
+            "?argument_static_catch_joint_reference_target": "参考关节角 用于进行逆解 单位为弧度",
             "argument_static_catch_joint_reference_target": [
                 0,
                 0,
@@ -371,6 +658,7 @@
                 1.57,
                 0
             ],
+            "?argument_static_catch_place_point_target_array": "放置位置数组 每一个元素是以关节角的形式存在 放置时会依次轮训存放 单位为弧度",
             "argument_static_catch_place_point_target_array": [
                 [
                     1.7638,
@@ -400,18 +688,31 @@
          },
         {
             "key_word": "task_dynamic_catch",
+            "?argument_robot_id": "机械臂的设备id",
             "argument_robot_id": "10752341407161439024",
+            "?argument_camera_id": "相机的设备id",
             "argument_camera_id": "9594966076229215493",
+            "?argument_tool_id": "工具的设备id",
             "argument_tool_id": "9731621822652897745",
+            "?argument_vision_algorithm_id": "视觉算法的id",
             "argument_vision_algorithm_id": "16096425151749075727",
+            "?counter_condition": "算子退出的条件 如果抓取次数大于等于10 算子运行结束并并退出",
             "counter_condition": 10,
+            "?argument_dynamic_catch_catch_speed_percent": "抓取速度 关节空间的运动速度，单位为百分比(0 - 100)",
             "argument_dynamic_catch_catch_speed_percent": 80,
+            "?argument_dynamic_catch_z_offset": "抓取时在物体上方悬停的位置和物体之间的距离 单位为米",
             "argument_dynamic_catch_z_offset": 0.03,
+            "?argument_dynamic_catch_catch_distance": "动态物体抓取时 预测的物体运动距离 单位为米",
             "argument_dynamic_catch_catch_distance": 0.26,
+            "?argument_dynamic_catch_relative_velocity": "抓取时的相对运动速度 关节空间的运动速度，单位为百分比(0 - 100)",
             "argument_dynamic_catch_relative_velocity": 20,
+            "?argument_dynamic_catch_target_velocity": "目标物体运动的速度 单位为米每秒",
             "argument_dynamic_catch_target_velocity": 0.0912,
+            "?argument_dynamic_catch_must_in_pause_if_no_target":"用于控制在没有检测到目标物体的情况下是否进入暂停状态 true 即进入 | false 即不进入",
             "argument_dynamic_catch_must_in_pause_if_no_target":false,
+            "?argument_dynamic_catch_must_in_pause_if_no_place":"用于控制在放置位置满了的情况下是否进入暂停状态 true 即进入 | false 即不进入",
             "argument_dynamic_catch_must_in_pause_if_no_place":true,
+            "?argument_dynamic_catch_detect_area": "检测区域配置 数组的每个元素为空间中的某一点的坐标，元素数量不低于三个 单位为米",
             "argument_dynamic_catch_detect_area": [
                 [
                     -0.5,
@@ -434,6 +735,7 @@
                     0.1
                 ]
             ],
+            "?argument_dynamic_catch_grap_area": "抓取区域 数组的每个元素为空间中的某一点的坐标，元素数量不低于三个 单位为米",
             "argument_dynamic_catch_grap_area": [
                 [
                     -0.15,
@@ -456,6 +758,7 @@
                     0.1
                 ]
             ],
+            "?argument_dynamic_catch_home_point_target": "Home点 表达形式为关节角 单位为弧度",
             "argument_dynamic_catch_home_point_target": [
                 0,
                 0,
@@ -464,6 +767,7 @@
                 0,
                 0
             ],
+            "?argument_dynamic_catch_place_point_target": "放置点 历史遗留参数 设置但不使用",
             "argument_dynamic_catch_place_point_target": [
                 1.57,
                 0,
@@ -472,6 +776,7 @@
                 1.57,
                 0
             ],
+            "?argument_dynamic_catch_joint_reference_target": "参考关节角 用于进行逆解 单位为弧度",
             "argument_dynamic_catch_joint_reference_target": [
                 0,
                 0,
@@ -480,6 +785,7 @@
                 1.57,
                 0
             ],
+            "?argument_dynamic_catch_place_point_target_array": "放置位置数组 每一个元素是以关节角的形式存在 放置时会依次轮训存放 单位为弧度",
             "argument_dynamic_catch_place_point_target_array": [
                 [
                     1.7638,
