@@ -75,7 +75,10 @@
             "value": "动态抓取算子"
         }
     ],
-    "task_id": [
+    "?task_id":"任务id",
+    "task_id":"aaa",
+    "?task_data": "任务数据",
+    "task_data": [
         {
             "key_word": "start"
         },
