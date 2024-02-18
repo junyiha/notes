@@ -107,3 +107,61 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
 - 线程在共享数据时可能会引发竞争条件和死锁等问题，因此在多线程编程中需要小心谨慎，使用适当的同步工具。
 
 总之，`threading` 模块提供了方便的工具来创建、管理和同步线程，允许您实现并发性和并行性，但需要注意线程安全和共享资源的管理问题。对于更高级的并发任务，您还可以考虑使用 `multiprocessing` 模块，它允许您创建多个进程以利用多核处理器。
+
+## python3 threading模块 传入一个参数
+
+如果你想在线程中传递一个参数，可以使用 `args` 参数来传递一个包含单个元素的元组。以下是一个简单的示例：
+
+```python
+import threading
+
+def my_function(arg):
+    print("Thread is running with argument:", arg)
+
+# 创建一个线程，并传递单个参数
+my_arg = "Hello"
+my_thread = threading.Thread(target=my_function, args=(my_arg,))
+
+# 启动线程
+my_thread.start()
+
+# 等待线程结束
+my_thread.join()
+```
+
+在这个例子中，`my_function` 函数期望接收一个参数，我们将参数放入一个元组 `(my_arg,)` 中，并将该元组作为 `args` 参数传递给 `Thread` 类的构造函数。
+
+确保参数传递的数据类型和数量与目标函数的定义相匹配。如果有多个参数，仍然需要将它们放入一个元组中，并将该元组作为 `args` 参数传递。
+
+## python3 threading模块 将线程分离到后台
+
+在Python中，可以使用 `threading.Thread` 的 `daemon` 属性将线程设置为后台线程。将线程设置为后台线程意味着当主线程退出时，后台线程也会被终止，而不管它是否完成。
+
+以下是一个简单的示例：
+
+```python
+import threading
+import time
+
+def my_function():
+    for i in range(5):
+        print("Thread is running...")
+        time.sleep(1)
+
+# 创建一个后台线程
+my_thread = threading.Thread(target=my_function)
+my_thread.daemon = True
+
+# 启动线程
+my_thread.start()
+
+# 主线程等待一段时间
+time.sleep(2)
+
+# 主线程退出，后台线程也会被终止
+print("Main thread exiting.")
+```
+
+在这个例子中，`my_function` 是一个简单的线程函数，线程会在循环中打印消息并休眠1秒。通过将 `my_thread.daemon` 设置为 `True`，我们将线程设置为后台线程。当主线程执行 `print("Main thread exiting.")` 时，主线程会退出，同时后台线程也会被终止。
+
+请注意，如果你的后台线程执行一些关键任务，可能需要谨慎使用后台线程，因为在主线程退出时，可能导致后台线程无法完成其任务。
