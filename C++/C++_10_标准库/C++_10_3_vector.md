@@ -961,3 +961,52 @@ int main() {
 - 使用 `size()` 和 `capacity()` 分别打印了容器的大小和容量。
 
 `std::vector::shrink_to_fit()` 函数提供了一种手段来释放 `std::vector` 容器内多余的内存空间，使得容器的实际容量与其大小相匹配。但并不保证一定会成功减小容器的容量，具体情况取决于实现。
+
+## std::vector::emplace_back() 函数 详解
+
+`std::vector::emplace_back()` 是 C++ 中 `std::vector` 容器提供的一个函数，用于在容器的末尾直接构造元素，而不是先创建一个临时对象再进行拷贝或移动操作。这个函数允许你在容器中就地构造对象，从而避免额外的拷贝或移动开销。
+
+以下是 `std::vector::emplace_back()` 的详细解释：
+
+```cpp
+namespace std {
+
+template <class... Args>
+void emplace_back(Args&&... args);
+
+} // namespace std
+```
+
+- `emplace_back` 函数接受任意数量的参数，并将这些参数传递给容器中元素的构造函数，用于在容器的末尾直接构造一个新元素。
+
+- 参数 `Args&&... args` 是一个可变参数模板，可以接受任意数量的参数。
+
+使用 `emplace_back` 的典型用法是，直接在容器末尾构造一个元素，而不需要在代码中创建临时对象。这对于避免额外的拷贝或移动操作特别有用。
+
+以下是一个简单的示例：
+
+```cpp
+#include <iostream>
+#include <vector>
+
+struct MyClass {
+    int value;
+
+    MyClass(int v) : value(v) {
+        std::cout << "Constructing MyClass with value: " << value << std::endl;
+    }
+};
+
+int main() {
+    std::vector<MyClass> myVector;
+
+    // 使用 emplace_back 直接在容器末尾构造元素
+    myVector.emplace_back(42);
+
+    // 使用 emplace_back 可以避免额外的拷贝或移动操作
+
+    return 0;
+}
+```
+
+在这个例子中，`emplace_back` 直接在 `std::vector` 的末尾构造了一个 `MyClass` 对象，而不需要先创建一个临时对象再进行拷贝操作。这样可以提高效率，特别是对于那些不支持移动语义的类。
