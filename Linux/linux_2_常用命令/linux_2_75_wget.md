@@ -1,0 +1,245 @@
+## 简介
+
++ wget命令
+
+## linux wget命令 详解
+
+`wget` 是一个在命令行中常用的下载工具，用于从网络上下载文件。以下是一些 `wget` 命令的常见用法和选项：
+
+### 1. **基本用法：**
+```bash
+wget URL
+```
+使用 `wget` 命令下载指定 URL 的文件。
+
+### 2. **指定保存文件名：**
+```bash
+wget -O output_file URL
+```
+使用 `-O` 选项可以指定下载的文件的保存名称。
+
+### 3. **后台下载：**
+```bash
+wget -b URL
+```
+使用 `-b` 选项可以将下载任务放到后台运行。
+
+### 4. **断点续传：**
+```bash
+wget -c URL
+```
+使用 `-c` 选项可以在下载中断后继续下载文件。
+
+### 5. **限速下载：**
+```bash
+wget --limit-rate=200k URL
+```
+使用 `--limit-rate` 选项可以限制下载速度。
+
+### 6. **递归下载：**
+```bash
+wget -r URL
+```
+使用 `-r` 选项可以递归下载链接中的所有文件。
+
+### 7. **下载指定文件类型：**
+```bash
+wget -r -A pdf,zip URL
+```
+使用 `-A` 选项可以指定下载的文件类型。
+
+### 8. **仅下载页面链接：**
+```bash
+wget -r --no-parent URL
+```
+使用 `--no-parent` 选项可以仅下载页面链接，不下载父目录链接。
+
+### 9. **后台下载并保存日志：**
+```bash
+wget -b -o download.log URL
+```
+使用 `-o` 选项可以将下载的日志保存到指定文件。
+
+### 10. **使用代理服务器：**
+```bash
+wget -e "http_proxy=http://proxy_server:port" URL
+```
+使用 `-e` 选项可以设置环境变量，指定代理服务器。
+
+### 11. **使用用户名和密码：**
+```bash
+wget --user=username --password=password URL
+```
+使用 `--user` 和 `--password` 选项可以指定下载时的用户名和密码。
+
+### 12. **使用镜像模式：**
+```bash
+wget --mirror URL
+```
+使用 `--mirror` 选项可以创建站点的本地镜像。
+
+### 13. **显示详细进度：**
+```bash
+wget --progress=bar URL
+```
+使用 `--progress` 选项可以显示下载进度条。
+
+### 14. **显示帮助信息：**
+```bash
+wget --help
+```
+使用 `--help` 选项可以查看 `wget` 命令的帮助信息，列出可用的选项和参数。
+
+这些选项和用法仅是 `wget` 命令的一部分，`wget` 支持的功能非常丰富。可以通过 `man wget` 命令或者 `wget --help` 查看完整的帮助信息。
+
+## linux wget命令 常用技巧
+
+以下是一些在使用 `wget` 命令时的常用技巧，可帮助更灵活地下载文件和管理下载任务：
+
+### 1. **后台下载并保持日志：**
+```bash
+wget -b -o download.log URL
+```
+使用 `-b` 选项将下载任务放到后台运行，并使用 `-o` 选项将下载日志保存到指定文件。
+
+### 2. **使用断点续传：**
+```bash
+wget -c URL
+```
+使用 `-c` 选项可以在下载中断后继续下载文件。
+
+### 3. **限速下载：**
+```bash
+wget --limit-rate=200k URL
+```
+使用 `--limit-rate` 选项可以限制下载速度。
+
+### 4. **递归下载整个网站：**
+```bash
+wget -r --no-parent URL
+```
+使用 `-r` 选项可以递归下载链接中的所有文件，而 `--no-parent` 选项可以确保不下载父目录链接。
+
+### 5. **下载指定文件类型：**
+```bash
+wget -r -A pdf,zip URL
+```
+使用 `-A` 选项可以指定下载的文件类型。
+
+### 6. **使用代理服务器：**
+```bash
+wget -e "http_proxy=http://proxy_server:port" URL
+```
+使用 `-e` 选项可以设置环境变量，指定代理服务器。
+
+### 7. **使用用户名和密码：**
+```bash
+wget --user=username --password=password URL
+```
+使用 `--user` 和 `--password` 选项可以指定下载时的用户名和密码。
+
+### 8. **下载页面链接并转换为本地 HTML 文件：**
+```bash
+wget -p -k URL
+```
+使用 `-p` 选项可以下载页面链接，而 `-k` 选项可以转换链接为本地链接，适用于离线浏览。
+
+### 9. **仅下载页面链接，不下载图片等资源：**
+```bash
+wget --no-clobber --convert-links --random-wait -r -p -E -e robots=off URL
+```
+这个命令组合了多个选项，仅下载页面链接，不下载图片等资源，并模拟随机等待时间，以减少对服务器的负担。
+
+### 10. **下载文件并重命名为指定文件名：**
+```bash
+wget -O new_filename URL
+```
+使用 `-O` 选项可以将下载的文件重命名为指定的文件名。
+
+### 11. **强制覆盖已存在的文件：**
+```bash
+wget -N URL
+```
+使用 `-N` 选项可以强制覆盖已存在的文件。
+
+### 12. **使用镜像模式创建本地副本：**
+```bash
+wget --mirror URL
+```
+使用 `--mirror` 选项可以创建站点的本地副本。
+
+### 13. **显示详细进度条：**
+```bash
+wget --progress=bar URL
+```
+使用 `--progress` 选项可以显示下载进度条。
+
+### 14. **后台下载并继续保持进度条：**
+```bash
+wget -b -o download.log --progress=bar URL
+```
+结合 `-b` 和 `-o` 选项，可以在后台运行下载任务并将进度保存到日志文件。
+
+这些技巧可以帮助你更有效地使用 `wget` 命令进行文件下载，并根据具体需求选择合适的选项。
+
+## wget 常用选项
+
+wget 命令具有许多选项，可以用于控制下载过程、处理重定向、设置代理等。以下是一些常用的 wget 命令选项：
+
+1. **-O, --output-document**: 指定保存下载文件的名称或路径。例如：`wget -O output.txt http://example.com/file.txt`
+
+2. **-c, --continue**: 断点续传，继续下载中断的文件。例如：`wget -c http://example.com/file.txt`
+
+3. **-r, --recursive**: 递归下载，下载整个网站的内容。例如：`wget -r http://example.com`
+
+4. **-N, --timestamping**: 仅下载比本地文件新的文件。例如：`wget -N http://example.com/file.txt`
+
+5. **-P, --directory-prefix**: 指定保存下载文件的目录。例如：`wget -P /path/to/directory http://example.com/file.txt`
+
+6. **-np, --no-parent**: 仅下载指定 URL 中的文件，不递归下载上级目录的内容。
+
+7. **-l, --level**: 指定递归下载的深度级别。例如：`wget -r -l 2 http://example.com`
+
+8. **-t, --tries**: 设置下载失败时的重试次数。例如：`wget -t 3 http://example.com/file.txt`
+
+9. **-q, --quiet**: 静默模式，减少输出信息的显示。
+
+10. **--user, --password**: 设置用户名和密码进行 HTTP 基本认证。例如：`wget --user=username --password=password http://example.com`
+
+11. **--limit-rate**: 限制下载速度。可以指定速度单位，如 K、M，例如：`wget --limit-rate=100k http://example.com/file.txt`
+
+12. **-e, --execute**: 执行指定的命令作为 Wget 的一部分。例如：`wget -e robots=off http://example.com/file.txt`
+
+这只是一小部分常用选项，wget 还提供了许多其他选项，如代理配置、SSL 选项、重定向处理等。可以通过 `wget --help` 命令或查阅 wget 的文档来获取更详细的选项说明和示例。
+
+希望这些常用选项对您有所帮助！如果您有更多问题，请随时提问。
+
+## wget 详解
+
+wget 是一个用于下载文件的命令行工具，它支持从各种网络协议（如 HTTP、HTTPS、FTP）下载文件。wget 在多种操作系统上都可用，并且具有许多功能和选项，以下是关于 wget 的详解：
+
+1. **简单易用**：wget 的使用非常简单，只需要提供要下载的文件的 URL，它会自动处理下载和保存文件的过程。
+
+2. **支持多种协议**：wget 可以处理 HTTP、HTTPS 和 FTP 等协议，可以下载来自这些协议的文件。
+
+3. **递归下载**：wget 支持递归下载，可以下载整个网站的内容。它会解析 HTML 页面并查找其中的链接，递归下载页面上的所有链接。
+
+4. **断点续传**：如果下载过程中出现网络中断或其他故障，wget 具有断点续传的功能，可以恢复下载过程而无需重新下载整个文件。
+
+5. **后台下载**：wget 可以在后台运行，这意味着您可以在终端窗口关闭后继续下载过程。
+
+6. **限速下载**：wget 允许您限制下载速度，这对于共享网络连接或需要节省带宽的情况非常有用。
+
+7. **递归遍历目录**：wget 可以递归遍历服务器上的目录结构，并下载整个目录中的文件。
+
+8. **用户认证**：如果需要身份验证才能下载文件，wget 支持使用用户名和密码进行认证。
+
+9. **代理支持**：wget 支持使用代理服务器下载文件，可以通过指定代理服务器的地址和端口进行配置。
+
+10. **日志记录**：wget 可以生成下载过程的日志文件，记录下载的详细信息，方便后续查看和分析。
+
+wget 是一个功能强大的命令行工具，广泛用于下载文件、备份网站内容和自动化脚本等场景。它提供了许多选项和功能，使得文件下载和管理变得简单和灵活。
+
+如果您想了解更多关于 wget 的选项和用法，可以使用 `wget --help` 命令或查阅 wget 的官方文档。
+
+希望这些详解对 wget 有所帮助！如果您有更多问题，请随时提问。

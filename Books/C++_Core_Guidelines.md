@@ -91,3 +91,269 @@ int main() {
 ### 避免非const的全局变量
 
 + 全局变量会在函数中注入隐藏的依赖，而该依赖并不是接口的一部分
++ 非const的全局变量有许多弊端。首先，非const的全局变量破坏了封装。这种对封装的破坏让你无法对函数/类(实体)进行孤立思考。
+
+### 避免单例
+
++ 单例就是全局变量，因此你应当尽可能避免单例。单例简单，直接地保证该类最多只有一个实例存在。
++ C++ 单例模式 详解
+单例模式是一种设计模式，其目的是确保一个类只有一个实例，并提供全局访问点。这有助于确保在整个应用程序中共享相同的资源或状态，以及提供一种方便的方法来访问该实例。下面详细解释C++中的单例模式。
+
+### 实现单例模式的步骤：
+
+1. **私有构造函数：** 将类的构造函数声明为私有，以防止外部直接实例化类。
+
+    ```cpp
+    class Singleton {
+    private:
+        Singleton() {}  // 私有构造函数
+    };
+    ```
+
+2. **静态成员变量：** 在类中声明一个静态私有指针，用于保存唯一的实例。
+
+    ```cpp
+    class Singleton {
+    private:
+        static Singleton* instance;  // 静态私有指针
+        Singleton() {}  // 私有构造函数
+    };
+    ```
+
+3. **静态方法：** 提供一个公共的静态方法，用于获取类的实例。在这个方法中，检查实例是否已经存在，如果不存在，则创建一个新实例并返回。
+
+    ```cpp
+    class Singleton {
+    private:
+        static Singleton* instance;  // 静态私有指针
+        Singleton() {}  // 私有构造函数
+
+    public:
+        static Singleton* getInstance() {
+            if (instance == nullptr) {
+                instance = new Singleton();
+            }
+            return instance;
+        }
+    };
+    ```
+
+4. **删除复制构造函数和赋值运算符：** 为了防止通过复制构造函数或赋值运算符创建新实例，将它们声明为私有并不实现。
+
+    ```cpp
+    class Singleton {
+    private:
+        static Singleton* instance;  // 静态私有指针
+        Singleton() {}  // 私有构造函数
+
+    public:
+        static Singleton* getInstance() {
+            if (instance == nullptr) {
+                instance = new Singleton();
+            }
+            return instance;
+        }
+
+    private:
+        Singleton(const Singleton&);  // 禁止复制构造函数
+        Singleton& operator=(const Singleton&);  // 禁止赋值运算符
+    };
+    ```
+
+### 线程安全性：
+
+上述实现在单线程环境下是有效的，但在多线程环境中可能会有问题。为了确保线程安全，可以使用加锁机制，例如互斥锁。
+
+```cpp
+#include <iostream>
+#include <mutex>
+
+class Singleton {
+private:
+    static Singleton* instance;  // 静态私有指针
+    static std::mutex mutex;     // 互斥锁
+    Singleton() {}               // 私有构造函数
+
+public:
+    static Singleton* getInstance() {
+        std::lock_guard<std::mutex> lock(mutex);  // 加锁
+        if (instance == nullptr) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+private:
+    Singleton(const Singleton&);             // 禁止复制构造函数
+    Singleton& operator=(const Singleton&);  // 禁止赋值运算符
+};
+
+// 初始化静态成员变量
+Singleton* Singleton::instance = nullptr;
+std::mutex Singleton::mutex;
+
+int main() {
+    // 获取单例实例
+    Singleton* singletonInstance1 = Singleton::getInstance();
+    Singleton* singletonInstance2 = Singleton::getInstance();
+
+    std::cout << "Address of instance 1: " << singletonInstance1 << std::endl;
+    std::cout << "Address of instance 2: " << singletonInstance2 << std::endl;
+
+    return 0;
+}
+```
+
+这个例子中，通过 `std::mutex` 实现了简单的互斥锁，确保在多线程环境中仍然能够正确地创建单例实例。
+
+### 运用依赖注入化解
+
++ 当某个对象使用单例的时候，隐藏的依赖就被注入对象中。而借助依赖注入技术，这个依赖可以变成接口的一部分，并且服务是从外界注入的。这样，客户代码和注入的服务之间就没有了依赖。
++ 依赖注入的典型方式是构造函数，设置函数(setter)成员或者模板参数
+
+### 构建良好的接口
+
++ 函数应该通过接口(而不是全局变量)进行沟通。
++ 接口应当遵循以下规则：
+  + 接口明确
+  + 接口精确并且具有强类型
+  + 保持较低的参数数目
+  + 避免相同类型却不相关的参数相邻
+
++ 术语"可调用"(callable)。可调用实体是在行为上像函数的东西。它可以是函数，也可以是函数对象，或者是lambda表达时。
++ 如果可调用实体接受一个参数，它就是一元可调用实体；如果它接受两个参数，则称为二元可调用实体
++ std::transform_reduce先将一元可调用实体应用到一个范围或者将二元可调用实体应用到两个范围，然后将二元可调用实体应用到前一步的结果的范围上。
+
+### 不要用单个指针来传递数组
+
++ 这条规则的出现是为了解决一些未定义行为
++ 补救的方法也简单，使用STL中的容器，例如std::vector，并在函数体中检查容器的大小
+
+### 为了库ABI的稳定，考虑使用PImpI惯用法
+
++ 应用程序二进制接口(ABI)是两个二进制程序模块间的接口
++ 借助PImpI惯用法，可以隔离类的用户和实现，从而避免重复编译。
++ PImpI是 pointer to implementation(指向实现的指针)的缩写，它指的是C++中的一种编程技巧：
+  + 将实现细节放在另一个类中，从而将其从类中移除。而这个包含实现的细节的类是通过一个指针来访问的。
+  + 这么做是因为私有数据成员会参与类的内存布局，而私有函数成员会参与重载决策。这些依赖意味着对成员实现细节的修改会导致所有类的用户都需要重新编译。
+  + 持有指向实现的指针(PImpI)的类可将用户隔离在类实现的变化之外，而代价则是多了一次间接。
+
++ C++ PImpI编程技巧  详解
+PImpl（Pointer to Implementation）是一种编程技巧，也称为“编译期实现”或“内部实现”，它的目的是将类的实现细节封装在一个单独的实现类中，从而减少头文件的依赖关系，提高代码的模块化性和可维护性。
+
+### PImpl模式的实现步骤：
+
+1. **声明外部接口：** 在类的头文件中声明类的公共接口，但将实际的成员变量和实现细节的声明放到一个内部类中。
+
+    ```cpp
+    // MyClass.h
+    class MyClass {
+    public:
+        MyClass();
+        ~MyClass();
+
+        void publicMethod1();
+        void publicMethod2();
+
+    private:
+        class Impl;  // 内部实现类的前向声明
+        Impl* pImpl;  // 内部实现类的指针
+    };
+    ```
+
+2. **定义实现类：** 在实现文件中定义内部实现类，并将实际的成员变量和函数实现放在这里。
+
+    ```cpp
+    // MyClass.cpp
+    #include "MyClass.h"
+
+    // 实现内部实现类
+    class MyClass::Impl {
+    public:
+        void privateMethod1() {
+            // 实现细节
+        }
+
+        void privateMethod2() {
+            // 实现细节
+        }
+
+        // 成员变量
+        int data;
+    };
+
+    // MyClass 构造函数
+    MyClass::MyClass() : pImpl(new Impl()) {}
+
+    // MyClass 析构函数
+    MyClass::~MyClass() {
+        delete pImpl;
+    }
+
+    // 公共方法的实现调用内部实现类的方法
+    void MyClass::publicMethod1() {
+        pImpl->privateMethod1();
+    }
+
+    void MyClass::publicMethod2() {
+        pImpl->privateMethod2();
+    }
+    ```
+
+### PImpl的优势：
+
+1. **降低编译依赖：** 将实现细节从头文件中移除，降低了头文件的依赖关系。这样，当实现发生变化时，只有实现文件需要重新编译，而不会影响到调用方。
+
+2. **隐藏实现细节：** 将实现细节放在内部实现类中，可以隐藏对类的具体实现的细节，只需要暴露公共接口给用户。
+
+3. **减小编译时间：** 当头文件发生变化时，只有依赖头文件的文件需要重新编译，而不会触发整个项目的重新编译。
+
+4. **改善二进制兼容性：** 通过将实现细节放在内部实现类中，可以减少对外部接口的更改，提高二进制兼容性。
+
+5. **模块化设计：** 可以更容易地设计模块化的系统，每个模块只关注自己的接口和实现细节。
+
+### 注意事项：
+
+1. **内存管理：** 要确保在类的析构函数中正确释放内部实现类的内存，以防止内存泄漏。
+
+2. **拷贝和赋值：** PImpl模式可能导致默认的拷贝构造函数和赋值运算符不再适用，需要自定义这些函数并确保正确处理内部实现类的拷贝和赋值。
+
+3. **性能开销：** PImpl模式引入了指针和额外的间接层，可能会带来一些微小的性能开销，但通常在维护性和可读性上的优势远远超过了这些开销。
+
+PImpl是一种强大的C++编程技巧，特别适用于大型项目和库的开发，有助于提高代码的模块化性和可维护性。
+
+### 本章精华
+
++ 不要使用全局变量，它们会引入隐藏的依赖
++ 单例就是变相的全局变量
++ 接口，尤其是函数，应该表达出意图
++ 接口应当是强类型的，而且应该只有几个不容易弄混的参数
++ 不要按指针接收C数组，而应该使用std::span
++ 如果你想要将类的使用和实现分开，请使用PImpI惯用法
+
+## 第四章 函数
+
++ 软件开发人员通过将复杂的任务划分为较小的单元来掌控复杂性。在处理完小单元后，他们把小单元放在一起来掌控复杂的任务。
++ 函数是一种典型的单元，也是程序的基本构件。
+
+### 函数定义
+
++ 好软件的最重要原则是好名字。
++ 将有意义的操作打包成精心命名的函数
++ 一个函数应该执行单一的逻辑操作
++ 使函数保持简短
+
++ 当你无法为函数找到一个有意义的名称时，这充分说明你的函数执行不止一项逻辑操作，而且你的函数并不简短
+
+### 如果函数有可能需要在编译期求值，就把它声明为 constexpr
+
++ constexpr函数是可能在编译期运行的函数。当你在常量表达式中调用constexpr函数时，或者当你要用一个constexpr变量来获取constexpr函数的结果时，它会在编译期运行。也可以用只能在运行其求值的参数来调用constexpr函。
++ constexpr函数是隐含內联的
++ 编译期求值的constexpr的结果通常会被系统标记为只读
++ 性能是constexpr函数的第一大好处；它的第二大好处是，编译期求值的constexpr函数是纯函数，因此constexpr函数是线程安全的
++ 最后，计算结果会在运行期作为只读存储区域中的常量来提供
+
+### 如果你的函数必定不抛异常，就把它声明为noexcept
+
++ 通过将函数声明为noexcept，你减少了备选控制路径的数量；因此，noexcept对优化器来说是一个有价值的提示
++ 即使你的函数可以抛出异常，noexcept往往也合理。noexcept在这种情况下意味着：我不在乎异常。其原因可能是：你无法对异常作出反应。在这种情况下，系统处理异常的唯一办法是调用std::terminate()
