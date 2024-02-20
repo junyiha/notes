@@ -2,6 +2,141 @@
 
 + asio模块常用的函数
 
+## boost::asio::dispatch() 函数 详解
+
+`boost::asio::dispatch()` 函数是 Boost.Asio 库中用于将操作投递到执行器（executor）的函数。执行器是一个抽象概念，代表了异步操作的执行上下文和调度策略。
+
+以下是对 `boost::asio::dispatch()` 函数的详细说明：
+
+1. **函数签名：**
+
+   ```cpp
+   template <typename Executor, typename Function>
+   void dispatch(Executor const& ex, Function&& func);
+   ```
+
+   这个函数接受一个执行器 `ex` 和一个可调用对象 `func`，并将 `func` 投递到 `ex` 所指定的执行上下文中。
+
+2. **参数解释：**
+
+   - `Executor const& ex`：执行器对象，表示异步操作将在其上下文中执行。
+   
+   - `Function&& func`：可调用对象，表示要执行的异步操作。
+
+3. **使用场景：**
+
+   - **确保操作在正确的上下文中执行：** `dispatch` 通常用于确保某个操作在特定的执行上下文中执行。这对于与异步 I/O 操作相关的场景非常有用，以确保操作在正确的线程或上下文中执行。
+
+   - **避免竞态条件：** 如果在多个执行上下文中可能同时访问某个共享资源，`dispatch` 可以用于确保某个操作在适当的上下文中执行，从而避免竞态条件。
+
+4. **示例：**
+
+   ```cpp
+   #include <boost/asio.hpp>
+   #include <iostream>
+
+   int main() {
+       boost::asio::io_context io_context;
+
+       // 获取默认的系统执行器
+       auto system_executor = boost::asio::system_executor();
+
+       // 使用 dispatch 将操作投递到系统执行器上下文
+       boost::asio::dispatch(system_executor, [&]() {
+           std::cout << "Async operation in the context of the system executor" << std::endl;
+       });
+
+       io_context.run();
+
+       return 0;
+   }
+   ```
+
+   在这个示例中，`dispatch` 函数用于将一个操作投递到系统执行器的上下文中，以确保操作在系统执行器的执行上下文中执行。
+
+总的来说，`boost::asio::dispatch()` 是一个用于投递异步操作到指定执行器上下文的工具函数，有助于确保操作在正确的执行上下文中执行。
+
+## boost::asio::ip::tcp::acceptor::async_accept() 函数 传递socket参数
+
+`boost::asio::ip::tcp::acceptor::async_accept()` 函数可以通过额外的参数传递一个 socket 对象，以在连接建立后使用。这通常是通过使用带有额外参数的版本的 `async_accept` 函数来完成的。
+
+以下是一个简单的示例，演示如何在 `async_accept` 中传递一个 socket 参数：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+void handle_accept(const boost::system::error_code& error, boost::asio::ip::tcp::socket socket) {
+    if (!error) {
+        // 处理连接成功的情况，可以使用传递的 socket 对象进行数据传输
+        std::cout << "Connection accepted!" << std::endl;
+
+        // 在这里可以使用 socket 对象进行数据传输或其他操作
+    } else {
+        // 处理连接失败的情况
+        std::cerr << "Error in async_accept: " << error.message() << std::endl;
+    }
+}
+
+int main() {
+    boost::asio::io_context io_context;
+    boost::asio::ip::tcp::acceptor acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 12345));
+
+    // 创建一个 socket 对象，用于传递给 async_accept
+    boost::asio::ip::tcp::socket socket(io_context);
+
+    // 异步接受连接，一旦有连接建立，调用 handle_accept 函数，并传递 socket 对象
+    acceptor.async_accept(socket, std::bind(handle_accept, std::placeholders::_1, std::move(socket)));
+
+    // 运行 io_context 以等待异步操作完成
+    io_context.run();
+
+    return 0;
+}
+```
+
+在这个例子中，`async_accept` 函数接受一个额外的参数 `socket`，并且通过 `std::bind` 将 `handle_accept` 函数与这个参数进行绑定。在 `handle_accept` 中，你可以使用传递的 `socket` 对象进行数据传输或其他操作。需要注意的是，这里使用了 `std::move(socket)` 来确保 `socket` 对象的所有权正确地转移到 `handle_accept` 函数中。
+
+## boost::asio::ip::tcp::acceptor::async_accept() 函数 详解
+
+`boost::asio::ip::tcp::acceptor::async_accept()` 函数是 Boost.Asio 库中用于异步接受传入连接的方法。这个函数是非阻塞的，它会启动一个异步操作来等待传入连接，一旦连接建立，将调用指定的回调函数。
+
+下面是一个简要的说明和示例：
+
+```cpp
+#include <boost/asio.hpp>
+#include <iostream>
+
+void handle_accept(const boost::system::error_code& error) {
+    if (!error) {
+        // 处理连接成功的情况
+        std::cout << "Connection accepted!" << std::endl;
+    } else {
+        // 处理连接失败的情况
+        std::cerr << "Error in async_accept: " << error.message() << std::endl;
+    }
+}
+
+int main() {
+    boost::asio::io_context io_context;
+    boost::asio::ip::tcp::acceptor acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 12345));
+
+    // 异步接受连接，一旦有连接建立，调用 handle_accept 函数
+    acceptor.async_accept(handle_accept);
+
+    // 运行 io_context 以等待异步操作完成
+    io_context.run();
+
+    return 0;
+}
+```
+
+在这个例子中，`async_accept()` 函数用于异步接受连接。一旦连接建立或者出现错误，指定的回调函数 `handle_accept` 将被调用。
+
+需要注意的是，`io_context.run()` 会一直运行，直到所有的异步操作完成。在实际应用中，你可能会有其他的异步操作，而不仅仅是接受连接，所以你可能需要设计一个更复杂的事件循环。
+
+此外，可以使用带有额外参数的 `async_accept`，以传递更多的信息给回调函数。例如，可以传递一个 socket 对象，以便在连接建立后能够立即处理数据传输。
+
 ## boost::asio::ip::tcp::acceptor::async_accept() 函数 详解
 
 `boost::asio::ip::tcp::acceptor::async_accept()` 函数是 Boost.Asio 库中用于异步接受传入连接的方法。它通常与 `boost::asio::ip::tcp::socket` 类结合使用，用于在服务端异步接受客户端的连接请求。以下是对 `async_accept` 函数的详细解释：

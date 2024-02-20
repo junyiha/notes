@@ -2,6 +2,257 @@
 
 + beast常用函数
 
+## boost::beast::async_write() 函数 详解
+
+在 Boost.Beast 库中，`boost::beast::async_write()` 函数是用于执行异步写入操作的函数。这个函数用于向底层的异步写入流（例如 TCP 流或 SSL 流）写入数据，并在操作完成时调用用户提供的回调函数。
+
+以下是 `boost::beast::async_write()` 函数的详细说明：
+
+1. **函数签名：**
+
+   ```cpp
+   template<class Stream, class ConstBufferSequence, class WriteHandler>
+   void async_write(Stream& stream, const ConstBufferSequence& buffers, WriteHandler&& handler);
+   ```
+
+   - `Stream`：表示底层异步写入流的类型，例如 `boost::asio::ip::tcp::socket` 或 `boost::asio::ssl::stream<boost::asio::ip::tcp::socket>`。
+
+   - `ConstBufferSequence`：表示要写入的数据的缓冲区序列，可以是单个缓冲区或缓冲区数组。
+
+   - `WriteHandler`：表示写入操作完成后要调用的回调函数类型。
+
+2. **参数解释：**
+
+   - `stream`：表示异步写入流，可以是 TCP 流或 SSL 流等。
+
+   - `buffers`：表示要写入的数据，可以是单个缓冲区或缓冲区序列。
+
+   - `handler`：是写入操作完成后将被调用的回调函数。回调函数的签名应为 `void(error_code, size_t)`，其中 `error_code` 表示异步操作的错误码，`size_t` 表示实际写入的字节数。
+
+3. **使用场景：**
+
+   - **异步写入数据：** `async_write` 用于在异步模式下写入数据到异步写入流中。
+
+   - **处理写入完成的回调：** 用户可以通过提供回调函数来处理写入操作完成后的事件。
+
+4. **示例：**
+
+   ```cpp
+   #include <boost/beast/core.hpp>
+   #include <boost/asio/ip/tcp.hpp>
+   #include <iostream>
+
+   namespace beast = boost::beast;
+   namespace asio = boost::asio;
+
+   int main() {
+       asio::io_context io_context;
+       asio::ip::tcp::socket socket(io_context);
+
+       // 一些数据准备
+       std::string data = "Hello, Boost.Beast!";
+       beast::error_code ec;
+
+       // 异步写入数据到流中
+       beast::async_write(socket, asio::buffer(data), [&](beast::error_code write_ec, std::size_t bytes_transferred) {
+           if (!write_ec) {
+               std::cout << "Async write successful. Bytes transferred: " << bytes_transferred << std::endl;
+           } else {
+               std::cerr << "Async write error: " << write_ec.message() << std::endl;
+           }
+       });
+
+       io_context.run();
+
+       return 0;
+   }
+   ```
+
+   在这个示例中，`async_write` 函数用于将数据异步写入到 TCP 流中。一旦写入操作完成，指定的回调函数将被调用。
+
+总的来说，`boost::beast::async_write()` 函数是 Boost.Beast 中用于执行异步写入操作的函数，适用于异步写入流的情况，如 TCP 流或 SSL 流。
+
+## boost::beast::http::async_read() 函数 详解
+
+`boost::beast::http::async_read()` 函数是 Boost.Beast 库中用于异步读取 HTTP 消息的函数。这个函数支持在异步操作中读取 HTTP 请求或响应。
+
+以下是对 `boost::beast::http::async_read()` 函数的详细说明：
+
+1. **函数签名：**
+
+   ```cpp
+   template <typename Stream, typename Body, typename Allocator, typename ReadHandler>
+   BOOST_BEAST_ASYNC_RESULT1(ReadHandler)
+   async_read(Stream& stream, message<isRequest, Body, Fields, Allocator>& msg, ReadHandler&& handler);
+   ```
+
+   这个函数接受一个 `Stream` 对象，一个表示消息的 `message` 对象，以及一个回调函数 `ReadHandler`。`message` 模板参数包括消息的类型（请求或响应）、消息体类型、消息头类型和消息体分配器类型。
+
+2. **参数解释：**
+
+   - `Stream& stream`：表示数据流的对象，通常是 `boost::beast::tcp_stream` 或 `boost::asio::ssl::stream`。
+
+   - `message<isRequest, Body, Fields, Allocator>& msg`：表示 HTTP 消息的对象，`isRequest` 表示消息类型，`Body` 表示消息体类型，`Fields` 表示消息头类型，`Allocator` 表示消息体的分配器类型。
+
+   - `ReadHandler&& handler`：表示异步操作完成后要调用的回调函数。回调函数签名应为 `void(boost::system::error_code, std::size_t)`。
+
+3. **使用场景：**
+
+   - **异步读取 HTTP 请求或响应：** `async_read` 通常用于异步读取 HTTP 请求或响应。可以使用它来从输入流中读取并解析 HTTP 消息。
+
+   - **与异步操作配合使用：** `async_read` 适用于与 Boost.Asio 库的异步操作一起使用，以确保在非阻塞的情况下执行 HTTP 读取操作。
+
+4. **示例：**
+
+   ```cpp
+   #include <boost/beast.hpp>
+   #include <boost/asio/io_context.hpp>
+   #include <iostream>
+
+   namespace beast = boost::beast;
+   namespace http = boost::beast::http;
+   namespace asio = boost::asio;
+
+   int main() {
+       asio::io_context io_context;
+       beast::tcp_stream stream(io_context);
+
+       // 构造 HTTP 请求消息
+       http::request<http::string_body> request;
+       request.method(http::verb::get);
+       request.target("/");
+       request.version(11);
+       request.set(http::field::host, "www.example.com");
+
+       // 异步读取 HTTP 请求消息
+       http::async_read(stream, buffer, request, [&](const beast::error_code& ec, std::size_t bytes_transferred) {
+           if (!ec) {
+               std::cout << "Bytes transferred: " << bytes_transferred << std::endl;
+               std::cout << "HTTP Request: " << request << std::endl;
+           } else {
+               std::cerr << "Error in async_read: " << ec.message() << std::endl;
+           }
+       });
+
+       io_context.run();
+
+       return 0;
+   }
+   ```
+
+   在这个示例中，`async_read` 用于从 `stream` 中异步读取 HTTP 请求，并在完成后调用指定的回调函数。
+
+总的来说，`boost::beast::http::async_read()` 函数是 Boost.Beast 库中用于异步读取 HTTP 消息的关键函数，适用于异步操作场景。
+
+## boost::beast::tcp_stream::expires_after() 函数 详解
+
+`boost::beast::tcp_stream::expires_after()` 函数是 Boost.Beast 库中的成员函数，用于设置 TCP 流的超时时间。这个函数是用于异步操作的，它指定了在指定的时间段之后，相关的异步操作应该被取消。
+
+以下是对 `expires_after()` 函数的详细说明：
+
+1. **函数签名：**
+
+   ```cpp
+   template<class Duration>
+   void expires_after(Duration d);
+   ```
+
+   这个函数接受一个表示时间段的 `Duration` 参数，并设置 TCP 流的超时时间。`Duration` 可以是 `std::chrono::duration` 类型，用于表示一段时间，例如 `std::chrono::seconds`。
+
+2. **参数解释：**
+
+   - `Duration d`：表示超时时间的时间段。
+
+3. **使用场景：**
+
+   - **设置异步操作的超时时间：** `expires_after` 通常用于设置异步操作的超时时间。一旦超过指定的时间段，相关的异步操作将被取消，以防止无限期地等待。
+
+   - **管理异步操作的生命周期：** 超时机制有助于管理异步操作的生命周期，避免因为某些原因导致操作一直挂起而不结束。
+
+4. **示例：**
+
+   ```cpp
+   #include <boost/beast/core.hpp>
+   #include <boost/asio/io_context.hpp>
+   #include <iostream>
+
+   int main() {
+       boost::asio::io_context io_context;
+       boost::beast::tcp_stream stream(io_context);
+
+       // 设置超时时间为5秒
+       stream.expires_after(std::chrono::seconds(5));
+
+       // 在指定的超时时间内进行异步操作
+       stream.async_connect({/* endpoint details */}, [&](boost::system::error_code ec) {
+           if (!ec) {
+               std::cout << "Connection established within the timeout period" << std::endl;
+           } else if (ec == boost::asio::error::operation_aborted) {
+               std::cout << "Operation aborted due to timeout" << std::endl;
+           } else {
+               std::cerr << "Error in async_connect: " << ec.message() << std::endl;
+           }
+       });
+
+       io_context.run();
+
+       return 0;
+   }
+   ```
+
+   在这个示例中，`expires_after` 用于设置超时时间为5秒，然后通过 `async_connect` 进行异步连接。如果在超时时间内成功建立连接，或者超时时间到达时连接还未建立，相关的回调函数将被调用。
+
+总的来说，`boost::beast::tcp_stream::expires_after()` 用于设置 TCP 流的超时时间，是管理异步操作超时的一种方式。
+
+## boost::beast::tcp_stream::get_executor() 函数 详解
+
+`boost::beast::tcp_stream::get_executor()` 函数是用于获取与 `tcp_stream` 关联的执行器（executor）的成员函数。在 Boost.Beast 中，执行器是与异步操作相关的上下文和策略的抽象。
+
+以下是对 `get_executor()` 函数的详细说明：
+
+1. **函数签名：**
+
+   ```cpp
+   auto get_executor() -> executor_type;
+   ```
+
+   这个函数返回 `executor_type`，是一个与 `tcp_stream` 关联的执行器类型。`executor_type` 是一个满足 `Executor` 概念的类型，它负责协调和调度与 `tcp_stream` 相关的异步操作。
+
+2. **使用场景：**
+
+   - **与其他异步操作一起使用：** 获取执行器后，可以将其传递给其他异步操作，以确保它们在相同的上下文中执行。
+
+   - **管理异步操作的生命周期：** 使用执行器可以更容易地管理异步操作的生命周期，以及确保它们在适当的上下文中执行。
+
+3. **示例：**
+
+   ```cpp
+   #include <boost/beast/core.hpp>
+   #include <boost/asio/io_context.hpp>
+   #include <iostream>
+
+   int main() {
+       boost::asio::io_context io_context;
+       boost::beast::tcp_stream stream(io_context);
+
+       // 获取与 tcp_stream 关联的执行器
+       auto executor = stream.get_executor();
+
+       // 在执行器的上下文中进行异步操作
+       boost::asio::post(executor, [&]() {
+           std::cout << "Async operation in the context of the executor" << std::endl;
+       });
+
+       io_context.run();
+
+       return 0;
+   }
+   ```
+
+   在这个示例中，`get_executor()` 用于获取与 `tcp_stream` 关联的执行器，并使用 `post` 函数在执行器的上下文中执行异步操作。
+
+总的来说，`get_executor()` 函数是一个有用的工具，可以帮助管理异步操作的执行上下文，并确保它们在正确的地方执行。
+
 ## boost::beast::bind_front_handler()
 
 在 Boost.Beast 库中，`boost::beast::bind_front_handler()` 函数用于绑定参数并创建一个绑定了特定处理程序的函数对象。这个函数通常用于为异步操作提供参数，以及在回调函数中调用其他函数。
