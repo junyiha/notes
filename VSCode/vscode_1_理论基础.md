@@ -1,5 +1,46 @@
 # VSCode 基础
 
+## vscode c_cpp_properties.json excludePath参数 详解
+
+在Visual Studio Code中，`c_cpp_properties.json`文件是用于配置C/C++扩展的解析设置的文件。在该文件中，`excludePath`参数用于指定应该在解析期间排除的目录。以下是对`excludePath`参数的详细解释：
+
+```json
+{
+  "configurations": [
+    {
+      "name": "My Configuration",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64",
+      "excludePath": [
+        "${workspaceFolder}/path/to/excluded_directory",
+        "${workspaceFolder}/another/excluded_directory/**/*.cpp"
+      ]
+    }
+  ],
+  "version": 4
+}
+```
+
+1. **`${workspaceFolder}`**: 这是一个变量，表示当前工作区的根目录。`${workspaceFolder}/**`表示将包括工作区中的所有文件和子目录。
+
+2. **`excludePath`数组**: 用于指定要在解析期间排除的目录。可以指定一个或多个目录，并使用相对于`${workspaceFolder}`的路径。在上面的示例中，两个目录都被排除了。
+
+   - `${workspaceFolder}/path/to/excluded_directory`: 表示要排除的第一个目录。
+   - `${workspaceFolder}/another/excluded_directory/**/*.cpp`: 使用通配符`**`表示所有子目录和其中的所有`.cpp`文件都应该被排除。
+
+3. **注意事项**:
+   - 在配置`excludePath`时，确保使用正确的相对路径，并确保路径是以`${workspaceFolder}`为基础的。
+   - 你可以使用通配符`**`来匹配任意目录或文件。在示例中，`/**/*.cpp`表示匹配任意子目录下的所有`.cpp`文件。
+   - 更改完成后，需要重启Visual Studio Code以使更改生效。
+
+通过使用`excludePath`参数，你可以控制C/C++扩展在解析代码时忽略特定的目录，这对于排除不需要进行代码分析的目录非常有用。
+
 ## 解决cpptools high cpu问题
 
 + 在VScode菜单栏文件->首选项->设置 搜索C_Cpp.intelliSenseCacheSize,修改默认的5120为512
