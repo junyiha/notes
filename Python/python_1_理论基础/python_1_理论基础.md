@@ -2,6 +2,20 @@
 
 + Python编程语言的理论基础
 
+## python3 pip -U参数是什么意思
+
+在 `pip` 命令中，`-U` 参数用于升级已经安装的包到最新版本。具体来说，`-U` 参数表示 "upgrade"，它告诉 `pip` 将指定的包升级到最新可用版本。
+
+例如：
+
+```bash
+pip install -U package_name
+```
+
+这将会升级 `package_name` 到最新版本。如果 `package_name` 没有被安装，它将被安装；如果已经安装，将会被升级到最新版本。
+
+使用 `-U` 参数是为了确保你使用的是包的最新版本，而不是旧版本。这在确保你使用的软件包具有最新特性、修复了已知问题或者提供了性能改进等方面是很有用的。
+
 ## python3 str object is not callable
 
 如果你在Python中遇到 "str object is not callable" 错误，通常是因为你意外地使用了内置函数的名称作为变量名。在Python中，避免使用内置函数名作为变量名是一个良好的实践。
