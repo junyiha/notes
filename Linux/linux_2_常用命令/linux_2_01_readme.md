@@ -240,3 +240,6 @@
 
 + alias
   + linux_2_82_alia
+
++ update-alternatives
+  + linux_2_83_update-alternatives
