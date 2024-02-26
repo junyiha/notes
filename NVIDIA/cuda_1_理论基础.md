@@ -1,3 +1,239 @@
+## 简介
+
++ cuda相关的理论基础
+
+## C++ cuda库是什么
+
+在C++中，"CUDA库"通常指的是NVIDIA提供的CUDA（Compute Unified Device Architecture）工具包，它是用于并行计算的一组工具和API。CUDA库使得开发人员能够在NVIDIA GPU上进行通用目的的并行计算。
+
+CUDA库包括以下主要组件：
+
+1. **CUDA Runtime库：** 提供了一系列C语言风格的API，允许在CUDA设备（GPU）上执行并行计算。开发人员使用这些API来管理设备内存、启动GPU内核函数等。
+
+2. **CUDA Driver库：** 提供了与硬件交互的低级别接口，允许对GPU进行更直接的控制。一般情况下，开发人员更常用CUDA Runtime库，而不是直接使用Driver库。
+
+3. **cuBLAS：** 针对线性代数运算的CUDA库，提供了一组高性能的基本线性代数子程序（BLAS）。
+
+4. **cuFFT：** 针对快速傅里叶变换（FFT）的CUDA库，用于高性能的FFT计算。
+
+5. **cuDNN：** 深度神经网络库，提供了一组高性能的深度学习基本操作和算法，用于在GPU上进行深度学习推理和训练。
+
+6. **NVRTC（NVIDIA Runtime Compiler）：** 允许在运行时将CUDA C源代码编译为GPU代码的库。
+
+在使用CUDA库进行开发时，通常需要安装NVIDIA的GPU驱动、CUDA工具包以及适当版本的cuBLAS、cuFFT等库。开发人员可以使用CUDA C/C++编写GPU内核函数，并通过调用CUDA库中的API来执行并行计算任务。
+
+以下是一个简单的示例，展示了在C++中使用CUDA Runtime库执行向量加法的基本步骤：
+
+```cpp
+#include <iostream>
+
+// CUDA kernel函数，执行向量加法
+__global__ void vectorAddition(float* a, float* b, float* result, int size) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < size) {
+        result[idx] = a[idx] + b[idx];
+    }
+}
+
+int main() {
+    const int size = 1024;
+    const int blockSize = 256;
+
+    // 分配主机内存
+    float* hostA = new float[size];
+    float* hostB = new float[size];
+    float* hostResult = new float[size];
+
+    // 初始化输入数据
+    for (int i = 0; i < size; ++i) {
+        hostA[i] = i;
+        hostB[i] = 2 * i;
+    }
+
+    // 分配设备内存
+    float* deviceA, *deviceB, *deviceResult;
+    cudaMalloc(&deviceA, size * sizeof(float));
+    cudaMalloc(&deviceB, size * sizeof(float));
+    cudaMalloc(&deviceResult, size * sizeof(float));
+
+    // 将输入数据从主机复制到设备
+    cudaMemcpy(deviceA, hostA, size * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(deviceB, hostB, size * sizeof(float), cudaMemcpyHostToDevice);
+
+    // 启动CUDA kernel
+    vectorAddition<<<(size + blockSize - 1) / blockSize, blockSize>>>(deviceA, deviceB, deviceResult, size);
+
+    // 将结果从设备复制到主机
+    cudaMemcpy(hostResult, deviceResult, size * sizeof(float), cudaMemcpyDeviceToHost);
+
+    // 打印结果
+    for (int i = 0; i < 10; ++i) {
+        std::cout << hostResult[i] << " ";
+    }
+
+    // 释放内存
+    delete[] hostA;
+    delete[] hostB;
+    delete[] hostResult;
+    cudaFree(deviceA);
+    cudaFree(deviceB);
+    cudaFree(deviceResult);
+
+    return 0;
+}
+```
+
+上述示例使用CUDA Runtime库执行向量加法，其中CUDA kernel函数在GPU上并行执行。请注意，CUDA开发涉及到更多的细节和概念，这里只是一个简单的入门示例。
+
+## C++ cuda库 详解
+
+CUDA（Compute Unified Device Architecture）是由NVIDIA提供的用于通用目的的并行计算框架。它允许开发人员使用C++或CUDA C等编程语言在NVIDIA GPU上执行并行计算任务。以下是关于CUDA库的一些详细信息：
+
+### 主要组件：
+
+1. **CUDA Runtime库：** 提供了一系列C语言风格的API，用于在CUDA设备上执行并行计算。这包括设备管理、内存分配和释放、CUDA核函数的启动等功能。开发人员通常使用这些API进行CUDA编程。
+
+2. **CUDA Driver库：** 提供了更低级别的接口，允许直接与硬件进行交互。一般情况下，开发人员更多地使用CUDA Runtime库，而不是直接使用Driver库。
+
+3. **cuBLAS（CUDA Basic Linear Algebra Subroutines）：** 面向线性代数操作的库，提供高性能的基本线性代数子程序（BLAS）。
+
+4. **cuFFT（CUDA Fast Fourier Transform）：** 针对快速傅立叶变换（FFT）的库，用于高性能的FFT计算。
+
+5. **cuRAND：** 提供随机数生成功能的库，包括伪随机数生成器、分布等。
+
+6. **cuSPARSE：** 面向稀疏矩阵操作的库，提供高性能的稀疏矩阵运算。
+
+7. **NVRTC（NVIDIA Runtime Compiler）：** 允许在运行时将CUDA C源代码编译为GPU代码的库。这对于动态生成GPU核函数是有用的。
+
+### CUDA编程模型：
+
+CUDA编程模型涉及在主机（CPU）和设备（GPU）之间进行数据传输，以及在GPU上并行执行核函数。以下是CUDA编程的一般步骤：
+
+1. **分配设备内存：** 使用`cudaMalloc`等CUDA Runtime函数在GPU上分配内存。
+
+2. **将数据从主机复制到设备：** 使用`cudaMemcpy`将数据从主机复制到GPU。
+
+3. **定义并启动CUDA核函数：** 使用`__global__`修饰符定义CUDA核函数，并使用`<<<...>>>`语法启动并行执行。
+
+4. **将数据从设备复制回主机：** 使用`cudaMemcpy`将计算结果从GPU复制回主机。
+
+5. **释放设备内存：** 使用`cudaFree`等函数释放在GPU上分配的内存。
+
+### 示例代码：
+
+以下是一个简单的示例代码，展示了在CUDA中执行向量加法的基本步骤：
+
+```cpp
+#include <iostream>
+
+__global__ void vectorAddition(float* a, float* b, float* result, int size) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < size) {
+        result[idx] = a[idx] + b[idx];
+    }
+}
+
+int main() {
+    const int size = 1024;
+    const int blockSize = 256;
+
+    float* hostA = new float[size];
+    float* hostB = new float[size];
+    float* hostResult = new float[size];
+
+    // 初始化输入数据...
+
+    float* deviceA, *deviceB, *deviceResult;
+    cudaMalloc(&deviceA, size * sizeof(float));
+    cudaMalloc(&deviceB, size * sizeof(float));
+    cudaMalloc(&deviceResult, size * sizeof(float));
+
+    cudaMemcpy(deviceA, hostA, size * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(deviceB, hostB, size * sizeof(float), cudaMemcpyHostToDevice);
+
+    vectorAddition<<<(size + blockSize - 1) / blockSize, blockSize>>>(deviceA, deviceB, deviceResult, size);
+
+    cudaMemcpy(hostResult, deviceResult, size * sizeof(float), cudaMemcpyDeviceToHost);
+
+    // 处理结果...
+
+    delete[] hostA;
+    delete[] hostB;
+    delete[] hostResult;
+    cudaFree(deviceA);
+    cudaFree(deviceB);
+    cudaFree(deviceResult);
+
+    return 0;
+}
+```
+
+上述示例演示了在GPU上使用CUDA执行向量加法的步骤。这只是一个简单的入门示例，实际情况中可能涉及更复杂的计算任务和数据管理。确保参考CUDA文档和示例以获取更多详细信息。
+
+## C++ cuda库 编译和链接
+
+编译和链接使用CUDA库的C++代码通常需要遵循以下步骤。以下示例假设你已经安装了NVIDIA的GPU驱动、CUDA工具包和相应版本的cuBLAS、cuFFT等库。
+
+### 编写CUDA C++代码
+
+首先，编写包含CUDA核函数的C++源代码。在CUDA C++代码中，通常使用`__global__`修饰符定义在GPU上执行的核函数。
+
+```cpp
+// vectorAdd.cu
+#include <iostream>
+
+__global__ void vectorAddition(float* a, float* b, float* result, int size) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < size) {
+        result[idx] = a[idx] + b[idx];
+    }
+}
+
+int main() {
+    const int size = 1024;
+    const int blockSize = 256;
+
+    // ... 与上述示例相同的主机代码 ...
+
+    // 在主机上调用 CUDA 核函数
+    vectorAddition<<<(size + blockSize - 1) / blockSize, blockSize>>>(deviceA, deviceB, deviceResult, size);
+
+    // ... 处理结果及释放内存 ...
+}
+```
+
+### 编译CUDA C++代码
+
+使用`nvcc`命令来编译CUDA C++代码。`nvcc`是NVIDIA CUDA Compiler的命令行工具。
+
+```bash
+nvcc -o your_executable vectorAdd.cu
+```
+
+此命令将源文件`vectorAdd.cu`编译为可执行文件`your_executable`。`nvcc`会负责将CUDA核函数编译为GPU二进制代码，并链接CUDA运行时库。
+
+### 编译和链接其他C++文件
+
+如果你的项目包含其他C++源文件，你可以使用常规的C++编译器（例如`g++`）来编译和链接这些文件。确保将CUDA头文件和库的路径包含到编译过程中，并链接相应的CUDA库。
+
+```bash
+g++ -o your_executable your_main.cpp -I/path/to/cuda/include -L/path/to/cuda/lib -lcudart -lcublas -lculibos -lcufft
+```
+
+在上述命令中，`/path/to/cuda/include`和`/path/to/cuda/lib`需要替换为你系统中实际的CUDA头文件和库文件的路径。
+
+### 运行可执行文件
+
+最后，运行生成的可执行文件。
+
+```bash
+./your_executable
+```
+
+请注意，确保CUDA库和头文件的路径正确设置，并且使用了正确的编译选项。在实际项目中，可能需要更详细的配置和管理依赖项。
+
+## 课程笔记
+
 + 超标量，Superschalar
 
 + 指令调度，Scheduling
