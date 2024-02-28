@@ -2,6 +2,50 @@
 
 + logging模块笔记
 
+## python3 logging模块 输出到文件并且输出到终端
+
+在Python中，使用`logging`模块可以方便地进行日志记录。要将日志同时输出到文件和终端，你可以配置两个不同的`Handler`，一个用于文件输出，另一个用于控制台输出。以下是一个示例：
+
+```python
+import logging
+
+# 创建Logger对象
+logger = logging.getLogger('my_logger')
+logger.setLevel(logging.DEBUG)
+
+# 创建文件处理器，并设置日志级别为DEBUG
+file_handler = logging.FileHandler('my_log_file.log')
+file_handler.setLevel(logging.DEBUG)
+
+# 创建控制台处理器，并设置日志级别为DEBUG
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+
+# 创建日志格式器
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+
+# 将格式器添加到处理器
+file_handler.setFormatter(formatter)
+console_handler.setFormatter(formatter)
+
+# 将处理器添加到Logger对象
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
+
+# 记录一些日志信息
+logger.debug('This is a debug message')
+logger.info('This is an info message')
+logger.warning('This is a warning message')
+logger.error('This is an error message')
+logger.critical('This is a critical message')
+```
+
+在上面的示例中，首先创建了一个`Logger`对象，然后创建了一个文件处理器(`FileHandler`)和一个控制台处理器(`StreamHandler`)。每个处理器都设置了日志级别，并将日志格式器添加到处理器中。最后，将处理器添加到`Logger`对象中。
+
+在记录日志时，`logger.debug()`, `logger.info()`, `logger.warning()`, `logger.error()`, 和 `logger.critical()` 分别对应不同的日志级别。这些消息将根据其级别分别被发送到文件和终端。
+
+请根据实际需求修改文件名、日志级别、日志格式等参数。
+
 ## python3 logging模块 详解
 
 Python的`logging`模块是一个用于记录日志信息的标准库工具，它提供了强大的日志记录功能，允许你在应用程序中添加日志记录，以便于调试、监视和故障排除。以下是Python 3中`logging`模块的详解：

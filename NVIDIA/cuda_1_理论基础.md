@@ -2,6 +2,28 @@
 
 + cuda相关的理论基础
 
+## cuda cudnn tensorrt 之间存在什么关系
+
+CUDA（Compute Unified Device Architecture）、cuDNN（CUDA Deep Neural Network）、和TensorRT（TensorRT）都是与GPU计算和深度学习相关的 NVIDIA 技术。
+
+1. **CUDA（Compute Unified Device Architecture）**:
+   - CUDA 是 NVIDIA 提供的并行计算平台和编程模型，允许开发者使用通用编程语言（如C/C++和Fortran）来编写支持GPU加速的程序。
+   - CUDA 提供了 GPU 计算的基础设施，包括 GPU 内核函数、内存管理、线程调度等。
+
+2. **cuDNN（CUDA Deep Neural Network）**:
+   - cuDNN 是 NVIDIA 提供的深度学习库，专门用于 GPU 加速的深度神经网络训练和推理。
+   - 它优化了深度学习算法的实现，提供了高性能的 GPU 实现，包括卷积、池化、归一化等操作，以加速深度学习模型的训练和推理过程。
+
+3. **TensorRT（Tensor Runtime）**:
+   - TensorRT 是 NVIDIA 提供的用于高性能深度学习推理的库。它通过对模型进行优化和精简，以减少推理时的延迟和提高推理性能。
+   - TensorRT 可以与 cuDNN 结合使用，对深度学习模型进行加速，同时还支持 INT8 等低精度推理。
+
+关系：
+- CUDA 提供了底层的 GPU 计算基础架构，cuDNN 利用 CUDA 提供的加速功能实现深度学习操作的高性能实现。
+- TensorRT 则建立在 CUDA 和 cuDNN 的基础上，专注于优化深度学习模型的推理过程，通过减少模型的计算负载和内存占用来提高推理性能。 TensorRT 还可以与 cuDNN 配合使用，以进一步优化深度学习模型的推理。
+  
+总体而言，CUDA 提供了底层的 GPU 编程能力，cuDNN 是在 CUDA 上构建的深度学习库，而 TensorRT 是专注于优化深度学习推理的高性能库。
+
 ## C++ cuda库是什么
 
 在C++中，"CUDA库"通常指的是NVIDIA提供的CUDA（Compute Unified Device Architecture）工具包，它是用于并行计算的一组工具和API。CUDA库使得开发人员能够在NVIDIA GPU上进行通用目的的并行计算。
