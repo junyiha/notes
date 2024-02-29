@@ -79,3 +79,41 @@ zoom_matrix = tf_zooms.zooms_from_params(*zoom_params)
 ```
 
 这些模块提供了在3D空间中进行不同类型的变换的工具函数。你可以根据需要选择合适的表示方式，并使用相应的函数进行转换。库的文档提供了更详细的信息和示例，可以帮助你更好地了解如何使用这些功能。
+
+## python3 输出旋转轴和旋转角 得到旋转矩阵
+
+在Python中，你可以通过旋转轴和旋转角度来构造旋转矩阵。以下是一个例子，演示了如何通过旋转轴和旋转角度得到旋转矩阵：
+
+```python
+import numpy as np
+from scipy.spatial.transform import Rotation
+
+# 旋转轴（单位向量）
+rotation_axis = np.array([1, 0, 0])  # 例如，绕X轴旋转
+
+# 旋转角度（弧度）
+rotation_angle = np.radians(90)  # 例如，旋转90度
+
+# 构造Rotation对象
+rotation = Rotation.from_rotvec(rotation_angle * rotation_axis)
+
+# 获取旋转矩阵
+rotation_matrix = rotation.as_matrix()
+
+print("旋转轴:")
+print(rotation_axis)
+
+print("\n旋转角度:")
+print(np.degrees(rotation_angle))
+
+print("\n得到的旋转矩阵:")
+print(rotation_matrix)
+```
+
+在这个例子中，`rotation_axis` 是旋转轴的单位向量，`rotation_angle` 是旋转的角度（以弧度为单位）。通过这两者构造一个 `Rotation` 对象，然后使用 `as_matrix()` 方法获取对应的旋转矩阵。确保你的环境中安装了SciPy库：
+
+```bash
+pip install scipy
+```
+
+以上代码输出的结果分别是旋转轴、旋转角度和得到的旋转矩阵。

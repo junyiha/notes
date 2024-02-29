@@ -3,6 +3,44 @@
 + Eigen 第三方库基础知识
 + Eigen，仅包含头文件即可
 
+## eigen3 Eigen::MatrixBase<Eigen::Vector3d>::normalized()函数 详解
+
+`Eigen::MatrixBase<Eigen::Vector3d>::normalized()` 函数用于返回一个单位向量，即输入向量的归一化版本。这个函数返回一个新的向量，该向量具有与原始向量相同的方向，但长度为1。
+
+下面是一些关键的详解：
+
+```cpp
+Eigen::MatrixBase<Eigen::Vector3d>::normalized()
+```
+
+- **返回类型：** 返回类型是 `Eigen::MatrixBase<Derived>`，其中 `Derived` 表示输入矩阵或向量的派生类类型。
+  
+- **用途：** `normalized()` 函数用于将向量归一化，即将其缩放为单位长度。
+
+- **注意事项：**
+  - 如果输入向量的长度为零，则 `normalized()` 会产生一个未定义的结果。
+  - 对于零向量，`normalized()` 返回与原始向量相同的零向量。
+  - `normalized()` 函数不会修改原始向量，而是返回一个新的归一化向量。
+
+- **示例：**
+  ```cpp
+  #include <iostream>
+  #include <Eigen/Dense>
+
+  int main() {
+      Eigen::Vector3d v(1.0, 2.0, 3.0);
+      Eigen::Vector3d normalized_v = v.normalized();
+
+      std::cout << "Original Vector: " << v << std::endl;
+      std::cout << "Normalized Vector: " << normalized_v << std::endl;
+
+      return 0;
+  }
+  ```
+  这个示例中，`normalized_v` 将包含 `v` 的单位向量。
+
+总的来说，`normalized()` 函数在Eigen库中是用于向量归一化的方便方法。归一化是在计算机图形学、机器学习和其他领域中经常使用的操作，它确保向量的长度为1，并保持原始向量的方向。
+
 ## Eigen::Isometry3d 类 详解
 
 `Eigen::Isometry3d` 是Eigen库中的一个类，用于表示三维空间中的等距变换（Isometry Transformation），也称为刚体变换（Rigid Transformation）。等距变换包括平移和旋转，通常用于表示物体在三维空间中的姿态和位置。
