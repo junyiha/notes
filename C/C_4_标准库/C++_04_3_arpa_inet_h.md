@@ -1,0 +1,70 @@
+## 简介
+
++ arpa/inet.h头文件
+
+## arpa/inet.h 头文件是什么
+
+`arpa/inet.h` 是一个C语言中的头文件，它提供了一些函数原型和宏定义，用于处理网络地址和协议转换。在网络编程中，这个头文件通常用于IPv4和IPv6地址的转换、网络字节序和主机字节序之间的转换等操作。
+
+一些常见的函数和宏定义包括：
+
+1. **`htonl`、`htons`、`ntohl`、`ntohs`：** 用于在主机字节序和网络字节序之间进行32位和16位整数的转换。
+
+2. **`inet_addr`、`inet_aton`、`inet_ntoa`：** 用于IPv4地址的转换。
+
+3. **`inet_pton`、`inet_ntop`：** 用于IPv4和IPv6地址的转换。
+
+4. **`INADDR_ANY`、`INADDR_BROADCAST`：** 定义了IPv4中的特殊地址。
+
+5. **`sockaddr_in` 结构体：** 用于表示IPv4地址和端口的结构体。
+
+这些函数和定义帮助程序员在网络编程中方便地进行地址和数据格式的转换，以确保正确的数据传输和通信。
+
+### inet_addr()
+
++ 简述：将互联网主机地址从数字和点符号在CP转换成二进制数据在网络字节顺序
++ 声明：`in_addr_t inet_addr (const char *cp);`
++ 参数：
++ 返回值：
+
+### inet_lnaof()
+
++ 简述：在`in`返回Internet地址的本地主机地址部分。
++ 声明：`in_addr_t inet_lnaof(struct in_addr in);`
++ 参数：
++ 返回值：
+
+### inet_makeaddr()
+
++ 简述：将网络编号NET与本机地址主机相结合，使Internet主机地址按网络字节序排列
++ 声明：`struct in_addr inet_makeaddr (in_addr_t net, in_addr_t host);`
++ 参数：
++ 返回值：
+
+### inet_netof()
+
++ 简述：返回网络号码部分的互联网地址
++ 声明：`in_addr_t inet_netof (struct in_addr in);`
++ 参数：
++ 返回值：
+
+### inet_network()
+
++ 简述：从CP开始的数字加点格式的地址中提取网络字节顺序的网络号
++ 声明：`in_addr_t inet_network (const char *cp);`
++ 参数：
++ 返回值：
+
+### inet_ntoa()
+
++ 简述：将`in`中的因特网数字转换为`ASCII`表示。返回值是一个指向包含该字符串的内部数组的指针
++ 声明：`char *inet_ntoa (struct in_addr in);`
++ 参数：
++ 返回值：
+
+### inet_pton()
+
++ 简述：从CP开始的缓冲区中Internet数字的表示格式转换为二进制网络格式，并将接口类型AF的结果存储在从BUF开始的缓冲区中
++ 声明：`int inet_pton (int af, const char *cp, void *buf);`
++ 参数：
++ 返回值：

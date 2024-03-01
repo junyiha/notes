@@ -537,3 +537,191 @@ if (close_status < 0) {
 在上述示例中，`close()` 函数被用于关闭之前通过 `socket()` 函数创建的套接字描述符 `sockfd`。如果关闭成功，`close()` 函数返回 0，如果关闭失败，它会返回 -1，并可以通过 `perror()` 函数输出错误信息。
 
 在网络编程中，及时关闭不再使用的套接字是很重要的，这可以防止资源泄漏和不必要的资源占用。
+
+## sys/socket.h
+
++ 套接字常量、类型和函数的声明。
+
+### socket()
+
++ 简述：创建一个`type`类型，`domain`协议簇，`protocol`通信协议的socket，并返回一个文件描述符
++ 声明：`int socket(int domain, int type, int protocol);`
++ 参数：
+  + `domain`  --  选择所用的协议族
+    + `AF_INET`，代表IPv4
+    + `AF_INET6`，代表IPv6
+  + `type`    --  
+    + `SOCK_STREAM`, 表示有序，可靠，双工，面向连接的字节流，通常由TCP实现
+    + `SOCK_DGRAM`,  通过定长的，不可靠消息提供无连接通信，通常由UDP实现
+  + `protocol` -- 指定特定的通信type使用的协议。
+    + 在大多数实现中，每个type参数只能使用一种协议。
+    + `SOCK_STREAM`,使用`IPPROTO_TCP`
+    + `SOCK_DGRAM`, 使用`IPPROTO_UDP`
+    + 如果参数为0，则默认设置为1
++ 返回值：
+  + 成功  --  返回文件描述符
+  + 失败  --  
+
+### socketpair()
+
++ 简述：创建两个`type`类型，`domain`协议簇，`protocol`通信协议的，互相连接的socket，将文件描述符放在`fds[0]`和`fds[1]`
++ 声明：`int socketpair(int domain, int type, int protocol, int fds[2]);`
++ 参数：
+  + `domain`  --  选择所用的协议族
+    + `AF_INET`，代表IPv4
+    + `AF_INET6`，代表IPv6
+  + `type`    --  
+    + `SOCK_STREAM`, 表示有序，可靠，双工，面向连接的字节流，通常由TCP实现
+    + `SOCK_DGRAM`,  通过定长的，不可靠消息提供无连接通信，通常由UDP实现
+  + `protocol` -- 指定特定的通信type使用的协议。
+    + 在大多数实现中，每个type参数只能使用一种协议。
+    + `SOCK_STREAM`,使用`IPPROTO_TCP`
+    + `SOCK_DGRAM`, 使用`IPPROTO_UDP`
+    + 如果参数为0，则默认设置为1
+  + `fds[2]`  --  存放两个文件描述符的数组  --  Input/Output
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1
+
+### bind()
+
++ 简述：将套接字通信端点的句柄(`socket FD`)与一个特定的逻辑网络连接关联起来
++ 声明：`int bind(int fd, const struct sockaddr *address, socklen_t address_len);`
++ 参数：
+  + `fd`       --  通信端点的文件描述符
+  + `address`  --  关联的地址
+  + `len`      --  地址字节长度(the local address which is LEN bytes long)
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1，并设置errno
+
+### getsockname()
+
++ 简述：通过本地文件描述符的地址和长度(单位:byte)，获取socket名字
++ 声明：`int getsockname(int fd, const struct sockaddr *address, socklent *len);`
++ 参数：
+  + `fd`  --  文件描述符
+  + `address`  --  地址
+  + `len`      --  长度
++ 返回值：
+  + 成功  -- 
+  + 失败  --  
+
+### connect()
+
++ 简述：创建一个socket文件描述符和地址的连接
++ 声明：`int connect(int fd, const struct sockaddr *addr, socklent_t len);`
++ 参数：
+  + `fd`  --  文件描述符
+  + `addr` --  要连接的地址
+  + `len`  --  地址的长度(单位：字节)
++ 返回值：  
+  + 成功  --  返回0
+  + 失败  --  返回-1
+
+### send()
+
++ 简述：发送N字节的BUF到socket FD。返回发送的数字或-1。
++ 声明：`ssize_t send (int fd, const void *buf, size_t n, int flags);`
++ 参数：
++ 返回值：
+
+### recv()
+
++ 简述：从socket FD中读取N个字节，并输入到BUF中
++ 声明：`ssize_t recv(int fd, void *buf, size_t n, int flags);`
++ 参数：
+  + `fd`  --  文件描述符
+  + `buf` --  要存放的缓冲区
+  + `n`   --  读取的数据大小
+  + `flags` --  
++ 返回值：
+  + 成功  --  返回读取的字节数
+  + 失败  --  返回-1
+
+### sendto()
+
++ 简述：在socket FD上向地址ADDR(长度为ADDR_LEN)发送N个字节的BUF
++ 声明：
+  + `ssize_t sendto(int fd, const void *buf, size_t n, int flags, const struct *addr, socklen_t addr_len);`
++ 参数：
++ 返回值：
+  + 成功  --  返回发送的字节数
+  + 失败  --  返回-1
+
+### recvfrom()
+
++ 简述：通过socket FD读取N个字节到BUF
++ 声明：`ssize_t recvfrom(int fd, void *buf, size_t n, int flags, const struct *addr, socklen_t addr_len);`
++ 参数：
++ 返回值：
+  + 成功  --  返回读取的字节数
+  + 失败  --  返回-1
++ 注意：
+  + 如果ADDR不为空，将其`*ADDR_LEN`字节填充为发送方的地址，并将地址的实际大小存储在`*ADDR_LEN`中。返回读取的字节数或-1错误
+
+### sendmsg()
+
++ 简述：在socket FD上发送一个由MESSAGE描述的信息
++ 声明：`ssize_t sendmsg(int fd, const struct msghdr *message, int flags);`
++ 参数：
++ 返回值：
+  + 成功  --  返回发送的字节数
+  + 失败  --  返回-1
+
+### recvmsg()
+
++ 简述：从socket FD接收一个由MESSAGE描述的信息
++ 声明：`ssize_t recvmsg(int fd, struct msghdr *message, int flags);`
++ 参数：
++ 返回值：
+  + 成功  --  返回接收到的字节数
+  + 失败  --  返回-1
+
+### getsockopt()
+
++ 简述：将套接字`FD`的选项`OPTNAME`在协议级别`level`上的当前值放入`OPTVAL` (`*OPTLEN`字节长)，并将`*OPTLEN`设置为该值的实际长度
++ 声明：`int getsockopt(int fd, int level, int optname, void *optval, socklen_t *optlen);`
++ 返回值：
+  + 成功  --  返回接收到的字节数
+  + 失败  --  返回-1
+
+### setsockopt()
+
++ 简述：设置套接字`FD`的选项`OPTNAME`在协议级别`level`为`*OPTVAL` (`OPTLEN`字节长)
++ 声明：`int setsockopt(int fd, int level, int optname, const void *optval, socklen_t optlen);`
++ 返回值：
+  + 成功  --  返回接收到的字节数
+  + 失败  --  返回-1
+
+### listen()
+
++ 简述：准备接受套接字FD上的连接。在进一步的请求被拒绝之前，将有N个连接请求排队
++ 声明：`int listen(int fd, int n);`
++ 返回值：
+  + 成功  --  返回接收到的字节数
+  + 失败  --  返回-1
+
+### accept()
+
++ 简述：在套接字FD上等待连接.
+  + 当连接到达时，打开一个新的套接字与之通信，将`*ADDR (*ADDR_LEN字节长)`设置为连接对等体的地址，将`*ADDR_LEN`设置为地址的实际长度，
+  + 并返回新套接字的描述符，错误则返回-1
++ 声明：`int accept(int fd, const struct sockaddr *addr, socklen_t *addr_len);`
++ 返回值：
+  + 成功  --  新套接字的描述符
+  + 失败  --  返回-1
+
+### shutdown()
+
++ 简述：关闭套接字FD上打开的全部或部分连接
++ 声明：`int shutdown(int fd, int how);`
++ 参数：
+  + `fd`  --  套接字文件描述符
+  + `how`  --
+    + `SHUT_RD`  --  不再接收连接
+    + `SHUT_WR`  --  不再传输数据
+    + `SHUT_RDWR`  --  不再传输数据和接收连接
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1

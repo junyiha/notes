@@ -331,3 +331,71 @@ int main() {
 - 当有事件发生时，将会填充 `events` 数组，程序可以遍历数组处理发生的事件。
 
 `epoll_wait()` 是使用 epoll 实现高效 I/O 多路复用的重要部分，它允许程序等待多个文件描述符上的事件发生，并有效地处理这些事件。
+
+## sys/epoll.h
+
+### epoll_create()
+
++ 简述：创建一个关联`size`个文件的epoll实例
++ 声明：`int epoll_create(int size);`
++ 参数：
+  + `size`  --  关联文件的个数
++ 返回值：
+  + 成功  --  返回一个文件描述符`fd`
+  + 失败  --  
+
+### epoll_create1()
+
++ 简述：创建一个标记为`flag`的epoll实例
++ 声明：`int epoll_create1(int flags);`
++ 参数：
+  + `flag`  --  
++ 返回值：
+  + 成功  --  返回一个文件描述符
+  + 失败  --  
++ 注意：
+  + 与epoll_create()一样，只不过size参数弃用了
+
+### epoll_ctl()
+
++ 简述：修改一个`epfd` epoll实例
++ 声明：`int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);`
++ 参数：
+  + `epfd`  --  要操作的epoll实例
+  + `op`    --  要执行的行为
+    + `/* Valid opcodes ( "op" parameter ) to issue to epoll_ctl().  */`
+    + `#define EPOLL_CTL_ADD 1	/* Add a file descriptor to the interface.  */`
+    + `#define EPOLL_CTL_DEL 2	/* Remove a file descriptor from the interface.  */`
+    + `#define EPOLL_CTL_MOD 3	/* Change file descriptor epoll_event structure.  */`
+  + `fd`    --  操作的目标
+  + `event` --  用户数据和触发该调用的事件
++ 返回值：
+  + 成功  --  返回0
+  + 失败  --  返回-1，并设置errno
+
+### epoll_wait()
+
++ 简述：在一个epoll实例`opfd`中等待某一事件发生
++ 声明：`int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);`
++ 参数：
+  + `epfd`  --  要操作的epoll实例
+  + `events` -- 指向存放触发事件的缓冲区的结构体指针
+  + `maxevents`  --  返回事件的最大数量
+  + `timeout`  --  超时时间
++ 返回值：
+  + 成功  --  返回触发事件在缓冲区`events`中的数字
+  + 失败  --  返回-1，并设置errno
+
+### epoll_pwait()
+
++ 简述：和`epoll_wait()`相似，增加了信号掩码，临时且原子
++ 声明：`int epoll_pwait(int epfd, struct epoll_event *events, int maxevents, int timeout, const sigset_t *ss);`
++ 参数：
+  + `epfd`  --  要操作的epoll实例
+  + `events` -- 指向存放触发事件的缓冲区的结构体指针
+  + `maxevents`  --  返回事件的最大数量
+  + `timeout`  --  超时时间
+  + `ss`   --  信号集指针
++ 返回值：
+  + 成功  --  返回触发事件在缓冲区`events`中的数字
+  + 失败  --  返回-1，并设置errno
