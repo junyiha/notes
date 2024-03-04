@@ -2,6 +2,106 @@
 
 + cmake 常用函数
 
+## cmake message()函数 详解
+
+在CMake中，`message()` 函数用于在构建过程中输出消息。这对于调试CMake脚本或者提供一些提示信息非常有用。`message()`函数的基本语法如下：
+
+```cmake
+message([<mode>] "message string" ...)
+```
+
+其中：
+- `<mode>` 是可选的，用于指定消息的模式，包括 `STATUS`、`WARNING`、`AUTHOR_WARNING`、`SEND_ERROR` 和 `FATAL_ERROR` 等。如果省略 `<mode>`，则默认是 `STATUS` 模式。
+- `"message string"` 是要输出的消息字符串。
+
+以下是一些使用`message()`函数的示例：
+
+```cmake
+# 输出一般消息
+message("This is a general message")
+
+# 输出带有 STATUS 模式的消息
+message(STATUS "This is a status message")
+
+# 输出带有 WARNING 模式的消息
+message(WARNING "This is a warning message")
+
+# 输出带有 AUTHOR_WARNING 模式的消息
+message(AUTHOR_WARNING "This is an author warning message")
+
+# 输出带有 SEND_ERROR 模式的消息
+message(SEND_ERROR "This is a send error message")
+
+# 输出带有 FATAL_ERROR 模式的消息
+message(FATAL_ERROR "This is a fatal error message")
+```
+
+在输出消息时，`message()`函数会根据指定的模式在终端上显示不同的颜色和标识。例如，`STATUS`模式通常是蓝色的，而`WARNING`模式是黄色的。`SEND_ERROR`和`FATAL_ERROR`模式将导致构建过程中的错误，`FATAL_ERROR`还会停止构建过程。
+
+`message()`函数对于在构建过程中提供有用的信息以及与开发者和用户进行交互非常有用。
+
+## cmake target_link_include() 详解
+
+在CMake中，`target_link_libraries()` 和 `target_include_directories()` 是两个常用的命令，它们用于配置构建目标（通常是可执行文件或库）的依赖关系和包含目录。以下是对这两个命令的详解：
+
+### 1. `target_link_libraries()`
+
+`target_link_libraries()` 命令用于指定一个目标（可执行文件、库等）所依赖的库。它的基本语法如下：
+
+```cmake
+target_link_libraries(target-name
+                      library1
+                      library2
+                      ...
+                      libraryN)
+```
+
+- `target-name` 是你要链接的目标的名称。
+- `library1`, `library2`, ..., `libraryN` 是要链接到目标的库的名称。
+
+示例：
+
+```cmake
+add_executable(my_app main.cpp)
+target_link_libraries(my_app
+                      my_lib1
+                      my_lib2
+                      )
+```
+
+在上面的例子中，`my_app` 可执行文件依赖于 `my_lib1` 和 `my_lib2` 库。
+
+### 2. `target_include_directories()`
+
+`target_include_directories()` 命令用于为目标指定包含目录。它的基本语法如下：
+
+```cmake
+target_include_directories(target-name
+                           PRIVATE|PUBLIC|INTERFACE
+                           directory1
+                           directory2
+                           ...
+                           directoryN)
+```
+
+- `target-name` 是你要配置的目标的名称。
+- `PRIVATE`, `PUBLIC`, 或 `INTERFACE` 用于指定目录的使用范围。
+- `directory1`, `directory2`, ..., `directoryN` 是要包含的目录路径。
+
+示例：
+
+```cmake
+add_library(my_lib my_source.cpp)
+target_include_directories(my_lib
+                           PUBLIC
+                           ${CMAKE_CURRENT_SOURCE_DIR}/include
+                           )
+```
+
+在上面的例子中，`my_lib` 库将公开包含目录 `${CMAKE_CURRENT_SOURCE_DIR}/include`，这意味着在使用该库的目标中，这个目录将被添加到编译器的包含路径中。
+
+总体而言，`target_link_libraries()` 用于指定目标依赖的库，而 `target_include_directories()` 用于指定目标的包含目录。这两个命令允许你在 CMake 中有效地管理项目的依赖关系和包含路径。
+
 ## cmake find_package() 函数 详解
 
 `find_package()` 函数是 CMake 中用于查找和引入外部软件包（例如库）的关键函数。它被用于在 CMake 项目中引入依赖项，让 CMake 知道如何定位并使用外部库或工具。
