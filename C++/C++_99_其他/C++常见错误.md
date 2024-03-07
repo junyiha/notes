@@ -2,6 +2,57 @@
 
 + C/C++程序编译或者运行常见错误
 
+## C++ as ‘this’ argument discards qualifiers [-fpermissive] 错误
+
+这个错误通常是由于在常量成员函数中试图修改成员变量引起的。C++ 中的常量成员函数是指在函数声明和定义中使用 `const` 修饰的成员函数，表示该函数不会修改调用对象的成员变量。
+
+错误信息 "‘this’ argument discards qualifiers" 意味着你在常量成员函数中试图修改 `this` 指针所指向的对象。这是不允许的，因为常量成员函数被设计为不修改对象的状态。
+
+以下是一个简单的例子，展示了可能导致这个错误的情况：
+
+```cpp
+#include <iostream>
+
+class MyClass {
+public:
+    int data;
+
+    // 常量成员函数，试图修改成员变量
+    void modifyData() const {
+        // 错误：试图在常量成员函数中修改成员变量
+        // data = 42;
+        std::cout << "Data: " << data << std::endl;
+    }
+};
+
+int main() {
+    const MyClass obj;
+    obj.modifyData();  // 调用常量成员函数
+
+    return 0;
+}
+```
+
+在上述示例中，`modifyData` 是一个常量成员函数，但它试图修改 `data` 成员变量，这将导致上述错误。
+
+要解决这个问题，你应该确保在常量成员函数中不修改成员变量。如果你需要在常量对象上调用一个能够修改成员变量的函数，该函数应该被声明为非常量成员函数。如果你确实需要在常量对象上进行某些修改，你可能需要使用 `mutable` 关键字来声明一个可变的成员变量。
+
+示例：
+
+```cpp
+class MyClass {
+public:
+    mutable int data; // 使用 mutable 关键字声明可变成员变量
+
+    void modifyData() const {
+        data = 42; // 合法：在常量成员函数中修改可变成员变量
+        std::cout << "Data: " << data << std::endl;
+    }
+};
+```
+
+请根据你的需求选择适当的解决方案。
+
 ## C++ 编译错误 error: prototype for 
 
 看起来你遇到了一个编译错误，错误信息中包含了 "error: prototype for"。这通常是因为函数的声明和定义之间存在不一致，导致编译器无法匹配它们。
