@@ -2,6 +2,55 @@
 
 + cmake 常用函数
 
+## cmake target_link_directories() 函数 详解
+
+在 CMake 中，`target_link_directories()` 函数用于为一个目标（target）指定要搜索链接库的目录。这允许你为特定目标指定链接库的搜索路径，而不是全局设置。
+
+### 函数原型：
+
+```cmake
+target_link_directories(target
+    [BEFORE]
+    directory1 [directory2 ...]
+)
+```
+
+- `target`：要指定链接库搜索路径的目标名称。
+  
+- `directory1 [directory2 ...]`：一个或多个链接库搜索路径。
+
+- `BEFORE`：可选参数，用于指定搜索路径的添加位置。如果使用 `BEFORE`，则新的搜索路径将插入到当前搜索路径列表的最前面；否则，它们将添加到列表的末尾。
+
+### 使用示例：
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(MyProject)
+
+# 添加可执行文件
+add_executable(my_executable main.cpp)
+
+# 指定链接库搜索路径
+target_link_directories(my_executable PRIVATE
+    /path/to/library/directory
+    /another/path/to/library
+)
+```
+
+在这个示例中，`target_link_directories()` 函数为目标 `my_executable` 指定了两个链接库搜索路径。这意味着在构建 `my_executable` 时，CMake 将会在这两个目录中查找链接库。
+
+需要注意的是，推荐使用 `target_link_directories()` 函数是因为它允许你为每个目标指定不同的链接库搜索路径。如果你只想全局指定链接库搜索路径，可以使用 `link_directories()` 函数。
+
+```cmake
+# 全局指定链接库搜索路径
+link_directories(
+    /path/to/library/directory
+    /another/path/to/library
+)
+```
+
+虽然 `link_directories()` 也可以用于指定链接库搜索路径，但在现代 CMake 中，更推荐使用 `target_link_directories()` 以提供更好的目标特定性。
+
 ## cmake message()函数 详解
 
 在CMake中，`message()` 函数用于在构建过程中输出消息。这对于调试CMake脚本或者提供一些提示信息非常有用。`message()`函数的基本语法如下：
