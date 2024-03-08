@@ -607,3 +607,104 @@ int main() {
 ```
 
 在这个示例中，`std::memory_order_seq_cst` 被用作 `load()`、`store()` 方法的参数，确保在读取 `shared_data` 和设置 `ready` 的值时使用了顺序一致性的内存顺序，以确保线程间的同步。
+
+## C++ std::atomic::compare_exchange_strong() 函数 详解
+
+`std::atomic::compare_exchange_strong()` 是 C++ 标准库中 `std::atomic` 类提供的一个成员函数，用于原子比较和交换操作。它允许在多线程环境中安全地执行原子操作，确保在没有其他线程干扰的情况下执行比较和交换。
+
+以下是该函数的详细解释：
+
+### 函数签名：
+
+```cpp
+bool compare_exchange_strong(T& expected, T desired, memory_order order = memory_order_seq_cst) noexcept;
+```
+
+### 参数：
+
+- `expected`：传入一个引用，表示当前的期望值。如果当前的值等于期望值，比较和交换操作将成功，并将 `desired` 的值写入 `std::atomic` 对象；否则，`expected` 保持不变。
+  
+- `desired`：传入一个新值，如果当前的值等于 `expected`，则用 `desired` 替换当前值。
+
+- `order`：传入一个可选参数，表示内存顺序（memory order）的类型，默认是 `memory_order_seq_cst`。内存顺序用于控制不同线程之间的操作顺序，可以选择不同的内存顺序来权衡性能和一致性。
+
+### 返回值：
+
+- 如果比较和交换成功（当前值等于期望值），则返回 `true`，并将 `desired` 的值写入 `std::atomic` 对象。
+  
+- 如果比较和交换失败（当前值不等于期望值），则返回 `false`，并将 `expected` 的值更新为当前的实际值。
+
+### 使用示例：
+
+```cpp
+#include <iostream>
+#include <atomic>
+#include <thread>
+
+std::atomic<int> data(0);
+
+int main() {
+    int expected = 0;
+    int desired = 1;
+
+    if (data.compare_exchange_strong(expected, desired)) {
+        std::cout << "Exchange successful. New value: " << data.load() << std::endl;
+    } else {
+        std::cout << "Exchange failed. Current value: " << data.load() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个例子中，如果 `data` 的当前值等于 `expected`（初始值为0），则将 `desired`（值为1）写入 `data`，并输出成功的消息。否则，输出失败的消息。
+
+请注意，`compare_exchange_strong()` 函数是一个原子操作，因此可以在多线程环境中安全使用，确保在没有竞态条件的情况下执行比较和交换。
+
+## C++ std::atomic::compare_exchange_strong() 函数对enum class类型怎么处理
+
+`std::atomic::compare_exchange_strong()` 函数对于 `enum class` 类型的处理与其他类型类似。这个函数用于原子地比较并交换值，确保在多线程环境中执行这个操作是安全的。
+
+以下是 `compare_exchange_strong()` 函数的一般形式：
+
+```cpp
+bool compare_exchange_strong(T& expected, T desired, memory_order order = memory_order_seq_cst) noexcept;
+```
+
+其中，`T` 是 `std::atomic` 包装的类型。对于 `enum class` 类型，你可以使用该函数进行原子比较和交换。
+
+假设你有一个 `enum class` 类型如下：
+
+```cpp
+enum class MyEnum { Value1, Value2, Value3 };
+```
+
+你可以使用 `std::atomic` 包装这个类型，并使用 `compare_exchange_strong()` 函数进行原子比较和交换：
+
+```cpp
+#include <iostream>
+#include <atomic>
+
+int main() {
+    std::atomic<MyEnum> atomicEnum(MyEnum::Value1);
+
+    MyEnum expected = MyEnum::Value1;
+    MyEnum desired = MyEnum::Value2;
+
+    bool success = atomicEnum.compare_exchange_strong(expected, desired);
+
+    if (success) {
+        std::cout << "Exchange successful. New value: " << static_cast<int>(desired) << std::endl;
+    } else {
+        std::cout << "Exchange failed. Current value: " << static_cast<int>(atomicEnum.load()) << std::endl;
+    }
+
+    return 0;
+}
+```
+
+在这个例子中，`compare_exchange_strong()` 函数将 `atomicEnum` 的当前值与 `expected` 进行比较。如果它们相等，将 `desired` 值写入 `atomicEnum` 中，并返回 `true` 表示交换成功。否则，返回 `false` 表示交换失败，并将 `expected` 更新为当前的实际值。
+
+需要注意的是，由于 `enum class` 类型的底层类型是整数，所以在打印时需要使用 `static_cast<int>` 进行强制转换。
+
+总体来说，`compare_exchange_strong()` 函数对 `enum class` 类型的处理方式与其他类型相似，提供了一种在多线程环境中执行原子比较和交换的安全手段。
