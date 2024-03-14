@@ -2,6 +2,38 @@
 
 + C/C++程序编译或者运行常见错误
 
+## C++ to ‘const std::mutex’ discards qualifiers 错误
+
+这个错误通常是因为你在尝试将一个非 const 的 `std::mutex` 对象赋值给一个 `const std::mutex` 对象，或者你在一个 const 成员函数中尝试对一个非 const 的 `std::mutex` 对象进行操作。这违反了 C++ 的 const-correctness 原则，即 const 对象只能调用 const 成员函数，并且不能被修改。
+
+以下是一个示例，展示了可能导致这个错误的代码：
+
+```cpp
+#include <iostream>
+#include <mutex>
+
+class MyClass {
+public:
+    void doSomething() const {
+        // 错误！const 成员函数中尝试对非 const 的 mutex 进行操作
+        mutex.lock();
+        std::cout << "Doing something..." << std::endl;
+        mutex.unlock();
+    }
+
+private:
+    mutable std::mutex mutex; // 使用 mutable 关键字标记 mutex 可以在 const 成员函数中修改
+};
+
+int main() {
+    const MyClass obj;
+    obj.doSomething();
+    return 0;
+}
+```
+
+要解决这个问题，你需要确保在 const 成员函数中只能对 `std::mutex` 对象调用 `const` 成员函数，或者使用 `mutable` 关键字标记 `std::mutex`，以便在 const 成员函数中修改它。
+
 ## C++ as ‘this’ argument discards qualifiers [-fpermissive] 错误
 
 这个错误通常是由于在常量成员函数中试图修改成员变量引起的。C++ 中的常量成员函数是指在函数声明和定义中使用 `const` 修饰的成员函数，表示该函数不会修改调用对象的成员变量。
