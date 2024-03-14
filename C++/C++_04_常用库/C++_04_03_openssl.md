@@ -1,0 +1,75 @@
+## 简介
+
++ openssl库
+
+## C++ OpenSSL库 详解
+
+OpenSSL 是一个功能强大且广泛使用的开源密码库，提供了许多加密算法和安全通信协议的实现，包括 SSL/TLS。在 C++ 中使用 OpenSSL 库可以实现安全通信、加密解密等功能。下面是一个简要的 C++ OpenSSL 库的详解：
+
+1. **加密和解密**：OpenSSL 提供了许多常见的加密算法，如对称加密算法（如 AES、DES）、非对称加密算法（如 RSA、DSA）以及哈希函数（如 MD5、SHA）。你可以使用这些算法来加密和解密数据，保护数据的安全性。
+
+2. **SSL/TLS 客户端和服务器**：OpenSSL 支持 SSL/TLS 协议，你可以使用 OpenSSL 库创建安全的客户端和服务器应用程序。通过 SSL/TLS，你可以确保通信的机密性和完整性，防止中间人攻击等安全威胁。
+
+3. **数字证书操作**：OpenSSL 提供了对数字证书的生成、签名、验证等操作。数字证书在 SSL/TLS 通信中起着重要的作用，用于身份验证和密钥交换。
+
+4. **SSL/TLS 握手过程**：SSL/TLS 握手是建立安全连接的过程，涉及到密钥协商、身份验证等步骤。OpenSSL 库提供了对 SSL/TLS 握手过程的支持，你可以使用 OpenSSL 创建安全的网络通信应用程序。
+
+5. **密码学工具**：OpenSSL 还提供了许多密码学工具和实用程序，用于生成随机数、计算哈希值、生成公钥私钥对等操作。
+
+6. **支持多种操作系统和平台**：OpenSSL 是一个跨平台的库，可以在多种操作系统上运行，包括 Linux、Windows、macOS 等。
+
+7. **开源和社区支持**：OpenSSL 是一个开源项目，拥有活跃的社区支持和贡献者，可以从社区获取帮助、文档和示例代码。
+
+在 C++ 中使用 OpenSSL 库通常涉及到一些复杂的概念和操作，如密钥管理、证书操作、SSL 握手过程等。因此，熟悉 OpenSSL 库的使用方法和安全最佳实践对于开发安全的网络应用程序至关重要。在使用 OpenSSL 库时，务必注意安全问题，避免常见的安全漏洞和攻击。
+
+## cmake 引用"openssl"库
+
+要在 CMake 中引用 OpenSSL 库，你可以遵循以下步骤：
+
+1. **查找 OpenSSL 库**: 首先，确保已经在系统中安装了 OpenSSL 库。你需要知道 OpenSSL 库的安装路径。通常情况下，它可能安装在标准位置，但也可能在非标准位置。可以使用以下命令来查找 OpenSSL 库的位置：
+   
+   ```
+   find_package(OpenSSL REQUIRED)
+   ```
+
+2. **添加头文件路径**: 在 CMakeLists.txt 文件中，使用 `include_directories` 命令将 OpenSSL 头文件路径添加到项目中。示例代码如下：
+
+   ```
+   include_directories(${OPENSSL_INCLUDE_DIR})
+   ```
+
+3. **链接 OpenSSL 库**: 使用 `target_link_libraries` 命令将 OpenSSL 库链接到你的目标可执行文件或库中。示例代码如下：
+
+   ```
+   target_link_libraries(your_target_name ${OPENSSL_LIBRARIES})
+   ```
+
+4. **完整示例**: 下面是一个完整的示例 CMakeLists.txt 文件，演示如何引用 OpenSSL 库：
+
+   ```cmake
+   cmake_minimum_required(VERSION 3.0)
+   project(your_project_name)
+
+   # 查找 OpenSSL 库
+   find_package(OpenSSL REQUIRED)
+
+   # 添加 OpenSSL 头文件路径
+   include_directories(${OPENSSL_INCLUDE_DIR})
+
+   # 添加你的可执行文件或库
+   add_executable(your_executable_or_library_name your_source_files.cpp)
+
+   # 链接 OpenSSL 库
+   target_link_libraries(your_executable_or_library_name ${OPENSSL_LIBRARIES})
+   ```
+
+确保将 `your_project_name`、`your_executable_or_library_name` 和 `your_source_files.cpp` 替换为实际的项目名称、目标名称和源文件路径。
+
+这样配置后，CMake 将会正确地链接 OpenSSL 库到你的项目中，使你能够在项目中使用 OpenSSL 提供的功能和 API。
+
+## libcrypto.so
+
++ libcrypto.so 是 OpenSSL 库中的一个动态链接库文件。OpenSSL 是一个开源的加密和安全套接字库，提供了密码学功能和安全通信协议的实现。
++ libcrypto.so 库包含了 OpenSSL 提供的各种加密算法、密码学函数和安全协议的实现。它提供了对对称加密算法（如 AES、DES）、哈希函数（如 SHA、MD5）、公钥加密算法（如 RSA、DSA）、数字签名和证书操作等功能的支持。
++ 通过链接 libcrypto.so，开发人员可以在他们的应用程序中使用 OpenSSL 提供的加密和安全功能。这对于需要进行加密通信、数字签名、证书验证和其他密码学操作的应用程序、网络服务器、安全工具等非常有用。
++ 需要注意的是，libcrypto.so 是 OpenSSL 库的一部分，它是一个开源项目，在多个操作系统和平台上可用。在不同的系统中，libcrypto.so 的具体名称和路径可能会有所不同，但提供的加密和安全功能基本相似。
