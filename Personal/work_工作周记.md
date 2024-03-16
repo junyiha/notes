@@ -1624,8 +1624,72 @@
   + vcr
     + 管理模块  -- master
       + 相机模块 [ok]
-      + 工具模块
-      + 任务模块
+      + 工具模块 [ok]
+      + 任务模块 [ok]
+        + 任务执行模块待完成
   + rk
-    + 3月22日之前 完成常州建科院的协议对接 阶段为 开发阶段和调试阶段
-    + 加班时间 每天 19 - 21, 10h : 800rmb
+    + 需求
+      + 3月22日之前 完成常州建科院的协议对接 阶段为 开发阶段和调试阶段
+      + 加班时间 每天 19 - 21, 10h : 800rmb
+    + 开发阶段
+      + 搞清楚要上报的协议
+        + 指挥工地openApi第11条 新增ai抓拍预警记录
+        + addr: https://test.ticdata.cn/zhgd-gateway/
+        + url: /smart-mon/openApi/addAiData
+        + 请求示例:
+```json
+{
+    "AiDatoDto": {
+        "deviceNo": "设备编号",
+        "?warnType": "1 未戴安全帽，2 未穿反光衣，3 区域入侵，4 烟雾明火识别， 5 人员超载",
+        "warnType": 1,
+        "warnAt": "抓拍预警时间",
+        "warnPic": "抓拍图片url"
+    }
+}
+```
+        + 响应示例:
+```json
+{
+    "msg": "string",
+    "code": "string",
+    "data": {},
+    "success": true
+}
+```
+
++ rk
+  + 上报流程
+    + 将图片文件上传到公司云平台，拿到公网的图片地址
+      + 云平台域名: https://www.norzoro.cn/
+      + 图片上传地址: media/ai_rk1126/{device_id}/year-month-day/hour-minute/file-name
+        + 示例: media/ai_rk1126/8d514bd3-3cfc-a44f-355a-a91e597ed1f3/2024-03-15/17-36/1-1694745178257.jpg
+      + 完整地址: https://www.norzoro.cn/media/ai_rk1126/8d514bd3-3cfc-a44f-355a-a91e597ed1f3/2024-03-15/17-36/1-1694745178257.jpg
+      + 使用httplib库
+        + 解决token申请的问题 [ok]
+        + 解决form表单同时提交图片和字符串的问题(Content-Type: multipart/form-data) [ing]
+    + 组合上报信息
+
++ 03.16
+  + rk
+      + 使用httplib库
+        + 解决token申请的问题 [ok]
+        + 解决form表单同时提交图片和字符串的问题(Content-Type: multipart/form-data) [ok]
+      + 工程化测试代码
+        + 图片保存路径的拼接 [ok]
+          + 年月日，时分转字符串 [ok]
+        + token申请功能封装 [ok]
+      + 问题：
+        + token申请成功，推送事件返回token无效 [ing]
+      + 升级管理平台数据库表 [ing]
+        + 增加字段表示上报平台的协议
+          + 南京傲途
+          + 常州建安
+
++ 本周工作
+  + 任务模块的开发：除了任务执行命令正在开发，其他命令都已完成
+  + 管理模块的开发：完成了与任务模块，相机模块，工具模块，机械臂模块的对接和调试
++ 下周计划
+  + 完成管理模块和推理模块的对接和调试
+  + 完成管理模块和后端的对接和调试
+  + 完成任务模块的任务执行命令

@@ -517,3 +517,38 @@ int main() {
 ```
 
 在示例中，`std::chrono::duration` 用于表示不同的时间间隔，并可以通过 `count()` 函数获取持续时间的值。同时，`std::chrono::duration` 还支持不同时间间隔之间的算术操作，比如加法、减法等。
+
+## C++ <chrono> 格式化输出年月日-时分秒
+
+要格式化输出年月日-时分秒，你可以使用`std::put_time`函数。这个函数允许你将`std::tm`结构体转换为一个字符串，以指定的格式输出。下面是一个示例代码：
+
+```cpp
+#include <iostream>
+#include <iomanip>
+#include <chrono>
+
+int main() {
+    // 获取当前时间点
+    auto now = std::chrono::system_clock::now();
+
+    // 将时间点转换为时间结构体
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm* now_tm = std::localtime(&now_c);
+
+    // 格式化输出年月日-时分秒
+    std::cout << "当前时间：" << std::put_time(now_tm, "%Y-%m-%d %H:%M:%S") << std::endl;
+
+    return 0;
+}
+```
+
+这段代码使用`std::put_time`将`now_tm`结构体以指定格式输出，即"%Y-%m-%d %H:%M:%S"，其中：
+
+- `%Y`表示年份（四位数）
+- `%m`表示月份（两位数）
+- `%d`表示日期（两位数）
+- `%H`表示小时（24小时制，两位数）
+- `%M`表示分钟（两位数）
+- `%S`表示秒（两位数）
+
+运行这段代码将输出当前的年月日-时分秒。

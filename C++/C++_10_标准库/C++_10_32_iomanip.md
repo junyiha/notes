@@ -830,3 +830,37 @@ int main() {
 在这个示例中，`std::put_time()` 被用于格式化输出 `std::tm` 结构中的时间信息。指定的格式字符串 `"%Y-%m-%d %H:%M:%S"` 代表了年月日时分秒的格式。这样的调用将会把时间信息格式化为字符串，并输出到标准输出流中。
 
 需要注意的是，`std::put_time()` 在 C++11 中引入，用于便捷地格式化时间信息并输出为字符串。
+
+## C++ <chrono> std::put_time() 函数返回值存储到字符串
+
+你可以使用`std::put_time()`函数结合`std::stringstream`将格式化后的时间存储到字符串中。下面是一个示例：
+
+```cpp
+#include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+
+int main() {
+    // 获取当前时间点
+    auto now = std::chrono::system_clock::now();
+
+    // 将时间点转换为时间结构体
+    std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm* now_tm = std::localtime(&now_c);
+
+    // 使用 std::put_time 格式化时间
+    std::stringstream ss;
+    ss << std::put_time(now_tm, "%Y-%m-%d %H:%M:%S");
+
+    // 将格式化后的时间存储到字符串中
+    std::string formatted_time = ss.str();
+
+    // 输出格式化后的时间字符串
+    std::cout << "Formatted Time: " << formatted_time << std::endl;
+
+    return 0;
+}
+```
+
+这段代码中，`std::put_time()`函数用于将时间结构体格式化为指定格式的字符串。然后，使用`std::stringstream`来存储这个格式化后的字符串，最后将其转换为`std::string`类型。
