@@ -555,3 +555,46 @@ int main() {
 ```
 
 在这个示例中，`std::this_thread::yield()` 被用来提示线程调度器让出 CPU 时间片。主线程和任务线程分别交替执行，每次循环调用 `yield()` 后，当前线程会主动让出 CPU 时间片，给其他线程执行的机会。注意，`yield()` 函数只是一个提示，调度器是否立即采纳取决于操作系统的具体实现。
+
+## C++ std::thread::hardware_concurrency() 函数
+
+`std::thread::hardware_concurrency()` 是 C++ 标准库中的一个函数，用于获取当前系统支持的并发线程数量。这个函数返回一个整数，表示当前系统可用的并发线程数量，通常对应于硬件支持的线程数或处理器核心数。
+
+以下是对 `std::thread::hardware_concurrency()` 函数的详细解释：
+
+1. **功能**：
+   - 获取当前系统支持的并发线程数量。
+
+2. **语法**：
+   ```cpp
+   unsigned int std::thread::hardware_concurrency() noexcept;
+   ```
+
+3. **参数**：
+   - 无参数。
+
+4. **返回值**：
+   - 一个 `unsigned int` 类型的整数，表示当前系统支持的并发线程数量。
+   - 如果无法确定当前系统支持的并发线程数量，或者该信息不可用，则返回值为0。
+
+5. **异常**：
+   - 该函数不抛出任何异常。
+
+6. **示例**：
+   ```cpp
+   #include <iostream>
+   #include <thread>
+   
+   int main() {
+       unsigned int cores = std::thread::hardware_concurrency();
+       std::cout << "Number of cores: " << cores << std::endl;
+       return 0;
+   }
+   ```
+
+7. **说明**：
+   - 这个函数可以帮助程序员确定在当前系统上进行并行操作时的最佳线程数量。
+   - 返回值为0时，表示无法确定当前系统支持的并发线程数量，程序可能需要使用默认值或者其他启发式方法来确定线程数量。
+   - 返回值并不总是精确的，有时会受到系统配置、资源限制或者其他因素的影响。因此，在实际应用中，可能需要结合其他信息和策略来确定最佳的并发线程数量。
+
+总的来说，`std::thread::hardware_concurrency()` 函数是一个便捷的工具，可以帮助程序员在编写多线程程序时确定当前系统支持的并发线程数量，从而更好地利用系统资源。
