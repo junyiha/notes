@@ -46,3 +46,7 @@ Crypto++拥有一个活跃的开发和用户社区，提供了丰富的文档、
 + 编译: make libcryptopp.a libcryptopp.so cryptest.exe
 + 安装: sudo make install PREFIX=/usr/local/
   + 默认安装目录为: /usr/local/include/
+
+## openssl库包括crpto库吗
+
+是的，OpenSSL 库包括了 Crypto 库。OpenSSL 是一个开放源代码的软件库，提供了一套加密和通信安全功能。其中，Crypto 库提供了各种密码学功能，如对称加密、非对称加密、哈希函数等。这些功能可以被其他应用程序调用，用于数据的加密、数字签名、SSL/TLS 连接等安全通信操作。
