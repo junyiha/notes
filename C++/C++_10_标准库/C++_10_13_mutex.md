@@ -124,7 +124,29 @@ int main() {
 
 ## std::mutex
 
-`std::mutex` 是 C++ 标准库 `<mutex>` 中定义的类，用于提供互斥量功能，确保在多线程环境中对共享资源的安全访问。
++ `std::mutex` 是 C++ 标准库 `<mutex>` 中定义的类，用于提供互斥量功能，确保在多线程环境中对共享资源的安全访问。
+
+### std::mutex 详解
+
++ 构造函数: 
+  + std::mutex不允许拷贝构造，也不允许move拷贝，最初产生的mutex对象是处于unlocked状态的
+
++ lock()
+  + 调用线程将锁住该互斥量。
+  + 线程调用该函数会发生下面三种情况
+    + 如果该互斥量当前没有被锁住，则调用线程将该互斥量锁住，直到调用unlock之前，该线程一直用于该锁
+    + 如果当前互斥量被其他线程锁住，则当前的调用线程被阻塞住
+    + 如果当前互斥量被当前调用线程锁住，则会产生死锁(deadlock)
+
++ unlock()
+  + 解锁，释放对互斥量的所有权
+
++ try_lock()
+  + 尝试锁住互斥量，如果互斥量被其他线程占有，则当前线程也不会被阻塞。
+  + 线程调用该函数也会出现下面三种情况
+    + 如果当前互斥量没有被其他线程占有，则该线程锁住互斥量，直到该线程调用unlock释放互斥量
+    + 如果当前互斥量被其他线程锁住，则当前调用线程返回false，而且并不会被阻塞
+    + 如果当前互斥量被当前调用线程锁住，则会产生死锁(deadlock)
 
 ### 主要操作和函数：
 
@@ -196,6 +218,41 @@ int main() {
 
 `std::lock_guard` 是 C++ 标准库中的一个模板类，用于管理互斥量的锁定和解锁操作。它提供了一种简单的方式，在作用域内锁定互斥量，并在作用域结束时自动释放锁。
 
+### std::lock_guard 详解
+
++ std::lock_guard 是C++11中定义的模板类。定义如下:
+```c++
+template <class Mutex> class lock_guard;
+```
+
++ std::lock_guard 对象通常用于管理某个锁对象，因此与Mute RAII相关，方便线程对互斥量上锁，即在某个 std::lock_guard对象的生命周期内，它所管理的锁对象会一直保持上锁状态；而std::lock_guard的生命周期结束之后，它所管理的锁对象会被解锁(类似 std::shared_ptr等智能指针管理动态分配的内存资源)
+
++ 模板参数Mutex代表互斥量类型，例如std::mutex类型，它应该是一个基本的BasicLockable类型。
++ 标准库中定义几种基本的BasicLockable类型，分别是
+  + std::mutex
+  + std::recursive_mutex
+  + std::timed_mutex
+  + std::recursive_timed_mutex
+  + std::unique_lock
+
++ 在lock_guard对象构造时，传入的Mutex对象(即它所管理的Mutex对象)会被当前线程锁住。在lock_guard对象被析构时，它所管理的Mutex对象会自动解锁，由于不需要程序员手动调用lock和unlock对Mutex进行上所和解锁操作，因此这也是最简单安全的上所和解锁方式，尤其是在程序抛出异常后先前已被上锁的Mutex对象可以正确进行解锁操作，极大的简化了程序员编写与Mutex相关的异常处理代码
+
++ 值的注意的是，lock_guard对象并不负责管理Mutex对象的生命周期，lock_guard对象只是简化了Mutex对象的上锁和解锁操作，方便线程对互斥量上锁，即在某个lock_guard对象的生命周期内，它所管理的锁对象会一直保持上锁状态；而lock_guard的声明周期结束之后，它所管理的锁对象会被解锁。
+
++ std::lock_guard构造函数如下所示
+```cpp
+locking(1) explicit lock_guard(mutex_type& m);
+adopting(2) lock_guard(mutex_type& m, adopt_lock_t tag);
+copy [deleted](3) lock_guard(const lock_guard&) = delete;
+```
+
++ locking初始化
+  + lock_guard对象管理Mutex对象m，并在构造函数对m进行上锁(调用m.lock())
++ adopting初始化
+  + lock_guard对象管理Mutex对象m，与locking初始化(1)不同的是，Mutex对象m已被当前线程锁住
++ 拷贝构造
+  + lock_guard对象的拷贝构造和移动构造(move construction)均被禁用，因此lock_guard对象不可被拷贝构造和移动构造
+
 ### 主要特性和用法：
 
 1. **自动锁定和解锁**：`std::lock_guard` 在构造时锁定互斥量，在作用域结束时自动释放锁。
@@ -242,6 +299,12 @@ int main() {
 ## std::unique_lock
 
 `std::unique_lock` 是 C++ 标准库中提供的一个模板类，用于管理互斥量（`std::mutex`）的锁定和解锁操作。它提供了更灵活的锁管理机制，相比于 `std::lock_guard`，`std::unique_lock` 提供了更多的功能。
+
+### std::unique_lock 详解
+
++ unique_lock 对象以独占所有权的方式管理mutex对象的上锁和解锁操作，所谓独占所有权，就是没有其他的unique_lock对象同时拥有某个mutex对象的所有权
+
++ 在构造(或移动赋值)时，unique_lock对象需要传递一个Mutex对象作为它的参数，新创建的unique_lock对象负责传入的Mutex对象的上锁和解锁操作。
 
 ### 主要特性和用法：
 
@@ -290,6 +353,7 @@ int main() {
 ## std::recursive_mutex
 
 `std::recursive_mutex` 是 C++ 标准库中提供的一个互斥量类，它与 `std::mutex` 类似，但允许同一个线程对互斥量多次进行锁定。这种特性允许同一线程在已经锁定的情况下再次对其进行锁定，避免了死锁的可能性。
+`std::recursive_mutex` 释放互斥量时需要调用与该锁层次深度相同次数的unlock()，可以理解为lock()次数和unlock()次数相同，除此之外，std::recursive_mutex的特性和std::mutex大致相同
 
 ### 主要特点和用法：
 
@@ -341,6 +405,12 @@ int main() {
 ## std::timed_mutex
 
 `std::timed_mutex` 是 C++ 标准库提供的一个互斥量类，它是 `std::mutex` 的变种，提供了超时功能。`std::timed_mutex` 允许线程尝试锁定互斥量，但在一段时间内无法成功锁定时，可以设置超时机制，以避免无限期等待。
+
+### std::timed_mutex 详解
+
++ try_lock_for 函数接受一个时间范围，表示在这一段时间范围之内线程如果没有获得锁则被阻塞住(与std::mutex的try_lock()不同，try_lock如果被调用时没有获得锁则直接返回false)，如果在此期间其他线程释放了锁，则该线程可以获得对互斥量的锁，如果超时(即在指定时间内还是没有获得锁)，则返回false
+
++ try_lock_until 函数接受一个时间点作为参数，在指定时间点未到来之前线程如果没有获得锁则被阻塞住，如果在此期间其他线程释放了锁，则该线程可以获得对互斥量的锁，如果超时(即在指定时间还是没有获得锁)，则返回false
 
 ### 主要特点和用法：
 

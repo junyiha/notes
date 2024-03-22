@@ -2,6 +2,77 @@
 
 + OpenCV 相关编程技巧
 
+## OpenCV 将图片编码成jpg格式并保存在内存中
+
+要将图像编码为JPEG格式并保存在内存中，您可以使用 `cv::imencode` 函数。以下是一个示例代码：
+
+```cpp
+#include <opencv2/opencv.hpp>
+#include <vector>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("input_image.png"); // 替换为您的图像文件路径
+
+    // 检查图像是否成功加载
+    if (image.empty()) {
+        std::cerr << "Failed to load image." << std::endl;
+        return 1;
+    }
+
+    // 编码图像为JPEG格式
+    std::vector<uchar> buffer;
+    std::vector<int> params = {cv::IMWRITE_JPEG_QUALITY, 95}; // JPEG质量设置为95
+    cv::imencode(".jpg", image, buffer, params);
+
+    // 检查编码是否成功
+    if (buffer.empty()) {
+        std::cerr << "Failed to encode image." << std::endl;
+        return 1;
+    }
+
+    // 在此处可以将 buffer 保存到内存中或者传输到其他地方
+
+    std::cout << "Image encoded successfully." << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，我们首先使用 `cv::imread` 函数加载了一个图像（这里假设图像是PNG格式的）。然后，我们使用 `cv::imencode` 函数将图像编码为JPEG格式，并将结果保存到一个名为 `buffer` 的 `std::vector` 中。我们还可以通过 `params` 参数设置JPEG的质量。最后，我们检查了编码是否成功，并打印出相应的消息。
+
+您可以在代码的注释中看到如何将 `buffer` 保存到内存中或者传输到其他地方。
+
+## OpenCV 给出左上角和右下角的两个点的坐标 在图像上画出对应的矩形框
+
+您可以使用OpenCV中的 `cv::rectangle` 函数来在图像上画出矩形框。下面是一个示例代码，它接受左上角和右下角的点坐标，并在图像上绘制出对应的矩形框：
+
+```cpp
+#include <opencv2/opencv.hpp>
+
+int main() {
+    // 读取图像
+    cv::Mat image = cv::imread("input_image.jpg");
+
+    // 确定矩形框的左上角和右下角点坐标
+    cv::Point topLeft(100, 100); // 左上角坐标
+    cv::Point bottomRight(300, 400); // 右下角坐标
+
+    // 在图像上画出矩形框
+    cv::rectangle(image, topLeft, bottomRight, cv::Scalar(0, 255, 0), 2);
+
+    // 显示绘制矩形框后的图像
+    cv::imshow("Rectangle", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+在这个示例中，我们首先读取了一张图像。然后，我们定义了矩形框的左上角和右下角点的坐标。接下来，我们使用 `cv::rectangle` 函数在图像上绘制矩形框，该函数的参数包括图像，左上角和右下角的点坐标，以及矩形框的颜色和线条宽度。最后，我们显示了绘制了矩形框的图像。
+
+确保将 `"input_image.jpg"` 替换为您实际的图像文件路径。
+
 ## OpenCV cv::Mat 获取图像在内存中字节大小
 
 在OpenCV中，可以使用`cv::Mat`的`total()`函数和`elemSize()`函数来获取图像在内存中的字节大小。具体地说，`total()`函数返回矩阵中元素的总数，而`elemSize()`函数返回每个元素的字节大小。通过将这两个值相乘，你可以得到整个矩阵的字节大小。

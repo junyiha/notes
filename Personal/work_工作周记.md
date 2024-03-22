@@ -1724,4 +1724,44 @@
       + 任务执行 [ing]
   + rk
     + 设备不存在 [ok]
-    + token路径和上报路径的拼接和拆解
+    + token路径和上报路径的拼接和拆解 [ok]
+
++ 03.21
+  + vcr
+    + 任务模块
+      + 任务执行[ing]
+  + rk
+    + 画告警框 [ok]
+    + 新版本部署和镜像制作 
+
++ 03.22
+  + vcr
+    + 注册命令改为广播 [ing]
+      + 解决任务模块使用其他模块通讯地址的问题 [ok]
+    + 任务模块
+      + 任务执行[ing]
+        + start [ok]
+        + stop [ok]
+        + move_line [ok]
+        + move_joint [ok]
+        + catch [ing]
+        + release
+        + pause
+        + sleep
+        + error_number
+        + timer
+        + counter
+        + while算子
+        + if 算子
+        + static_catch
+        + dynamic_catch
+  + rk
+    + 新版本部署和镜像制作 [ok]
+
++ 本周工作
+  + 任务模块的开发: 接口都已实现，正在开发任务执行功能
+  + 管理模块的开发: 完成HTTP层开发，正在对接和调试任务执行功能
++ 下周计划
+  + 完成任务模块的任务执行
+  + 完成管理模块和推理模块的对接和调试
+  + 进行后端整体联调
