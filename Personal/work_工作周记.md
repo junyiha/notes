@@ -1765,3 +1765,23 @@
   + 完成任务模块的任务执行
   + 完成管理模块和推理模块的对接和调试
   + 进行后端整体联调
+
+## 2024.03.25 - 2024.03.31
+
++ 03.25
+  + vcr
+    + 任务模块
+      + release [defer]
+      + pause [ok]
+      + sleep [ok]
+      + error_number [defer]
+      + timer [defer]
+      + counter [ok]
+      + while算子 [ok]
+      + if 算子 [ok]
+      + static_catch
+      + dynamic_catch
+    + 推理模块
+      + 内部模块命令调试[ok]
+  + rk
+    + 模型部署工具 [ing]
