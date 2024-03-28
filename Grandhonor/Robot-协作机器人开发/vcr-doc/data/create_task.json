@@ -96,6 +96,12 @@
             "argument_sleep": 2
         },
         {
+            "?key_word": "算子标识，用于区分不同算子",
+            "key_word": "catch",
+            "?argument_id": "设备id",
+            "argument_id": "8aa8f919974bc1b070486f357afc150a"
+        },
+        {
             "key_word": "move_joint",
             "argument_id": "1001",
             "argument_speedpercent": 40,
@@ -1257,6 +1263,12 @@
             "argument_dynamic_catch_place_point_scheme03_target_number": 300,
             "argument_dynamic_catch_place_point_scheme03_y_offset": -0.17,
             "argument_dynamic_catch_place_point_scheme03_z_offset": 0.09
+        },
+        {
+            "?key_word": "算子标识，用于区分不同算子",
+            "key_word": "release",
+            "?argument_id": "设备id",
+            "argument_id": "8aa8f919974bc1b070486f357afc150a"
         },
         {
             "key_word": "stop"

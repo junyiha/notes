@@ -1,0 +1,92 @@
+## 简介
+
++ ffmpeg C开发 常用技巧
+
+## ffmpeg开发库 C++ 输入rtsp流地址 录制指定长度的视频到本地 编程示例
+
+要使用FFmpeg的C++开发库来录制指定长度的RTSP流视频到本地，你可以使用libavcodec、libavformat等库来完成。下面是一个简单的示例代码：
+
+```cpp
+extern "C" {
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavutil/time.h>
+}
+
+int main() {
+    // av_register_all();  // 新版本弃用
+    avformat_network_init();
+
+    AVFormatContext *pFormatCtx = avformat_alloc_context();
+    AVDictionary *options = NULL;
+    av_dict_set(&options, "rtsp_transport", "tcp", 0);
+
+    const char *rtsp_url = "rtsp://example.com/stream";  // RTSP流地址
+    const char *output_file = "output.mp4";             // 输出文件名
+    int duration = 60;                                   // 录制时长（秒）
+
+    if (avformat_open_input(&pFormatCtx, rtsp_url, NULL, &options) != 0) {
+        std::cerr << "无法打开RTSP流" << std::endl;
+        return -1;
+    }
+
+    if (avformat_find_stream_info(pFormatCtx, NULL) < 0) {
+        std::cerr << "无法获取流信息" << std::endl;
+        return -1;
+    }
+
+    AVFormatContext *pOutputFormatCtx;
+    if (avformat_alloc_output_context2(&pOutputFormatCtx, NULL, NULL, output_file) < 0) {
+        std::cerr << "无法分配输出格式上下文" << std::endl;
+        return -1;
+    }
+
+    AVStream *pStream = avformat_new_stream(pOutputFormatCtx, NULL);
+    if (!pStream) {
+        std::cerr << "无法创建输出流" << std::endl;
+        return -1;
+    }
+
+    if (avcodec_parameters_copy(pStream->codecpar, pFormatCtx->streams[0]->codecpar) < 0) {
+        std::cerr << "无法拷贝编解码参数" << std::endl;
+        return -1;
+    }
+
+    if (!(pOutputFormatCtx->oformat->flags & AVFMT_NOFILE)) {
+        if (avio_open(&pOutputFormatCtx->pb, output_file, AVIO_FLAG_WRITE) < 0) {
+            std::cerr << "无法打开输出文件" << std::endl;
+            return -1;
+        }
+    }
+
+    avformat_write_header(pOutputFormatCtx, NULL);
+
+    AVPacket packet;
+    int64_t startTime = av_gettime();
+    int64_t endTime = startTime + duration * 1000000;
+
+    while (av_read_frame(pFormatCtx, &packet) >= 0) {
+        if (av_gettime() >= endTime) {
+            break;
+        }
+
+        av_packet_rescale_ts(&packet, pFormatCtx->streams[0]->time_base, pStream->time_base);
+        packet.stream_index = pStream->index;
+
+        av_interleaved_write_frame(pOutputFormatCtx, &packet);
+        av_packet_unref(&packet);
+    }
+
+    av_write_trailer(pOutputFormatCtx);
+
+    avformat_close_input(&pFormatCtx);
+    avio_closep(&pOutputFormatCtx->pb);
+    avformat_free_context(pOutputFormatCtx);
+
+    av_dict_free(&options);
+
+    return 0;
+}
+```
+
+在这个示例中，我们首先初始化了FFmpeg库，然后打开了指定的RTSP流。我们创建了一个输出格式上下文，并且设置了输出文件名。然后，我们复制了输入流的编解码参数到输出流，接着开始逐帧读取输入流，并将其写入输出流。当录制时长达到指定时长后，我们退出录制，并释放相关资源。请确保将 `rtsp_url` 替换为你的 RTSP 流地址，`output_file` 为输出文件的路径和名称，`duration` 为录制时长（以秒为单位）。
