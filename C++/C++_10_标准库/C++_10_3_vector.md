@@ -1010,3 +1010,46 @@ int main() {
 ```
 
 在这个例子中，`emplace_back` 直接在 `std::vector` 的末尾构造了一个 `MyClass` 对象，而不需要先创建一个临时对象再进行拷贝操作。这样可以提高效率，特别是对于那些不支持移动语义的类。
+
+## C++ std::vector 拷贝构造函数 详解
+
+在 C++ 中，`std::vector` 是一个动态数组，它提供了在运行时大小可以动态变化的数组容器。拷贝构造函数是一种特殊的构造函数，用于创建一个对象的副本。`std::vector` 的拷贝构造函数用于创建一个新的 `std::vector` 对象，其元素与另一个 `std::vector` 对象完全相同。
+
+以下是 `std::vector` 的拷贝构造函数的详细解释：
+
+```cpp
+// 默认构造函数
+vector(const vector& other);
+```
+
+拷贝构造函数采用另一个 `std::vector` 对象作为参数，并创建一个新的 `std::vector` 对象，其中包含与参数相同的元素。这个构造函数通过复制另一个 `std::vector` 对象的所有元素来构造新的对象。
+
+拷贝构造函数通常在以下情况下被调用：
+1. 用一个 `std::vector` 对象初始化另一个 `std::vector` 对象。
+2. 作为函数参数传递 `std::vector` 对象。
+3. 从函数返回 `std::vector` 对象时。
+
+下面是一个简单的示例，展示了如何使用拷贝构造函数：
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    // 创建一个原始的 std::vector 对象
+    std::vector<int> originalVector = {1, 2, 3, 4, 5};
+
+    // 使用拷贝构造函数创建一个新的 std::vector 对象
+    std::vector<int> copiedVector(originalVector);
+
+    // 输出新的 std::vector 对象的元素
+    for (int i : copiedVector) {
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+在上面的示例中，`copiedVector` 对象使用了原始向量 `originalVector` 的拷贝构造函数创建了一个副本。
