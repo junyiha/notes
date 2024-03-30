@@ -2,6 +2,48 @@
 
 + OpenCV 常用的函数
 
+## OpenCV cv::imdecode() 函数 详解 中文
+
+`cv::imdecode()` 是 OpenCV 库中的一个函数，用于将图像数据解码为 OpenCV 中的 `cv::Mat` 对象。该函数通常用于从内存中读取图像数据，而不是从文件中读取。
+
+以下是 `cv::imdecode()` 函数的一些关键参数及其解释：
+
+- **参数1 (`buf`)：** 这是一个包含图像数据的缓冲区。通常情况下，这是一个 `uchar` 类型的数组，存储着图像的原始数据。
+
+- **参数2 (`flags`)：** 这是一个整数参数，用于指定如何解码图像。常用的标志包括 `cv::IMREAD_COLOR`（默认值，将图像以BGR颜色格式加载）、`cv::IMREAD_GRAYSCALE`（将图像以灰度格式加载）和 `cv::IMREAD_UNCHANGED`（加载图像的所有通道，包括 Alpha 通道）。
+
+- **返回值：** 函数返回一个 `cv::Mat` 对象，该对象包含解码后的图像数据。
+
+`cv::imdecode()` 函数的调用示例：
+
+```cpp
+#include <opencv2/opencv.hpp>
+#include <iostream>
+
+int main() {
+    // 读取图像数据到内存中
+    std::vector<uchar> data; // 图像数据的缓冲区
+    // 假设 data 被填充了图像数据
+
+    // 解码图像数据
+    cv::Mat image = cv::imdecode(data, cv::IMREAD_COLOR);
+
+    // 检查图像是否成功解码
+    if (!image.empty()) {
+        // 成功加载图像，进行进一步的处理
+        cv::imshow("Decoded Image", image);
+        cv::waitKey(0);
+    } else {
+        // 加载失败
+        std::cerr << "Failed to decode image." << std::endl;
+    }
+
+    return 0;
+}
+```
+
+这个例子演示了如何使用 `cv::imdecode()` 函数将图像数据解码为 `cv::Mat` 对象，并在图像成功加载时显示它。
+
 ## OpenCV cv::imencode() 详解
 
 `cv::imencode()` 函数是 OpenCV 库中用于将图像编码为特定格式（如JPEG、PNG等）的函数。它可以将 `cv::Mat` 中存储的图像数据编码为指定格式的图像，并将编码后的图像数据存储到内存缓冲区中。
