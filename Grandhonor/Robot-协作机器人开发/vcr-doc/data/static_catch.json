@@ -10,69 +10,26 @@
             "argument_robot_id": "1001",
             "argument_camera_id": "d9b040968baf4d57152f3a99b3dee3ed",
             "argument_tool_id": "8aa8f919974bc1b070486f357afc150a",
-            "argument_vision_algorithm_id": "93592c3637598990932d664ff20abdb1",
-            "argument_static_catch_catch_speed_percent": 40,
-            "argument_static_catch_relative_velocity": 20,
+            "argument_infer_device_id": "ca0f9963b208b14fa3c385f48f9eb3d1",
+            "argument_infer_task_id": "9759c063e27234dd620f19474e955931",
+            "argument_static_catch_catch_speed_percent": 60,
+            "argument_static_catch_catch_rot_vel": 3,
+            "argument_static_catch_catch_cart_vel": 0.5,
             "argument_static_catch_z_offset": 0.04,
             "counter_condition": 100,
+            "argument_static_catch_place_number": 3,
             "argument_static_catch_must_in_pause_if_no_target": false,
             "argument_static_catch_must_in_pause_if_no_place": true,
-            "argument_static_catch_detect_area": [
-                [
-                    -0.5,
-                    -0.2,
-                    0
-                ],
-                [
-                    -0.5,
-                    -0.7,
-                    0
-                ],
-                [
-                    0.1,
-                    -0.2,
-                    0.1
-                ],
-                [
-                    0.1,
-                    -0.7,
-                    0.1
-                ]
-            ],
             "argument_static_catch_grap_area": [
-                [
-                    -0.15,
-                    -0.2,
-                    0
-                ],
-                [
-                    -0.15,
-                    -0.6,
-                    0
-                ],
-                [
-                    0.45,
-                    -0.2,
-                    0.1
-                ],
-                [
-                    0.45,
-                    -0.6,
-                    0.1
-                ]
+                [-0.2, -0.2, 0],
+                [ -0.15, -0.6, 0],
+                [ 0.45, -0.2, 0.1],
+                [ 0.45, -0.6, 0.2]
             ],
             "argument_static_catch_home_point_target": [
+                3.1,
                 0,
                 0,
-                0,
-                0,
-                0,
-                0
-            ],
-            "argument_static_catch_place_point_target": [
-                1.57,
-                0,
-                1.57,
                 0,
                 1.57,
                 0
@@ -85,74 +42,29 @@
                 1.57,
                 0
             ],
-            "argument_static_catch_place_point_target_array": [
-                [
-                    0.300177,
-                    -0.020903,
-                    0.071902,
-                    3.140882,
-                    -0.001251,
-                    0.0024526
-                ],
-                [
-                    0.300177,
-                    -0.020903,
-                    0.151902,
-                    3.140882,
-                    -0.001251,
-                    0.0024526
-                ],
-                [
-                    0.300177,
-                    -0.020903,
-                    0.231902,
-                    3.140882,
-                    -0.001251,
-                    0.0024526
-                ]
-            ],
-            "argument_static_catch_placement_scheme_type": "placement_scheme_02",
-            "argument_static_catch_place_point_scheme01_base_target": [
-                2.3899267496408569,
-                -0.12293281242558923,
-                1.1494258408787226,
-                -0.30021266719977657,
-                1.5704741164961755,
-                0.81994483627505776
-            ],
-            "argument_static_catch_place_point_scheme01_target_number": 3,
-            "argument_static_catch_place_point_scheme01_y_offset": -0.18,
-            "argument_static_catch_place_point_scheme01_z_offset": 0.08,
-            "argument_static_catch_place_point_scheme01_pose_offset": [
+            "argument_static_catch_place_pose": [
+                180,
                 0,
-                0,
-                30
+                0
             ],
-            "argument_static_catch_place_point_scheme01_middle_point": [
-                0.29998,
-                -0.1509,
-                0.23119,
-                3.03321,
-                0.81142,
-                -0.0008
+            "argument_static_catch_scheme_type": 1,
+            "argument_static_catch_place_point_scheme_base_target": [
+				0.29998247159601976,
+				0.26902083044249486,
+                0.07519980155189884,
+                3.1400750426032182,
+                -0.0012782106278887086,
+                -0.0015321256548012771
             ],
-            "argument_static_catch_place_point_scheme02_base_target": [
-                2.3899267708388026,
-                -0.085602911349481031,
-                1.4815047170364379,
-                -0.0054634284130575164,
-                1.5704740826961923,
-                0.81994485738713085
-            ],
-            "argument_static_catch_place_point_scheme02_target_number": 3,
-            "argument_static_catch_place_point_scheme02_y_offset": -0.17,
-            "argument_static_catch_place_point_scheme02_z_offset": 0.09,
-            "argument_static_catch_place_point_scheme02_pose_offset": [
+            "argument_static_catch_place_point_scheme_target_number": 3,
+            "argument_static_catch_place_point_scheme_y_offset": -0.165,
+            "argument_static_catch_place_point_scheme_z_offset": 0.09,
+            "argument_static_catch_place_point_scheme_pose_offset": [
                 0,
                 0,
                 -30
             ],
-            "argument_static_catch_place_point_scheme02_middle_point": [
+            "argument_static_catch_place_point_scheme_middle_point": [
                 0.29998,
                 -0.1509,
                 0.23119,
