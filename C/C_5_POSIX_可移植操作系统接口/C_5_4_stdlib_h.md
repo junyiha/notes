@@ -742,3 +742,57 @@ int main() {
 ```
 
 在示例中，`bsearch()` 函数被用于在已排序数组 `arr` 中查找元素 `key`。首先，数组必须是已排序的，然后使用 `qsort()` 对其进行排序。然后调用 `bsearch()` 函数来寻找 `key`，并根据返回结果确定是否找到该元素。如果找到，`bsearch()` 返回指向匹配元素的指针，否则返回 `NULL`。
+
+## C putenv() 函数 详解
+
+`putenv()` 函数用于设置环境变量。它是C标准库中的一部分，定义在 `<stdlib.h>` 头文件中。
+
+### 函数原型
+
+```c
+int putenv(char *string);
+```
+
+### 参数
+
+- `string`：一个以形式 `name=value` 表示的字符串，用于设置环境变量。这个字符串会被函数复制，因此你可以在调用后安全地释放它。
+
+### 返回值
+
+- 如果设置环境变量成功，则返回0；否则返回一个非零值。
+
+### 注意事项
+
+- `putenv()` 在某些平台上可能不是线程安全的，因此在多线程环境中使用时需要小心。
+- 在某些平台上，使用 `putenv()` 可能会导致内存泄漏，因为它只是修改了指向环境变量的指针，而不是为其分配新的内存空间。
+- 在某些操作系统上，对环境变量的更改可能会影响整个程序的行为，因此使用 `putenv()` 需要谨慎。
+
+### 示例
+
+下面是一个简单的示例，演示了如何使用 `putenv()` 设置一个环境变量：
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    // 设置环境变量
+    char env_var[] = "MY_ENV_VAR=Hello World";
+    if (putenv(env_var) != 0) {
+        fprintf(stderr, "Failed to set environment variable\n");
+        return 1;
+    }
+
+    // 获取环境变量并输出
+    char* value = getenv("MY_ENV_VAR");
+    if (value != NULL) {
+        printf("Value of MY_ENV_VAR: %s\n", value);
+    } else {
+        fprintf(stderr, "MY_ENV_VAR is not set\n");
+    }
+
+    return 0;
+}
+```
+
+在这个示例中，我们设置了一个名为 `MY_ENV_VAR` 的环境变量，其值为 `Hello World`。然后，我们获取并输出这个环境变量的值。

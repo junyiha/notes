@@ -2,6 +2,106 @@
 
 + shell编程常用技巧
 
+## linux stat 获取指定目录的空闲空间
+
+你可以使用 `stat` 命令获取文件系统的信息，但是 `stat` 命令不能直接获取指定目录的空闲空间。要获取指定目录的空闲空间，你可以使用 `df` 命令。
+
+以下是一个示例 Bash 脚本，用于获取指定目录的空闲空间：
+
+```bash
+#!/bin/bash
+
+# 指定要获取空间信息的目录
+directory="/path/to/your/directory"
+
+# 获取目录所在的文件系统
+filesystem=$(df -P "$directory" | awk 'NR==2 {print $1}')
+
+# 获取文件系统的空闲空间
+free_space=$(df -P "$filesystem" | awk 'NR==2 {print $4}')
+
+echo "Free space in $directory : $free_space"
+```
+
+在这个脚本中，你需要将 `/path/to/your/directory` 替换为你要查询空间信息的目录路径。脚本将首先使用 `df` 命令获取该目录所在的文件系统，然后再次使用 `df` 命令获取该文件系统的空闲空间。最后，脚本会输出空闲空间的信息。
+
+请注意，这个脚本只是一个简单的示例，适用于大多数情况。在实际使用中，你可能需要更复杂的逻辑来确保脚本的稳健性和安全性。
+
+## linux bash 字符串删除
+
+如果你要删除字符串中的特定字符或子字符串，你可以使用 Bash 的内置功能 `sed`、`awk` 或字符串操作函数来实现。下面是一些方法示例：
+
+### 使用 `sed` 删除字符串中的字符：
+
+```bash
+#!/bin/bash
+
+# 原始字符串
+original_string="Hello World"
+
+# 删除字符串中的空格
+modified_string=$(echo "$original_string" | sed 's/ //g')
+
+echo "Original string: $original_string"
+echo "Modified string: $modified_string"
+```
+
+### 使用 `awk` 删除字符串中的字符：
+
+```bash
+#!/bin/bash
+
+# 原始字符串
+original_string="Hello World"
+
+# 删除字符串中的空格
+modified_string=$(echo "$original_string" | awk '{gsub(" ", "")}1')
+
+echo "Original string: $original_string"
+echo "Modified string: $modified_string"
+```
+
+### 使用字符串操作函数删除字符串中的子字符串：
+
+```bash
+#!/bin/bash
+
+# 原始字符串
+original_string="Hello World"
+
+# 删除字符串中的 "llo" 子字符串
+substring_to_remove="llo"
+modified_string="${original_string//$substring_to_remove}"
+
+echo "Original string: $original_string"
+echo "Modified string: $modified_string"
+```
+
+这些示例中，原始字符串是 "Hello World"，然后使用不同的方法删除了其中的空格或子字符串。你可以根据自己的需求选择其中一种方法。
+
+## linux bash 获取docker容器的id
+
+要获取正在运行的 Docker 容器的 ID，你可以使用 Docker 命令行工具。以下是使用 `docker ps` 命令来获取正在运行容器的 ID 的示例：
+
+```bash
+#!/bin/bash
+
+# 获取正在运行的容器的 ID
+container_id=$(docker ps -q)
+
+echo "Running Docker container ID: $container_id"
+```
+
+在这个脚本中，`docker ps -q` 命令用于列出正在运行的容器，并使用 `-q` 参数只显示容器的 ID。然后将结果存储在 `container_id` 变量中，并输出该变量的值。 
+
+这只会获取第一个正在运行的容器的 ID。如果你想获取特定容器的 ID，你可以使用 `docker ps -qf` 命令并提供过滤条件，如容器的名称、标签等。例如，要获取名称为 `my_container` 的容器的 ID，你可以使用以下命令：
+
+```bash
+container_id=$(docker ps -qf "name=my_container")
+```
+
+你可以根据自己的需要调整这些命令。
+
 ## linux find命令找到指定文件并保存到数组中
 
 在Linux中，`find`命令用于查找文件和目录。如果你想使用`find`命令找到指定文件并将结果保存到一个数组中，你可以使用以下方法：

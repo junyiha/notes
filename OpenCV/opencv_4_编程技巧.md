@@ -2,6 +2,80 @@
 
 + OpenCV 相关编程技巧
 
+## C++ OpenCV 图片 画上指定字符串
+
+要在C++中使用OpenCV在图像上添加指定的字符串，你可以按照以下步骤进行操作：
+
+1. 导入必要的头文件：
+
+```cpp
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+```
+
+2. 读取图像文件：
+
+```cpp
+cv::Mat image = cv::imread("input_image.jpg");
+```
+
+3. 定义要添加的文本内容以及其他绘制参数：
+
+```cpp
+std::string text = "Your text here";
+cv::Point org(50, 50); // 文本的起始位置
+int fontFace = cv::FONT_HERSHEY_SIMPLEX; // 字体类型
+double fontScale = 1.0; // 字体缩放系数
+cv::Scalar color(255, 255, 255); // 文本颜色
+int thickness = 2; // 文本粗细
+```
+
+4. 在图像上绘制文本：
+
+```cpp
+cv::putText(image, text, org, fontFace, fontScale, color, thickness);
+```
+
+5. 显示结果图像：
+
+```cpp
+cv::imshow("Image with Text", image);
+cv::waitKey(0);
+```
+
+完整示例代码如下所示：
+
+```cpp
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+
+int main() {
+    // 读取图像文件
+    cv::Mat image = cv::imread("input_image.jpg");
+
+    // 定义要添加的文本内容以及其他绘制参数
+    std::string text = "Your text here";
+    cv::Point org(50, 50); // 文本的起始位置
+    int fontFace = cv::FONT_HERSHEY_SIMPLEX; // 字体类型
+    double fontScale = 1.0; // 字体缩放系数
+    cv::Scalar color(255, 255, 255); // 文本颜色
+    int thickness = 2; // 文本粗细
+
+    // 在图像上绘制文本
+    cv::putText(image, text, org, fontFace, fontScale, color, thickness);
+
+    // 显示结果图像
+    cv::imshow("Image with Text", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+确保将 `"input_image.jpg"` 替换为你实际要操作的图像文件路径。
+
 ## OpenCV 将图片编码成jpg格式并保存在内存中
 
 要将图像编码为JPEG格式并保存在内存中，您可以使用 `cv::imencode` 函数。以下是一个示例代码：

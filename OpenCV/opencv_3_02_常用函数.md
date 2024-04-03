@@ -2,6 +2,38 @@
 
 + OpenCV 常用的函数
 
+## OpenCV cv::putText()  函数 详解
+
+`cv::putText()` 是 OpenCV 中用于在图像上绘制文本的函数。该函数可以在图像上添加指定的字符串，以及指定的字体、颜色、大小和其他样式。下面是该函数的详细说明：
+
+```cpp
+void cv::putText(
+    cv::InputOutputArray img, // 输入/输出图像
+    const String& text, // 要绘制的文本字符串
+    cv::Point org, // 文本起始位置的坐标（左下角）
+    int fontFace, // 字体类型，例如：cv::FONT_HERSHEY_SIMPLEX、cv::FONT_HERSHEY_PLAIN 等
+    double fontScale, // 字体大小的缩放系数
+    cv::Scalar color, // 文本颜色，如 cv::Scalar(255, 0, 0) 表示蓝色
+    int thickness = 1, // 文本的粗细，默认为 1
+    int lineType = LINE_8, // 文本的线条类型，默认为 8 连通线条
+    bool bottomLeftOrigin = false // 如果为 true，则表示坐标 org 是文本左下角的位置，否则是左上角的位置，默认为 false
+);
+```
+
+参数说明：
+
+- `img`：输入/输出图像，通常是 `cv::Mat` 类型，表示要在其上绘制文本的图像。
+- `text`：要绘制的文本字符串。
+- `org`：文本起始位置的坐标，即文本左下角的位置。如果 `bottomLeftOrigin` 参数为 false，则表示文本左上角的位置。
+- `fontFace`：字体类型，可以是预定义的字体类型，如 `cv::FONT_HERSHEY_SIMPLEX`、`cv::FONT_HERSHEY_PLAIN` 等。
+- `fontScale`：字体大小的缩放系数。
+- `color`：文本颜色，通常使用 `cv::Scalar` 类型表示，如 `cv::Scalar(255, 0, 0)` 表示蓝色。
+- `thickness`：文本的线条粗细，默认为 1。
+- `lineType`：文本的线条类型，默认为 8 连通线条。
+- `bottomLeftOrigin`：如果为 true，则表示坐标 `org` 是文本左下角的位置，否则是左上角的位置，默认为 false。
+
+注意：在使用 `putText()` 函数之前，确保图像类型支持文本绘制操作，即图像的深度必须为 `CV_8U` 或 `CV_32F` 类型，而通道数必须为 1 或 3。
+
 ## OpenCV cv::imdecode() 函数 详解 中文
 
 `cv::imdecode()` 是 OpenCV 库中的一个函数，用于将图像数据解码为 OpenCV 中的 `cv::Mat` 对象。该函数通常用于从内存中读取图像数据，而不是从文件中读取。
