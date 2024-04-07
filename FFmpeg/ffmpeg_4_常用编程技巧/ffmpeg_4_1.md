@@ -2,6 +2,38 @@
 
 + ffmpeg C开发 常用技巧
 
+## ffmpeg AVFrame 转 cv::Mat
+
++ 上面函数传入的参数frame中的图像格式，可以是YUV, RGB ,等等，，经过sws_scale（）转换之后，写入cv::Mat 数据区。
+```cpp
+//AVFrame 转 cv::mat  
+cv::Mat frame_to_mat(const AVFrame * frame) {
+    int width = frame->width;
+    int height = frame->height;
+
+    cv::Mat image(height, width, CV_8UC3);
+    int cvLinesizes[1];
+    cvLinesizes[0] = image.step1();
+    if( NULL == _swsContext) {
+        _swsContext = sws_getContext(width, height,
+            (AVPixelFormat)frame->format, width, height,
+            AVPixelFormat::AV_PIX_FMT_BGR24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+    }
+
+    sws_scale(_swsContext, frame->data, 
+        frame->linesize, 0, height, &image.data, cvLinesizes);
+    
+    return image;
+}
+```
+
++ 还有一种方式 是直接将AVFrame 中的RGB数据赋值给cv::Mat
+```cpp
+cv::Mat img;
+img = cv::Mat(height, width, CV_8UC3);
+img.data =  _rgb_frame->data[0];
+```
+
 ## ffmpeg开发库 C++ 输入rtsp流地址 录制指定长度的视频到本地 编程示例
 
 要使用FFmpeg的C++开发库来录制指定长度的RTSP流视频到本地，你可以使用libavcodec、libavformat等库来完成。下面是一个简单的示例代码：

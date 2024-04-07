@@ -2,6 +2,69 @@
 
 + OpenCV 相关编程技巧
 
+## 图像的滤波平滑处理
+
+```cpp
+//均值滤波
+void blur(InputArray src, OutputArray dst,
+                    Size ksize, Point anchor = Point(-1,-1),
+                    int borderType = BORDER_DEFAULT);
+//src参数表示输入图像，dst参数表示输出图像，与输入图像有同样的size和type；ksize参数表示核的大小
+//anchor参数表示核的中心，默认值为Point(-1,-1)，会转化为核的中点；borderType参数表示边缘点插值类型
+
+//中值滤波
+void medianBlur(InputArray src, OutputArray dst, int ksize);
+//src参数表示输入图像，dst参数表示输出图像，与输入图像有同样的size和type；ksize参数表示正方形的边长. 边长必须是奇数而且大于1
+//需要注意的是，当ksize是3或5的时候，图像的深度可以是CV_8U、CV_16U或CV_32F，对于更大的ksize，那么图像的深度只能是CV_8U
+
+//高斯滤波
+void GaussianBlur(InputArray src, OutputArray dst, Size ksize,
+                    double sigmaX, double sigmaY = 0,
+                    int borderType = BORDER_DEFAULT);
+//src参数表示输入图像，dst参数表示输出图像，与输入图像有同样的size和type；ksize参数表示高斯核大小
+//ksize.width和ksize.height可以不同，但是都必须是正整数而且是奇数，也可以是O，如果是0的话，它的值由sigmaX和sigmaY决定
+//sigmaX参数表示X方向上的标准差，sigmaY参数表示Y方向上的标准差，如果Y方向为0，则被设置和X方向一样，如果X和Y方向都为0，则它们由ksize.width和ksize.height计算得到，建议全部都给定数值。
+//borderType参数表示边缘点插值类型
+
+//双边滤波器
+void bilateralFilter( InputArray src, OutputArray dst, int d,
+                    double sigmaColor, double sigmaSpace,
+                    int borderType = BORDER_DEFAULT );
+//src参数表示输入图像为单通道或3通道的8比特图像，dst参数表示输出图像，与输入图像有同样的size和type
+//d参数表示每个像素领域的直径，如果为负数，则由sigmaSpace确定
+//sigmaColor参数表示颜色空间的标准偏差，sigmaSpace表示坐标空间的标准偏差，borderType参数表示边缘点插值类型
+```
+
+## cv::Point 乘以0.5
+
+要实现 `cv::Point` 乘以标量的操作，你可以直接使用 `cv::Point` 类的成员函数 `operator*=` 或者全局函数 `operator*`。这两个函数支持将 `cv::Point` 与标量相乘。
+
+以下是示例代码：
+
+```cpp
+#include <iostream>
+#include <opencv2/core.hpp>
+
+int main() {
+    cv::Point pt1(2, 4);
+
+    // 使用 operator*=
+    pt1 *= 0.5;
+
+    // 使用 operator*
+    cv::Point pt2 = pt1 * 0.5;
+
+    std::cout << "pt1: (" << pt1.x << ", " << pt1.y << ")" << std::endl;
+    std::cout << "pt2: (" << pt2.x << ", " << pt2.y << ")" << std::endl;
+
+    return 0;
+}
+```
+
+在这个示例中，`pt1` 被乘以0.5，结果存储在 `pt1` 中，然后再将 `pt1` 乘以0.5，结果存储在 `pt2` 中。最后输出两个点的坐标。
+
+你也可以通过直接使用 `operator*` 来将 `cv::Point` 与标量相乘，结果会存储在新的 `cv::Point` 中。
+
 ## C++ OpenCV 图片 画上指定字符串
 
 要在C++中使用OpenCV在图像上添加指定的字符串，你可以按照以下步骤进行操作：

@@ -2,6 +2,48 @@
 
 + OpenCV 常见类，函数
 
+## OpenCV cv::flip() 函数 详解
+
+`cv::flip()` 函数是 OpenCV 库中的一个函数，用于执行图像的翻转操作。该函数可以在水平、垂直或两个方向上翻转图像。下面是对 `cv::flip()` 函数的详解：
+
+### 函数原型
+```cpp
+void cv::flip(
+    InputArray src,
+    OutputArray dst,
+    int flipCode
+)
+```
+
+### 参数说明
+- `src`：输入图像。
+- `dst`：输出图像，翻转后的结果将存储在这里。
+- `flipCode`：翻转操作的类型。可以是以下几种值之一：
+  - `0`：沿 x 轴翻转（垂直翻转）。
+  - `1`：沿 y 轴翻转（水平翻转）。
+  - `-1`：同时沿 x 轴和 y 轴翻转。
+
+### 功能
+`cv::flip()` 函数用于对输入图像进行翻转操作。翻转操作可以是水平翻转、垂直翻转或同时在水平和垂直方向上进行翻转。翻转后的结果将存储在输出图像 `dst` 中。
+
+### 注意事项
+- 输入图像和输出图像的尺寸和数据类型相同。
+- 如果需要在原地进行翻转操作（即输入图像和输出图像是同一个），可以将 `src` 和 `dst` 设置为相同的图像。
+
+### 示例
+```cpp
+cv::Mat src = cv::imread("input.jpg", cv::IMREAD_COLOR);
+cv::Mat flippedImage;
+cv::flip(src, flippedImage, 1); // 水平翻转
+
+// 如果需要原地翻转，可以将 src 和 dst 设置为相同的图像
+// cv::flip(src, src, 1); 
+```
+
+在这个示例中，`src` 是一个输入的图像，通过 `cv::flip()` 函数将其进行水平翻转，翻转后的结果存储在 `flippedImage` 中。
+
+`cv::flip()` 函数是 OpenCV 中用于执行图像翻转操作的常用函数之一，它在图像处理中广泛用于数据增强、镜像反射等应用场景。
+
 ## OpenCV cv::findChessboardCorners() 函数 详解
 
 `cv::findChessboardCorners()` 是 OpenCV（开源计算机视觉库）中的一个函数，用于在图像中找到棋盘格图案的内部角点。这个函数通常用于摄像机校准和计算机视觉应用，以确定棋盘格校准图案的角点位置，这对于摄像机校准非常重要。

@@ -2,6 +2,183 @@
 
 + ffmpeg常用函数
 
+## ffmpeg sws_scale() 函数 详解
+
+`sws_scale()` 函数是 FFmpeg 中的一个函数，用于执行图像的像素格式转换和尺寸缩放等操作。
+
+该函数的原型如下：
+
+```c
+int sws_scale(struct SwsContext *c, const uint8_t *const srcSlice[],
+              const int srcStride[], int srcSliceY, int srcSliceH,
+              uint8_t *const dst[], const int dstStride[]);
+```
+
+参数说明如下：
+
+- `c`：指向 `SwsContext` 结构的指针，表示图像转换器上下文。
+- `srcSlice` 和 `dst`：分别是源图像和目标图像的数据缓冲区。`srcSlice` 是一个指针数组，用于存储源图像的每一行数据的指针；`dst` 也是一个指针数组，用于存储目标图像的每一行数据的指针。
+- `srcStride` 和 `dstStride`：分别是源图像和目标图像的行字节步长数组。`srcStride` 数组中存储了源图像每一行数据的字节步长；`dstStride` 数组中存储了目标图像每一行数据的字节步长。
+- `srcSliceY` 和 `srcSliceH`：分别表示要处理的源图像的起始行号和行数。
+
+调用 `sws_scale()` 函数将会执行图像的像素格式转换和尺寸缩放等操作。该函数将源图像数据转换为目标图像数据，并根据需要进行尺寸缩放。
+
+在调用该函数之前，需要先创建一个图像转换器上下文（`SwsContext`），并对其进行适当的初始化。通常情况下，可以使用 `sws_getContext()` 函数来创建一个图像转换器上下文，并指定源图像和目标图像的相关参数。
+
+需要注意的是，`sws_scale()` 函数执行的是图像转换操作，因此需要确保输入和输出缓冲区的大小和格式是正确匹配的。另外，对于需要进行尺寸缩放的情况，需要根据源图像和目标图像的尺寸比例来设置相应的缩放比例。
+
+使用 `sws_scale()` 函数可以实现图像的像素格式转换、尺寸缩放等功能，常用于视频处理和图像处理等应用场景。
+
+## ffmpeg avcodec_receive_frame() 函数 详解
+
+`avcodec_receive_frame()` 函数是 FFmpeg 中的一个函数，用于从解码器中获取解码后的音频或视频帧。
+
+该函数的原型如下：
+
+```c
+int avcodec_receive_frame(AVCodecContext *avctx, AVFrame *frame);
+```
+
+参数说明如下：
+
+- `avctx` 是指向 `AVCodecContext` 结构的指针，表示要使用的解码器上下文。
+- `frame` 是指向 `AVFrame` 结构的指针，表示要接收解码后的音频或视频帧。
+
+调用 `avcodec_receive_frame()` 函数后，将会从解码器中获取解码后的音频或视频帧，并将帧数据保存到 `frame` 中。这个函数通常用于解码过程的第二步，用于从解码器获取解码后的帧数据。
+
+需要注意的是，由于解码器可能会对帧数据进行缓冲和延迟处理，因此调用该函数并不会立即返回已解码的帧数据。如果解码器内部缓冲区中没有可用的解码帧，该函数将会阻塞，直到解码器解码完成并有可用的解码帧为止。
+
+在解码器解码完所有数据包后，需要调用 `avcodec_receive_frame()` 函数并传递 `NULL` 作为帧参数，以表示已经接收完所有解码帧，解码器可以进行最后的清理工作。这样做可以确保解码器在解码完所有数据包后能够正确地结束解码过程。
+
+需要注意的是，`AVFrame` 结构中存储的帧数据通常是解码后的原始音频或视频数据，需要根据实际情况进行后续处理，例如播放音频或显示视频。
+
+## ffmpeg avcodec_send_packet() 函数 详解
+
+`avcodec_send_packet()` 函数是 FFmpeg 中的一个函数，用于向解码器发送压缩数据包。
+
+该函数的原型如下：
+
+```c
+int avcodec_send_packet(AVCodecContext *avctx, const AVPacket *pkt);
+```
+
+其中，`avctx` 是指向 `AVCodecContext` 结构的指针，表示要使用的解码器上下文；`pkt` 是指向 `AVPacket` 结构的指针，表示要发送的压缩数据包。
+
+调用 `avcodec_send_packet()` 函数后，将会向解码器发送一个压缩数据包，解码器将会从这个数据包中解析出压缩的音频或视频帧，并进行解码操作。这个函数通常用于解码过程的第一步，将压缩的音视频数据发送给解码器。
+
+需要注意的是，由于解码器可能会对压缩数据进行缓冲和延迟处理，因此调用该函数并不会立即触发解码操作。解码器将会在后续调用 `avcodec_receive_frame()` 函数时，从缓冲区中获取压缩数据包并进行解码。
+
+在解码器解码完所有数据包后，需要调用 `avcodec_send_packet()` 函数并传递 `NULL` 作为数据包参数，以表示已经发送完所有数据包，解码器可以进行最后的解码操作。这样做可以确保解码器在解码完所有数据包后能够正确地结束解码过程。
+
+需要注意的是，`AVPacket` 结构中的数据通常来自于读取媒体文件或网络流等操作，或者是从编码器中获取到的压缩数据。因此，在调用 `avcodec_send_packet()` 函数之前，需要先正确地获取到压缩数据，并将数据填充到 `AVPacket` 结构中。
+
+## ffmpeg sws_getContext() 函数 详解
+
+`sws_getContext()` 是 FFmpeg 中的一个函数，用于创建和初始化图像转换器上下文（SWSContext）。
+
+该函数的原型如下：
+
+```c
+struct SwsContext *sws_getContext(int srcW, int srcH, enum AVPixelFormat srcFormat,
+                                  int dstW, int dstH, enum AVPixelFormat dstFormat,
+                                  int flags, SwsFilter *srcFilter,
+                                  SwsFilter *dstFilter, const double *param);
+```
+
+参数说明如下：
+
+- `srcW` 和 `srcH`：源图像的宽度和高度。
+- `srcFormat`：源图像的像素格式。
+- `dstW` 和 `dstH`：目标图像的宽度和高度。
+- `dstFormat`：目标图像的像素格式。
+- `flags`：额外的标志，用于控制图像转换的行为。
+- `srcFilter` 和 `dstFilter`：分别是源图像和目标图像的滤波器。如果不使用滤波器，可以传递 `NULL`。
+- `param`：用于设置特定参数的指针数组。通常情况下，可以传递 `NULL`。
+
+调用 `sws_getContext()` 函数将会创建一个图像转换器上下文，并返回一个指向该上下文的指针。通过这个上下文，您可以执行图像的像素格式转换、尺寸缩放等操作。
+
+一旦创建了图像转换器上下文，您就可以使用 `sws_scale()` 函数来执行实际的图像转换操作。该函数将源图像转换为目标图像，同时进行必要的缩放和格式转换。在完成图像转换后，您需要调用 `sws_freeContext()` 函数来释放图像转换器上下文，以避免内存泄漏。
+
+图像转换器上下文的创建和释放通常是在图像处理流程的开始和结束时进行的。在实际应用中，您可以根据需要多次创建和释放图像转换器上下文，以便处理不同格式和尺寸的图像。
+
+## ffmpeg avcodec_open2() 函数 详解
+
+`avcodec_open2()` 函数是 FFmpeg 中的一个函数，用于初始化编解码器的上下文，并打开编解码器。
+
+该函数的原型如下：
+
+```c
+int avcodec_open2(AVCodecContext *avctx, const AVCodec *codec, AVDictionary **options);
+```
+
+其中，`avctx` 是指向 `AVCodecContext` 结构的指针，表示要初始化和打开的编解码器的上下文；`codec` 是一个指向 `AVCodec` 结构的指针，表示要使用的编解码器；`options` 是一个指向指向 `AVDictionary` 结构的指针的指针，用于设置额外的选项。
+
+调用 `avcodec_open2()` 函数后，将会根据给定的 `codec` 参数初始化并打开 `avctx` 表示的编解码器上下文。
+
+这个函数在解码视频或音频之前通常需要被调用。在调用该函数之前，需要确保 `AVCodecContext` 结构已经被正确地设置了编解码器相关的参数。而且，`codec` 参数需要通过 `avcodec_find_decoder()` 或其他相关函数找到并指定为相应的解码器。
+
+此外，您可以通过 `options` 参数传递一些额外的选项给编解码器。这个参数通常是一个字典，包含了一些键值对，用于设置编解码器的一些特定选项，例如编码器的配置参数、输出格式等。
+
+需要注意的是，如果调用成功，`avcodec_open2()` 函数将返回零。如果发生错误，将会返回一个负值，表示打开编解码器失败的原因。
+
+在使用完编解码器后，通常需要调用 `avcodec_close()` 函数来关闭编解码器并释放相关资源。
+
+## ffmpeg avcodec_alloc_context3() 函数 详解
+
+`avcodec_alloc_context3()` 是 FFmpeg 中的一个函数，用于分配一个新的 `AVCodecContext` 结构，并返回一个指向该结构的指针。
+
+该函数的原型如下：
+
+```c
+AVCodecContext *avcodec_alloc_context3(const AVCodec *codec);
+```
+
+其中，`codec` 参数是一个指向 `AVCodec` 结构的指针，用于指定要分配上下文的编解码器。
+
+`AVCodecContext` 结构是 FFmpeg 中的一个重要结构，用于存储编解码器的状态信息、编解码参数、输入和输出格式等。在使用 FFmpeg 进行编解码操作时，通常需要先分配一个 `AVCodecContext` 结构，并对其进行适当的设置，然后才能使用该结构来执行编解码操作。
+
+通过调用 `avcodec_alloc_context3()` 函数，您可以创建一个新的 `AVCodecContext` 结构。通常情况下，您可以在查找到要使用的编解码器后，调用该函数来分配一个对应的上下文，并将编解码器的相关参数复制到该上下文中。
+
+需要注意的是，分配的 `AVCodecContext` 结构在使用完毕后，需要通过调用 `avcodec_free_context()` 函数来释放内存，以避免内存泄漏问题。
+
+## ffmpeg avcodec_find_decoder() 函数 详解
+
+`avcodec_find_decoder()` 函数是 FFmpeg 中的一个函数，用于查找指定编解码器的解码器。
+
+该函数的原型如下：
+
+```c
+AVCodec *avcodec_find_decoder(enum AVCodecID id);
+```
+
+其中，`id` 参数是要查找的编解码器的 ID。通常情况下，您可以通过查找编码视频或音频流时获取到的编码器 ID 来调用该函数。
+
+该函数返回一个指向 `AVCodec` 结构的指针，该结构包含了编解码器的详细信息，包括名称、类型、支持的像素格式等。
+
+使用 `avcodec_find_decoder()` 函数的典型场景是在解码视频或音频流之前，先根据流的编码器 ID 查找对应的解码器。然后，您可以使用返回的 `AVCodec` 结构中的信息来初始化解码器并进行解码操作。
+
+需要注意的是，查找编解码器的过程是基于 FFmpeg 中已注册的编解码器列表进行的。因此，在使用该函数之前，您需要确保已经调用了 `av_register_all()` 或者其他相关的注册函数，以确保 FFmpeg 能够识别和访问所有可用的编解码器。
+
+## ffmpeg avcodec_parameters_to_context() 函数 详解
+
+`avcodec_parameters_to_context()` 函数是 FFmpeg 中的一个函数，用于将 `AVCodecParameters` 结构中的编解码器参数复制到 `AVCodecContext` 结构中。
+
+在 FFmpeg 中，`AVCodecParameters` 结构包含了描述音频或视频流的编码参数的信息，例如编码类型、图像大小、帧率等。而 `AVCodecContext` 结构则是编解码器的上下文，包含了编解码器的状态信息、编解码选项等。
+
+`avcodec_parameters_to_context()` 函数的原型如下：
+
+```c
+int avcodec_parameters_to_context(AVCodecContext *codec, const AVCodecParameters *par);
+```
+
+其中，`codec` 是指向目标 `AVCodecContext` 结构的指针，`par` 是指向源 `AVCodecParameters` 结构的指针。
+
+该函数将 `par` 中的编解码器参数复制到 `codec` 中，使 `codec` 中的属性与 `par` 中的属性匹配。这样做的目的是为了使得在使用 FFmpeg 进行编解码时，可以直接使用 `AVCodecContext` 中的属性，而无需重新设置这些属性。
+
+例如，您可以使用该函数将解码器参数复制到解码器的上下文中，以便初始化解码器并进行解码操作。
+
+需要注意的是，调用该函数后，`AVCodecContext` 中的属性会被 `AVCodecParameters` 中的属性所覆盖。因此，在调用该函数之后，您可能需要检查 `AVCodecContext` 中的属性是否正确设置，或者根据需要进行进一步的调整。
+
 ## ffmpeg avformat_network_init() 函数  详解
 
 `avformat_network_init()` 函数是FFmpeg库提供的一个函数，用于初始化 FFmpeg 中的网络功能。
