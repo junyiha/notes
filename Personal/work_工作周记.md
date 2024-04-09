@@ -1941,3 +1941,30 @@
   + 技能储备
     + 图像处理加速技术
       + GPU
+
++ 04.09
+  + vcr
+    + 任务属性接口增加放置点位姿 [defer]
+    + 动态抓取流程编写 [ing]
+  + rk
+    + 断电问题复现: 使用自动重启脚本模拟断电的情况
+    + 发现了问题
+      + 使用自动重启脚本后，在docker停止容器后，发现了structure needs clean问题
+      + 修复的步骤
+```bash
+fuser -m /userdata
+# output: 669 670 678 683 909
+
+kill -s 9 669 670 678 683 909
+
+umount /dev/mmcblk0p10
+
+fsck.ext4 /dev/mmcblk0p10
+
+mount /dev/mmcblk0p10 
+```
+    + 制作带有云平台的docker镜像 [ing]
+  + leave-job
+    + 项目编码mp4失败问题
+  + 技能储备
+    + CUDA编程
