@@ -2,6 +2,11 @@
 
 + ffmpeg C开发 常用技巧
 
+## ffmpeg AVPacket 初始化和反初始化
+
++ av_init_packet()函数被弃用了
++ 应该使用 av_packet_alloc()函数对packet进行申请，使用av_packet_free()函数继续释放
+
 ## ffmpeg AVFrame 转 cv::Mat
 
 + 上面函数传入的参数frame中的图像格式，可以是YUV, RGB ,等等，，经过sws_scale（）转换之后，写入cv::Mat 数据区。
