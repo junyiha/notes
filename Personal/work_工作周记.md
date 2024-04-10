@@ -1966,5 +1966,14 @@ mount /dev/mmcblk0p10
     + 制作带有云平台的docker镜像 [ing]
   + leave-job
     + 项目编码mp4失败问题
+    + JPEG编码，avi封装的视频--》H264编码，mp4封装的视频(ffmpeg命令行版本)[ok]
   + 技能储备
     + CUDA编程
+
++ 04.10
+  + vcr
+    + 动态抓取流程编写[ok]
+  + rk
+    + 断电问题复现和解决方案的生成
+  + leave-job
+    + 任务参数的设计

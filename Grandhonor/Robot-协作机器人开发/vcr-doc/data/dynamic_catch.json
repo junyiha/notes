@@ -5,39 +5,42 @@
             "key_word": "start"
         },
         {
-            "key_word": "task_static_catch",
+            "key_word": "task_dynamic_catch",
             "argument_robot_id": "1001",
             "argument_camera_id": "d9b040968baf4d57152f3a99b3dee3ed",
             "argument_tool_id": "8aa8f919974bc1b070486f357afc150a",
-            "argument_static_catch_catch_speed_percent": 60,
-            "argument_static_catch_catch_rot_vel": 3,
-            "argument_static_catch_catch_cart_vel": 0.5,
-            "argument_static_catch_z_offset": 0.04,
+            "argument_dynamic_catch_catch_speed_percent": 60,
+            "argument_dynamic_catch_catch_rot_vel": 3,
+            "argument_dynamic_catch_catch_cart_vel": 0.5,
+            "argument_dynamic_catch_z_offset": 0.04,
             "counter_condition": 100,
-            "argument_static_catch_place_number": 3,
-            "argument_static_catch_must_in_pause_if_no_target": false,
-            "argument_static_catch_must_in_pause_if_no_place": true,
-            "argument_static_catch_infer_data_rotation_matrix":[
+            "argument_dynamic_catch_place_number": 3,
+            "argument_dynamic_catch_must_in_pause_if_no_target": false,
+            "argument_dynamic_catch_must_in_pause_if_no_place": true,
+            "argument_dynamic_catch_time_offset":0.4,
+            "argument_dynamic_catch_catch_distance":0.26,
+            "argument_dynamic_catch_target_velocity":0.0912,
+            "argument_dynamic_catch_infer_data_rotation_matrix":[
                 [ -0.99972445, 0.018941427, 0.013867418],
                 [ 0.018639259, 0.99959284, -0.021603959],
                 [ -0.014270982, -0.021339526, -0.99967045]
             ],
-            "argument_static_catch_infer_data_translation_matrix":[ 
+            "argument_dynamic_catch_infer_data_translation_matrix":[ 
                 0.17294099, -0.30313626, 1.1996804
             ],
-            "argument_static_catch_infer_data_roi":[
+            "argument_dynamic_catch_infer_data_roi":[
                 [ 100, -100, 100],
                 [ 100, 0, 100],
                 [ -100, -100, 100],
                 [ -100, 0, 100]
             ],
-            "argument_static_catch_grap_area": [
+            "argument_dynamic_catch_grap_area": [
                 [-0.2, -0.2, 0],
                 [ -0.15, -0.6, 0],
                 [ 0.45, -0.2, 0.1],
                 [ 0.45, -0.6, 0.2]
             ],
-            "argument_static_catch_home_point_target": [
+            "argument_dynamic_catch_home_point_target": [
                 3.1,
                 0,
                 0,
@@ -45,7 +48,7 @@
                 1.57,
                 0
             ],
-            "argument_static_catch_joint_reference_target": [
+            "argument_dynamic_catch_joint_reference_target": [
                 0,
                 0,
                 1.57,
@@ -53,13 +56,13 @@
                 1.57,
                 0
             ],
-            "argument_static_catch_place_pose": [
+            "argument_dynamic_catch_place_pose": [
                 180,
                 0,
                 0
             ],
-            "argument_static_catch_scheme_type": 1,
-            "argument_static_catch_place_point_scheme_base_target": [
+            "argument_dynamic_catch_scheme_type": 1,
+            "argument_dynamic_catch_place_point_scheme_base_target": [
 				0.29998247159601976,
 				0.26902083044249486,
                 0.07519980155189884,
@@ -67,15 +70,15 @@
                 -0.0012782106278887086,
                 -0.0015321256548012771
             ],
-            "argument_static_catch_place_point_scheme_target_number": 3,
-            "argument_static_catch_place_point_scheme_y_offset": -0.165,
-            "argument_static_catch_place_point_scheme_z_offset": 0.09,
-            "argument_static_catch_place_point_scheme_pose_offset": [
+            "argument_dynamic_catch_place_point_scheme_target_number": 3,
+            "argument_dynamic_catch_place_point_scheme_y_offset": -0.165,
+            "argument_dynamic_catch_place_point_scheme_z_offset": 0.09,
+            "argument_dynamic_catch_place_point_scheme_pose_offset": [
                 0,
                 0,
                 -30
             ],
-            "argument_static_catch_place_point_scheme_middle_point": [
+            "argument_dynamic_catch_place_point_scheme_middle_point": [
                 0.29998,
                 -0.1509,
                 0.23119,
