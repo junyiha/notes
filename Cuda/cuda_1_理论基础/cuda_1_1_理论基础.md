@@ -98,6 +98,93 @@ char* cudaGetErrorString(cudaError_t error)
   + threadIdx(块内的线程索引)
 + 这些变量是核函数中需要预初始化的内置变量。当执行一个核函数时，CUDA运行时为每个线程分配坐标变量blockIdx和threadIdx。基于这些坐标，你可以将部分数据分配给不同的线程
 
+## 启动一个CUDA核函数
+
++ CUDA内核调用是对C语言函数调用语句的延伸，`<<<>>>`运算符内是核函数的执行配置
+```c
+kernel_name <<<grid, block>>>(argument list);
+```
+
++ 利用执行配置可以指定线程在GPU上调度运行的方式。执行配置的第一个值是网格维度，也就是启动块的数目。第二个值是块维度，也就是每个块中线程的数目。通过指定网格和块的维度，你可以进行以下配置:
+  + 内核中线程的数目
+  + 内核中使用的线程布局
++ 同一个块中的线程之间可以相互协作，不同块内的线程不能协作。
+
++ 核函数的调用与主机线程是异步的。核函数调用结束后，控制权立刻返回给主机端。你可以调用以下函数来强制主机端程序等待所有的核函数执行结束
+```c
+cudaError_t cudaDeviceSynchronize(void);
+```
+
++ 一些cuda运行时API在主机和设备之间是隐式同步的。当使用cudaMemory函数在主机和设备之间拷贝数据时，主机端隐式同步，即主机端程序必须等待数据拷贝完成后才能继续执行程序。
+
++ 不同于C语言的函数调用，所有的CUDA核函数的启动都是异步的。CUDA内核调用完成后，控制权立刻返回给CPU
+
+## 编写核函数
+
++ 核函数是在设备端执行的代码。在核函数中，需要为一个线程规定要进行的计算以及要进行的数据访问。当核函数被调用时，许多不同的CUDA线程并行执行同一个计算任务。以下是用__global__声明定义核函数
+```c
+__global__ void kernel_name(argument list);
+```
+
++ 函数类型限定符指定一个函数在主机上执行还是在设备上执行，以及可被主机调用还是被设备调用
+  + __global__ : 在设备端执行 可从主机端调用,也可以从计算能力为3的设备中调用 必须有一个void返回类型
+  + __device__ : 在设备段执行 仅能从设备端调用
+  + __host__   : 在主机端执行 仅能从主机端调用
++ __device__和__host__限定符可以一起使用，这样函数可以同时在主机和设备端进行编译
+
++ CUDA核函数的限制
+  + 只能访问设备内存
+  + 必须具有void返回类型
+  + 不支持可变数量的参数
+  + 不支持静态变量
+  + 显示异步行为
+
+## CUDA 处理错误
+
++ 由于许多CUDA调用是异步的，所以有时可能很难确定某个错误是由哪一步程序引起的。使用宏可以检查核函数的错误
+```c
+CHECK(cudaMemory(d_c, gpuRef, nBytes, cudaMemcpyHostToDevice));
+```
+
++ 如果内存拷贝或之前的异步操作产生了错误，这个宏会报告错误代码并输出一个可读信息，然后停止程序。
+
++ 也可以用下述方法，在核函数调用后检查核函数错误
+```c
+kernel_function<<<grid, block>>>(argument list);
+CHECK(cudaDeviceSynchronize());
+```
++ CHECK(cudaDeviceSynchronize())会阻塞主机端线程的运行，直到设备端所有的请求任务都结束，并确保最后的核函数启动部分不会出错。
+
+## 用nvprof工具计时
+
++ 自CUDA5.0以来，NVIDIA提供了一个名为nvprof的命令行分析工具，可以帮助从应用程序的CPU核GPU活动情况中获取时间线信息，其包括内核执行，内存传输以及CUDA API的调用，其用法如下
+```bash
+nvprof [nvprof_args] <application> [application_args]
+```
+
+## 设备管理
+
++ NVIDIA提供了几个查询和管理GPU设备的方法。学会如何查询GPU设备信息是很重要的，因为在运行时你可以使用它来帮助设置内核执行配置
++ 两种方法学习查询和管理GPU设备
+  + CUDA运行时API函数
+  + NVIDIA系统管理界面(nvidia-smi)命令行程序
+
++ 使用以下函数查询关于GPU设备的所有信息
+```c
+cudaError_t cudaGetDeviceProperties(cudaDeviceProp* prop, int device);
+```
++ cudaDeviceProp结构体返回GPU设备的属性。
+
++ 使用nvidia-smi查询GPU信息
+  + 要确定系统中安装了多少个GPU以及每个GPU的设备ID，可以使用以下命令
+```bash
+nvidia-smi -L
+```
+  + 使用以下命令获取GPU 0的详细信息
+```bash
+nvidia-smi -q -i 0
+```
+
 ## cuda cudnn tensorrt 之间存在什么关系
 
 CUDA（Compute Unified Device Architecture）、cuDNN（CUDA Deep Neural Network）、和TensorRT（TensorRT）都是与GPU计算和深度学习相关的 NVIDIA 技术。

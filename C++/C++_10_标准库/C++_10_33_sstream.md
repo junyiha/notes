@@ -118,6 +118,59 @@
 
 这些类和函数可以用于将不同类型的数据转换为字符串、将多个字符串拼接为一个字符串、从字符串中提取特定类型的数据等操作。在处理字符串时，字符串流提供了灵活和便捷的方式，特别是在需要对字符串中的数据进行处理、转换或解析时非常有用。
 
+## C++ std::stringbuf 详解 中文
+
+`std::stringbuf` 是 C++ 标准库提供的一个类，允许在基于字符串的缓冲区上进行输入和输出操作。它是 `<sstream>` 头文件的一部分。这个类通常与其他 I/O 类（如 `std::stringstream`）一起使用。
+
+以下是 `std::stringbuf` 的详细解释：
+
+1. **构造和析构**：
+   - `explicit basic_stringbuf( std::ios_base::openmode which = std::ios_base::in | std::ios_base::out )`：使用指定的模式构造一个 `std::stringbuf` 对象。默认模式是 `in|out`。
+   - `virtual ~basic_stringbuf()`：析构函数。
+
+2. **成员函数**：
+   - `str()`：返回底层字符串的副本。
+   - `str(const std::basic_string<charT,traits,Allocator>& str)`：将底层字符串设置为指定字符串的副本。
+   - `protected`：通常，像 `underflow()`、`overflow()`、`sync()` 等函数是受保护的，并由派生类重写。
+
+3. **类型定义**：
+   - `char_type`：字符的类型（默认为 `char`）。
+   - `int_type`：表示每个字符的整数类型（通常为 `int`）。
+   - `pos_type`：表示缓冲区中位置的类型。
+   - `off_type`：表示缓冲区中偏移量的类型。
+
+4. **继承**：
+   - `std::basic_streambuf`：`std::stringbuf` 继承自 `std::basic_streambuf`，使其与流 I/O 操作兼容。
+
+5. **功能**：
+   - `sputc`：将字符放入流中。
+   - `sputn`：将一系列字符放入流中。
+   - `sbumpc`、`sgetc`、`sgetn`：从流中读取字符。
+   - `seekoff`、`seekpos`：将获取和/或放置指针移动到指定位置。
+
+6. **用法**：
+   - `std::stringbuf` 经常被用作从字符串读取或写入的缓冲区。
+   - 它通常与 `std::stringstream` 结合使用，以对字符串执行格式化的输入/输出操作。
+
+```cpp
+#include <iostream>
+#include <sstream>
+
+int main() {
+    std::stringbuf buf;
+    std::ostream os(&buf);
+
+    os << "Hello, ";
+    os << "world!";
+
+    std::cout << buf.str() << std::endl; // 输出：Hello, world!
+    
+    return 0;
+}
+```
+
+在这个例子中，我们创建了一个 `std::stringbuf` 对象，将它用作输出的缓冲区，然后使用 `str()` 方法检索缓冲区的内容。
+
 ## std::stringstream
 
 `std::stringstream` 是 C++ 标准库中的一个类，位于 `<sstream>` 头文件中，提供了对字符串进行输入输出操作的功能。它是基于内存缓冲区的流类，允许像操作标准输入输出流（`std::cin` 和 `std::cout`）一样操作字符串数据。
