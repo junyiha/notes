@@ -2,6 +2,125 @@
 
 + shell脚本编程的常用方法
 
+## linux shell 创建数组并在for循环中向数组添加元素
+
+在 Bash 中，你可以在 `for` 循环中向数组添加元素。以下是一个示例：
+
+```bash
+#!/bin/bash
+
+# 创建一个空数组
+my_array=()
+
+# 在 for 循环中向数组添加元素
+for i in {1..5}
+do
+    my_array+=("$i")
+done
+
+# 打印数组中的所有元素
+for item in "${my_array[@]}"
+do
+    echo "$item"
+done
+```
+
+在这个示例中，我们首先创建了一个空数组 `my_array`。然后，在 `for` 循环中，我们使用 `+=` 运算符向数组添加了 1 到 5 的数字。最后，我们使用另一个 `for` 循环遍历数组并打印出所有的元素。
+
+这样做会将每个数字作为一个独立的数组元素添加到数组中。
+
+## linux shell 创建数组
+
+在 Bash 中创建数组很简单，只需在变量名前加上 `()` 并用空格分隔元素即可。以下是一个示例：
+
+```bash
+#!/bin/bash
+
+# 创建一个数组
+my_array=("apple" "banana" "orange" "grape")
+
+# 打印数组中的所有元素
+for fruit in "${my_array[@]}"
+do
+    echo "$fruit"
+done
+```
+
+这个脚本创建了一个名为 `my_array` 的数组，其中包含了几种水果。然后，通过 `for` 循环遍历数组中的每个元素，并将其打印出来。
+
+你也可以在创建数组后，通过索引访问和修改数组中的元素。例如：
+
+```bash
+# 访问数组元素
+echo "${my_array[0]}"  # 输出第一个元素 "apple"
+
+# 修改数组元素
+my_array[1]="pear"     # 将第二个元素修改为 "pear"
+```
+
+这些都是 Bash 中创建和操作数组的基本方法。
+
+## linux shell脚本 获取指定目录下的所有文件名并依次判断是文件还是目录
+
+你可以通过 `for` 循环遍历指定目录下的所有文件和目录，并使用 `test` 命令检查每个项目是文件还是目录。以下是一个示例脚本：
+
+```bash
+#!/bin/bash
+
+# 指定目录路径
+directory="/path/to/directory"
+
+# 获取目录下所有文件和目录名，并遍历
+for item in "$directory"/*
+do
+    # 判断是否为文件
+    if [ -f "$item" ]; then
+        echo "$item 是一个文件"
+    # 判断是否为目录
+    elif [ -d "$item" ]; then
+        echo "$item 是一个目录"
+    else
+        echo "$item 不是文件也不是目录"
+    fi
+done
+```
+
+这个脚本会遍历指定目录下的所有文件和目录，并输出相应的信息。你可以根据需要修改 `directory` 变量来指定不同的目录路径。
+
+## linux shell脚本 获取指定目录下的所有文件名并保存到数组
+
+你可以编写一个 shell 脚本来获取指定目录下的所有文件名，并将它们保存到一个数组中。以下是一个示例脚本：
+
+```bash
+#!/bin/bash
+
+# 指定目录路径
+directory="/path/to/directory"
+
+# 获取目录下所有文件名，并保存到数组
+file_list=($(ls "$directory"))
+
+# 打印数组中的所有文件名
+for file in "${file_list[@]}"
+do
+    echo "$file"
+done
+```
+
+将上述脚本保存为一个文件，比如 `list_files.sh`，然后赋予执行权限：
+
+```bash
+chmod +x list_files.sh
+```
+
+最后，运行该脚本即可：
+
+```bash
+./list_files.sh
+```
+
+这个脚本会将指定目录下的所有文件名保存到 `file_list` 数组中，并打印出来。你可以根据需要修改 `directory` 变量来指定不同的目录路径。
+
 ## linux shell 字符串拼接
 
 在Linux Shell中，你可以使用不同的方法来进行字符串拼接，具体取决于你使用的Shell（例如，Bash、Zsh、Fish等）。以下是一些常见的方法：

@@ -2,6 +2,64 @@
 
 + linux系统下常用技巧
 
+## linux 检查网络的命令 详解
+
+在 Linux 中，有多种命令可以用于检查网络连接、配置和状态。以下是一些常用的命令及其用法：
+
+1. **ping**：
+   ```bash
+   ping <目标主机或 IP 地址>
+   ```
+   `ping` 命令用于测试本地主机与目标主机之间的连接是否正常。它发送 ICMP 回显请求报文，并等待目标主机回复。如果目标主机正常响应，表示网络连接正常。
+
+2. **ifconfig 或 ip addr**：
+   ```bash
+   ifconfig
+   ```
+   或者
+   ```bash
+   ip addr
+   ```
+   `ifconfig` 或 `ip addr` 命令用于显示当前系统的网络接口信息，包括 IP 地址、MAC 地址、网络接口状态等。
+
+3. **netstat 或 ss**：
+   ```bash
+   netstat -tuln
+   ```
+   或者
+   ```bash
+   ss -tuln
+   ```
+   `netstat` 或 `ss` 命令用于显示当前系统的网络连接状态和监听的端口。以上命令显示当前所有的 TCP 和 UDP 连接。
+
+4. **traceroute**：
+   ```bash
+   traceroute <目标主机>
+   ```
+   `traceroute` 命令用于追踪数据包从本地主机到目标主机的路径，显示经过的每个路由器的 IP 地址和到达目标主机的时间。
+
+5. **nslookup 或 dig**：
+   ```bash
+   nslookup <域名>
+   ```
+   或者
+   ```bash
+   dig <域名>
+   ```
+   `nslookup` 或 `dig` 命令用于查询域名的 DNS 解析信息，包括域名对应的 IP 地址等。
+
+6. **route 或 ip route**：
+   ```bash
+   route -n
+   ```
+   或者
+   ```bash
+   ip route
+   ```
+   `route` 或 `ip route` 命令用于显示当前系统的路由表，包括默认网关等路由信息。
+
+以上是一些常用的网络检查命令及其用法，可以帮助你在 Linux 系统中诊断和解决网络问题。
+
 ## ip配置
 
 + 临时更改:`sudo ifconfig ip-address netmask mask`, 例如:`sudo ifconfig 192.167.0.92 netmask 255.255.0.0`
