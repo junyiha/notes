@@ -552,3 +552,37 @@ int main() {
 - `%S`表示秒（两位数）
 
 运行这段代码将输出当前的年月日-时分秒。
+
+## C++ std::chrono_literals 是什么
+
+C++ 标准库中的 `std::chrono_literals` 是 C++11 引入的一个命名空间，用于提供方便的时间单位字面量，使得在编写时间相关代码时更加直观和易读。
+
+这个命名空间中包含了各种时间单位的字面量，例如：
+
+- `1s`：表示一秒钟。
+- `1ms`：表示一毫秒（千分之一秒）。
+- `1us`：表示一微秒（百万分之一秒）。
+- `1ns`：表示一纳秒（十亿分之一秒）。
+
+通过使用这些字面量，你可以在代码中直接使用自然的时间单位，而不需要手动计算时间的毫秒、微秒或纳秒值，从而提高了代码的可读性和可维护性。
+
+例如，你可以这样使用 `std::chrono_literals`：
+
+```cpp
+#include <iostream>
+#include <chrono>
+
+int main() {
+    using namespace std::chrono_literals;
+
+    auto duration = 100ms;
+    std::cout << "Duration: " << duration.count() << " milliseconds" << std::endl;
+
+    auto timeout = 5s;
+    std::cout << "Timeout: " << timeout.count() << " seconds" << std::endl;
+
+    return 0;
+}
+```
+
+在上面的示例中，`100ms` 和 `5s` 就是使用 `std::chrono_literals` 提供的时间单位字面量，分别表示 100 毫秒和 5 秒。
