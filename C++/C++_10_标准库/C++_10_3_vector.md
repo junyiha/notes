@@ -816,35 +816,51 @@ int main() {
 以下是 `std::vector::assign()` 函数的不同形式及其基本用法：
 
 ```cpp
-void assign(size_type count, const T& value); // 设置容器中元素的数量为 count，并用 value 值替换所有元素
+void assign(size_type count, const T& value); // 设置容器中元素的数量为 count，并用 value 值替换所有元素 (1)
 template <class InputIterator>
-void assign(InputIterator first, InputIterator last); // 使用区间 [first, last) 内的元素替换容器的内容
-void assign(std::initializer_list<T> il); // 使用初始化列表 il 内的元素替换容器的内容
+void assign(InputIterator first, InputIterator last); // 使用区间 [first, last) 内的元素替换容器的内容 (2)
+void assign(std::initializer_list<T> il); // 使用初始化列表 il 内的元素替换容器的内容 (3)
 ```
++ 参数
+  + count - 容器的新大小
+  + value - 用以初始化容器元素的值
+  + first, last - 复制来源元素的范围
+  + ilist - 复制值来源的initializer_list
+
++ 复杂度
+  + 1 与count呈线性
+  + 2 与first和last间的距离呈线性
+  + 3 与il.size()呈线性
 
 这里的 `count` 表示新的元素数量，`value` 是要赋给新元素的值。`first` 和 `last` 是迭代器，表示一个范围，用来替换容器的内容。`il` 是一个初始化列表，用来替换容器的内容。
 
 以下是一个简单的示例演示了如何使用 `std::vector::assign()`：
 
 ```cpp
-#include <iostream>
 #include <vector>
-
-int main() {
-    // 创建一个空的 std::vector 容器
-    std::vector<int> vec;
-
-    // 使用 assign() 设置容器中的元素数量为 5，并用值 10 替换所有元素
-    vec.assign(5, 10);
-
-    // 打印容器中的元素
-    std::cout << "容器中的元素: ";
-    for (const auto& element : vec) {
-        std::cout << element << " ";
-    }
-    std::cout << std::endl;
-
-    return 0;
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    std::vector<char> characters;
+ 
+    auto print_list = [&]()
+    {
+        for (char c : characters)
+            std::cout << c << ' ';
+        std::cout << '\n';  
+    };
+ 
+    characters.assign(5, 'a');
+    print_list();
+ 
+    const std::string extra(6, 'b');
+    characters.assign(extra.begin(), extra.end());
+    print_list();
+ 
+    characters.assign({'C', '+', '+', '1', '1'});
+    print_list();
 }
 ```
 

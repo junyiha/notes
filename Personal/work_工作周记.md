@@ -2032,9 +2032,9 @@ mount /dev/mmcblk0p10
       + 压缩包 [ok]
 
 + 04.17
-  + vcr-机场行李箱抓取demo [ing]
+  + vcr-机场行李箱抓取demo [ok]
     + 抓取策略由容器改为map，键为目标的体积，值为目标的放置点 [ok]
-    + 速度增加，目标为80% [ing]
+    + 速度增加，目标为80% [ok]
   + 技能储备
     + 网络通讯
       + 视频， [defer]    
@@ -2051,3 +2051,49 @@ mount /dev/mmcblk0p10
     + RabbitMQ
       + 服务器由Erlang语言编写
       + 结论：暂不学习
+
++ 04.18
+  + vcr-机场行李箱抓取demo [ing]
+    + 目标跟踪 [ing]
+      + 机械臂于传送带速度相同 做相对静止的运动 [ok]
+  + construction vehicle(工地车辆)
+    + x86平台模型转换 [ing]
+    + 区域入侵-》车辆检测 
+    + 车辆检测业务
+    + 告警推送
+      + 时间
+        + string
+      + 车牌号
+        + string
+      + 图片
+        + base64
+      + 序列号
+        + string
+  + 技能储备
+    + zmq库学习 [ok]
+      + 多主题 多订阅模式
+    + C++基础
+      + std::vector 拷贝赋值 [ok]
+        + std::vector::erase & std::copy
+
++ 04.19
+  + vcr-机场行李箱抓取demo [ing]
+    + 目标跟随效果优化[ing]
+  + construction vehicle(工地车辆)
+    + x86平台模型转换 [ok]
+    + vca启动任务参数 [ok]
+    + 模型配置 detector.json [ing]
+    + 车辆视频模拟rtsp流
+    + 区域入侵-》车辆检测 
+    + 车辆检测业务
+    + 告警推送
+      + 时间
+        + string
+      + 车牌号
+        + string
+      + 图片
+        + base64
+      + 序列号
+        + string
+  + 技能储备
+    + openssl库学习
