@@ -2097,3 +2097,32 @@ mount /dev/mmcblk0p10
         + string
   + 技能储备
     + openssl库学习
+
+## 2024.04.22 - 2024.04.28
+
++ 04.22
+  + vcr-机场行李箱抓取demo [ing]
+    + 目标跟随效果优化[ing]
+  + rk
+    + 常州建安平台反光衣检测算法优化 [ing]
+  + construction vehicle(工地车辆)
+    + 模型配置 detector.json [ok]
+      + 模型压缩文件上传失败问题
+      + 上传未解决，使用sql语句手动添加
+    + 区域入侵-》车辆检测 [ok]
+      + 根据告警lable画框
+    + 车辆视频模拟rtsp流 [ok]
+    + 车牌信息入库 [ok]
+    + 车辆检测业务 [ok]
+    + 心跳 [ok]
+    + 告警推送 [ok]
+      + 时间
+        + string
+      + 车牌号
+        + string
+      + 图片
+        + base64
+      + 序列号
+        + string
+  + 技能储备
+    + openssl库学习

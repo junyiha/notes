@@ -507,3 +507,92 @@ int main() {
 ```
 
 在此示例中，`std::recursive_timed_mutex` 类型的对象 `rt_mtx` 用于保护共享资源 `shared_data`。`recursive_lock_function()` 函数尝试在100毫秒内锁定 `rt_mtx`，如果在超时时间内成功获得了锁，则增加 `shared_data` 的值，并在解锁后进行递归调用。这样，线程可以多次锁定同一个 `std::recursive_timed_mutex` 对象，并提供了超时机制。
+
+## C++ std::call_once函数 详解
+
+`std::call_once` 是 C++11 标准库 `<mutex>` 头文件中的一个函数，用于保证某个函数在多线程环境下只被调用一次。它通常与 `std::once_flag` 结合使用。
+
+这个函数的原型如下：
+
+```cpp
+template< class Callable, class... Args >
+void call_once( std::once_flag& flag, Callable&& f, Args&&... args );
+```
+
+其中：
+
+- `flag` 是一个 `std::once_flag` 对象，用于标识某个函数是否已经被调用过。
+- `f` 是一个可调用对象，可以是函数指针、函数对象或者是 lambda 表达式。
+- `args` 是 `f` 执行时所需的参数。
+
+`std::call_once` 的工作原理是，它会检查 `std::once_flag` 对象是否已经被设置过。如果没有，它会调用传递给它的可调用对象 `f`，并将 `std::once_flag` 对象设置为已调用状态。这样，即使在多线程环境下，也只会有一个线程调用 `f`。
+
+一般来说，`std::call_once` 用于在多线程环境下执行初始化工作或者执行某个需要确保只执行一次的操作。例如，可以用它来确保在多线程环境下只创建一个全局对象。
+
+以下是一个简单的示例：
+
+```cpp
+#include <iostream>
+#include <mutex>
+#include <thread>
+
+std::once_flag flag;
+
+void initialize_shared_resource() {
+    std::cout << "Initializing shared resource\n";
+    // 在这里执行初始化工作
+}
+
+void thread_function() {
+    std::call_once(flag, initialize_shared_resource);
+}
+
+int main() {
+    std::thread t1(thread_function);
+    std::thread t2(thread_function);
+    std::thread t3(thread_function);
+    std::thread t4(thread_function);
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+
+    return 0;
+}
+```
+
+在这个示例中，`initialize_shared_resource` 函数会被多个线程调用，但是由于 `std::call_once` 的作用，它只会被调用一次。
+
+## C++ std::once_flag 详解
+
+`std::once_flag` 是 C++11 标准库 `<mutex>` 头文件中定义的一个标准库类，用于在多线程环境中确保某个函数或某段代码只被执行一次。
+
+`std::once_flag` 的作用是作为 `std::call_once` 函数的参数，用于标记某个函数是否已经被调用过。它通常在多线程环境中与 `std::call_once` 函数结合使用。
+
+这个类的定义相对简单，它通常只是一个轻量级的标志，标识某个函数是否已经被调用过。
+
+以下是 `std::once_flag` 的简单示例用法：
+
+```cpp
+#include <iostream>
+#include <mutex>
+
+std::once_flag flag;
+
+void initialize_shared_resource() {
+    std::cout << "Initializing shared resource\n";
+    // 在这里执行初始化工作
+}
+
+int main() {
+    std::call_once(flag, initialize_shared_resource); // 仅会执行一次
+    std::call_once(flag, [](){ std::cout << "This won't run\n"; }); // 由于flag已被设置，这里的lambda表达式不会执行
+
+    return 0;
+}
+```
+
+在这个示例中，`initialize_shared_resource` 函数仅被执行一次，即使在多个线程中调用了 `std::call_once`。这是因为 `std::once_flag` 确保了其中的初始化代码仅被执行一次。
+
+总的来说，`std::once_flag` 提供了一种在多线程环境中安全地执行某个函数或代码段的机制，确保它们只被执行一次。
