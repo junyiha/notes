@@ -2126,3 +2126,19 @@ mount /dev/mmcblk0p10
         + string
   + 技能储备
     + openssl库学习
+
++ 04.23
+  + vcr-机场行李箱抓取项目 [ing]
+  + 职责:机械臂，整体流程集成
+    + 建立分支，规划架构
+  + rk
+    + 常州建安平台反光衣检测算法优化 ： 拷贝视频 -- gh-rk-1023 [defer]
+    + ssh -o 'proxycommand socat - PROXY:47.100.31.121:gh-rk-1023:22,proxyport=5002' root@47.100.31.121
+  + construction vehicle(工地车辆)
+    + 合并工地车辆视频 [ing]
+    + 优化告警推送
+  + leave-job(值班室监控)
+    + 制作docker镜像 [ok]
+  + 技能储备
+    + openssl库学习
+    + zlmediakit库学习
