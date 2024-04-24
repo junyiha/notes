@@ -2142,3 +2142,20 @@ mount /dev/mmcblk0p10
   + 技能储备
     + openssl库学习
     + zlmediakit库学习
+
++ 04.24
+  + vcr-机场行李箱抓取项目 [ing]
+  + 职责:机械臂，整体流程集成
+    + 建立分支 [ok]
+    + 规划架构 [ing]
+      + 业务流程在master中，在一个类中实现(BaggageHandlingSystem) [ok]
+      + 明确要做的内容，形成文档 [ing]
+  + construction vehicle(工地车辆)
+    + rk平台模型测试 [ok]
+    + 增加获取平台类型表和获取平台地址表接口 [ing]
+    + 心跳线程由静态变量改为从数据库读取地址 [ing]
+  + 技能储备
+    + windows下C++开发 [ing]
+      + Microsoft Visual Studio 使用
+    + openssl库学习 [defer]
+    + zlmediakit库学习 [defer]

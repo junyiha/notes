@@ -2,6 +2,36 @@
 
 + Git常见的使用技巧
 
+## git 迭代拉取子项目
+
+在 Git 中，如果你有一个父项目，而该项目包含了子项目，你可能希望在父项目中拉取或更新这些子项目。这种情况下，通常会使用 Git 的子模块（submodule）功能。子模块允许你在一个 Git 仓库中引用另一个仓库。
+
+要拉取或更新子项目，可以按照以下步骤进行：
+
+1. **添加子模块**：如果尚未添加子模块，可以使用以下命令将子模块添加到父项目中：
+   ```
+   git submodule add <URL-of-submodule-repository> <path-to-store-submodule>
+   ```
+   例如：
+   ```
+   git submodule add https://github.com/example/submodule.git path/to/submodule
+   ```
+
+2. **初始化子模块**：在克隆父项目后，子模块目录中可能还没有子模块的文件。要初始化子模块，可以运行：
+   ```
+   git submodule init
+   ```
+
+3. **更新子模块**：一旦子模块被添加并初始化，你可以使用以下命令更新子模块到父项目所引用的特定版本：
+   ```
+   git submodule update --remote
+   ```
+   这会将每个子模块更新到它们在父项目中所引用的最新提交。
+
+记住，当你拉取父项目时，子模块不会自动更新。你需要显式运行 `git submodule update --remote` 来更新子模块。
+
+这些是用于在 Git 中迭代拉取子项目的基本步骤。
+
 ## git 仅检查指定项目 忽略子项目
 
 在Git中，如果你想仅检查指定项目而忽略子项目，你可以使用`.gitignore`文件来指定哪些文件或目录应该被忽略。在`.gitignore`中，你可以列出你希望忽略的文件或目录的模式。
