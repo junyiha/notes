@@ -2152,10 +2152,23 @@ mount /dev/mmcblk0p10
       + 明确要做的内容，形成文档 [ing]
   + construction vehicle(工地车辆)
     + rk平台模型测试 [ok]
-    + 增加获取平台类型表和获取平台地址表接口 [ing]
-    + 心跳线程由静态变量改为从数据库读取地址 [ing]
+    + 增加获取平台类型表和获取平台地址表接口 [ok]
+    + 心跳线程由静态变量改为从数据库读取地址 [ok]
   + 技能储备
     + windows下C++开发 [ing]
       + Microsoft Visual Studio 使用
     + openssl库学习 [defer]
     + zlmediakit库学习 [defer]
+
++ 04.25
+  + vcr-机场行李箱抓取项目 [ing]
+    + 业务具体实现有master转移到job [fail]
+    + 任务模块的命令增加变长数据的大小 [fail]
+    + 先从master节点开发，重新写任务相关函数 [ing]
+  + construction vehicle(工地车辆)
+    + 现场视频测试 [ok]
+    + docker镜像制作 [ok]
+    + 现场视频素材收集 [ing]
+  + 技能储备
+    + windows下C++开发 [ing]
+      + Microsoft Visual Studio 使用
