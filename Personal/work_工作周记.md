@@ -2164,11 +2164,27 @@ mount /dev/mmcblk0p10
   + vcr-机场行李箱抓取项目 [ing]
     + 业务具体实现有master转移到job [fail]
     + 任务模块的命令增加变长数据的大小 [fail]
-    + 先从master节点开发，重新写任务相关函数 [ing]
+    + 先从master节点开发，重新写任务相关函数 [ok]
   + construction vehicle(工地车辆)
     + 现场视频测试 [ok]
     + docker镜像制作 [ok]
     + 现场视频素材收集 [ing]
+  + 技能储备
+    + windows下C++开发 [ing]
+      + Microsoft Visual Studio 使用
+
++ 04.26
+  + vcr-机场行李箱抓取项目 [ing]
+    + job节点，具体实现任务接口 [ing]
+    + master与job联调
+  + construction vehicle(工地车辆)
+    + 现场视频素材收集 [ing]
+  + rk  
+    + 反光以检测算法升级 [ing]
+      + 序列号 3b1456fc-d991-06fb-a5ce-9319876172a0  gh-rk-1023
+    + 安全帽检测算法升级 [ing]
+      + 序列号 7ed117d0-f489-a476-91e9-c25196190239  gh-rk-1004
+      + 存储目录: /home/user/zjy-190/Videos/helmet/gh-rk-1004
   + 技能储备
     + windows下C++开发 [ing]
       + Microsoft Visual Studio 使用

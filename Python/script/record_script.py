@@ -36,10 +36,10 @@ if __name__ == "__main__":
         exit(-1)
     
     index = 1
-    whole_time = 60 * 60 
+    whole_time = 60 * 60 * 3  # 3h
     begin = time.time()
     while True:
-        command = f"/data/edge/VideoProcess/3party/bin/ffmpeg -rtsp_transport tcp -i rtsp://127.0.0.1:554/live/ZbrZW -c copy -an -f mp4 -t 00:20:30 /userdata/zzz-{index}.mp4"
+        command = f"/data/edge/VideoProcess/3party/bin/ffmpeg -rtsp_transport tcp -i rtsp://127.0.0.1:554/live/ZGxxK -c copy -an -f mp4 -t 00:20:30 /userdata/zzz-{index}.mp4"
         try:
             subprocess.run(command, shell=True, check=True)
             logger.info(f"record success, command: {command}")
