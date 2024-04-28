@@ -2175,8 +2175,8 @@ mount /dev/mmcblk0p10
 
 + 04.26
   + vcr-机场行李箱抓取项目 [ing]
-    + job节点，具体实现任务接口 [ing]
-    + master与job联调
+    + job节点，具体实现任务接口 [ok]
+    + master与job联调 [ok]
   + construction vehicle(工地车辆)
     + 现场视频素材收集 [ing]
   + rk  
@@ -2185,6 +2185,34 @@ mount /dev/mmcblk0p10
     + 安全帽检测算法升级 [ing]
       + 序列号 7ed117d0-f489-a476-91e9-c25196190239  gh-rk-1004
       + 存储目录: /home/user/zjy-190/Videos/helmet/gh-rk-1004
+  + 技能储备
+    + windows下C++开发 [ing]
+      + Microsoft Visual Studio 使用
+
++ 04.27
+  + 休息
+
++ 04.28
+  + vcr-机场行李箱抓取项目 [ing]
+    + 任务属性接口问题修复 [ok]
+    + 任务执行函数开发
+  + construction vehicle(工地车辆)
+    + 现场视频素材收集 [ing]
+      + gh-rk-1026
+      + gh-rk-1003
+    + 车辆检测模型训练 [ing]
+      + /home/user/zjy-190/Videos/南京_匠造_工地车辆
+      + /home/user/zjy-190/Videos/vehcile/gh-rk-1003
+      + /home/user/zjy-190/Videos/vehcile/gh-rk-1026
+  + rk  
+    + 反光衣现场视频素材收集 [ing]
+      + gh-rk-1023
+    + 反光衣模型训练
+      + /home/user/zjy-190/Videos/gh-rk-1023
+    + 安全帽现场视频素材收集 [ing]
+      + gh-rk-1004
+    + 安全帽检测算法升级 [ing]
+      + /home/user/zjy-190/Videos/helmet/gh-rk-1004
   + 技能储备
     + windows下C++开发 [ing]
       + Microsoft Visual Studio 使用

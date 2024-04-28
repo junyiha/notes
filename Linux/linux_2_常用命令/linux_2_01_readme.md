@@ -243,3 +243,39 @@
 
 + update-alternatives
   + linux_2_83_update-alternatives
+
++ blkid
+  + linux_2_84_blkid.md
+
++ autoconf
+  + linux_2_85_autoconf.md
+
++ automake
+  + linux_2_86_automake.md
+
++ uptime
+  + linux_2_87_uptime.md
+
++ mii
+  + linux_2_88_mii-tool.md
+
++ crontab
+  + linux_2_89_crontab.md
+
++ traceroute
+  + linux_2_90_traceroute.md
+
++ route
+  + linux_2_91_route.md
+
++ ifconfig
+  + linux_2_92_ifconfig.md
+
++ nslookup
+  + linux_2_93_nslookup.md
+
++ nmap
+  + linux_2_94_nmap.md
+
++ p7zip
+  + linux_2_95_p7zip.md
