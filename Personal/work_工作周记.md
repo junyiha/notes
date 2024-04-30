@@ -2223,3 +2223,43 @@ mount /dev/mmcblk0p10
   + 技能储备
     + windows下C++开发 [ing]
       + Microsoft Visual Studio 使用
+
+## 2024.04.29 - 2024.05.05
+
++ 04.29
+  + vcr-机场行李箱抓取项目 [ing]
+    + 抓取流程模拟 [ok]
+    + 急停接口实现
+  + construction vehicle(工地车辆)
+    + 新模型部署 [ok]
+      + gh-rk-1003 [ok]
+      + gh-rk-1026 [ok]
+  + rk  
+    + 反光衣现场视频素材收集 [ing]
+      + gh-rk-1023
+    + 反光衣模型训练
+      + /home/user/zjy-190/Videos/gh-rk-1023
+    + 安全帽现场视频素材收集 [ing]
+      + gh-rk-1004
+    + 安全帽检测算法升级 [ing]
+      + /home/user/zjy-190/Videos/helmet/gh-rk-1004
+  + 技能储备
+    + windows下C++开发 [ing]
+      + OpenCV读取图片
+
++ 04.30
+  + vcr-机场行李箱抓取项目 [ing]
+    + 急停接口实现
+      + 使用条件变量实现，修改等待方法
+  + construction vehicle(工地车辆)
+    + 车辆方向问题 ： 只检测进入的车辆
+    + 多次上报问题 ： 采用车牌id过滤还是时间过滤
+    + 车牌识别不准确 ： 车牌识别模型训练
+  + rk  
+    + 反光衣模型训练
+      + /home/user/zjy-190/Videos/gh-rk-1023
+    + 安全帽检测算法升级 [ing]
+      + /home/user/zjy-190/Videos/helmet/gh-rk-1004
+  + 技能储备
+    + windows下C++开发 [ing]
+      + opencv编译
