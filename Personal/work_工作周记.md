@@ -2263,3 +2263,26 @@ mount /dev/mmcblk0p10
   + 技能储备
     + windows下C++开发 [ing]
       + opencv编译
+
+## 2024.05.06 - 2024.05.12
+
++ 05.06
+  + 请假
+
++ 05.07
+  + vcr-机场行李箱抓取项目 [ing]
+    + 对接推理接口[ing]
+      + 获取目标中心点
+      + 测速
+  + construction vehicle(工地车辆)
+    + 过滤车牌，减少误报 [ok]
+    + 多次上报问题 ： 采用车牌id过滤，做一个筛除
+      + 用车牌作为唯一id，实现追踪算法 [ing]
+    + 车牌识别模型 [defer] 
+      + 延后升级
+  + rk  
+    + 优化工地盒子管理平台接口 [ok]
+    + 反光衣模型训练 [defer]
+      + /home/user/zjy-190/Videos/gh-rk-1023
+    + 安全帽检测算法升级 [defer]
+      + /home/user/zjy-190/Videos/helmet/gh-rk-1004
