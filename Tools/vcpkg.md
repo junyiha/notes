@@ -1,0 +1,87 @@
+## 简介
+
++ vcpkg
+
+## vcpkg 常用命令
+
+`vcpkg` 是一个 C/C++ 项目的包管理工具，用于简化在 Windows、Linux 和 macOS 等平台上管理第三方库的过程。以下是一些常用的 `vcpkg` 命令：
+
+1. **安装包：**
+   ```
+   vcpkg install <package_name>
+   ```
+   例如：
+   ```
+   vcpkg install zlib
+   ```
+
+2. **卸载包：**
+   ```
+   vcpkg remove <package_name>
+   ```
+   例如：
+   ```
+   vcpkg remove zlib
+   ```
+
+3. **列出所有可用的包：**
+   ```
+   vcpkg search
+   ```
+
+4. **列出已安装的包：**
+   ```
+   vcpkg list
+   ```
+
+5. **升级已安装的包：**
+   ```
+   vcpkg upgrade
+   ```
+
+6. **查看特定包的信息：**
+   ```
+   vcpkg info <package_name>
+   ```
+   例如：
+   ```
+   vcpkg info zlib
+   ```
+
+7. **在项目中使用已安装的包：**
+   ```
+   vcpkg integrate install
+   ```
+   这个命令会自动将所需的配置设置添加到项目中，使得项目能够找到和使用 `vcpkg` 安装的包。
+
+8. **清理已安装的包：**
+   ```
+   vcpkg remove --outdated
+   ```
+   这会删除已安装的过时包。
+
+9. **更新 `vcpkg` 本身：**
+   ```
+   git pull origin master
+   ./bootstrap-vcpkg.sh
+   ```
+   或者
+   ```
+   vcpkg update
+   ```
+   注意：第一种方法需要在 `vcpkg` 目录下执行，第二种方法则可以在任何地方执行。
+
+10. **帮助：**
+    ```
+    vcpkg help
+    ```
+    或者
+    ```
+    vcpkg help <command>
+    ```
+    例如：
+    ```
+    vcpkg help install
+    ```
+
+这些是 `vcpkg` 中的一些常用命令，可以帮助你管理项目依赖的第三方库。

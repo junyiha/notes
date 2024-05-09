@@ -2286,3 +2286,24 @@ mount /dev/mmcblk0p10
       + /home/user/zjy-190/Videos/gh-rk-1023
     + 安全帽检测算法升级 [defer]
       + /home/user/zjy-190/Videos/helmet/gh-rk-1004
+
++ 05.08
+  + vcr-机场行李箱抓取项目 [ing]
+    + 对接推理接口[ing]
+      + 获取目标中心点
+      + 测速
+  + construction vehicle(工地车辆)
+    + 多次上报问题 ： 采用车牌id过滤，做一个筛除
+      + 用车牌作为唯一id，实现追踪算法 [ok]
+  + 技能储备
+    + windows下编程太难了，放弃。。。
+    + 单元测试，gtest库使用 [ing]
+
++ 05.09
+  + vcr-机场行李箱抓取项目 [ing]
+    + 测试放置算法 [ing]
+    + 对接推理接口[ing]
+      + 获取目标中心点
+      + 测速
+  + 技能储备
+    + 单元测试，gtest库使用 [ing]
