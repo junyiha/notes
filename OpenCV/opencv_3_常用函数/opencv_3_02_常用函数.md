@@ -2,6 +2,53 @@
 
 + OpenCV 常用的函数
 
+## OpenCV cv::samples::findFile() 详解
+
+`cv::samples::findFile()` 是 OpenCV 中的一个实用函数，用于查找示例文件或数据文件的路径。在进行示例代码编写或加载数据文件时，经常需要使用这个函数来确保程序能够正确地找到所需的文件。
+
+以下是对 `cv::samples::findFile()` 的解释：
+
+```cpp
+std::string findFile(const std::string& filename, bool required = true, bool silentMode = true);
+```
+
+- `filename` 参数是要查找的文件名或文件路径。
+- `required` 参数指示是否将文件视为必需。如果为 true，则函数在找不到文件时会抛出一个异常；如果为 false，则函数会返回空字符串。
+- `silentMode` 参数指示是否在查找文件时静默模式。如果为 true，则函数在找不到文件时不会输出警告消息；如果为 false，则会输出警告消息。
+
+函数返回一个字符串，代表找到的文件的路径。如果文件找不到并且 `required` 参数为 false，则返回一个空字符串。
+
+`cv::samples::findFile()` 函数通常用于示例代码中，以确保示例文件或数据文件能够在不同的开发环境中正确地加载。例如，在图像处理示例中，可以使用 `cv::samples::findFile()` 函数来加载示例图像文件。
+
+以下是一个示例用法：
+
+```cpp
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <iostream>
+
+int main() {
+    std::string filename = cv::samples::findFile("lena.jpg");
+    if (filename.empty()) {
+        std::cerr << "Failed to find the file 'lena.jpg'" << std::endl;
+        return -1;
+    }
+
+    cv::Mat image = cv::imread(filename);
+    if (image.empty()) {
+        std::cerr << "Failed to load the image" << std::endl;
+        return -1;
+    }
+
+    cv::imshow("Image", image);
+    cv::waitKey(0);
+
+    return 0;
+}
+```
+
+这段代码首先使用 `cv::samples::findFile()` 函数查找名为 "lena.jpg" 的图像文件，然后加载并显示它。
+
 ## OpenCV cv::merge() 函数 详解
 
 `cv::merge()` 函数是 OpenCV 库中的一个函数，用于将多个单通道图像合并为一个多通道图像。例如，将三个单通道的图像（比如分别代表 RGB 三个通道的图像）合并成一个三通道的彩色图像。下面是对 `cv::merge()` 函数的详解：

@@ -2,6 +2,49 @@
 
 + cmake 常用函数
 
+## cmake add_subdirectory() 函数 详解
+
+`add_subdirectory()` 是 CMake 中的一个函数，用于向 CMake 构建系统添加一个子目录。当你的项目结构比较复杂，需要将代码分割成多个目录时，`add_subdirectory()` 可以很方便地帮助你组织代码和构建系统。
+
+这个函数的语法是：
+
+```cmake
+add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
+```
+
+- `source_dir`：要添加的子目录的路径。
+- `binary_dir`：可选参数，用于指定存放构建输出的目录。如果省略，则默认为 `source_dir` 下的 `bin` 目录。
+- `EXCLUDE_FROM_ALL`：可选参数，如果设置了这个选项，则生成的构建目标将不会被默认构建。
+
+使用 `add_subdirectory()` 的典型场景是，你的项目主目录下有多个子目录，每个子目录都包含了一个独立的 CMakeLists.txt 文件来描述这个子目录的构建过程。例如，一个简单的项目结构可能是这样的：
+
+```
+project_root/
+    CMakeLists.txt
+    src/
+        CMakeLists.txt
+        file1.cpp
+        file2.cpp
+    test/
+        CMakeLists.txt
+        test1.cpp
+        test2.cpp
+```
+
+`project_root/CMakeLists.txt` 中可以通过 `add_subdirectory()` 来引入 `src/` 和 `test/` 目录的构建规则：
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(MyProject)
+
+add_subdirectory(src)
+add_subdirectory(test)
+```
+
+然后在 `src/CMakeLists.txt` 和 `test/CMakeLists.txt` 中分别描述 `src/` 和 `test/` 目录下的构建规则。
+
+通过这种方式，可以将项目的各个部分分开管理，每个部分有独立的构建规则，便于项目的组织和维护。
+
 ## cmake target_link_directories() 函数 详解
 
 在 CMake 中，`target_link_directories()` 函数用于为一个目标（target）指定要搜索链接库的目录。这允许你为特定目标指定链接库的搜索路径，而不是全局设置。
