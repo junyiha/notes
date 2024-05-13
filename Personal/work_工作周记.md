@@ -2326,3 +2326,12 @@ mount /dev/mmcblk0p10
   + 技能储备
     + 完善动态人脸识别项目经历
       + OpenCV-dnn库加载ONNX模型 [doing]
+
+## 2024.05.13 - 2024.05.19
+
++ 05.13
+  + vcr-机场行李箱抓取项目 [doing]
+    + 实现抓取效果
+  + 技能储备
+    + 完善动态人脸识别项目经历
+      + OpenCV-dnn库加载ONNX模型 [doing]

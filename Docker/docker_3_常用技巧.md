@@ -2,6 +2,37 @@
 
 + docker常用技巧
 
+## docker 镜像存储位置
+
++ Docker 镜像存储位置取决于你在安装 Docker 时所选择的存储驱动程序。Docker 默认使用“overlay2”存储驱动程序，它会将镜像存储在 /var/lib/docker/overlay2 目录下。但是，如果你使用的是其他存储驱动程序，那么镜像存储位置可能会有所不同。
++ 你可以通过以下命令查看 Docker 镜像存储位置：
+```bash
+docker info | grep -i 'docker root dir'
+```
++ 在输出结果中，你将看到存储路径的具体位置。例如：
+```bash
+Docker Root Dir: /var/lib/docker
+```
+
++ 如果你想将 Docker 镜像存储到不同的位置，可以通过以下步骤进行设置：
++ 停止 Docker 服务：
+```bash
+sudo systemctl stop docker
+```
++ 移动 /var/lib/docker 目录到新的位置，例如 /new/docker/path：
+```bash
+sudo mv /var/lib/docker /new/docker/path
+```
++ 创建一个指向新目录的符号链接：
+```bash
+sudo ln -s /new/docker/path /var/lib/docker
+```
++ 启动 Docker 服务：
+```bash
+sudo systemctl start docker
+```
++ 现在，Docker 镜像将被存储在新的位置 /new/docker/path 中。请注意，这种更改可能会导致现有的 Docker 容器无法正常运行，因此请谨慎操作。
+
 ## 网络模式设置
 
 在 Docker 中，`-net=host` 是一种网络模式选项，用于指定容器的网络命名空间。当你使用该选项时，容器将与宿主机共享网络命名空间，这意味着容器将使用宿主机的网络栈，与宿主机具有相同的网络接口和IP地址。
