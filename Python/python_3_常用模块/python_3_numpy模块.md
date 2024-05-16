@@ -115,3 +115,56 @@ x = np.linalg.solve(A, np.array([1, 2]))
 ```
 
 这些只是NumPy库中一些常用的技巧和功能。NumPy还提供了许多其他功能，如统计函数、随机数生成、广播等，可以根据具体需求选择合适的函数和方法。
+
+## python3 numpy.transpose() 函数 详解
+
+`numpy.transpose()` 函数是 NumPy 库中用于对数组进行转置操作的函数。转置操作是将数组的维度重新排列，即将数组的行和列互换位置。
+
+### 语法
+```python
+numpy.transpose(a, axes=None)
+```
+
+- `a`: 输入的数组。
+- `axes`: 指定转置操作后的维度顺序。如果不指定，则默认将数组的维度逆序。
+
+### 返回值
+返回转置后的数组。
+
+### 示例
+```python
+import numpy as np
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+
+transposed_arr = np.transpose(arr)
+print(transposed_arr)
+```
+输出：
+```
+[[1 4]
+ [2 5]
+ [3 6]]
+```
+
+在这个例子中，原始数组 `arr` 是一个 2x3 的数组。调用 `np.transpose(arr)` 后，得到一个 3x2 的数组，即将原数组的行和列互换了位置。
+
+### 指定轴顺序
+```python
+import numpy as np
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+
+transposed_arr = np.transpose(arr, axes=(1, 0))
+print(transposed_arr)
+```
+输出：
+```
+[[1 4]
+ [2 5]
+ [3 6]]
+```
+
+在这个示例中，我们通过 `axes=(1, 0)` 指定了转置后的轴顺序，结果与未指定时相同。
