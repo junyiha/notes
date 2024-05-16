@@ -1,0 +1,224 @@
+## 简介
+
++ Jekyll相关理论基础
+
+## Jekyll是什么
+
+Jekyll是一个静态网站生成器，它让你能够使用纯文本格式（如Markdown）来创建网站内容，然后将其转换成静态HTML网页。Jekyll是由GitHub的联合创始人Tom Preston-Werner开发的，它最初是为了支持GitHub Pages服务而创建的。通过Jekyll，你可以轻松地管理博客、个人网站或基本的网页项目，而无需使用数据库或服务器端语言。它在许多开发者和写作者中很受欢迎，因为它简单、易于使用，并且具有强大的定制和扩展功能。
+
+## Jekyll详解
+
+Jekyll 是一个简单的静态站点生成器，它可以将纯文本、Markdown 以及 Liquid 模板语言转换成静态网站和博客。下面是一些 Jekyll 的详解：
+
+1. **静态网站生成器**：Jekyll 是一个静态网站生成器，它可以根据你提供的源文件（如 Markdown、HTML、CSS 等）生成一个完整的静态网站。这意味着在生成网站后，你可以将它们托管在任何支持静态文件的服务器上，而不需要服务器端的脚本语言支持，例如 PHP 或 Python。
+
+2. **Markdown 和 Liquid**：Jekyll 支持使用 Markdown 语法编写内容，并且可以使用 Liquid 模板语言来添加动态内容和逻辑。Markdown 是一种轻量级标记语言，用来书写文档，而 Liquid 是一种模板语言，用来动态生成内容。
+
+3. **易于扩展和定制**：Jekyll 具有丰富的插件系统，可以扩展其功能。你可以使用已有的插件，也可以编写自己的插件来满足特定需求。此外，Jekyll 还支持主题定制，你可以根据自己的喜好修改或创建主题。
+
+4. **GitHub Pages 集成**：GitHub Pages 是一个免费的静态网站托管服务，它直接集成了 Jekyll。这意味着你可以将 Jekyll 生成的网站直接托管在 GitHub Pages 上，并且可以通过 Git 来管理网站的版本控制。
+
+5. **本地预览和调试**：Jekyll 提供了一个内置的开发服务器，可以在本地预览和调试生成的网站。这使得你可以在发布之前对网站进行本地测试和调整。
+
+6. **支持多种格式输出**：除了生成 HTML 网站之外，Jekyll 还支持生成其他格式的输出，例如 JSON、XML 等，这使得它可以用于构建各种类型的网站和应用程序。
+
+总的来说，Jekyll 是一个功能强大且易于使用的静态网站生成器，适合用于构建个人博客、项目文档、静态网站等各种类型的网站。
+
+## 静态网站生成器是什么
+
+静态网站生成器是一种软件工具或框架，用于将源文件（如 Markdown、HTML、CSS、JavaScript 等）转换为静态网站的工具。与动态网站不同，静态网站生成器在生成网站时会预先将所有页面和内容编译成静态文件，这些文件可以直接在 web 服务器上提供给访问者，而无需动态生成页面内容。
+
+静态网站生成器的工作流程通常包括以下步骤：
+
+1. **准备源文件**：准备好要发布的源文件，这些文件可以是 Markdown 格式的文章、HTML 页面、CSS 样式表、JavaScript 脚本等。
+
+2. **使用模板**：一般情况下，静态网站生成器会使用模板引擎来管理页面的结构和布局。通过模板，可以轻松地将内容插入到页面中，并实现页面的复用和共享。
+
+3. **生成静态文件**：静态网站生成器会读取源文件，并根据预先定义的规则和模板来生成静态网站的各个页面。这通常包括将 Markdown 转换为 HTML、合并和压缩 CSS 和 JavaScript 文件等操作。
+
+4. **本地预览**：生成静态网站之后，可以在本地启动一个 web 服务器，以便预览生成的网站，并进行调试和测试。
+
+5. **部署到服务器**：最后，将生成的静态文件上传到 web 服务器上，以便通过域名访问网站。
+
+静态网站生成器的优点包括速度快、安全性高、部署简单等，适用于个人博客、项目文档、企业官网等各种类型的网站。知名的静态网站生成器包括 Jekyll、Hugo、Gatsby 等。
+
+## 常用的静态网站生成器
+
+常用的静态网站生成器包括但不限于：
+
+1. **Jekyll**：Jekyll 是一个基于 Ruby 的静态网站生成器，它支持使用 Markdown 和 Liquid 模板语言来创建网站和博客。Jekyll 是 GitHub Pages 默认支持的静态网站生成器之一。
+
+2. **Hugo**：Hugo 是一个用 Go 语言编写的静态网站生成器，以其速度快、易于使用和高度可定制性而闻名。Hugo 支持多种主题和模板，并且生成的网站非常快速。
+
+3. **Gatsby**：Gatsby 是一个基于 React 的静态网站生成器，它使用 GraphQL 来管理数据，并具有强大的插件系统和可扩展性。Gatsby 适用于构建高度交互和动态的静态网站。
+
+4. **Hexo**：Hexo 是一个基于 Node.js 的静态博客生成器，它支持使用 Markdown 和 EJS（Embedded JavaScript）模板来创建网站和博客。Hexo 具有丰富的插件和主题生态系统。
+
+5. **VuePress**：VuePress 是一个基于 Vue.js 的静态网站生成器，专注于文档和博客的创建。VuePress 具有 Vue.js 生态系统的特性，如单文件组件和路由，同时也支持 Markdown 编写内容。
+
+6. **Pelican**：Pelican 是一个用 Python 编写的静态网站生成器，它使用 reStructuredText 或 Markdown 作为标记语言，支持插件和主题定制。
+
+7. **Next.js**：虽然 Next.js 主要是一个 React 框架，但它也可以用于生成静态网站。通过使用 Next.js 的静态导出功能，可以将 React 应用程序生成为静态文件，然后部署到任何静态文件托管服务中。
+
+这些静态网站生成器都具有不同的特点和优势，你可以根据自己的需求和偏好选择适合的工具来构建静态网站。
+
+## 通过Jekyll在github pages上创建的博客具体有哪些规范
+
+在 GitHub Pages 上使用 Jekyll 创建博客时，有一些规范和约定可以遵循，以确保你的博客能够正确地生成和展示。以下是一些常见的规范：
+
+1. **目录结构**：在你的 Jekyll 项目中，通常会有以下一些核心目录和文件：
+   - `_config.yml`：Jekyll 的配置文件，用于配置站点的各种属性和选项。
+   - `_posts` 目录：用于存放博客文章的 Markdown 文件，这些文件的文件名应该遵循 `YEAR-MONTH-DAY-title.MARKUP` 的格式。
+   - `_layouts` 目录：用于存放页面模板文件，可以定义不同类型页面的布局结构。
+   - `_includes` 目录：用于存放可重用的 HTML 片段，可以在模板中引用。
+   - `index.html` 或 `index.md`：站点的首页文件，用于展示最新的博客文章或其他内容。
+   - 其他静态文件和资源：如 CSS 样式表、JavaScript 脚本、图片等。
+
+2. **Front Matter**：每篇博客文章的开头需要添加 YAML 格式的 Front Matter，用于定义文章的元数据，例如标题、日期、作者等信息。
+
+3. **Markdown 格式**：博客文章通常使用 Markdown 格式来编写，以简洁地书写内容，并支持轻量级的标记语法。
+
+4. **模板引擎**：Jekyll 使用 Liquid 模板引擎来处理页面的动态内容和逻辑，你可以在模板中使用 Liquid 标签和过滤器来动态生成页面内容。
+
+5. **站点配置**：通过 `_config.yml` 文件可以配置站点的各种属性，如站点标题、描述、URL、主题等。
+
+6. **部署到 GitHub Pages**：将 Jekyll 项目推送到 GitHub 仓库的 `gh-pages` 分支或者 `docs` 目录下，GitHub Pages 将会自动构建和发布你的博客。
+
+7. **域名绑定**：如果需要使用自定义域名，你可以通过 GitHub Pages 的设置将你的域名绑定到你的博客上。
+
+遵循这些规范可以帮助你更方便地使用 Jekyll 在 GitHub Pages 上创建和管理博客，并确保博客能够正常生成和展示。
+
+## github pages Jekyll创建个人博客 示例
+
+当你准备在 GitHub Pages 上使用 Jekyll 创建个人博客时，可以按照以下步骤操作：
+
+### 步骤 1：创建 GitHub 仓库
+
+1. 登录 GitHub。
+2. 点击右上角的加号图标，在下拉菜单中选择 "New repository"。
+3. 输入仓库名称，例如 `username.github.io`（注意将 `username` 替换为你的 GitHub 用户名）。
+4. 添加描述（可选）。
+5. 选择是否将仓库设为公开或私有。
+6. 点击 "Create repository" 创建仓库。
+
+### 步骤 2：克隆仓库到本地
+
+1. 在你的计算机上打开命令行终端。
+2. 使用 `git clone` 命令克隆你刚创建的仓库到本地：
+
+```bash
+git clone https://github.com/username/username.github.io.git
+```
+
+### 步骤 3：初始化 Jekyll 项目
+
+1. 进入克隆下来的仓库目录：
+
+```bash
+cd username.github.io
+```
+
+2. 初始化一个新的 Jekyll 项目：
+
+```bash
+jekyll new .
+```
+
+### 步骤 4：编辑配置文件
+
+1. 打开 `_config.yml` 文件，编辑站点配置。你可以设置站点的标题、描述、作者等信息，以及其他 Jekyll 和站点的配置选项。
+
+### 步骤 5：编写博客文章
+
+1. 进入 `_posts` 目录，这里存放着博客文章的 Markdown 文件。
+2. 创建一个新的 Markdown 文件，命名方式为 `YEAR-MONTH-DAY-title.md`，例如 `2024-05-16-welcome-to-my-blog.md`。
+3. 在文件开头添加 YAML 格式的 Front Matter，定义文章的元数据，例如标题、日期、作者等信息。
+4. 在 Front Matter 下方编写文章内容，使用 Markdown 格式编写。
+
+### 步骤 6：本地预览
+
+1. 返回项目根目录。
+2. 运行以下命令启动 Jekyll 内置的开发服务器：
+
+```bash
+bundle exec jekyll serve
+```
+
+3. 打开浏览器，访问 `http://localhost:4000`，即可在本地预览你的博客。
+
+### 步骤 7：提交并推送到 GitHub
+
+1. 在命令行中提交你的更改：
+
+```bash
+git add .
+git commit -m "Initial commit"
+```
+
+2. 推送到 GitHub 仓库：
+
+```bash
+git push origin main
+```
+
+### 步骤 8：部署到 GitHub Pages
+
+1. 打开 GitHub 仓库的设置页面。
+2. 在 "GitHub Pages" 部分，选择 `main` 分支作为源，点击保存。
+3. 一旦保存成功，你的博客就会被部署到 `https://username.github.io`（记得将 `username` 替换为你的 GitHub 用户名）。
+
+完成这些步骤后，你就成功在 GitHub Pages 上创建了个人博客，并且可以通过编辑 Markdown 文件来添加新的博客文章。
+
+## linux Jekyll安装
+
+在 Linux 上安装 Jekyll 需要先安装 Ruby 环境，并通过 Ruby 的包管理器 `gem` 安装 Jekyll。以下是在 Linux 上安装 Jekyll 的步骤：
+
+### 步骤 1：安装 Ruby 和 RubyGems
+
+大多数 Linux 发行版都会默认安装 Ruby，但如果你的系统没有安装 Ruby，你可以通过包管理器进行安装。例如，在 Ubuntu 或 Debian 上，你可以使用以下命令安装 Ruby 和 RubyGems：
+
+```bash
+sudo apt update
+sudo apt install ruby-full
+```
+
+### 步骤 2：安装 Jekyll
+
+一旦 Ruby 和 RubyGems 安装完成，你就可以使用 gem 命令安装 Jekyll。运行以下命令：
+
+```bash
+sudo gem install jekyll bundler
+```
+
+### 步骤 3：检查安装是否成功
+
+安装完成后，可以运行以下命令来验证 Jekyll 是否成功安装：
+
+```bash
+jekyll -v
+```
+
+如果一切正常，这将输出 Jekyll 的版本号。
+
+### 步骤 4：使用 Jekyll 创建新项目
+
+现在你已经安装了 Jekyll，可以使用它来创建新的项目。进入你希望创建项目的目录，并运行以下命令：
+
+```bash
+jekyll new myblog
+```
+
+这将在当前目录下创建一个名为 `myblog` 的新 Jekyll 项目。你可以根据需要修改目录名称。
+
+### 步骤 5：启动 Jekyll 本地服务器
+
+进入项目目录，并运行以下命令来启动 Jekyll 内置的本地开发服务器：
+
+```bash
+cd myblog
+bundle exec jekyll serve
+```
+
+这将在本地启动一个服务器，你可以在浏览器中访问 `http://localhost:4000` 查看你的 Jekyll 网站。
+
+现在，你已经成功在 Linux 上安装了 Jekyll，并且可以开始创建和管理你的静态网站了。

@@ -72,3 +72,11 @@ cat ~/.ssh/id_rsa.pub
 git remote add origin_ssh ssh@github.com/elliot53/notes.git
 ssh -T git@github.com
 ```
+
+## 什么是GitHub Actions
+
++ 一个简单的需求，是在仓库出现更改时自动更新构建与部署博客。其实，监视仓库并在由改动时自动执行一系列动作是非常广泛的需求。软件开发工作中，经常需要对新添加的代码随时进行测试，或者进行部署，都是通过这样的自动化流程实现的。
++ 实际上，这类服务还有个专业名词: 持续集成(Continuous Intergration)/持续部署(Continuous Deploy)，简称CI/CD
+
++ 此前，最广泛使用的CI服务当属于Travis CI;现在GitHub也推出了自家的CI服务GitHub Actions。
++ 当仓库收到新的更新(push)时,GitHub会根据仓库中.github/workflows文件夹下的YAML配置文件启动CI流程

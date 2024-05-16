@@ -3612,3 +3612,34 @@ Redis 分布式锁是一种在分布式系统中实现互斥访问的机制，�
    ```
 
 通过以上步骤，你可以在 CMake 构建系统中集成 `perf` 工具的使用，并在构建和运行程序时进行性能分析。需要注意的是，`perf` 工具的具体用法和选项可以根据实际需要进行调整和配置。
+
+## cmake gprof工具使用
+
+在 CMake 中使用 gprof 工具来进行性能分析通常需要以下几个步骤：
+
+1. **编译时启用 gprof 支持：** 首先，需要在编译时启用 gprof 支持。这可以通过在 CMakeLists.txt 文件中设置相应的编译选项来完成。通常，你需要使用 `-pg` 选项来启用 gprof 支持。你可以在 `CMAKE_C_FLAGS` 和 `CMAKE_CXX_FLAGS` 变量中添加 `-pg` 选项，如下所示：
+
+    ```cmake
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pg")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+    ```
+
+2. **重新编译你的项目：** 一旦在 CMakeLists.txt 中设置了编译选项，你需要重新编译你的项目以确保 gprof 支持已经生效。
+
+3. **运行程序以生成 gmon.out 文件：** 当你的程序运行时，gprof 会收集性能数据并将其存储在一个名为 gmon.out 的文件中。你需要确保在程序执行完毕后能够找到这个文件。你可以通过以下方式运行你的程序：
+
+    ```bash
+    ./your_executable
+    ```
+
+4. **生成分析报告：** 一旦 gmon.out 文件已经生成，你可以使用 gprof 工具来生成性能分析报告。使用以下命令来执行 gprof：
+
+    ```bash
+    gprof ./your_executable gmon.out > analysis.txt
+    ```
+
+    这将生成一个名为 analysis.txt 的文本文件，其中包含了程序的性能分析报告。
+
+记住，使用 gprof 进行性能分析时，最好在 release 模式下编译你的代码，以便获得更准确的性能数据。此外，要确保你的代码中包含了足够的符号信息，以便 gprof 能够正确地分析函数调用关系。
+
+这就是在 CMake 中使用 gprof 工具进行性能分析的基本步骤。
