@@ -2,6 +2,14 @@
 
 + shell编程常用技巧
 
+## 在shell script中以某用户身份执行命令
+
+```bash
+#!/bin/bash 
+sudo -S bash -c 'whoami'
+whoami
+```
+
 ## linux 写一个定时刷新的24h运行脚本
 
 你可以使用`crontab`来创建一个定时刷新的脚本。`crontab`是一个用于在Linux系统上定期执行任务的工具。下面是一个示例，假设你有一个名为`refresh.sh`的脚本，你想每天定时运行：
