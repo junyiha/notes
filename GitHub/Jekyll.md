@@ -222,3 +222,30 @@ bundle exec jekyll serve
 这将在本地启动一个服务器，你可以在浏览器中访问 `http://localhost:4000` 查看你的 Jekyll 网站。
 
 现在，你已经成功在 Linux 上安装了 Jekyll，并且可以开始创建和管理你的静态网站了。
+
+## jekyll的目录结构
+
++ 几个核心的目录结构，如下
+  + _layouts （存放页面模板，md或html文件的内容会填充模板）
+  + _sass（存放样式表）
+  + _includes （可以复用在其它页面被include的html页面）
+  + _posts（博客文章页面）
+  + assets（原生的资源文件）
+    + js
+    + css
+    + image
+  + _config.yml （全局配置文件）
+  + index.html, index.md, README.md （首页index.html优先级最高，如果没有index，默认启用README.md文件）
+  + 自定义文件和目录
+
+## jekyll的模板编程语言Liquid的使用
+
++ 变量 {{ variable }} 被嵌入在页面中，会在静态页面生成的时候被替换成具体的数值。常用的全局变量对象有：site 和 page。这两个对象有很多默认自带的属性，比如：{{ site.time }}，{{ page.url }}
++ site对象对应的就是网站范围，自定义变量放在_config.yml中，比如title:自定义标题使用{{ site.title }}访问
++ page对象对应的是单个页面，自定义变量放在每个页面的最开头
++ 默认函数，可以对变量进行一些处理，比如大小写转化、数学运算、格式化、排序等等，在Liquid中叫做Filters。比如{{ "Hello World!" | downcase }}转换字符串为小写
+
+## _layouts模板配置
+
++ _layouts文件夹存放的是页面模板，默认需要一个default.html
++ 就是说，layout提供一个页面的布局框架，这是固定的模式，包括样式、结构、布局、脚本控制等等。然后，我们在用其它md或html文件去动态填充这个框架，这样就形成了一个完整的页面

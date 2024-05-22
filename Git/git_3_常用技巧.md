@@ -2,6 +2,23 @@
 
 + Git常见的使用技巧
 
+## 写了很多代码，发现写错了分支怎么办
+
++ 未提交的情况下
+  + git add . (把所有改动暂存)
+  + git stash (把暂存的文件提交到git的暂存栈)
+  + git checkout 本该提交代码的分支
+  + git stash pop (将暂存栈中的代码放出来)
++ 至于是继续改还是提交就随你了
+
++ 已提交的情况下
+  + git checkout 不该提交代码提交了代码的分支
+  + git reset HEAD~1 （最近一次提交放回暂存区, 并取消此次提交）
+  + git stash (把暂存的文件提交到git的暂存栈)
+  + git checkout 该提交代码的分支
+  + git stash pop
++ 下面一顿操作随你猛了，等你把代码提交到了正确的分支后，再次切到刚刚错的分支
+
 ## git 迭代拉取子项目
 
 在 Git 中，如果你有一个父项目，而该项目包含了子项目，你可能希望在父项目中拉取或更新这些子项目。这种情况下，通常会使用 Git 的子模块（submodule）功能。子模块允许你在一个 Git 仓库中引用另一个仓库。
@@ -454,3 +471,15 @@ git config --global core.editor
 + 将一个已存在的Git仓库添加为正在工作的仓库的自模块：`git submodule add`命令后加上想要跟踪的项目的相对或者绝对URL来添加新的子模块。
   + 默认情况下，子模块会将子项目放到一个与仓库同名的目录中，如果想放到其他地方，可以在命令结尾添加一个不同的路径。
 + `.gitmodules`配置文件，保存了项目URL与已经拉取的本地目录之间的映射
+
++ 我们首先将一个已存在的 Git 仓库添加为正在工作的仓库的子模块。 你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对 URL 来添加新的子模块。 在本例中，我们将会添加一个名为 “DbConnector” 的库。
+```bash
+$ git submodule add https://github.com/chaconinc/DbConnector
+Cloning into 'DbConnector'...
+remote: Counting objects: 11, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 11 (delta 0), reused 11 (delta 0)
+Unpacking objects: 100% (11/11), done.
+Checking connectivity... done.
+```
++ 默认情况下，子模块会将子项目放到一个与仓库同名的目录中，本例中是 “DbConnector”。 如果你想要放到其他地方，那么可以在命令结尾添加一个不同的路径。
