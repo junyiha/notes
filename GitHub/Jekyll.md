@@ -249,3 +249,86 @@ bundle exec jekyll serve
 
 + _layouts文件夹存放的是页面模板，默认需要一个default.html
 + 就是说，layout提供一个页面的布局框架，这是固定的模式，包括样式、结构、布局、脚本控制等等。然后，我们在用其它md或html文件去动态填充这个框架，这样就形成了一个完整的页面
+
+## 使用Category分类
+
++ 在jekyll中，可以使用Category或者Categories进行分类。
+
++ 为文章定义分类
+  + 首先要确定文章属于哪个分类。这个配置可以设置在文章的头信息中，使用category或者categories确定。示例
+```markdown
+---
+layout: MyTemplate
+title: Category Sample
+category: test
+---
+```
+  + 或者使用categories，这个属性接受一个数组，代表这篇文章所属的类，示例
+```markdown
+---
+layout: MyTemplate
+title: Category Sample
+categories: [test, sample]
+---
+```
++ 加入这些信息之后，文章所属分类就定义好了。但是还需要在页面(或者模板)中输出分类所有的文章才能完成以分类为基础的索引功能
+
++ 修改_config.yml文件
+  + 在_config.yml文件添加一行代码，代码如下
+```yaml
+# 添加category内容
+permalink: /:categories/:title/
+```
+
++ 为了能够在导航栏进行显示分类标签，所以在_config.yml这个文件中的导航代码中添加分类栏,代码如下:
+```yaml
+# List of links in the navigation bar
+navbar-links:
+  主页: "https://junyiha.github.io"
+  分类: "https://junyiha.github.io/categories/"
+  标签: "https://junyiha.github.io/tags/"
+  项目:
+    - Learn markdown: "http://www.markdowntutorial.com/"
+  关于我: "aboutme"
+  搜索: "search"
+```
+
++ 创建categories.html文件
++ 在根目录下创建一个categories.html文件，并将下面代码复制到这个文件中
+```html
+---
+layout: page
+permalink: /categories/
+title: 博客分类
+---
+
+<!--添加搜索框-->
+<div id="archives">
+{%for category in site.categories %}
+  <div class="archive-group">
+    {%capture category_name %}{{ category | first }}{%endcapture %}
+    <div id="#{{ category_name | slugize }}"></div>
+    <p></p>
+
+    <h3 class="category-head">{{ category_name }} ({{site.categories[category_name].size()}})</h3>
+    <a name="{{ category_name | slugize }}"></a>
+    {%for post in site.categories[category_name] %}
+    <article class="archive-item">
+      <h4><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h4>
+    </article>
+    {%endfor %}
+  </div>
+{%endfor %}
+</div>
+```
+
++ 对每个文章进行分类的添加
+  + 修改_pose目录下的.md文件，然后在开头添加categories: 标签，好让分类页面去一起展示，添加的示例如下:
+```markdown
+---
+layout: post
+title: Jekyll个人博客添加分类Category功能
+tags: [Jekyll]
+categories: Jekyll
+---
+```
