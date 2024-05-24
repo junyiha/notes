@@ -1,7 +1,0 @@
-## TinyXML -- C++ XML解析器
-
-+ 参考
-  + `https://github.com/leethomason/tinyxml2`
-  + `https://www.cnblogs.com/phinecos/archive/2008/03/11/1100912.html`
-
-## rapidXML
