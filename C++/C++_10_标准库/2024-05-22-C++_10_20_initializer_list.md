@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: C++_10_20_initializer_list
 ---
+## 简介
 
 + C++ <initializer_list>标准库
 

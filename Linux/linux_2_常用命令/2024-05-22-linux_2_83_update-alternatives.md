@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: linux_2_83_update-alternatives
 ---
+## 简介
 
 + update-alternatives命令
 

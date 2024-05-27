@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: EditorConfig
 ---
+## 简介
 
 + EditorConfig 代码格式化工具 相关基础知识
 

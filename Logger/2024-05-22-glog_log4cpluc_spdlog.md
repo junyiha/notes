@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: glog_log4cpluc_spdlog
 ---
+## 简介
 
 + 深入探讨三个流行的C++日志库： glog, log4cplug, spdlog
 + glog、log4cplus 和 spdlog，这三个日志库各有千秋，它们在性能、功能和易用性方面都有各自的优势

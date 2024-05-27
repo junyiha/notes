@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: mongoose_sntp
 ---
+## 简介
 
 + SNTP server(simple network time protocol), 是一种用于提供时间同步服务的网络服务器。它基于网络通信协议，允许计算机和其他网络设备通过网络获取准确的时间信息
 

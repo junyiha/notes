@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: vector_search_1_理论基础
 ---
+## 简介
 
 + 向量检索工具相关的理论知识
 

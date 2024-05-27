@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: Software_Development_Process_软件工程
 ---
+## 简介
 
 + 项目启动
   + 确定产品方向 -》需求调研，市场调研 -》业务梳理，思维导图 -》业务梳理，评审

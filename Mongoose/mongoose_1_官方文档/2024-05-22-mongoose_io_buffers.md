@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: mongoose_io_buffers
 ---
+## 简介
 
 + mongoose的出站入站缓冲区接口
 + IO缓冲区由结构mg_iobuf描述，是一个简单的数据结构，可以在任意偏移量插入或删除数据块，并自动增长/收缩。

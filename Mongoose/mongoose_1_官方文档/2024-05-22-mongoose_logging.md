@@ -4,6 +4,7 @@ date: 2024-05-22 09:00:00 +0800
 layout: post
 title: mongoose_logging
 ---
+## 简介
 
 + mongoose 日志相关函数
 + Mongoose为日志记录提供了一系列函数和宏。应用程序可以为自己的目的使用这些函数，也可以使用Mongoose API的其他部分。
