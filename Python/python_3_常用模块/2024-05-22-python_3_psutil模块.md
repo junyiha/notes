@@ -3,6 +3,7 @@ category: Python
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: python_3_psutil模块
+tag: Python
 ---
 ## 简介
 

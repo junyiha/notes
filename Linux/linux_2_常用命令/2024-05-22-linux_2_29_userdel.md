@@ -3,6 +3,7 @@ category: Linux
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: linux_2_29_userdel
+tag: Linux
 ---
 ## 简介
 

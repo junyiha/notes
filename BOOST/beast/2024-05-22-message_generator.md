@@ -3,6 +3,7 @@ category: BOOST
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: message_generator
+tag: boost.beast
 ---
 ## 简介
 
