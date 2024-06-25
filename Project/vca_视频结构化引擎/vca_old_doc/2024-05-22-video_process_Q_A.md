@@ -3,7 +3,7 @@ category: Project
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: video_process_Q_A
-tag: VideoContentAnalysisProject
+tag: ProjectOfVideoContentAnalysis
 ---
 
 ## Video_Process, Computing_node, Manager_node
