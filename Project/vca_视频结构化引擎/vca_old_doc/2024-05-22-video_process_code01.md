@@ -3,6 +3,7 @@ category: Project
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: video_process_code01
+tag: VideoContentAnalysisProject
 ---
 
 + 视频文件，是一个容器，里面有多个数据流，例如视频流，音频流，字幕流等

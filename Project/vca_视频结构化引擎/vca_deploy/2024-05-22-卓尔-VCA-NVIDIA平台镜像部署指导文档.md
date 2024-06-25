@@ -3,6 +3,7 @@ category: Project
 date: 2024-05-22 09:00:00 +0800
 layout: post
 title: 卓尔-VCA-NVIDIA平台镜像部署指导文档
+tag: VideoContentAnalysisProject
 ---
 
 ### 1.1 安装环境
