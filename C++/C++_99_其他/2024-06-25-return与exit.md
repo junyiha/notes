@@ -3,7 +3,7 @@ category: Cpp
 date: 2024-06-25 09:00:00 +0800
 layout: post
 title: return 与 exit
-tag: Cpp
+tag: CppOthers
 ---
 
 ## return 
