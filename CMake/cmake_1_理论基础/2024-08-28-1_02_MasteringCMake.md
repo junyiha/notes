@@ -42,3 +42,24 @@ add_executable(Hello Hello.c)
 ```
 
 + CMakeLists文件第一行总会是 cmake_minimum_requried.这使得CMake可以使用指定的版本。
++ 第二行应该是 project 命令。这个命令设置项目的名字，也可以指定其他的参数，例如语言，版本。
++ 最后使用 add_executable 命令用这些给定的源代码文件生成项目的可执行对象。
+
+## 为CMake指定编译器
+
++ 环境变量 CC 用来指定 C编译器
++ 环境变量 CXX 用来指定 C++编译器
+
++ 可以在命令行中通过使用 -DCMAKE_CXX_COMPILER=cl 来指定编译器
+
++ 设置 LDFLAGS 用来初始化 链接参数
++ 设置 CXXFLAGS 用来初始化 CMAKE_CXX_FLAGS
++ 设置 CFLAGS 用来初始化 CMAKE_C_FLAGS
+
+## 构建配置 
+
++ 构建配置允许以不同的方式构建项目。CMake默认支持的方式有: Debug, Release, MinSizeRel, RelWithDebInfo
+  + Debug: 打开了基本的调试符号
+  + Release: 打开了基本的优化
+  + MinSizeRel: 产生最小的，但不一定是最快的目标文件
+  + RelWithDebInfo: 既有调试信息，也开启了优化的目标文件
