@@ -562,3 +562,57 @@ driver.delete_all_cookies()
 - **权限问题**: 某些 cookies 可能由于安全设置而无法删除，这通常涉及到跨域或安全标志的 cookies。
 
 通过使用 `delete_all_cookies()`，你可以确保在不同的测试场景中拥有一个干净的环境，从而提高测试的准确性和可靠性。
+
+## python3 WebDriver.find_elements()函数 详解
+
+`WebDriver.find_elements()` 是 Selenium WebDriver 中用于查找网页元素的一个函数。它返回符合特定定位策略的所有元素列表。如果没有找到任何元素，则返回空列表。
+
+### 函数签名
+```python
+elements = driver.find_elements(by=By.XPATH, value="//tag[@attribute='value']")
+```
+
+### 参数
+- `by`: 用于指定查找元素的方式，通常使用 `By` 类提供的常量，例如 `By.ID`, `By.NAME`, `By.XPATH` 等。
+- `value`: 一个字符串，指定如何根据 `by` 参数查找元素的值。例如，如果 `by=By.ID`，那么 `value` 就是对应的元素 `id` 值。
+
+### 常用的 `By` 定位方式
+- `By.ID`: 通过元素的 `id` 属性定位元素。
+- `By.NAME`: 通过元素的 `name` 属性定位元素。
+- `By.CLASS_NAME`: 通过元素的 `class` 属性定位元素。
+- `By.TAG_NAME`: 通过元素的标签名定位元素。
+- `By.LINK_TEXT`: 通过元素的文本内容（超链接）定位元素。
+- `By.PARTIAL_LINK_TEXT`: 通过部分文本内容定位超链接。
+- `By.XPATH`: 通过 XPath 表达式定位元素。
+- `By.CSS_SELECTOR`: 通过 CSS 选择器定位元素。
+
+### 返回值
+- `List[WebElement]`: 由所有匹配元素组成的列表。如果没有找到元素，返回空列表。
+
+### 示例代码
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# 初始化 WebDriver（比如使用 Chrome 浏览器）
+driver = webdriver.Chrome()
+
+# 打开一个网址
+driver.get("https://www.example.com")
+
+# 使用 find_elements() 查找元素列表
+elements = driver.find_elements(By.CLASS_NAME, "example-class")
+
+# 遍历并操作元素
+for element in elements:
+    print(element.text)
+
+# 关闭 WebDriver
+driver.quit()
+```
+
+### 注意事项
+- 与 `find_element()` 不同，`find_elements()` 不会抛出 `NoSuchElementException` 异常。如果没有找到元素，返回的是一个空列表。
+- `find_elements()` 查找所有符合条件的元素，而 `find_element()` 仅返回第一个匹配的元素。
+
+通过 `find_elements()`，可以轻松地处理网页中的多个相似元素，比如同一类的按钮、表单元素等。
