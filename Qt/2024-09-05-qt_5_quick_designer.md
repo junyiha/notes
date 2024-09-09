@@ -2,6 +2,46 @@
 
 + quick designer 使用笔记
 
+## Qt项目界面文件(.ui)及其作用
+
++ Qt项目中，后缀为.ui的文件是可视化设计的窗体的定义文件，例如widget.ui。双击项目文件目录树中的文件widget.ui，会打开一个集成在Qt Creator中的Qt Designer对窗体进行可视化设计。
+
++ widget.ui文件，是窗体界面定义文件，是一个XML文件，定义了窗口上的所有组件的属性设置，布局，及其信号与槽函数的关联等。用UI设计器可视化设计的界面都由Qt自动解析，并以XML文件的形式保存下来。在设计界面时，只需在UI设计器里进行可视化设计即可。
+
++ ui_widget.h文件，是对widget.ui文件编译后生成的一个文件，ui_widget.h会出现在编译后的目录下，或与widget.ui同目录
++ ui_widget.h并不会出现在QtCreator的项目文件目录树里，当然可以手动将ui_widget.h添加到项目中
++ 注意，ui_widget.h是对widget.ui文件编译后自动生成的,widget.ui又是通过UI设计器可视化设计生成的。所有，对ui_widget.h手动进行修改没有什么意义，所有涉及界面的修改都应该直接在UI设计器里进行。
+
++ 查看ui_widget.h文件的内容，发现它主要做了以下的一些工作
+  + 定义了一个类Ui_Widget，用于封装可视化设计的界面
+  + 自动生成了界面各个组件的类成员变量定义。在public部分为界面上每个组件定义了一个指针变量，变量的名称就是设置的objectName。例如，在窗体上放置了一个QLable和一个QPushButton并命名后，自动生成的定义是: QLabel *LabDemo; QPushButton *btnClose;
+  + 定义了setupUi()函数，这个函数用于创建各个界面组件，并设置其位置，大小，文字内容，字体等属性，设置信号与槽的关联。setupUi()函数体的第一部分是根据可视化设计的界面内容，用C++代码创建界面上各组件，并设置其属性
+    + 接下来，setupUi()调用了函数retranslateUi(Widget)，用来设置界面各组件的文字内容属性，例如标签的问题，按键的文字，窗体的标题等。将界面上的文字设置的内容独立出来作为一个函数retranslateUi()，在设计多语言界面时会用到这个函数
+    + setupUi()函数的第三部分是设置信号与槽的关联。
+    + 所以，在Widget的构造函数里调用ui->setupUi(this),就实现了窗体上组件的创建，属性设置，信号与槽的关联。
+  + 定义namespace Ui,并定义一个从Ui_Widget继承的类Widget
+```cpp
+namespace Ui
+{
+    class Widget::public Ui_Widget{};
+}
+```
+
++ 提示，ui_widget.h文件里实现界面功能的类是Ui_Widget。再定义一个类Widget从Ui_Widget继承而来，并定义在namespace Ui里，这样Ui::Widget与widget.h里的类Widget同名，但是用namespace区分开来。所以，界面的Ui::Widget类与文件widget.h里定义的Widget类实际上是两个类，但是Qt的处理让用户感觉不到Ui::Widget类的存在，只需要直到在Widget类里用ui指针可以访问可视化设计的界面组件就可以了。
+
+## 把Qt的界面文件(.ui文件)生成源文件(.h或.cpp)
+
++ 在用Qt做开发时，为了方便快速，一般都使用Qt设计师界面类来做界面相关的布局，这个类在当前工程中是没有.cpp或.h文件的，但主类又有引入了这个头文件，点开转到定义或声明时，时打不开的。
++ 下面的一种办法
+  + 新建一个工程，包含ui文件，然后打开ui文件拖入想要的控件，保存，编译ui文件
+  + 在qt安装路径下找到 uic.exe 文件，使用这个工具将ui文件生成.h或.cpp文件。例如
+```bash
+uic.exe test.ui -o test.h
+uic.exe test.ui -o test.cpp
+```
+  + .h或.cpp这两个文件只要一个就可以了
+  + 把刚才生成的.h文件导入当前工程，然后打开刚刚生成的源码，可以看到整个类的所有属性和所有成员函数
+
 ## Qt quick designer 详解
 
 # Qt Quick Designer 详解
